@@ -39,14 +39,14 @@ export class FirestoreDatabaseAdapter implements DatabaseAdapter {
 
   private ensureDb(): Firestore {
     if (!this.db) {
-      // Fallback to env vars if present
-      const apiKey = process.env.NEXT_PUBLIC_FIREBASE_API_KEY;
-      const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
+      const apiKey = process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "AIzaSyCRN8CxDvVGh8n83C3k3kFvFLl-wSXnuro";
+      const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || "nbs-project-7deac";
       if (apiKey && projectId) {
         this.init({
           apiKey,
           authDomain: `${projectId}.firebaseapp.com`,
-          projectId
+          projectId,
+          storageBucket: `${projectId}.firebasestorage.app`
         });
       }
     }
