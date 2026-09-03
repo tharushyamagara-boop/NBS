@@ -1,0 +1,170 @@
+{
+  "hectares_restored": {
+    "en": {
+      "title": "Total Hectares Restored through NbS",
+      "what_is": "This indicator tracks cumulative land area undergoing active ecological restoration using afforestation, contour terracing, and agroforestry in the Lower Nyabarongo watershed.",
+      "why_matters": "Steep slopes around Mount Kigali and Yanze suffer from severe soil erosion during heavy rains. Restoring degraded hillsides anchors soil, reduces silt runoff into Kigali's water systems, and restores productive canopy.",
+      "what_suncasa": "SUNCASA partners with RFA and local cooperatives to terrace hillsides, plant fast-growing multi-purpose tree species, and protect vulnerable terrain from agricultural encroachment."
+    },
+    "rw": {
+      "title": "Hegitari Zose Zasanywe binyuze mu Bisubizo Kamere",
+      "what_is": "Iki gipimo gipima ubuso bw'ubutaka bwakozweho imirimo yo gusana amashyamba, guca amaterasi y'indagano, no gutera ibiti bivanzwe n'ubuhinzi mu kibaya cya Nyabarongo yo hasi.",
+      "why_matters": "Imisozi ihanamiye ya Mont Kigali na Yanze yibasirwa n'isuri ikabije mu gihe cy'imvura. Gusana iyi misozi bifasha gufata ubutaka, bikarinda ibyondo kwinjira mu migezi ya Kigali.",
+      "what_suncasa": "SUNCASA ifatanya na RFA hamwe n'amakoperative guca amaterasi, gutera ubwoko bw'ibiti bitanga umusaruro wihuse, no kurinda ubutaka buhanamye guhingwa nabi."
+    }
+  },
+  "flood_peak_reduction": {
+    "en": {
+      "title": "Flood Peak & Stormwater Runoff Reduction",
+      "what_is": "Models the estimated percentage reduction in peak stormwater discharge entering vulnerable urban ravines and drainage corridors during severe rain events.",
+      "why_matters": "Flash flooding in the Mpazi ravine regularly inundates commercial markets in Nyabugogo and cuts off essential transit arteries across Kigali. Upstream retention saves lives and protects public infrastructure.",
+      "what_suncasa": "By creating vegetative check-dams, bamboo barriers, and infiltration trenches in upper catchment basins, SUNCASA delays rainwater travel time, slashing peak flash flood volumes."
+    },
+    "rw": {
+      "title": "Kugabanya Ubukana bw'Imyuzure n'Amazi y'Isuri",
+      "what_is": "Iki gipimo kigereranya ijanisha amazi y'inkukuma yagabanutseho mbere yo kwinjira mu mikoki n'inzira z'amazi mu mujyi.",
+      "why_matters": "Imyuzure y'inkukuma mu mukoki wa Mpazi ikunze kurengera amasoko y'i Nyabugogo no gufunga imihanda minini y'i Kigali. Gufata amazi hakiri kare birinda ubuzima n'ibikorwa remezo.",
+      "what_suncasa": "Binyuze mu gukoresha ingomero z'ibiti, imigano ku nkombe, n'ibyobo bifata amazi, SUNCASA igabanya umuvuduko n'ubukana bw'imyuzure mu bibaya byo hejuru."
+    }
+  },
+  "soil_erosion_prevented": {
+    "en": {
+      "title": "Soil Loss & Sediment Runoff Prevented",
+      "what_is": "Measures metric tons of topsoil conserved annually that would otherwise be washed into the Nyabarongo River and urban culverts.",
+      "why_matters": "Soil erosion strips fertile topsoil from smallholder farms and clogs municipal culverts, causing massive urban cleanup costs and reducing river water quality for treatment.",
+      "what_suncasa": "Through continuous contour hedgerows and vetiver grass stabilization on slopes exceeding 30% gradient, SUNCASA keeps nutrient-rich topsoil firmly in place."
+    },
+    "rw": {
+      "title": "Igitaka n'Isuri Byakumiwe ku Mwaka",
+      "what_is": "Bipima toni z'ubutaka burumbuka bwarinzwe gutwarwa n'isuri ngo bijye mu mugezi wa Nyabarongo no mu miferege ya Kigali.",
+      "why_matters": "Isuri itwara ubutaka burumbuka bw'abahinzi boroheje kandi ikaziba imiferege y'umujyi, bigatuma Leta itanga amafaranga menshi mu gusukura imiferege.",
+      "what_suncasa": "Hifashishijwe imiferege ifata amazi n'ubwatsi bwa vetiver ku misozi ihanamiye hejuru ya 30%, SUNCASA irinda ubutaka burumbuka gutwarwa n'isuri."
+    }
+  },
+  "trees_planted": {
+    "en": {
+      "title": "Native & Agroforestry Seedlings Planted",
+      "what_is": "The total number of certified indigenous, multipurpose, and fruit seedlings planted across hillsides, riparian zones, and urban corridors.",
+      "why_matters": "Forest cover regulates local micro-climates, mitigates the urban heat island effect, and rebuilds ecological networks for bird and pollinator species in Kigali.",
+      "what_suncasa": "SUNCASA collaborates with local nurseries and schools to plant indigenous species like Umwungo (Polyscias fulva) and Umusave (Markhamia lutea) with rigorous survival tracking."
+    },
+    "rw": {
+      "title": "Ingemwe z'Ibiti Gakondo n'Iby'Imbuto Zatewe",
+      "what_is": "Umubare wose w'ingemwe z'ibiti gakondo, iby'imbuto, n'ibivangwa n'imyaka zatewe ku misozi, ku nkombe, no mu mujyi rwagati.",
+      "why_matters": "Amashyamba agabanya ubushyuhe bukabije mu mujyi, akongera umwuka mwiza, akanagarura inyoni n'ibinyabuzima by'ingirakamaro mu bidukikije bya Kigali.",
+      "what_suncasa": "SUNCASA ikorana n'ubuhumbikiro n'amashuri gutera ibiti by'Umwungo n'Umusave, hanakoreshwa ikoranabuhanga rya GPS mu gukurikirana imikurire yabyo."
+    }
+  },
+  "riparian_buffer_restored": {
+    "en": {
+      "title": "Riparian Buffer Zones Restored & Protected",
+      "what_is": "Linear kilometers of riverbank and wetland edge restored with native vegetation, adhering to Rwanda's 30-meter legal protection standard.",
+      "why_matters": "Healthy riparian strips filter out pesticides and agricultural runoff before reaching the Nyabarongo River, maintaining freshwater security for municipal treatment plants.",
+      "what_suncasa": "SUNCASA plants dense bamboo belts and indigenous wetland reeds, working with riparian landowners to establish permanent ecological conservation boundaries."
+    },
+    "rw": {
+      "title": "Ibirometero by'Inkombe z'Imigezi Zabungabunzwe",
+      "what_is": "Ibirometero by'inkombe z'imigezi n'ibishanga byateweho ibiti n'imigano hakurikijwe itegeko ryo kurinda metero 30 z'inkombe mu Rwanda.",
+      "why_matters": "Inkombe ziteyeho ibiti zikungahaye ku bimera zungurura imiti n'imyanda mbere y'uko bigera mu ruzi rwa Nyabarongo, bikarinda ubuziranenge bw'amazi akoreshwa mu mujyi.",
+      "what_suncasa": "SUNCASA itera imigano ikomeye n'urufunzo rwo mu bishanga, igafatanya n'abaturiye inkombe gushyiraho imipaka ihoraho yo kubungabunga ibidukikije."
+    }
+  },
+  "tree_survival_rate": {
+    "en": {
+      "title": "Monitored Seedling Survival Rate",
+      "what_is": "The audited percentage of planted seedlings alive and thriving 12 months after initial field planting.",
+      "why_matters": "Restoration success is measured not by seeds dropped, but by trees that survive to maturity. High survival rates ensure accountability for donor and public funds.",
+      "what_suncasa": "SUNCASA implements community stewardship contracts where local groups are compensated based on post-planting seedling care and verified survival benchmarks."
+    },
+    "rw": {
+      "title": "Ijanisha ry'Ibiti Bikura neza Bituma Amashyamba Asagamba",
+      "what_is": "Ijanisha ry'ingemwe zatewe zikomeza gukura neza nyuma y'amezi 12 zigejejwe mu murima.",
+      "why_matters": "Umusaruro nyakuri w'amashyamba ntiwishingikiriza ku ngemwe zatewe gusa, ahubwo ku biti bikura bikavamo amashyamba nyayo yirinda gupfa ubusa.",
+      "what_suncasa": "SUNCASA yagiranye amasezerano n'amatsinda y'abaturage aho bahemberwa gukurikirana no kubungabunga ibiti byatewe hashingiwe ku bipimo by'imikurire."
+    }
+  },
+  "women_leadership_catchment": {
+    "en": {
+      "title": "Women in Catchment Leadership & Governance",
+      "what_is": "Proportion of committee leadership positions (chair, vice-chair, treasurer) held by women in local watershed management associations.",
+      "why_matters": "Women manage daily household water collection and food production. Their executive leadership leads to more equitable resource allocation and durable community compliance.",
+      "what_suncasa": "SUNCASA institutes affirmative bylaws requiring at least 50% female representation in leadership roles and offers targeted public-speaking and negotiation training."
+    },
+    "rw": {
+      "title": "Ubuhanga n'Ubuyobozi bw'Abagore mu Mibereho y'Ibibaya",
+      "what_is": "Ijanisha ry'imyanya y'ubuyobozi bukuru (perezida, visi perezida, umubitsi) ifitwe n'abagore muri komite zicunga ibibaya by'amazi.",
+      "why_matters": "Abagore n'abakobwa nibo bakora imirimo myinshi yo gushaka amazi no gutunganya ibiribwa mu ngo. Kuyobora kwabo bituma ibyemezo bifatwa bikemura ibibazo nyakuri.",
+      "what_suncasa": "SUNCASA yashyizeho amabwiriza asaba ko nibura 50% by'abayobozi ba komite z'amazi baba abagore, inabaha amahugurwa y'ubuyobozi n'imicungire y'umutungo."
+    }
+  },
+  "female_nursery_operators": {
+    "en": {
+      "title": "Female-Led Community Seedling Nurseries",
+      "what_is": "The percentage of seedling nurseries fully managed or majority-owned by women's cooperatives across project sectors.",
+      "why_matters": "Seedling production generates early revenue. Placing nurseries in female hands directly channels climate financing into household nutrition, schooling, and healthcare.",
+      "what_suncasa": "SUNCASA provides technical nursery kits, high-quality mother seeds, solar irrigation pumps, and guaranteed purchase agreements directly to women cooperatives."
+    },
+    "rw": {
+      "title": "Ubuhumbikiro buyobowe n'Amakoperative y'Abagore",
+      "what_is": "Ijanisha ry'ubuhumbikiro bw'ingemwe bucungwa cyangwa bufitwe ahanini n'amakoperative y'abagore mu mirenge ikorerwamo.",
+      "why_matters": "Kugurisha ingemwe byinjiza amafaranga vuba. Gushyira ubuhumbikiro mu maboko y'abagore bituma amafaranga ajya mu mirire, amashuri y'abana, n'ubuvuzi bw'umuryango.",
+      "what_suncasa": "SUNCASA iha amakoperative y'abagore imashini zihumbika zikoresha imirasire y'izuba, imbuto z'indobanure, ikanabizeza isoko ryo kugura ingemwe zabo zose."
+    }
+  },
+  "youth_environmental_stewards": {
+    "en": {
+      "title": "Youth Certified in GIS & NbS Monitoring",
+      "what_is": "Young adults (ages 18-35) trained and accredited in spatial data collection, mobile GIS tagging, seedling audits, and ravine bio-engineering.",
+      "why_matters": "Equipping youth with marketable green tech skills addresses urban underemployment while creating a dedicated cohort of environmental champions in Kigali.",
+      "what_suncasa": "SUNCASA runs intensive bootcamps pairing field mobile apps (ODK/Kobo) with drone spatial imaging to empower youth as paid data enumerators and monitoring technicians."
+    },
+    "rw": {
+      "title": "Urubyiruko Rwahuguwe mu Ikoranabuhanga rya GIS na NbS",
+      "what_is": "Urubyiruko (imyaka 18-35) rwahawe ubumenyi n'impamyabushobozi mu gukusanya amakuru ya GIS, gupima amashyamba, no gusana imikoki.",
+      "why_matters": "Guha urubyiruko ubumenyi mu ikoranabuhanga ritangiza ibidukikije birwanya ubushomeri kandi bigatuma Kigali igira abarinzi b'amashyamba b'abahanga.",
+      "what_suncasa": "SUNCASA itegura amahugurwa akoresha porogaramu za telefoni na drones zifotora amashyamba, igaha urubyiruko akazi ko gupima no kugenzura ibikorwa."
+    }
+  },
+  "green_jobs_created": {
+    "en": {
+      "title": "Green Employment Person-Days Generated",
+      "what_is": "Cumulative paid work days delivered to local community members participating in terracing, nursery management, planting, and gully remediation.",
+      "why_matters": "Cash injections stimulate local peri-urban economies, transforming environmental conservation from an abstract goal into immediate household livelihood security.",
+      "what_suncasa": "SUNCASA enforces fair-wage digital mobile payments (MoMo) with standard safety gear and health insurance coverage for every day worked."
+    },
+    "rw": {
+      "title": "Iminsi y'Akazi k'Icyatsi Yishyuwe Abaturage",
+      "what_is": "Iminsi yose y'akazi kishyuwe yahawe abaturage mu bikorwa byo guca amaterasi, gutubura ingemwe, gutera amashyamba, no gusana imikoki.",
+      "why_matters": "Gushyira amafaranga mu mifuka y'abaturage binyuze mu kurengera ibidukikije bituma bumva ko amashyamba ari umutungo ukomeye ubatunze n'umuryango wabo.",
+      "what_suncasa": "SUNCASA yishyura abakozi hakoreshejwe amafaranga ya telefoni (MoMo), ikabaha ibikoresho by'umutekano n'ubwishingizi bw'indwara mu gihe bari ku murimo."
+    }
+  },
+  "community_nursery_income": {
+    "en": {
+      "title": "Revenue Generated from Seedling Sales",
+      "what_is": "Total income in Rwandan Francs (RWF) earned by community cooperatives selling indigenous and agroforestry seedlings to public and private buyers.",
+      "why_matters": "Commercial viability ensures community nurseries stay solvent and productive long after donor project cycles conclude.",
+      "what_suncasa": "SUNCASA links local nurseries directly with real-estate developers, infrastructure contractors, and RFA commercial concessionaires needing compliance trees."
+    },
+    "rw": {
+      "title": "Amafaranga Yinjijwe mu Kugurisha Ingemwe",
+      "what_is": "Amafaranga y'u Rwanda yinjijwe n'amakoperative y'abaturage akomoka ku kugurisha ingemwe z'ibiti ku nzego za Leta n'abikorera.",
+      "why_matters": "Kugira ubuhumbikiro bwinjiza amafaranga bituma amakoperative akomeza gukora no kuramba n'igihe imishinga y'abaterankunga yaba irangiye.",
+      "what_suncasa": "SUNCASA ihuza amakoperative n'abubatsi b'inzu n'imihanda mu mujyi wa Kigali bakeneye ibiti byo gushyira mu mishinga yabo y'ubwubatsi."
+    }
+  },
+  "agroforestry_farmers_supported": {
+    "en": {
+      "title": "Smallholder Farmers Adopting Agroforestry",
+      "what_is": "Number of family farms that have incorporated high-value nitrogen-fixing, fodder, or fruit trees into their terraced cropping systems.",
+      "why_matters": "Agroforestry enhances soil nitrogen naturally, reduces dependence on synthetic fertilizers, boosts household food nutrition, and generates surplus fruit harvest.",
+      "what_suncasa": "SUNCASA supplies grafted avocado, mango, and Calliandra seedlings alongside agronomic extension training on companion planting and pruning."
+    },
+    "rw": {
+      "title": "Abahinzi Bato Bateye Ibiti Bivanzwe n'Imyaka",
+      "what_is": "Umubare w'ingo z'abahinzi zashyize ibiti bitanga ifumbire, ibiryo by'amatungo, n'imbuto z'agaciro mu mirima yabo y'amaterasi.",
+      "why_matters": "Ibiti bivanzwe n'imyaka bitanga ifumbire mu butaka, bikagabanya gukenera ifumbire mvaruganda, bikongera imirire myiza mu ngo binyuze mu mbuto ziraribwa.",
+      "what_suncasa": "SUNCASA iha abahinzi ingemwe za avoka ziribwa, imyembe, n'ubwoko bwa Kaliyandara, inabaha amahugurwa yo kwita ku mirima no gusukura ibiti."
+    }
+  }
+}

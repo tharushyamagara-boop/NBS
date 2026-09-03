@@ -1,0 +1,143 @@
+{
+  "type": "FeatureCollection",
+  "name": "Kigali_Lower_Nyabarongo_Microcatchments",
+  "crs": {
+    "type": "name",
+    "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "catchment_yanze",
+        "name": "Yanze River Micro-Catchment",
+        "name_rw": "Ikibaya cy'Uruzi rwa Yanze",
+        "district": "Gasabo & Rulindo Border",
+        "area_km2": 42.5,
+        "flood_risk_level": "High (Rapid Runoff)",
+        "priority_intervention": "Upstream Reforestation & Agroforestry",
+        "color": "#0284c7"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [30.015, -1.890],
+            [30.045, -1.885],
+            [30.075, -1.905],
+            [30.065, -1.935],
+            [30.035, -1.940],
+            [30.010, -1.920],
+            [30.015, -1.890]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "catchment_mpazi",
+        "name": "Mpazi Drainage Micro-Catchment",
+        "name_rw": "Ikibaya cya Mpazi",
+        "district": "Nyarugenge",
+        "area_km2": 18.2,
+        "flood_risk_level": "Critical (Urban Gully Erosion)",
+        "priority_intervention": "Bio-engineering, Ravine Terracing & Tree Buffer",
+        "color": "#e11d48"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [30.035, -1.945],
+            [30.060, -1.940],
+            [30.070, -1.965],
+            [30.045, -1.975],
+            [30.025, -1.960],
+            [30.035, -1.945]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "catchment_mt_kigali",
+        "name": "Mount Kigali Slopes & Terraces",
+        "name_rw": "Imisozi ya Mont Kigali",
+        "district": "Nyarugenge",
+        "area_km2": 31.8,
+        "flood_risk_level": "Severe (Landslide & Soil Loss)",
+        "priority_intervention": "Steep-slope Afforestation & Native Tree Planting",
+        "color": "#16a34a"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [30.010, -1.965],
+            [30.040, -1.960],
+            [30.045, -1.995],
+            [30.020, -2.015],
+            [29.995, -1.990],
+            [30.010, -1.965]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "catchment_nyabugogo",
+        "name": "Nyabugogo Wetland & Lower Basin",
+        "name_rw": "Igishanga n'Ikibaya cya Nyabugogo",
+        "district": "Gasabo / Nyarugenge",
+        "area_km2": 26.4,
+        "flood_risk_level": "Extreme (Flash Inundation)",
+        "priority_intervention": "Riparian Wetland Buffers & Native Sedge Restoration",
+        "color": "#0ea5e9"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [30.045, -1.930],
+            [30.080, -1.935],
+            [30.075, -1.955],
+            [30.050, -1.950],
+            [30.045, -1.930]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "catchment_nyabarongo_corridor",
+        "name": "Lower Nyabarongo River Shoreline Corridor",
+        "name_rw": "Umukandara w'Uruzi rwa Nyabarongo",
+        "district": "Kicukiro & Nyarugenge Boundary",
+        "area_km2": 38.0,
+        "flood_risk_level": "High (Bank Erosion & Siltation)",
+        "priority_intervention": "Bamboo & Native Riparian Green Belt (30m Protection Zone)",
+        "color": "#059669"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [29.990, -1.990],
+            [30.035, -2.005],
+            [30.085, -2.025],
+            [30.120, -2.040],
+            [30.105, -2.065],
+            [30.055, -2.045],
+            [30.015, -2.025],
+            [29.975, -2.005],
+            [29.990, -1.990]
+          ]
+        ]
+      }
+    }
+  ]
+}

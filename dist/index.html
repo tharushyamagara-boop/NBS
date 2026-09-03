@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SUNCASA Kigali | Nature-Based Solutions Impact Dashboard</title>
+  <meta name="description" content="Official public impact dashboard for the SUNCASA project in Kigali, communicating Nature-Based Solutions (NbS) across the Lower Nyabarongo River watershed for climate resilience, biodiversity, GESI, and economic opportunities.">
+  <meta name="keywords" content="SUNCASA, Kigali, Rwanda, Nature-Based Solutions, NbS, Nyabarongo, Climate Adaptation, RFA, IISD, WRI, Afforestation, Agroforestry">
+  
+  <!-- Modern Typography Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2310b981'><path d='M12 2L4 7v10l8 5 8-5V7l-8-5z'/></svg>">
+  <script type="module" crossorigin src="./assets/index-6gfeawlH.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-C0OUr0LA.css">
+</head>
+<body>
+
+  <!-- Sticky Glassmorphic Header -->
+  <header class="header" id="main-header">
+    <div class="container header-inner">
+      <div class="brand-wrapper">
+        <div class="brand-logo-badge" id="brand-logo">SK</div>
+        <div class="brand-text">
+          <h1>
+            <span data-i18n="brand.title">SUNCASA Kigali</span>
+            <span class="country-pill">RWANDA</span>
+          </h1>
+          <p data-i18n="brand.subtitle">Nature-Based Solutions Impact Dashboard</p>
+        </div>
+      </div>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links" id="nav-menu">
+          <li><a href="#overview-section" class="nav-link active" data-i18n="nav.overview">Overview & Impact</a></li>
+          <li><a href="#themes-section" class="nav-link" data-i18n="nav.themes">Thematic Pillars</a></li>
+          <li><a href="#map-section" class="nav-link" data-i18n="nav.map">Catchment Map</a></li>
+          <li><a href="#indicators-section" class="nav-link" data-i18n="nav.indicators">Indicators</a></li>
+          <li><a href="#interop-section" class="nav-link" data-i18n="nav.interoperability">RFA FMES Data</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <!-- Bilingual Language Switcher -->
+        <div class="lang-switcher" id="lang-switcher" role="group" aria-label="Language Selector">
+          <button class="lang-btn active" id="btn-lang-en" type="button" aria-label="English">EN</button>
+          <button class="lang-btn" id="btn-lang-rw" type="button" aria-label="Ikinyarwanda">RW</button>
+        </div>
+
+        <button class="btn-export-brief" id="btn-export-brief" type="button">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 6 2 18 2 18 9"></polyline>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+            <rect x="6" y="14" width="12" height="8"></rect>
+          </svg>
+          <span data-i18n="nav.export">Export Brief</span>
+        </button>
+
+        <button class="mobile-toggle" id="mobile-menu-btn" type="button" aria-label="Toggle Menu">
+          &#9776;
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero" id="overview-section">
+      <div class="container">
+        <div class="hero-badge-row">
+          <div class="badge-pill">
+            <span class="pulse-dot"></span>
+            <span data-i18n="hero.badge">Sub-Saharan Africa Climate Resilience Initiative</span>
+          </div>
+          <span class="partner-tag" data-i18n="brand.funder_tag">Supported by Global Affairs Canada | IISD & WRI with City of Kigali & RFA</span>
+        </div>
+
+        <div class="hero-content">
+          <h2 class="hero-title" data-i18n="hero.headline">Scaling Nature-Based Solutions in Kigali's Lower Nyabarongo Watershed</h2>
+          <p class="hero-subtitle" data-i18n="hero.subheadline">
+            Demonstrating how afforestation, agroforestry, and riparian restoration protect Kigali against extreme flooding, stabilize vulnerable hillsides, and create green livelihoods.
+          </p>
+          <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+            <a href="#indicators-section" class="btn-export-brief" style="padding: 10px 22px; font-size: 0.95rem;">
+              <span data-i18n="hero.cta_explore">Explore Indicators</span> &rarr;
+            </a>
+            <a href="#map-section" class="btn-secondary" style="padding: 10px 20px; font-size: 0.95rem;">
+              <span data-i18n="hero.cta_map">View Catchment Map</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- 4 Executive Hero KPI Cards -->
+        <div class="hero-kpis-grid" id="hero-kpis-grid">
+          <!-- Dynamically populated from indicators.json via indicators.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Thematic Pillars Section -->
+    <section class="themes-section" id="themes-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag" data-i18n="nav.themes">Thematic Pillars</div>
+          <h2 class="section-title">Strategic Intervention Dimensions</h2>
+          <p class="section-subtitle">
+            Aligned with SUNCASA's four core communication themes, linking upstream ecological restoration to urban resilience, biodiversity, social equity, and economic opportunities.
+          </p>
+        </div>
+
+        <div class="theme-nav-pills" id="theme-pills">
+          <button class="theme-pill-btn active" data-theme="climate" style="--pillar-color: #0284c7;">
+            <span>🌿</span> <span data-i18n="themes.climate.name">Climate Adaptation</span>
+          </button>
+          <button class="theme-pill-btn" data-theme="biodiversity" style="--pillar-color: #10b981;">
+            <span>🦋</span> <span data-i18n="themes.biodiversity.name">Biodiversity Protection</span>
+          </button>
+          <button class="theme-pill-btn" data-theme="gesi" style="--pillar-color: #8b5cf6;">
+            <span>⚖️</span> <span data-i18n="themes.gesi.name">Gender Equality & Inclusion</span>
+          </button>
+          <button class="theme-pill-btn" data-theme="economy" style="--pillar-color: #f59e0b;">
+            <span>💼</span> <span data-i18n="themes.economy.name">Employment & Economy</span>
+          </button>
+        </div>
+
+        <div class="thematic-spotlight" id="thematic-spotlight-box">
+          <!-- Dynamically populated with 3 MyPeg questions for selected theme -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Catchment GIS Map Section -->
+    <section class="map-section" id="map-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag" data-i18n="nav.map">Catchment Map</div>
+          <h2 class="section-title" data-i18n="map_section.title">Lower Nyabarongo Watershed & Intervention Map</h2>
+          <p class="section-subtitle" data-i18n="map_section.subtitle">
+            Explore micro-catchments, intervention sites, species selections, and spatial boundaries across Kigali.
+          </p>
+        </div>
+
+        <div class="map-layout">
+          <div class="map-viewport-container">
+            <!-- Filter Overlay Controls -->
+            <div class="map-controls-overlay">
+              <button class="map-filter-btn active" data-theme="all">All Sites</button>
+              <button class="map-filter-btn" data-theme="climate">Climate</button>
+              <button class="map-filter-btn" data-theme="biodiversity">Biodiversity</button>
+              <button class="map-filter-btn" data-theme="gesi">GESI</button>
+              <button class="map-filter-btn" data-theme="economy">Economy</button>
+            </div>
+
+            <!-- Leaflet Container -->
+            <div id="gis-map"></div>
+
+            <!-- Legend Overlay -->
+            <div class="map-legend-overlay">
+              <div style="font-weight: 700; margin-bottom: 6px; color: var(--text-primary);">Micro-Catchments</div>
+              <div class="legend-item">
+                <div class="legend-color-box" style="background: #0284c7;"></div>
+                <span>Yanze Upstream Basin</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-color-box" style="background: #e11d48;"></div>
+                <span>Mpazi Critical Drainage</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-color-box" style="background: #16a34a;"></div>
+                <span>Mount Kigali Slopes</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-color-box" style="background: #0ea5e9;"></div>
+                <span>Nyabugogo Wetland Basin</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-color-box" style="background: #059669;"></div>
+                <span>Nyabarongo Shoreline (30m)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Site Inspection Panel -->
+          <div class="map-site-panel" id="map-inspection-panel">
+            <div id="map-inspection-content">
+              <!-- Dynamically populated on marker or polygon click -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Indicator Explorer (MyPeg Model) -->
+    <section class="indicators-section" id="indicators-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag" data-i18n="nav.indicators">Indicators</div>
+          <h2 class="section-title" data-i18n="indicator_explorer.title">Curated NbS Impact Indicators</h2>
+          <p class="section-subtitle" data-i18n="indicator_explorer.subtitle">
+            Transparent, indicator-driven monitoring aligned with RFA FMES standards.
+          </p>
+        </div>
+
+        <div class="filter-toolbar">
+          <div class="search-input-wrapper">
+            <span class="search-icon">&#128269;</span>
+            <input type="text" id="indicator-search" class="search-input" data-i18n="indicator_explorer.search_placeholder" placeholder="Search indicators (e.g. flood, trees, jobs, women)...">
+          </div>
+
+          <div class="theme-filter-chips">
+            <button class="filter-chip active" data-theme="all">All</button>
+            <button class="filter-chip" data-theme="climate">Climate</button>
+            <button class="filter-chip" data-theme="biodiversity">Biodiversity</button>
+            <button class="filter-chip" data-theme="gesi">GESI</button>
+            <button class="filter-chip" data-theme="economy">Economy</button>
+          </div>
+        </div>
+
+        <div class="indicators-grid" id="indicators-grid">
+          <!-- Rendered dynamically by indicators.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- RFA FMES Interoperability Section -->
+    <section class="interop-section" id="interop-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag" data-i18n="nav.interoperability">RFA FMES Data</div>
+          <h2 class="section-title" data-i18n="fmes_interoperability.title">Rwanda Forestry Authority (RFA) FMES Interoperability</h2>
+          <p class="section-subtitle" data-i18n="fmes_interoperability.subtitle">
+            Engineered for zero-lock-in data exchange with RFA's Forest Management and Evaluation System.
+          </p>
+        </div>
+
+        <div class="interop-cards-grid">
+          <div class="interop-card">
+            <div style="font-size: 1.5rem; margin-bottom: 12px;">🌲</div>
+            <h4 data-i18n="fmes_interoperability.card1_title">Standardized Forestry Taxonomy</h4>
+            <p data-i18n="fmes_interoperability.card1_desc">Every intervention site links to official RFA compartment IDs (e.g., COMP-GAS-JB-01) and species taxonomies.</p>
+          </div>
+
+          <div class="interop-card">
+            <div style="font-size: 1.5rem; margin-bottom: 12px;">🔄</div>
+            <h4 data-i18n="fmes_interoperability.card2_title">REST & GeoJSON API Export</h4>
+            <p data-i18n="fmes_interoperability.card2_desc">All indicators and polygons can be programmatically queried via standard JSON endpoints or downloaded in one click.</p>
+          </div>
+
+          <div class="interop-card">
+            <div style="font-size: 1.5rem; margin-bottom: 12px;">⚡</div>
+            <h4 data-i18n="fmes_interoperability.card3_title">Zero Server Maintenance</h4>
+            <p data-i18n="fmes_interoperability.card3_desc">Built as a modular client-side app with no complex backend required, ensuring RFA IT staff can maintain and host it freely.</p>
+          </div>
+        </div>
+
+        <div class="interop-actions-bar">
+          <button class="btn-secondary" id="btn-export-json" type="button">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span data-i18n="fmes_interoperability.btn_download_json">Export Indicators JSON</span>
+          </button>
+
+          <button class="btn-secondary" id="btn-export-geojson" type="button">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span data-i18n="fmes_interoperability.btn_download_geojson">Export Catchment GeoJSON</span>
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MyPeg 3-Tier Storytelling Modal -->
+  <div class="modal-overlay" id="indicator-modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-header-text">
+          <span class="fmes-pill" id="modal-fmes-pill" style="margin-bottom: 6px; display: inline-block;"></span>
+          <h3 id="modal-title">Indicator Analysis</h3>
+        </div>
+        <button class="modal-close-btn" id="modal-close-btn" type="button" aria-label="Close modal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- 3 Questions Grid -->
+        <div class="modal-qa-grid" id="modal-qa-container">
+          <!-- Dynamically filled with MyPeg 3 questions -->
+        </div>
+
+        <!-- Chart Section -->
+        <div class="modal-chart-section">
+          <div class="modal-chart-header">
+            <h4 data-i18n="modal.historical_trend">Quarterly Trend & Target Trajectory</h4>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="modal-trend-canvas"></canvas>
+          </div>
+        </div>
+
+        <!-- Catchment Breakdown Table -->
+        <div class="modal-sites-table-wrapper" id="modal-sites-table">
+          <!-- Dynamically filled with breakdown -->
+        </div>
+
+        <!-- Interoperability Metadata -->
+        <div class="modal-fmes-meta" id="modal-meta-container">
+          <!-- Dynamically filled -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div>
+        <strong style="color: var(--text-primary); font-size: 0.95rem;">SUNCASA Kigali NbS Impact Platform</strong>
+        <p style="margin-top: 6px; max-width: 600px;" data-i18n="footer.about">
+          SUNCASA (Scaling Urban Nature-Based Solutions for Climate Adaptation in Sub-Saharan Africa) is funded by Global Affairs Canada and jointly led by IISD and WRI, implemented in Kigali alongside the City of Kigali and the Rwanda Forestry Authority.
+        </p>
+      </div>
+
+      <div style="text-align: right;">
+        <p data-i18n="footer.rights">All public monitoring data released under Open Data principles for the Government of Rwanda and climate adaptation partners.</p>
+        <p style="margin-top: 6px; font-size: 0.78rem; color: var(--color-emerald-400);">Version 1.0.0 (MVP) &bull; Designed for RFA FMES Interoperability</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

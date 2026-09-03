@@ -1,0 +1,113 @@
+{
+  "brand": {
+    "title": "SUNCASA Kigali",
+    "subtitle": "Nature-Based Solutions Impact Dashboard",
+    "funder_tag": "Supported by Global Affairs Canada | IISD & WRI with City of Kigali & RFA"
+  },
+  "nav": {
+    "overview": "Overview & Impact",
+    "themes": "Thematic Pillars",
+    "map": "Interactive Catchment Map",
+    "indicators": "Indicator Explorer",
+    "interoperability": "RFA FMES Data",
+    "export": "Export Brief"
+  },
+  "hero": {
+    "badge": "Sub-Saharan Africa Climate Resilience Initiative",
+    "headline": "Scaling Nature-Based Solutions in Kigali's Lower Nyabarongo Watershed",
+    "subheadline": "Demonstrating how afforestation, agroforestry, and riparian restoration protect Kigali against extreme flooding, stabilize vulnerable hillsides, and create green livelihoods.",
+    "cta_explore": "Explore Indicators",
+    "cta_map": "View Catchment Map",
+    "stat_hectares": "Hectares Restored",
+    "stat_trees": "Seedlings Planted",
+    "stat_flood": "Peak Runoff Reduction",
+    "stat_jobs": "Person-Days of Green Work"
+  },
+  "themes": {
+    "all": "All Themes",
+    "climate": {
+      "name": "Climate Adaptation",
+      "short_desc": "Mitigating flood risks, preventing severe landslides, and reducing stormwater runoff across Kigali's steep hillsides and ravines.",
+      "headline": "Building Climate Resilience from Hilltops to Riverbeds",
+      "what_is_it": "Climate adaptation through Nature-Based Solutions (NbS) deploys ecological engineering—such as agroforestry terracing, bamboo buffer strips, and slope reforestation—to absorb extreme tropical rainfall, stabilize fragile volcanic soils, and buffer Kigali against flash floods.",
+      "why_it_matters": "Kigali experiences intensified rainfall and rapid urbanization. Severe flooding in the Mpazi and Nyabugogo basins regularly damages roads, homes, and critical economic hubs. Restoring upper catchment hydrology mitigates disaster risks for over 250,000 vulnerable residents.",
+      "what_suncasa_does": "SUNCASA restores steep upstream slopes across Yanze, Mpazi, and Mount Kigali. By combining progressive terracing with native vegetative ground cover, stormwater runoff is trapped before reaching informal settlements and downstream commercial centers."
+    },
+    "biodiversity": {
+      "name": "Biodiversity Protection",
+      "short_desc": "Restoring native tree species, establishing 30-meter riparian buffers along the Nyabarongo River, and reviving urban ecological corridors.",
+      "headline": "Restoring Indigenous Flora & Critical Riverine Corridors",
+      "what_is_it": "Biodiversity protection focuses on rehabilitating native Rwandan tree species (such as Polyscias fulva, Markhamia lutea, and Ficus thonningii) and conserving vital 30-meter riparian buffer belts along the Lower Nyabarongo and its tributary wetlands.",
+      "why_it_matters": "Decades of agricultural encroachment and monoculture tree plantations have fragmented natural wildlife corridors and reduced soil moisture retention. Healthy native river corridors safeguard water quality for the Yanze water treatment plant, which supplies over 60% of Kigali's potable water.",
+      "what_suncasa_does": "SUNCASA works with Rwanda Forestry Authority (RFA) to plant over 1.2 million seedlings, enforcing native riparian buffer strips along 45 km of riverbanks, establishing sustainable community seedbanks, and tracking tree survival with GPS monitoring."
+    },
+    "gesi": {
+      "name": "Gender Equality & Inclusion (GESI)",
+      "short_desc": "Empowering women leaders in watershed committees, engaging youth in GIS environmental tracking, and uplifting vulnerable households.",
+      "headline": "Centering Women and Youth in Climate Governance",
+      "what_is_it": "Gender Equality and Social Inclusion (GESI) integrates women, youth, and historically marginalized households as direct decision-makers, managers, and beneficiaries across all catchment restoration operations.",
+      "why_it_matters": "Women and youth are disproportionately affected by climate disasters like floods and mudslides, yet frequently lack formal land tenure and representation in water committees. Sustainable NbS outcomes require equitable local ownership and leadership.",
+      "what_suncasa_does": "SUNCASA mandates 50%+ female representation on catchment management committees, provides dedicated seed capital to women-led tree nursery cooperatives, and trains local youth as certified environmental stewards in drone and GIS tracking."
+    },
+    "economy": {
+      "name": "Employment & Economy",
+      "short_desc": "Generating green employment, empowering smallholder agroforestry farmers, and creating revenue from community-run tree nurseries.",
+      "headline": "Generating Sustainable Green Jobs & Rural-Urban Livelihoods",
+      "what_is_it": "The economic pillar links environmental restoration with dignified green livelihoods—including cash-for-work in terracing, commercial fruit and macadamia agroforestry, and seedling nursery sales.",
+      "why_it_matters": "Kigali's peri-urban communities need resilient, diversified economic opportunities that reward sustainable stewardship over resource depletion, ensuring restoration gains persist for generations.",
+      "what_suncasa_does": "SUNCASA has already generated over 42,000 person-days of paid green employment, equipped 2,850+ farmers with high-yield fruit trees (avocado and macadamia), and generated over 48 million RWF in local nursery revenues."
+    }
+  },
+  "map_section": {
+    "title": "Lower Nyabarongo Watershed & Intervention Map",
+    "subtitle": "Explore micro-catchments, intervention sites, species selections, and spatial boundaries across Kigali.",
+    "layer_catchments": "Micro-Catchment Polygons",
+    "layer_sites": "Intervention Sites",
+    "filter_all": "All Sites",
+    "site_details_title": "Site Inspection Details",
+    "select_prompt": "Click on any site marker or catchment area on the map to inspect intervention details."
+  },
+  "indicator_explorer": {
+    "title": "Curated NbS Impact Indicators",
+    "subtitle": "Transparent, indicator-driven monitoring aligned with RFA FMES standards.",
+    "search_placeholder": "Search indicators (e.g. flood, trees, jobs, women)...",
+    "filter_by_theme": "Filter by Theme",
+    "progress_label": "Progress to 2026 Target",
+    "view_deep_dive": "View Detailed Analysis",
+    "baseline": "2024 Baseline",
+    "current": "Current Status (2025)",
+    "target": "2026 SUNCASA Target",
+    "fmes_alignment_badge": "FMES Aligned"
+  },
+  "modal": {
+    "three_questions": "MyPeg 3-Tier Storytelling Analysis",
+    "what_is": "What is this indicator?",
+    "why_matters": "Why does it matter for Kigali?",
+    "what_suncasa": "What is SUNCASA doing?",
+    "site_breakdown": "Micro-Catchment Breakdown",
+    "historical_trend": "Quarterly Trend & Target Trajectory",
+    "technical_metadata": "Technical & Interoperability Metadata",
+    "fmes_code": "RFA FMES System Code",
+    "unit_of_measure": "Unit of Measurement",
+    "data_source": "Verification Source",
+    "close": "Close Analysis"
+  },
+  "fmes_interoperability": {
+    "title": "Rwanda Forestry Authority (RFA) FMES Interoperability",
+    "subtitle": "Engineered for zero-lock-in data exchange with RFA's Forest Management and Evaluation System.",
+    "card1_title": "Standardized Forestry Taxonomy",
+    "card1_desc": "Every intervention site links to official RFA compartment IDs (e.g., COMP-GAS-JB-01) and species taxonomies.",
+    "card2_title": "REST & GeoJSON API Export",
+    "card2_desc": "All indicators and polygons can be programmatically queried via standard JSON endpoints or downloaded in one click.",
+    "card3_title": "Zero Server Maintenance",
+    "card3_desc": "Built as a modular client-side app with no complex backend required, ensuring RFA IT staff can maintain and host it freely.",
+    "btn_download_json": "Export Indicators JSON",
+    "btn_download_geojson": "Export Catchment GeoJSON",
+    "btn_view_spec": "View FMES Integration Guide"
+  },
+  "footer": {
+    "about": "SUNCASA (Scaling Urban Nature-Based Solutions for Climate Adaptation in Sub-Saharan Africa) is funded by Global Affairs Canada and jointly led by IISD and WRI, implemented in Kigali alongside the City of Kigali and the Rwanda Forestry Authority.",
+    "rights": "All public monitoring data released under Open Data principles for the Government of Rwanda and climate adaptation partners.",
+    "switch_lang": "Change Language / Guhindura Ururimi"
+  }
+}

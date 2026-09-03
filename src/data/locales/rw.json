@@ -1,0 +1,113 @@
+{
+  "brand": {
+    "title": "SUNCASA Kigali",
+    "subtitle": "Imbonerahamwe y'Ibisubizo bishingiye ku Rusobe rw'Ibinyabuzima",
+    "funder_tag": "Biterwa inkunga na Global Affairs Canada | IISD & WRI hamwe n'Umujyi wa Kigali & RFA"
+  },
+  "nav": {
+    "overview": "Incamake n'Umusaruro",
+    "themes": "Inkingi z'Ibikorwa",
+    "map": "Ikarita y'Ibibaya n'Imirimo",
+    "indicators": "Ibipimo by'Umusaruro",
+    "interoperability": "Amakuru ya RFA FMES",
+    "export": "Gukuramo Raporo"
+  },
+  "hero": {
+    "badge": "Gahunda yo Kongera Ubudahangarwa ku Mihindagurikire y'Ikirere muri Afurika",
+    "headline": "Kwagura Ibisubizo bishingiye ku Rusobe rw'Ibinyabuzima mu Kibaya cya Nyabarongo yo Hasi",
+    "subheadline": "Kugaragaza uburyo gutera amashyamba, ubuhinzi buvanze n'amashyamba, no gusana inkombe z'imigezi birinda Kigali imyuzure ikomeye, guhagarika inkangu, no guhanga imirimo itangiza ibidukikije.",
+    "cta_explore": "Reba Ibipimo Byose",
+    "cta_map": "Reba Ikarita y'Ikibaya",
+    "stat_hectares": "Hegitari Zasanywe",
+    "stat_trees": "Ingemwe zatewe",
+    "stat_flood": "Kugabanya Ubukana bw'Imyuzure",
+    "stat_jobs": "Iminsi y'Akazi k'Icyatsi yishyuwe"
+  },
+  "themes": {
+    "all": "Inkingi Zose",
+    "climate": {
+      "name": "Guhangana n'Ikirere",
+      "short_desc": "Kugabanya inkangu, kurwanya isuri, no gukumira imyuzure mu misozi ihanamiye no mu mikoki ya Kigali.",
+      "headline": "Kubaka Ubudahangarwa guhera ku Misozi kugera mu Bibaya by'Imigezi",
+      "what_is_it": "Guhangana n'imihindagurikire y'ikirere binyuze mu bisubizo kamere (NbS) bikoresha tekiniki zishingiye ku rusobe rw'ibinyabuzima—nko guca amaterasi y'indagano, gutera imigano ku nkombe, no gutera amashyamba ku misozi ihanamiye—kugira ngo amazi y'imvura anywe mu butaka Kigali irindwe imyuzure y'inkukuma.",
+      "why_it_matters": "Umujyi wa Kigali uhura n'imvura nyinshi zikabije. Imyuzure mu mukoki wa Mpazi no mu gishanga cya Nyabugogo ikunze kwangiza imihanda, inzu, n'amasoko y'ubucuruzi. Gusana ibibaya by'amazi birinda abaturage basaga 250,000.",
+      "what_suncasa_does": "Umushinga SUNCASA usana imisozi ya Yanze, Mpazi, na Mont Kigali. Binyuze mu guca amaterasi y'indagano no gutera ibiti by'inganzamarumbo, amazi y'isuri afatwa hakiri kare mbere yo gusenyera abatuye hasi."
+    },
+    "biodiversity": {
+      "name": "Kurengera Urusobe rw'Ibinyabuzima",
+      "short_desc": "Gutera ibiti gakondo by'u Rwanda, gusana metero 30 z'umukandara w'uruzi rwa Nyabarongo, no kugarura ibinyabuzima.",
+      "headline": "Kugarura Ibiti Gakondo no Kurengera Inkombe z'Imigezi",
+      "what_is_it": "Kurengera urusobe rw'ibinyabuzima byibanda ku gutera amoko y'ibiti kavukire by'u Rwanda (nka Polyscias fulva / Umwungo, Markhamia lutea / Umusave, na Ficus thonningii / Umuvumu) no kubungabunga umukandara wa metero 30 ku nkombe za Nyabarongo n'ibishanga byayo.",
+      "why_it_matters": "Gukoresha ubutaka nabi no gutera ubwoko bumwe bw'ibiti byangije inzira z'inyamaswa n'ubushobozi bw'ubutaka bwo gufata amazi. Kurengera inkombe z'amazi birinda isoko y'uruganda rwa Yanze rutanga amazi meza angana na 60% akoreshwa i Kigali.",
+      "what_suncasa_does": "SUNCASA ifatanya n'Ikigo cy'Amashyamba (RFA) gutera ingemwe zirenga miliyoni 1.2, gusana ibirometero 45 by'inkombe z'imigezi, no gukurikirana imikurire y'ibiti binyuze mu ikoranabuhanga rya GPS."
+    },
+    "gesi": {
+      "name": "Uburinganire n'Ubwuzuzanye (GESI)",
+      "short_desc": "Gushyigikira abagore mu nzego z'ubuyobozi bw'amazi, guha urubyiruko amahugurwa ya GIS, no kunganira ingo zikene.",
+      "headline": "Gushyira Abagore n'Urubyiruko ku Isonga mu Miyoborere y'Ikirere",
+      "what_is_it": "Gahunda y'uburinganire n'ubwuzuzanye (GESI) yinjiza abagore, urubyiruko, n'ingo zitishoboye mu gufata ibyemezo, kuyobora, no kungukira mu bikorwa byose byo gusana ibibaya.",
+      "why_it_matters": "Abagore n'urubyiruko nibo bibasirwa cyane n'ibiza by'imyuzure n'inkangu, nyamara bakenshi ntibagira ijambo mu makoperative cyangwa komite z'amazi. Kurengera ibidukikije birambye bisaba ko bose babyibonamo.",
+      "what_suncasa_does": "SUNCASA itegeka ko abagore bagize nibura 50% bya komite z'ibibaya, igaha igishoro koperative z'ubuhumbikiro ziyobowe n'abagore, ikanahugura urubyiruko mu gupima amashyamba hifashishijwe indege zitarimo abapilote (drones) na GIS."
+    },
+    "economy": {
+      "name": "Imirimo n'Ubukungu",
+      "short_desc": "Guhanga imirimo y'icyatsi, guteza imbere abahinzi b'ibiti by'imbuto n'ibya makadamiya, no kwinjiza amafaranga mu buhumbikiro.",
+      "headline": "Guhanga Imirimo y'Icyatsi no Kongera Ubutunzi bw'Abaturage",
+      "what_is_it": "Inkingi y'ubukungu ihuza kurengera ibidukikije no guha abaturage amikoro arambye—harimo akazi ko guca amaterasi gahabwa ingemwe, ubuhinzi bw'ibiti by'imbuto z'agaciro (avoka, makadamiya), no kugurisha ingemwe.",
+      "why_it_matters": "Abatuye mu nkengero za Kigali bakeneye amahirwe y'ubukungu atangiza ibidukikije, kugira ngo ibikorwa byo gusana amashyamba n'ibibaya birambe kandi bitange umusaruro ufatika.",
+      "what_suncasa_does": "SUNCASA imaze guhanga iminsi y'akazi k'icyatsi isaga 42,000, yahaye abahinzi basaga 2,850 ibiti by'imbuto, ndetse amakoperative yinjije asaga miliyoni 48 z'amafaranga y'u Rwanda mu kugurisha ingemwe."
+    }
+  },
+  "map_section": {
+    "title": "Ikarita y'Ikibaya cya Nyabarongo yo Hasi n'Ahakorerwa Imirimo",
+    "subtitle": "Suzuma imipaka y'ibibaya by'amazi, ahatewe amashyamba, ubwoko bw'ibiti, n'uduce tw'amajyambere muri Kigali.",
+    "layer_catchments": "Ibibaya by'Amazi (Micro-catchments)",
+    "layer_sites": "Ahabera Imirimo (Intervention Sites)",
+    "filter_all": "Ahabera Imirimo Hose",
+    "site_details_title": "Amakuru Arambuye y'Ahantu",
+    "select_prompt": "Kanda ku kadomo cyangwa agace k'amazi ku ikarita kugira ngo ubone ibisobanuro birambuye."
+  },
+  "indicator_explorer": {
+    "title": "Ibipimo by'Umusaruro n'Iterambere rya SUNCASA",
+    "subtitle": "Ibipimo biboneye byubahiriza amahame ya RFA FMES.",
+    "search_placeholder": "Shakisha mu bipimo (urugero: imyuzure, ibiti, imirimo, abagore)...",
+    "filter_by_theme": "Hitamo Inkingi",
+    "progress_label": "Intambwe igezweho ku Ntego ya 2026",
+    "view_deep_dive": "Reba Isesengura Rirambuye",
+    "baseline": "Aho Byatangiriye (2024)",
+    "current": "Aho Bigeze Ubu (2025)",
+    "target": "Intego ya SUNCASA (2026)",
+    "fmes_alignment_badge": "Bihuye na FMES"
+  },
+  "modal": {
+    "three_questions": "Isesengura rishingiye ku Biranga Umusaruro (MyPeg Model)",
+    "what_is": "Iki gipimo gisobanura iki?",
+    "why_matters": "Kuki ari ingenzi cyane ku Mujyi wa Kigali?",
+    "what_suncasa": "Ni iki SUNCASA iri gukora kuri iki kibazo?",
+    "site_breakdown": "Uko bihagaze mu Bibaya bitandukanye",
+    "historical_trend": "Uko Umusaruro Ugenda Wiyongera mu Bihe bitandukanye",
+    "technical_metadata": "Ibisobanuro by'Ikoranabuhanga rya RFA FMES",
+    "fmes_code": "Kode ya Sisitemu ya FMES",
+    "unit_of_measure": "Igipimo cy'Ibipimwa",
+    "data_source": "Inkomoko y'Amakuru yemewe",
+    "close": "Funga Isesengura"
+  },
+  "fmes_interoperability": {
+    "title": "Ikoranabuhanga rihuza na Sisitemu ya RFA FMES",
+    "subtitle": "Byubatswe mu buryo bworohereza Ikigo cy'Amashyamba guhanahana amakuru nta mbogamizi.",
+    "card1_title": "Guhuza Imbonerahamwe y'Amashyamba",
+    "card1_desc": "Buri gace k'imirimo gahujwe na kode zemewe z'amashyamba za RFA (urugero: COMP-GAS-JB-01) n'amoko y'ibiti.",
+    "card2_title": "Kwandukura Amakuru muri JSON & GeoJSON",
+    "card2_desc": "Amakuru yose n'amakarita bishobora gukurwamo ako kanya mu buryo bwa mudasobwa hifashishijwe amadosiye ya JSON.",
+    "card3_title": "Kudakenera Seriveri zihenze",
+    "card3_desc": "Byubatswe mu buryo bwa 'client-side' budasaba seriveri zikomeye, bigatuma abakozi ba RFA babicunga bitabagoye.",
+    "btn_download_json": "Kuramo Amadosiye ya JSON",
+    "btn_download_geojson": "Kuramo Ikarita ya GeoJSON",
+    "btn_view_spec": "Reba Igitabo k'Ikoranabuhanga rya FMES"
+  },
+  "footer": {
+    "about": "Umushinga SUNCASA uterwa inkunga na Global Affairs Canada, ukaba uyobowe n'ibigo IISD na WRI ku bufatanye n'Umujyi wa Kigali n'Ikigo cy'Igihugu Gishinzwe Amashyamba (RFA).",
+    "rights": "Amakuru yose y'ubugenzuzi ashyizwe ahagaragara ku buntu ku bw'Inzego za Leta y'u Rwanda n'abafatanyabikorwa mu kurengera ikirere.",
+    "switch_lang": "Guhindura Ururimi / Change Language"
+  }
+}
