@@ -40,26 +40,27 @@ Funded by **Global Affairs Canada**, jointly led by **IISD** and **WRI**, with *
 ## Quick Start (Local Development)
 
 ```bash
-# 1. Navigate to directory
-cd C:\Users\tharushyamagara\.gemini\antigravity-ide\scratch\suncasa-kigali-nbs-dashboard
-
-# 2. Install dependencies (already installed)
+# 1. Install dependencies
 npm install
 
-# 3. Start development server
+# 2. Start local development server
 npm run dev
 
-# 4. Build production bundle
+# 3. Build production bundle (tested with Vite)
 npm run build
 
-# 5. Preview production build
+# 4. Preview production build locally
 npm run preview
 ```
 
 ---
 
 ## Publishing to the Web
-See [docs/DEPLOYMENT_GUIDE.md](file:///C:/Users/tharushyamagara/.gemini/antigravity-ide/scratch/suncasa-kigali-nbs-dashboard/docs/DEPLOYMENT_GUIDE.md) for 1-click instructions on deploying to **Netlify**, **Vercel**, or **GitHub Pages**.
+See [DEPLOYMENT_GUIDE.md](docs/DEPLOYMENT_GUIDE.md) for 1-click instructions on deploying to **Netlify**, **Vercel**, or **GitHub Pages**.
 
 ## RFA FMES Integration Spec
-See [docs/FMES_INTEROPERABILITY.md](file:///C:/Users/tharushyamagara/.gemini/antigravity-ide/scratch/suncasa-kigali-nbs-dashboard/docs/FMES_INTEROPERABILITY.md) for data dictionaries, schema definitions, and REST synchronization guidelines.
+See [FMES_INTEROPERABILITY.md](docs/FMES_INTEROPERABILITY.md) for data dictionaries, schema definitions, and REST synchronization guidelines.
+
+## Proposal & Bid Submission Package
+All RFP bid documents (Technical Proposal, Financial Proposal, Cover Letter, CV, References) are organized in the [`proposal/`](proposal/) directory.
+

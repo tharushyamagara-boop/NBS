@@ -11,12 +11,11 @@ Because the dashboard is built as a zero-server, high-performance static web app
 ### Method A: Drag & Drop (No CLI needed)
 1. Run `npm run build` in this repository to generate the `dist` folder.
 2. Open your web browser and navigate to [app.netlify.com/drop](https://app.netlify.com/drop).
-3. Drag and drop the `dist/` folder from:
-   `C:\Users\tharushyamagara\.gemini\antigravity-ide\scratch\suncasa-kigali-nbs-dashboard\dist`
+3. Drag and drop the `dist/` folder from this project directory.
 4. Netlify will instantly provide a live, shareable URL (e.g. `https://suncasa-kigali-nbs.netlify.app`).
 
 ### Method B: Via Netlify CLI
-Run the following commands in powershell:
+Run the following command in your terminal from the project root:
 ```powershell
 npx netlify-cli deploy --prod --dir=dist
 ```
@@ -25,15 +24,13 @@ npx netlify-cli deploy --prod --dir=dist
 
 ## Option 2: Free Deployment via Vercel (1 Command)
 
-1. Open PowerShell inside the project directory:
-   ```powershell
-   cd C:\Users\tharushyamagara\.gemini\antigravity-ide\scratch\suncasa-kigali-nbs-dashboard
-   ```
+1. Open PowerShell inside the project directory.
 2. Run:
    ```powershell
    npx vercel --prod
    ```
 3. Follow the quick terminal prompts. Vercel will output a live HTTPS URL (e.g. `https://suncasa-kigali.vercel.app`).
+
 
 ---
 

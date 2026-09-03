@@ -1,0 +1,21 @@
+{
+  "name": "SUNCASA Kigali NbS Impact Platform",
+  "short_name": "SUNCASA Kigali",
+  "description": "Progressive Web App for Nature-Based Solutions and Climate Adaptation Impact in Kigali",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a111e",
+  "theme_color": "#10b981",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
