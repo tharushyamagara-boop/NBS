@@ -1,0 +1,258 @@
+{
+  "type": "FeatureCollection",
+  "name": "SUNCASA_Kigali_Specialized_Spatial_Layers",
+  "crs": {
+    "type": "name",
+    "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "node_wqi_01",
+        "name": "Yanze River Intake Station (Water Quality)",
+        "name_rw": "Sitasiyo yo Gusuzuma Amazi ya Yanze",
+        "indicator_id": "water_quality_index",
+        "node_type": "water_quality_station",
+        "district": "Gasabo / Rulindo",
+        "wqi_score": 78,
+        "turbidity_ntu": 14.2,
+        "dissolved_oxygen_mg_l": 7.4,
+        "fmes_code": "RWB-WQ-YZ-01",
+        "status": "Good (Drinking Water Quality Protected)"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [30.038, -1.895]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "node_wqi_02",
+        "name": "Mpazi Drainage Outfall Monitor",
+        "name_rw": "Isoko y'Igenzura ry'Amazi ya Mpazi",
+        "indicator_id": "water_quality_index",
+        "node_type": "water_quality_station",
+        "district": "Nyarugenge",
+        "wqi_score": 54,
+        "turbidity_ntu": 42.8,
+        "dissolved_oxygen_mg_l": 5.1,
+        "fmes_code": "RWB-WQ-MP-02",
+        "status": "Fair (Sediment Filtration Active)"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [30.046, -1.954]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "node_wqi_03",
+        "name": "Nyabarongo Confluence Quality Station",
+        "name_rw": "Isangano rya Nyabarongo na Nyabugogo",
+        "indicator_id": "water_quality_index",
+        "node_type": "water_quality_station",
+        "district": "Kicukiro / Nyarugenge",
+        "wqi_score": 66,
+        "turbidity_ntu": 28.5,
+        "dissolved_oxygen_mg_l": 6.3,
+        "fmes_code": "RWB-WQ-NYAB-03",
+        "status": "Moderate (Turbidity Reduced by 32%)"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [30.072, -2.035]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "line_riparian_yanze",
+        "name": "Yanze River 30m Ecological Buffer Zone",
+        "name_rw": "Umukandara w'Uburinzi bw'Uruzi rwa Yanze (Metero 30)",
+        "indicator_id": "riparian_buffer_km",
+        "node_type": "linear_corridor",
+        "district": "Gasabo",
+        "length_km": 8.5,
+        "primary_vegetation": "Giant Bamboo (Bambusa vulgaris) & Reed Beds",
+        "fmes_code": "RFA-RIP-YZ-8.5K",
+        "status": "Fully Delineated & Vegetated"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [30.020, -1.892],
+          [30.035, -1.905],
+          [30.048, -1.920],
+          [30.042, -1.938]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "line_riparian_nyabarongo",
+        "name": "Lower Nyabarongo Riverbank Bamboo Corridor",
+        "name_rw": "Inkombe z'Uruzi rwa Nyabarongo - Umukandara w'Imigano",
+        "indicator_id": "riparian_buffer_km",
+        "node_type": "linear_corridor",
+        "district": "Kicukiro / Nyarugenge",
+        "length_km": 14.8,
+        "primary_vegetation": "Bambusa vulgaris, Syzygium cordatum",
+        "fmes_code": "RFA-RIP-NYAB-14.8K",
+        "status": "Active 30m Protection Corridor"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [29.985, -1.995],
+          [30.025, -2.010],
+          [30.065, -2.030],
+          [30.110, -2.050]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "node_nursery_01",
+        "name": "Duterimbere Women's Tree Nursery Cooperative",
+        "name_rw": "Koperative y'Abagore ya Duterimbere mu Buhumbikiro",
+        "indicator_id": "female_nursery_operators",
+        "node_type": "nursery_hub",
+        "district": "Gasabo (Gatsata)",
+        "members": 68,
+        "female_pct": 82,
+        "seedling_capacity": 250000,
+        "annual_revenue_rwf": 18500000,
+        "fmes_code": "RCA-NUR-GAS-01"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [30.054, -1.936]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "node_nursery_02",
+        "name": "Tujyembere Nyarugenge Women Nursery",
+        "name_rw": "Ubuhumbikiro bw'Abagore bwa Tujyembere",
+        "indicator_id": "female_nursery_operators",
+        "node_type": "nursery_hub",
+        "district": "Nyarugenge (Mageragere)",
+        "members": 52,
+        "female_pct": 78,
+        "seedling_capacity": 180000,
+        "annual_revenue_rwf": 14200000,
+        "fmes_code": "RCA-NUR-NYA-02"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [30.028, -1.992]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "node_youth_gis_01",
+        "name": "Mount Kigali Drone Telemetry Operational Flight Corridor",
+        "name_rw": "Umuhora wo Gupima Amashyamba hakoreshejwe Drone - Mont Kigali",
+        "indicator_id": "vulnerable_youth_employed",
+        "node_type": "youth_gis_hub",
+        "district": "Nyarugenge",
+        "youth_technicians": 74,
+        "drone_surveys_completed": 128,
+        "canopy_tracked_ha": 620,
+        "fmes_code": "RFA-DRONE-NYA-01"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [30.018, -1.975]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "node_youth_gis_02",
+        "name": "Yanze Mobile GIS Ground-Truthing Base",
+        "name_rw": "Icyicaro cy'Urubyiruko muri GIS n'Ikoranabuhanga - Yanze",
+        "indicator_id": "vulnerable_youth_employed",
+        "node_type": "youth_gis_hub",
+        "district": "Gasabo (Nduba)",
+        "youth_technicians": 62,
+        "drone_surveys_completed": 94,
+        "canopy_tracked_ha": 480,
+        "fmes_code": "RFA-DRONE-GAS-02"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [30.040, -1.912]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "node_training_01",
+        "name": "Kimisagara Youth & Community NbS Training Center",
+        "name_rw": "Ikigo cy'Amahugurwa cya Kimisagara",
+        "indicator_id": "participants_trained",
+        "node_type": "training_center",
+        "district": "Nyarugenge",
+        "trainees_graduated": 380,
+        "youth_pct": 65,
+        "female_pct": 54,
+        "focus_areas": "Gully Stabilization, Terracing, Soil Conservation"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [30.049, -1.962]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "node_training_02",
+        "name": "Jabana Agroforestry Demonstration Field Hub",
+        "name_rw": "Umurima w'Icyitegererezo w'Ubuhinzi n'Amashyamba - Jabana",
+        "indicator_id": "participants_trained",
+        "node_type": "training_center",
+        "district": "Gasabo",
+        "trainees_graduated": 470,
+        "youth_pct": 58,
+        "female_pct": 60,
+        "focus_areas": "Fruit Agroforestry, Nursery Management, Grevillea Pruning"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [30.032, -1.888]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "line_traffic_nyabugogo",
+        "name": "Nyabugogo Arterial Traffic Incident Corridor",
+        "name_rw": "Umuhanda Nyabagendwa wa Nyabugogo - Umutekano wo mu Muhanda",
+        "indicator_id": "collision_victims",
+        "node_type": "linear_corridor",
+        "district": "Nyarugenge / Gasabo",
+        "collision_incidents_2024": 76,
+        "collision_incidents_2025": 48,
+        "change_pct": -36.8,
+        "status": "Enhanced Pedestrian Green Corridors"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [30.042, -1.935],
+          [30.052, -1.942],
+          [30.065, -1.948],
+          [30.075, -1.952]
+        ]
+      }
+    }
+  ]
+}

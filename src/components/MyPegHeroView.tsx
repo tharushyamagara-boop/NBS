@@ -27,6 +27,7 @@ export default function MyPegHeroView({
   locale = 'en',
 }: MyPegHeroViewProps) {
   const [selectedSite, setSelectedSite] = useState<any>(null);
+  const [mapTheme, setMapTheme] = useState<string>('all');
   const indicators = indicatorsData.indicators as Indicator[];
 
   const scrollToOverview = () => {
@@ -233,45 +234,113 @@ export default function MyPegHeroView({
             </p>
           </div>
 
+          {/* Interactive Theme Filter Pills */}
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '20px' }}>
+            {[
+              { id: 'all', label_en: 'All Themes & Sites', label_rw: 'Imishinga Yose', icon: '🌐', color: '#0284c7' },
+              { id: 'climate', label_en: 'Climate Adaptation', label_rw: 'Kwirinda Imihindagurikire', icon: '🌧️', color: '#0284c7' },
+              { id: 'biodiversity', label_en: 'Biodiversity Protection', label_rw: 'Kubungabunga Urusobe', icon: '🌱', color: '#10b981' },
+              { id: 'gesi', label_en: 'Gender & Inclusion', label_rw: 'Uburinganire (GESI)', icon: '👥', color: '#8b5cf6' },
+              { id: 'economy', label_en: 'Employment & Economy', label_rw: 'Imirimo n\'Ubukungu', icon: '📈', color: '#f59e0b' },
+            ].map((th) => (
+              <button
+                key={th.id}
+                type="button"
+                onClick={() => setMapTheme(th.id)}
+                style={{
+                  padding: '7px 14px',
+                  borderRadius: '20px',
+                  border: `1.5px solid ${mapTheme === th.id ? th.color : '#e2e8f0'}`,
+                  background: mapTheme === th.id ? th.color : '#ffffff',
+                  color: mapTheme === th.id ? '#ffffff' : '#475569',
+                  fontSize: '0.82rem',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  transition: 'all 0.15s ease',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  boxShadow: mapTheme === th.id ? `0 2px 8px ${th.color}44` : 'none',
+                }}
+              >
+                <span>{th.icon}</span>
+                <span>{locale === 'rw' ? th.label_rw : th.label_en}</span>
+              </button>
+            ))}
+          </div>
+
           <div style={{ display: 'grid', gridTemplateColumns: selectedSite ? '2fr 1fr' : '1fr', gap: '20px', alignItems: 'start' }}>
-            <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1px solid #e2e8f0', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
+            <div style={{ borderRadius: '12px', overflow: 'hidden', border: '1px solid #cbd5e1', boxShadow: '0 4px 16px rgba(0,0,0,0.08)' }}>
               <CatchmentMap
                 locale={locale}
-                themeFilter="all"
+                selectedTheme={mapTheme}
+                height={520}
                 onSelectSite={(props) => setSelectedSite(props)}
               />
             </div>
 
             {selectedSite && (
-              <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '10px', padding: '24px' }}>
-                <span style={{ fontSize: '0.74rem', background: '#10b981', color: '#ffffff', padding: '2px 8px', borderRadius: '4px', fontWeight: 700 }}>
-                  {selectedSite.type}
-                </span>
-                <h3 style={{ fontSize: '1.25rem', color: '#0f172a', margin: '10px 0 4px 0' }}>
+              <div style={{ background: '#0f172a', color: '#f8fafc', border: '1px solid #334155', borderRadius: '12px', padding: '24px', boxShadow: '0 4px 20px rgba(0,0,0,0.25)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontSize: '0.7rem', background: '#10b981', color: '#ffffff', padding: '3px 8px', borderRadius: '4px', fontWeight: 700 }}>
+                    {selectedSite.type}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedSite(null)}
+                    style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: '1.1rem', cursor: 'pointer' }}
+                  >
+                    ✕
+                  </button>
+                </div>
+
+                <h3 style={{ fontSize: '1.25rem', color: '#ffffff', margin: '12px 0 4px 0', fontWeight: 700 }}>
                   {locale === 'rw' ? selectedSite.name_rw || selectedSite.name : selectedSite.name}
                 </h3>
-                <p style={{ fontSize: '0.86rem', color: '#64748b' }}>
-                  <strong>{locale === 'rw' ? 'Akarere:' : 'District:'}</strong> {selectedSite.district}
+                <p style={{ fontSize: '0.84rem', color: '#94a3b8', margin: '0 0 14px 0' }}>
+                  <strong>{locale === 'rw' ? 'Akarere:' : 'District:'}</strong> {selectedSite.district} &bull; {selectedSite.fmes_compartment || selectedSite.fmes_code || 'FMES Layer'}
                 </p>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginTop: '16px' }}>
-                  <div style={{ background: '#ffffff', padding: '10px', borderRadius: '6px', border: '1px solid #e2e8f0' }}>
-                    <div style={{ fontSize: '0.74rem', color: '#64748b' }}>Area (ha)</div>
-                    <div style={{ fontSize: '1.2rem', fontWeight: 700, color: '#0f172a' }}>{selectedSite.area_ha || '--'}</div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginTop: '12px' }}>
+                  <div style={{ background: 'rgba(255,255,255,0.06)', padding: '12px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)' }}>
+                    <div style={{ fontSize: '0.72rem', color: '#94a3b8' }}>{selectedSite.area_km2 ? 'Catchment Area' : 'Intervention Area'}</div>
+                    <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#ffffff', marginTop: '2px' }}>
+                      {selectedSite.area_km2 ? `${selectedSite.area_km2} km²` : selectedSite.area_ha ? `${selectedSite.area_ha} ha` : '--'}
+                    </div>
                   </div>
-                  <div style={{ background: '#ffffff', padding: '10px', borderRadius: '6px', border: '1px solid #e2e8f0' }}>
-                    <div style={{ fontSize: '0.74rem', color: '#64748b' }}>Trees Planted</div>
-                    <div style={{ fontSize: '1.2rem', fontWeight: 700, color: '#10b981' }}>
-                      {selectedSite.trees_planted ? selectedSite.trees_planted.toLocaleString() : '--'}
+                  <div style={{ background: 'rgba(255,255,255,0.06)', padding: '12px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)' }}>
+                    <div style={{ fontSize: '0.72rem', color: '#94a3b8' }}>Trees / Target Metric</div>
+                    <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#10b981', marginTop: '2px' }}>
+                      {selectedSite.trees_planted ? selectedSite.trees_planted.toLocaleString() : selectedSite.indicatorValue ? selectedSite.indicatorValue.toLocaleString() : '--'}
                     </div>
                   </div>
                 </div>
 
-                {selectedSite.risk_focus && (
-                  <div style={{ marginTop: '14px', fontSize: '0.85rem', color: '#334155', background: '#ffffff', padding: '10px', borderRadius: '6px', border: '1px solid #e2e8f0' }}>
-                    <strong>Risk Focus:</strong> {selectedSite.risk_focus}
+                {selectedSite.priority_intervention && (
+                  <div style={{ marginTop: '14px', fontSize: '0.82rem', color: '#cbd5e1', background: 'rgba(255,255,255,0.04)', padding: '10px 12px', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.08)', lineHeight: 1.4 }}>
+                    <strong>Intervention:</strong> {selectedSite.priority_intervention}
                   </div>
                 )}
+
+                {/* Direct Link to Indicator Page */}
+                <div style={{ marginTop: '18px' }}>
+                  <Link
+                    href="/indicator/area_restored_ha"
+                    style={{
+                      display: 'block',
+                      textAlign: 'center',
+                      background: '#0284c7',
+                      color: '#ffffff',
+                      padding: '9px 14px',
+                      borderRadius: '6px',
+                      fontSize: '0.84rem',
+                      fontWeight: 700,
+                      textDecoration: 'none',
+                    }}
+                  >
+                    {locale === 'rw' ? 'Reba Amakuru Arambuye y\'Igipimo' : 'Explore Detailed Indicator Spatial View'} &rarr;
+                  </Link>
+                </div>
               </div>
             )}
           </div>

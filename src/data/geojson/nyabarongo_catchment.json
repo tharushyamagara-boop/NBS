@@ -16,7 +16,24 @@
         "area_km2": 42.5,
         "flood_risk_level": "High (Rapid Runoff)",
         "priority_intervention": "Upstream Reforestation & Agroforestry",
-        "color": "#0284c7"
+        "fmes_compartment": "COMP-GAS-YANZE-01",
+        "color": "#0284c7",
+        "indicators": {
+          "area_restored_ha": 410,
+          "flood_risk_reduction": 30.5,
+          "soil_erosion_prevented": 18500,
+          "trees_planted": 275000,
+          "tree_survival_rate": 88.5,
+          "riparian_buffer_km": 8.5,
+          "water_quality_index": 78,
+          "women_leadership_catchment": 58,
+          "participants_trained": 850,
+          "green_jobs_created": 11500,
+          "female_nursery_operators": 4,
+          "vulnerable_youth_employed": 145,
+          "building_permit_values": 3200,
+          "collision_victims": 12
+        }
       },
       "geometry": {
         "type": "Polygon",
@@ -43,7 +60,24 @@
         "area_km2": 18.2,
         "flood_risk_level": "Critical (Urban Gully Erosion)",
         "priority_intervention": "Bio-engineering, Ravine Terracing & Tree Buffer",
-        "color": "#e11d48"
+        "fmes_compartment": "COMP-NYA-MPAZI-02",
+        "color": "#e11d48",
+        "indicators": {
+          "area_restored_ha": 160,
+          "flood_risk_reduction": 35.0,
+          "soil_erosion_prevented": 8200,
+          "trees_planted": 95000,
+          "tree_survival_rate": 82.0,
+          "riparian_buffer_km": 2.1,
+          "water_quality_index": 54,
+          "women_leadership_catchment": 52,
+          "participants_trained": 420,
+          "green_jobs_created": 8400,
+          "female_nursery_operators": 2,
+          "vulnerable_youth_employed": 85,
+          "building_permit_values": 14200,
+          "collision_victims": 48
+        }
       },
       "geometry": {
         "type": "Polygon",
@@ -69,7 +103,24 @@
         "area_km2": 31.8,
         "flood_risk_level": "Severe (Landslide & Soil Loss)",
         "priority_intervention": "Steep-slope Afforestation & Native Tree Planting",
-        "color": "#16a34a"
+        "fmes_compartment": "COMP-NYA-MTKGL-03",
+        "color": "#16a34a",
+        "indicators": {
+          "area_restored_ha": 295,
+          "flood_risk_reduction": 22.0,
+          "soil_erosion_prevented": 14300,
+          "trees_planted": 248000,
+          "tree_survival_rate": 86.4,
+          "riparian_buffer_km": 0.5,
+          "water_quality_index": 82,
+          "women_leadership_catchment": 56,
+          "participants_trained": 780,
+          "green_jobs_created": 12800,
+          "female_nursery_operators": 3,
+          "vulnerable_youth_employed": 160,
+          "building_permit_values": 4100,
+          "collision_victims": 18
+        }
       },
       "geometry": {
         "type": "Polygon",
@@ -95,7 +146,24 @@
         "area_km2": 26.4,
         "flood_risk_level": "Extreme (Flash Inundation)",
         "priority_intervention": "Riparian Wetland Buffers & Native Sedge Restoration",
-        "color": "#0ea5e9"
+        "fmes_compartment": "COMP-GAS-NYABUG-04",
+        "color": "#0ea5e9",
+        "indicators": {
+          "area_restored_ha": 120,
+          "flood_risk_reduction": 24.5,
+          "soil_erosion_prevented": 4100,
+          "trees_planted": 180000,
+          "tree_survival_rate": 79.5,
+          "riparian_buffer_km": 4.2,
+          "water_quality_index": 48,
+          "women_leadership_catchment": 74,
+          "participants_trained": 520,
+          "green_jobs_created": 4100,
+          "female_nursery_operators": 6,
+          "vulnerable_youth_employed": 65,
+          "building_permit_values": 8900,
+          "collision_victims": 76
+        }
       },
       "geometry": {
         "type": "Polygon",
@@ -120,7 +188,24 @@
         "area_km2": 38.0,
         "flood_risk_level": "High (Bank Erosion & Siltation)",
         "priority_intervention": "Bamboo & Native Riparian Green Belt (30m Protection Zone)",
-        "color": "#059669"
+        "fmes_compartment": "COMP-KIC-NYAB-05",
+        "color": "#059669",
+        "indicators": {
+          "area_restored_ha": 140,
+          "flood_risk_reduction": 28.0,
+          "soil_erosion_prevented": 11200,
+          "trees_planted": 145000,
+          "tree_survival_rate": 84.1,
+          "riparian_buffer_km": 14.8,
+          "water_quality_index": 66,
+          "women_leadership_catchment": 54,
+          "participants_trained": 450,
+          "green_jobs_created": 6200,
+          "female_nursery_operators": 3,
+          "vulnerable_youth_employed": 90,
+          "building_permit_values": 2400,
+          "collision_victims": 22
+        }
       },
       "geometry": {
         "type": "Polygon",

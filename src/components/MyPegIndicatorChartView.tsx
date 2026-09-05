@@ -39,6 +39,7 @@ export default function MyPegIndicatorChartView({
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const chartInstanceRef = useRef<ChartJS | null>(null);
   const [activeTab, setActiveTab] = useState<'graph' | 'story' | 'map' | 'sdgs'>('graph');
+  const [selectedMapFeature, setSelectedMapFeature] = useState<any>(null);
 
   const t = locale === 'rw' ? rwLocale : enLocale;
 
@@ -417,15 +418,113 @@ export default function MyPegIndicatorChartView({
           </div>
         )}
 
-        {/* TAB 3: Catchment Map View */}
+        {/* TAB 3: Catchment Map View (RFP Spatial Integration) */}
         {activeTab === 'map' && (
           <div className="mypeg-map-tab-body">
-            <div style={{ borderRadius: '8px', overflow: 'hidden', border: '1px solid #e2e8f0' }}>
-              <CatchmentMap locale={locale} themeFilter="all" onSelectSite={() => {}} />
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
+              <div>
+                <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#0f172a', margin: 0 }}>
+                  {locale === 'rw' ? 'Ikarita ya GIS y\'Ikibaya n\'Ibyakozwe' : 'Spatial Catchment & Intervention GIS Map'}
+                </h3>
+                <p style={{ fontSize: '0.84rem', color: '#64748b', margin: '4px 0 0 0' }}>
+                  {locale === 'rw'
+                    ? 'Ikarita igaragaza uko iki gipimo cyifashe mu mirenge no mu mikoki ya Nyabarongo, Yanze, Mpazi, na Mont Kigali.'
+                    : 'Interactive micro-catchment choropleth, georeferenced intervention nodes, and FMES spatial alignment across the Lower Nyabarongo watershed.'}
+                </p>
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span style={{ fontSize: '0.74rem', background: '#f1f5f9', border: '1px solid #cbd5e1', padding: '4px 10px', borderRadius: '6px', color: '#475569', fontWeight: 600 }}>
+                  FMES Layer: <strong style={{ color: themeColor }}>{indicator.fmes_code}</strong>
+                </span>
+              </div>
             </div>
-            <p style={{ marginTop: '12px', fontSize: '0.88rem', color: '#64748b' }}>
-              Spatial boundaries and priority micro-catchments in the Lower Nyabarongo watershed.
-            </p>
+
+            {/* Interactive Map Container */}
+            <div style={{ borderRadius: '12px', overflow: 'hidden', border: '1px solid #cbd5e1', boxShadow: '0 4px 16px rgba(0,0,0,0.08)' }}>
+              <CatchmentMap
+                currentIndicator={indicator}
+                locale={locale}
+                height={520}
+                onSelectSite={(props) => setSelectedMapFeature(props)}
+              />
+            </div>
+
+            {/* Micro-Catchment Spatial Breakdown Table & Selected Inspector */}
+            <div style={{ marginTop: '24px', display: 'grid', gridTemplateColumns: selectedMapFeature ? '2fr 1fr' : '1fr', gap: '18px' }}>
+              {/* Spatial Breakdown Cards */}
+              <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '10px', padding: '20px' }}>
+                <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#1e293b', margin: '0 0 14px 0' }}>
+                  {locale === 'rw' ? 'Ikwirakwizwa mu Mikoki ya Kigali' : 'Micro-Catchment Spatial Breakdown (Field Survey)'}
+                </h4>
+
+                {indicator.site_breakdown && indicator.site_breakdown.length > 0 ? (
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px' }}>
+                    {indicator.site_breakdown.map((s, idx) => {
+                      const totalVal = indicator.site_breakdown!.reduce((acc, curr) => acc + curr.value, 0);
+                      const sharePct = totalVal > 0 ? Math.round((s.value / totalVal) * 100) : 0;
+                      return (
+                        <div key={idx} style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '12px 14px' }}>
+                          <div style={{ fontSize: '0.78rem', color: '#64748b', fontWeight: 600 }}>{s.site}</div>
+                          <div style={{ fontSize: '1.25rem', fontWeight: 800, color: themeColor, marginTop: '2px' }}>
+                            {s.value.toLocaleString()} <span style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: 500 }}>{indicator.unit}</span>
+                          </div>
+                          <div style={{ marginTop: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                            <div style={{ flex: 1, height: '4px', background: '#e2e8f0', borderRadius: '2px', overflow: 'hidden' }}>
+                              <div style={{ width: `${sharePct}%`, height: '100%', background: themeColor }} />
+                            </div>
+                            <span style={{ fontSize: '0.7rem', color: '#94a3b8', fontWeight: 700 }}>{sharePct}%</span>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <p style={{ color: '#64748b', fontSize: '0.88rem', margin: 0 }}>
+                    Telemetry aggregated across all Lower Nyabarongo operational compartments.
+                  </p>
+                )}
+              </div>
+
+              {/* Selected Feature Card */}
+              {selectedMapFeature && (
+                <div style={{ background: '#0f172a', color: '#f8fafc', border: '1px solid #334155', borderRadius: '10px', padding: '20px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                    <span style={{ fontSize: '0.68rem', background: themeColor, color: '#ffffff', padding: '2px 8px', borderRadius: '4px', fontWeight: 700 }}>
+                      {selectedMapFeature.type}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedMapFeature(null)}
+                      style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: '1rem', cursor: 'pointer' }}
+                    >
+                      ✕
+                    </button>
+                  </div>
+                  <h4 style={{ fontSize: '1.05rem', fontWeight: 700, margin: '6px 0 2px 0', color: '#ffffff' }}>
+                    {locale === 'rw' ? selectedMapFeature.name_rw || selectedMapFeature.name : selectedMapFeature.name}
+                  </h4>
+                  <div style={{ fontSize: '0.78rem', color: '#94a3b8' }}>
+                    {selectedMapFeature.district} &bull; {selectedMapFeature.fmes_compartment || selectedMapFeature.fmes_code}
+                  </div>
+
+                  {selectedMapFeature.indicatorValue !== undefined && (
+                    <div style={{ marginTop: '12px', padding: '10px', background: 'rgba(255,255,255,0.06)', borderRadius: '6px' }}>
+                      <div style={{ fontSize: '0.72rem', color: '#94a3b8' }}>Verified Indicator Value</div>
+                      <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#38bdf8' }}>
+                        {selectedMapFeature.indicatorValue?.toLocaleString()} {indicator.unit}
+                      </div>
+                    </div>
+                  )}
+
+                  {selectedMapFeature.priority_intervention && (
+                    <div style={{ fontSize: '0.76rem', color: '#cbd5e1', marginTop: '10px', lineHeight: 1.4 }}>
+                      <strong>Intervention:</strong> {selectedMapFeature.priority_intervention}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         )}
 
