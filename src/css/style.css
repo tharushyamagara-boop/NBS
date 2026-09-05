@@ -2091,7 +2091,13 @@ a:hover {
 .mypeg-top-bar {
   position: sticky;
   top: 0;
-  z-index: 990;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 60px;
+  min-height: 60px;
+  box-sizing: border-box;
+  z-index: 1050;
   background: #0f172a;
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   padding: 10px 24px;
@@ -2099,7 +2105,7 @@ a:hover {
   align-items: center;
   justify-content: space-between;
   backdrop-filter: blur(12px);
-  margin-left: 58px; /* Offset for sticky icon rail */
+  margin-left: 0; /* Full-width header spanning edge to edge */
 }
 
 .mypeg-top-bar-left {
@@ -2168,19 +2174,20 @@ a:hover {
   background: rgba(255, 255, 255, 0.06);
 }
 
-/* 1. Left Sticky Theme Icon Strip (Screenshot 1 & 2) */
+/* 1. Left Sticky Theme Icon Strip (Starts BELOW header at level top: 60px) */
 .mypeg-left-nav-container {
   position: fixed;
-  top: 0;
+  top: 60px; /* Starts at the level below the 60px header */
   bottom: 0;
   left: 0;
+  height: calc(100vh - 60px);
   z-index: 1000;
   display: flex;
 }
 
 .mypeg-icon-rail {
   width: 58px;
-  height: 100vh;
+  height: 100%;
   background: #1e293b;
   display: flex;
   flex-direction: column;
@@ -2260,7 +2267,7 @@ a:hover {
 /* 2. Expanding Theme Flyout Drawer (Screenshot 1) */
 .mypeg-theme-drawer {
   width: 290px;
-  height: 100vh;
+  height: 100%;
   overflow-y: auto;
   z-index: 1001;
   box-shadow: 6px 0 20px rgba(0, 0, 0, 0.45);
@@ -2993,7 +3000,7 @@ a:hover {
 /* Responsive adjustments */
 @media (max-width: 900px) {
   .mypeg-top-bar {
-    margin-left: 50px;
+    margin-left: 0;
     padding: 8px 14px;
   }
   .mypeg-main-viewport {

@@ -76,16 +76,7 @@ export default function MyPegAppShell({ children }: MyPegAppShellProps) {
   return (
     <LocaleContext.Provider value={{ locale, setLocale }}>
       <div className="mypeg-root-app-shell">
-        {/* 1. Left Sticky Navigation Rail & Expandable Theme Drawer */}
-        <MyPegLeftSidebar
-          indicators={indicators}
-          activeThemeId={activeThemeId}
-          selectedIndicatorId={currentIndicatorId || 'area_restored_ha'}
-          defaultDrawerOpen={drawerOpen}
-          locale={locale}
-        />
-
-        {/* 2. Top Header / App Bar (Public - No Admin Link) */}
+        {/* 1. Top Header / App Bar (Spans Full Width at Level 0) */}
         <header className="mypeg-top-bar" id="mypeg-top-nav">
           <div className="mypeg-top-bar-left">
             <Link href="/" className="mypeg-badge-sk" title="Return to Home">
@@ -148,6 +139,15 @@ export default function MyPegAppShell({ children }: MyPegAppShellProps) {
             </div>
           </div>
         </header>
+
+        {/* 2. Left Sticky Navigation Rail & Expandable Theme Drawer (Starts BELOW Header) */}
+        <MyPegLeftSidebar
+          indicators={indicators}
+          activeThemeId={activeThemeId}
+          selectedIndicatorId={currentIndicatorId || 'area_restored_ha'}
+          defaultDrawerOpen={drawerOpen}
+          locale={locale}
+        />
 
         {/* 3. Main Page Content (Offset 58px for Left Rail) */}
         <div className="mypeg-main-viewport">

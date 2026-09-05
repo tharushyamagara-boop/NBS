@@ -571,104 +571,157 @@ export default function AdminPortalPage() {
   const canConfigureDb = session.role.permissions.includes('database:configure');
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#0a111e', color: '#f8fafc', fontFamily: 'Inter, sans-serif', display: 'flex' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: '#0a111e', color: '#f8fafc', fontFamily: 'Inter, sans-serif', display: 'flex', flexDirection: 'column' }}>
       {/* ------------------------------------------------------------- */}
-      {/* ADMIN LEFT SIDEBAR MENU                                       */}
+      {/* 1. TOP HEADER BAR (Spans Full Width Edge-to-Edge at Level 0)  */}
       {/* ------------------------------------------------------------- */}
-      <aside
+      <header
         style={{
-          width: '270px',
+          width: '100%',
+          height: '60px',
+          minHeight: '60px',
+          boxSizing: 'border-box',
           backgroundColor: '#0f172a',
-          borderRight: '1px solid #1e293b',
+          borderBottom: '1px solid #1e293b',
           display: 'flex',
-          flexDirection: 'column',
+          alignItems: 'center',
           justifyContent: 'space-between',
+          padding: '0 24px',
           position: 'sticky',
           top: 0,
-          height: '100vh',
-          zIndex: 40,
-          flexShrink: 0,
-          boxShadow: '2px 0 12px rgba(0,0,0,0.25)',
+          zIndex: 100,
+          boxShadow: '0 2px 10px rgba(0,0,0,0.3)',
         }}
       >
-        <div>
-          {/* Brand Header */}
-          <div style={{ padding: '24px 20px', borderBottom: '1px solid #1e293b' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <div
-                style={{
-                  width: '40px',
-                  height: '40px',
-                  borderRadius: '10px',
-                  background: 'linear-gradient(135deg, #0284c7, #10b981)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#ffffff',
-                  fontWeight: 800,
-                  fontSize: '1.1rem',
-                  boxShadow: '0 4px 12px rgba(2, 132, 199, 0.3)',
-                }}
-              >
-                SK
+        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+          <div
+            style={{
+              width: '36px',
+              height: '36px',
+              borderRadius: '8px',
+              background: 'linear-gradient(135deg, #0284c7, #10b981)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#ffffff',
+              fontWeight: 800,
+              fontSize: '1rem',
+              boxShadow: '0 3px 8px rgba(2, 132, 199, 0.3)',
+            }}
+          >
+            SK
+          </div>
+          <div>
+            <div style={{ fontSize: '1.02rem', fontWeight: 800, color: '#f8fafc', letterSpacing: '-0.01em', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span>SUNCASA Admin Portal</span>
+              <span style={{ fontSize: '0.7rem', fontWeight: 700, padding: '2px 8px', borderRadius: '4px', background: 'rgba(2, 132, 199, 0.2)', color: '#38bdf8', border: '1px solid rgba(2, 132, 199, 0.4)' }}>
+                Kigali NbS
+              </span>
+            </div>
+            <div style={{ fontSize: '0.74rem', color: '#94a3b8' }}>
+              Impact Monitoring & Indicator Governance Console
+            </div>
+          </div>
+        </div>
+
+        {/* Top Header Right: User Badge, Public Preview & Sign Out */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '9px', padding: '5px 12px', background: 'rgba(30, 41, 59, 0.6)', border: '1px solid #334155', borderRadius: '8px' }}>
+            <div
+              style={{
+                width: '28px',
+                height: '28px',
+                borderRadius: '50%',
+                background: session.role.color || '#0284c7',
+                color: '#ffffff',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontWeight: 700,
+                fontSize: '0.8rem',
+              }}
+            >
+              {session.user.name.charAt(0)}
+            </div>
+            <div>
+              <div style={{ fontSize: '0.82rem', fontWeight: 700, color: '#f8fafc' }}>
+                {session.user.name}
               </div>
-              <div>
-                <h2 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#f8fafc', margin: 0, letterSpacing: '-0.02em' }}>
-                  SUNCASA Admin
-                </h2>
-                <p style={{ fontSize: '0.74rem', color: '#94a3b8', margin: '2px 0 0 0' }}>
-                  Kigali NbS Impact Portal
-                </p>
+              <div style={{ fontSize: '0.68rem', color: '#94a3b8' }}>
+                {session.role.name}
               </div>
             </div>
           </div>
 
-          {/* User Profile Card */}
-          <div style={{ padding: '16px 20px', borderBottom: '1px solid #1e293b', background: 'rgba(30, 41, 59, 0.4)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <div
-                style={{
-                  width: '34px',
-                  height: '34px',
-                  borderRadius: '50%',
-                  background: session.role.color || '#0284c7',
-                  color: '#ffffff',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontWeight: 700,
-                  fontSize: '0.88rem',
-                  flexShrink: 0,
-                }}
-              >
-                {session.user.name.charAt(0)}
-              </div>
-              <div style={{ overflow: 'hidden' }}>
-                <div style={{ fontSize: '0.86rem', fontWeight: 700, color: '#f8fafc', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                  {session.user.name}
-                </div>
-                <div style={{ fontSize: '0.72rem', color: '#94a3b8', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                  {session.user.organization}
-                </div>
+          <Link
+            href="/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              padding: '7px 12px',
+              borderRadius: '6px',
+              background: '#1e293b',
+              border: '1px solid #334155',
+              color: '#38bdf8',
+              fontSize: '0.8rem',
+              fontWeight: 600,
+              textDecoration: 'none',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+            }}
+          >
+            <span>🌐</span>
+            <span>Public Portal ↗</span>
+          </Link>
+
+          <button
+            type="button"
+            onClick={handleLogout}
+            style={{
+              padding: '7px 12px',
+              borderRadius: '6px',
+              background: 'rgba(239, 68, 68, 0.15)',
+              border: '1px solid rgba(239, 68, 68, 0.35)',
+              color: '#fca5a5',
+              fontSize: '0.8rem',
+              fontWeight: 600,
+              cursor: 'pointer',
+            }}
+          >
+            Sign Out
+          </button>
+        </div>
+      </header>
+
+      {/* ------------------------------------------------------------- */}
+      {/* 2. BODY WORKSPACE (Left Bar Starts BELOW Header, Content)     */}
+      {/* ------------------------------------------------------------- */}
+      <div style={{ display: 'flex', flex: 1, minHeight: 'calc(100vh - 60px)' }}>
+        {/* ADMIN LEFT SIDEBAR MENU - Starts at level below header (top: 60px) */}
+        <aside
+          style={{
+            width: '270px',
+            backgroundColor: '#0f172a',
+            borderRight: '1px solid #1e293b',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            position: 'sticky',
+            top: '60px', /* Starts at level BELOW header */
+            height: 'calc(100vh - 60px)',
+            zIndex: 40,
+            flexShrink: 0,
+            boxShadow: '2px 0 12px rgba(0,0,0,0.25)',
+          }}
+        >
+          <div>
+            {/* Sidebar Section Title */}
+            <div style={{ padding: '18px 20px 14px 20px', borderBottom: '1px solid #1e293b' }}>
+              <div style={{ fontSize: '0.72rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 700 }}>
+                Administration Menu
               </div>
             </div>
-            <div style={{ marginTop: '8px' }}>
-              <span
-                style={{
-                  fontSize: '0.68rem',
-                  padding: '2px 8px',
-                  borderRadius: '4px',
-                  background: `${session.role.color || '#ef4444'}22`,
-                  color: session.role.color || '#ef4444',
-                  fontWeight: 700,
-                  textTransform: 'uppercase',
-                  border: `1px solid ${session.role.color || '#ef4444'}44`,
-                }}
-              >
-                {session.role.name}
-              </span>
-            </div>
-          </div>
 
           {/* Navigation Menu */}
           <nav style={{ padding: '16px 12px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
@@ -1587,6 +1640,7 @@ export default function AdminPortalPage() {
 
         </main>
       </div>
+    </div>
 
       {/* ------------------------------------------------------------- */}
       {/* MODAL: CREATE USER & DELEGATE ROLE                            */}
