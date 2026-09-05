@@ -1,0 +1,57 @@
+[
+  {
+    "id": "super_admin",
+    "name": "Super Administrator",
+    "description": "Unrestricted administrative authority: create, publish, and delete indicators, configure databases, and delegate user roles.",
+    "permissions": [
+      "indicators:create",
+      "indicators:edit",
+      "indicators:publish",
+      "indicators:delete",
+      "users:manage",
+      "roles:manage",
+      "database:configure",
+      "audit:view"
+    ],
+    "is_system_default": true,
+    "color": "#ef4444",
+    "created_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "id": "theme_editor",
+    "name": "Theme Content Editor",
+    "description": "Can build, edit, and publish indicators, narratives, and SDG alignments. Cannot delete indicators or manage system users.",
+    "permissions": [
+      "indicators:create",
+      "indicators:edit",
+      "indicators:publish",
+      "audit:view"
+    ],
+    "is_system_default": true,
+    "color": "#10b981",
+    "created_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "id": "data_contributor",
+    "name": "Data Contributor (RFA / City)",
+    "description": "Authorized to update quarterly values, time-series, and micro-catchment spatial metrics. Cannot alter indicator definitions or publish new indicators.",
+    "permissions": [
+      "indicators:edit",
+      "audit:view"
+    ],
+    "is_system_default": true,
+    "color": "#38bdf8",
+    "created_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "id": "auditor",
+    "name": "Auditor & Evaluator",
+    "description": "Read-only access to review FMES data lineage, system logs, and methodology compliance.",
+    "permissions": [
+      "audit:view"
+    ],
+    "is_system_default": true,
+    "color": "#8b5cf6",
+    "created_at": "2024-01-01T00:00:00Z"
+  }
+]

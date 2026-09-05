@@ -62,6 +62,17 @@ export default function MyPegAppShell({ children }: MyPegAppShellProps) {
     }
   }, []);
 
+  // If on admin route, render clean standalone layout without public rails
+  if (pathname.startsWith('/admin')) {
+    return (
+      <LocaleContext.Provider value={{ locale, setLocale }}>
+        <div className="admin-root-container" style={{ minHeight: '100vh', background: '#0a111e', width: '100%' }}>
+          {children}
+        </div>
+      </LocaleContext.Provider>
+    );
+  }
+
   return (
     <LocaleContext.Provider value={{ locale, setLocale }}>
       <div className="mypeg-root-app-shell">
@@ -74,7 +85,7 @@ export default function MyPegAppShell({ children }: MyPegAppShellProps) {
           locale={locale}
         />
 
-        {/* 2. Top Header / App Bar */}
+        {/* 2. Top Header / App Bar (Public - No Admin Link) */}
         <header className="mypeg-top-bar" id="mypeg-top-nav">
           <div className="mypeg-top-bar-left">
             <Link href="/" className="mypeg-badge-sk" title="Return to Home">
@@ -115,7 +126,7 @@ export default function MyPegAppShell({ children }: MyPegAppShellProps) {
             </Link>
           </div>
 
-          {/* Language Switcher & Admin Link */}
+          {/* Language Switcher */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div className="lang-switcher" role="group" aria-label="Language Selector">
               <button
@@ -135,14 +146,6 @@ export default function MyPegAppShell({ children }: MyPegAppShellProps) {
                 RW
               </button>
             </div>
-
-            <Link
-              href="/admin"
-              className="mypeg-btn-back-hero"
-              style={{ padding: '5px 12px', fontSize: '0.82rem', color: '#38bdf8' }}
-            >
-              ⚙️ Admin
-            </Link>
           </div>
         </header>
 

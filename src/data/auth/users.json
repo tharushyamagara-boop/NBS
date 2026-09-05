@@ -1,0 +1,35 @@
+[
+  {
+    "id": "usr_super_admin",
+    "name": "SUNCASA Executive Admin",
+    "email": "admin@suncasa.rw",
+    "password_hash": "SuncasaKigali2025!",
+    "organization": "SUNCASA Project Directorate (IISD / WRI)",
+    "role_id": "super_admin",
+    "status": "active",
+    "created_at": "2024-01-01T00:00:00Z",
+    "last_login": "2026-09-05T09:32:59.196Z"
+  },
+  {
+    "id": "usr_rfa_lead",
+    "name": "Dr. Emmanuel Habimana",
+    "email": "rfa.lead@rfa.gov.rw",
+    "password_hash": "RfaKigali2025!",
+    "organization": "Rwanda Forestry Authority (RFA)",
+    "role_id": "theme_editor",
+    "status": "active",
+    "created_at": "2024-03-15T00:00:00Z",
+    "last_login": "2025-09-04T16:15:00Z"
+  },
+  {
+    "id": "usr_kigali_gis",
+    "name": "Marie Claire Uwase",
+    "email": "gis.officer@kigali.gov.rw",
+    "password_hash": "KigaliGis2025!",
+    "organization": "City of Kigali (Urban Planning & Environment)",
+    "role_id": "data_contributor",
+    "status": "active",
+    "created_at": "2024-04-10T00:00:00Z",
+    "last_login": "2025-09-05T08:45:00Z"
+  }
+]
