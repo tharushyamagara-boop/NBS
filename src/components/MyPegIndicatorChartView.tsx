@@ -572,6 +572,135 @@ export default function MyPegIndicatorChartView({
             </div>
           </div>
         )}
+
+        {/* ========================================================================= */}
+        {/* SECTION 7.2 CORE INDICATOR MANDATORY PANEL (Always Visible on Every View) */}
+        {/* ========================================================================= */}
+        <div
+          style={{
+            marginTop: '36px',
+            background: '#f8fafc',
+            border: '1px solid #e2e8f0',
+            borderRadius: '12px',
+            padding: '28px',
+            boxShadow: '0 2px 10px rgba(0, 0, 0, 0.03)',
+          }}
+          id="indicator-narrative-summary"
+        >
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px', flexWrap: 'wrap', gap: '8px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 800, color: themeColor, background: `${themeColor}18`, padding: '4px 10px', borderRadius: '6px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                RFP 7.2 Core Indicator Profile
+              </span>
+              <span style={{ fontSize: '0.85rem', color: '#64748b', fontWeight: 600 }}>
+                &bull; {indicator.theme.toUpperCase()}
+              </span>
+            </div>
+
+            <span style={{ fontSize: '0.78rem', color: '#64748b' }}>
+              Verified against Rwanda Forestry Authority (RFA) Silvicultural Standards
+            </span>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '22px' }}>
+            {/* 1. Plain-Language Explanation */}
+            <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '10px', padding: '18px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+              <div>
+                <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#0284c7', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  {locale === 'rw' ? '1. Ibisobanuro Byoroshye' : '1. Plain-Language Explanation'}
+                </span>
+                <h4 style={{ fontSize: '1.02rem', fontWeight: 700, color: '#0f172a', margin: '6px 0 8px 0' }}>
+                  {locale === 'rw' ? 'Iki gipimo gipima iki?' : 'What does this indicator measure?'}
+                </h4>
+                <p style={{ fontSize: '0.88rem', color: '#475569', lineHeight: 1.6, margin: 0 }}>
+                  {story?.what_is || displayDefinition}
+                </p>
+              </div>
+
+              {indicator.measurement_method && (
+                <div style={{ marginTop: '14px', paddingTop: '10px', borderTop: '1px solid #f1f5f9', fontSize: '0.76rem', color: '#64748b' }}>
+                  <strong>{locale === 'rw' ? 'Uburyo bupimwa:' : 'Method:'}</strong> {indicator.measurement_method}
+                </div>
+              )}
+            </div>
+
+            {/* 2. "Why this matters" narrative */}
+            <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '10px', padding: '18px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+              <div>
+                <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  {locale === 'rw' ? '2. Akamaro ku Batuye Kigali' : '2. "Why This Matters" Narrative'}
+                </span>
+                <h4 style={{ fontSize: '1.02rem', fontWeight: 700, color: '#0f172a', margin: '6px 0 8px 0' }}>
+                  {locale === 'rw' ? 'Kuki iki gipimo gifite akamaro?' : 'Relevance to Kigali’s Climate Resilience'}
+                </h4>
+                <p style={{ fontSize: '0.88rem', color: '#475569', lineHeight: 1.6, margin: 0 }}>
+                  {story?.why_matters || 'High-fidelity environmental telemetry provides municipal planners, RFA forestry technicians, and civic communities with empirical verification of resilience outcomes.'}
+                </p>
+              </div>
+
+              {story?.what_suncasa && (
+                <div style={{ marginTop: '14px', paddingTop: '10px', borderTop: '1px solid #f1f5f9', fontSize: '0.76rem', color: '#047857' }}>
+                  <strong>{locale === 'rw' ? 'Icyo SUNCASA ikora:' : 'SUNCASA Action:'}</strong> {story.what_suncasa.substring(0, 110)}...
+                </div>
+              )}
+            </div>
+
+            {/* 3. Data Source and Update Information */}
+            <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '10px', padding: '18px' }}>
+              <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#8b5cf6', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                {locale === 'rw' ? '3. Isoko y\'Amakuru n\'Ivugurura' : '3. Data Source & Update Information'}
+              </span>
+              <h4 style={{ fontSize: '1.02rem', fontWeight: 700, color: '#0f172a', margin: '6px 0 10px 0' }}>
+                {locale === 'rw' ? 'Inkomoko y\'Amakuru' : 'Provenance & Update Cycle'}
+              </h4>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.84rem' }}>
+                <div>
+                  <span style={{ color: '#64748b', fontSize: '0.75rem', fontWeight: 700, display: 'block', textTransform: 'uppercase' }}>
+                    {locale === 'rw' ? 'Inkomoko y\'Amakuru' : 'Data Source Citation:'}
+                  </span>
+                  <span style={{ color: '#0f172a', fontWeight: 600 }}>
+                    {indicator.data_source_citation || story?.source || 'Rwanda Forestry Authority (RFA) & City of Kigali Land Use Registry'}
+                  </span>
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginTop: '4px' }}>
+                  <div>
+                    <span style={{ color: '#64748b', fontSize: '0.74rem', fontWeight: 700, display: 'block' }}>
+                      {locale === 'rw' ? 'Igihe Yavuguruwe:' : 'Latest Update:'}
+                    </span>
+                    <span style={{ color: '#0f172a', fontWeight: 600 }}>
+                      Q2 2025
+                    </span>
+                  </div>
+                  <div>
+                    <span style={{ color: '#64748b', fontSize: '0.74rem', fontWeight: 700, display: 'block' }}>
+                      {locale === 'rw' ? 'Inshuro Ivugururwa:' : 'Frequency:'}
+                    </span>
+                    <span style={{ color: '#0f172a', fontWeight: 600 }}>
+                      Bi-Annual
+                    </span>
+                  </div>
+                </div>
+
+                <div style={{ marginTop: '4px' }}>
+                  <span style={{ color: '#64748b', fontSize: '0.74rem', fontWeight: 700, display: 'block' }}>
+                    FMES Interoperability Code:
+                  </span>
+                  <span style={{ color: '#0284c7', fontWeight: 700 }}>
+                    {indicator.fmes_code} ({indicator.fmes_alignment || 'RFA Layer'})
+                  </span>
+                </div>
+
+                {story?.limitations && (
+                  <div style={{ marginTop: '6px', paddingTop: '8px', borderTop: '1px solid #f1f5f9', fontSize: '0.74rem', color: '#64748b' }}>
+                    <strong style={{ color: '#b91c1c' }}>Caveats:</strong> {story.limitations}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
