@@ -2,8 +2,10 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import { Chart as ChartJS, registerables } from 'chart.js';
 import { Indicator } from '@/lib/db/types';
+import indicatorsData from '@/data/indicators.json';
 import indicatorNarratives from '../data/locales/indicator_narratives.json';
 import enLocale from '../data/locales/en.json';
 import rwLocale from '../data/locales/rw.json';
@@ -41,6 +43,14 @@ export default function MyPegIndicatorChartView({
   const [activeTab, setActiveTab] = useState<'graph' | 'story' | 'map' | 'sdgs'>('graph');
   const [selectedMapFeature, setSelectedMapFeature] = useState<any>(null);
 
+  // Full dashboard comparison & decision-support state
+  const allIndicators = (indicatorsData.indicators || []) as Indicator[];
+  const [showCompareModal, setShowCompareModal] = useState(false);
+  const [compareId, setCompareId] = useState<string>(
+    allIndicators.find((i) => i.id !== indicator.id)?.id || ''
+  );
+  const [showDecisionSupport, setShowDecisionSupport] = useState(true);
+
   const t = locale === 'rw' ? rwLocale : enLocale;
 
   // Retrieve localized story / narrative
@@ -59,6 +69,39 @@ export default function MyPegIndicatorChartView({
     `Tracks progress, trends, and catchment distribution for ${displayTitle}.`;
 
   const legendLabel = indicator.legend_label || (locale === 'rw' ? 'Kigali (Umujyi & Ikibaya)' : 'Winnipeg (City)');
+
+  const compareIndicator = allIndicators.find((i) => i.id === compareId);
+  const targetGap = Math.max(0, indicator.target_2026 - indicator.current_2025);
+  const progressPct = Math.min(100, Math.round((indicator.current_2025 / indicator.target_2026) * 100));
+  const remainingMonths = 16;
+  const requiredMonthlyVelocity = Math.round((targetGap / remainingMonths) * 10) / 10;
+
+  const getDecisionStatus = () => {
+    if (progressPct >= 80) return { label_en: 'On Track / High Trajectory', label_rw: 'Biri ku Murongo / Biri Kwihuta', color: '#10b981', badge: '🟢 ON TRACK' };
+    if (progressPct >= 50) return { label_en: 'Moderate Progress / Maintain Pace', label_rw: 'Biri Gutera Imbere / Gukomeza Umuvuduko', color: '#f59e0b', badge: '🟡 MODERATE' };
+    return { label_en: 'Needs Acceleration / Intervention Required', label_rw: 'Bikeneye Kwihutishwa / Ubutabazi Burakenewe', color: '#ef4444', badge: '🔴 ACCELERATE' };
+  };
+
+  const getPolicyRecommendation = () => {
+    if (indicator.theme === 'climate') {
+      return locale === 'rw' 
+        ? 'Gushyira imbaraga mu guca amaterasi no gutera imigano mu misozi miremire ya Yanze na Mpazi mbere y\'itumba ryo muri Nzeri-Ukuboza kugira ngo hirindwe inkangu n\'imyuzure muri Nyabugogo.'
+        : 'Prioritize contour terracing and bamboo buffer bio-engineering across steep Yanze and Mpazi sub-catchments ahead of peak precipitation seasons to mitigate downstream flash flooding in Nyabugogo.';
+    }
+    if (indicator.theme === 'biodiversity') {
+      return locale === 'rw'
+        ? 'Kwagura amasezerano n\'ubuhumbikiro bw\'amakoperative y\'abagore no gukoresha drone mu kugenzura ubuziranenge bw\'ibiti byatewe ku nkombe ya metero 30 za Nyabarongo.'
+        : 'Sustain seedling procurement contracts with female-led nursery cooperatives and conduct bi-annual RTK drone canopy audits along the 30-meter Lower Nyabarongo riparian corridor.';
+    }
+    if (indicator.theme === 'gesi') {
+      return locale === 'rw'
+        ? 'Gukomeza kwemeza ko nibura 50% by\'abayobora amakomite y\'amazi ari abagore no guhugura urubyiruko rwinshi mu gupima amashyamba hakoreshejwe GPS na GIS.'
+        : 'Maintain statutory mandates requiring 50%+ female representation on catchment management committees and expand certified drone/GPS telemetry training for young Rwandan environmental technicians.';
+    }
+    return locale === 'rw'
+      ? 'Kwagura imirimo yishyuwe y\'icyatsi mu guca amaterasi no gutanga ingemwe z\'imbuto zirimo avoka ku bahinzi kugira ngo amikoro yabo yiyongere.'
+      : 'Accelerate green cash-for-work wage disbursements for ravine stabilization and scale high-yield agroforestry fruit tree distribution (avocado, macadamia) to boost household wealth.';
+  };
 
   // Render the exact Chart.js Line Chart seen in Screenshot 2
   useEffect(() => {
@@ -287,15 +330,57 @@ export default function MyPegIndicatorChartView({
               <canvas ref={canvasRef} id="mypeg-indicator-line-chart" />
             </div>
 
-            {/* "Download Graph Data for All Years" Centered Link (Screenshot 2) */}
-            <div className="mypeg-download-link-wrap">
+            {/* Action Bar: Download Data, Compare Indicators & Decision Support Toggle */}
+            <div className="mypeg-download-link-wrap" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '12px', flexWrap: 'wrap', margin: '22px 0' }}>
               <button
                 type="button"
                 className="mypeg-download-graph-link"
                 onClick={handleDownloadCSV}
                 title="Download CSV data for all years"
               >
-                Download Graph Data for All Years
+                📥 Download Graph Data (CSV)
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setShowCompareModal(true)}
+                style={{
+                  background: '#ffffff',
+                  border: '1.5px solid #cbd5e1',
+                  color: '#0f172a',
+                  padding: '9px 18px',
+                  borderRadius: '6px',
+                  fontSize: '0.86rem',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  boxShadow: '0 2px 6px rgba(0,0,0,0.04)',
+                  transition: 'all 0.15s ease',
+                }}
+              >
+                ⚖️ {locale === 'rw' ? 'Gereranya n\'Ikindi Gipimo' : 'Compare with Another Indicator'}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setShowDecisionSupport(!showDecisionSupport)}
+                style={{
+                  background: showDecisionSupport ? '#f0fdf4' : '#ffffff',
+                  border: `1.5px solid ${showDecisionSupport ? '#10b981' : '#cbd5e1'}`,
+                  color: showDecisionSupport ? '#047857' : '#475569',
+                  padding: '9px 18px',
+                  borderRadius: '6px',
+                  fontSize: '0.86rem',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                }}
+              >
+                💡 {locale === 'rw' ? 'Isesengura ry\'Ibyemezo' : 'Decision-Support Analytics'}
               </button>
             </div>
 
@@ -314,6 +399,71 @@ export default function MyPegIndicatorChartView({
                       </div>
                     </div>
                   ))}
+                </div>
+              </div>
+            )}
+
+            {/* Decision-Support & Target Gap Analytics (RFP Full Dashboard Feature) */}
+            {showDecisionSupport && (
+              <div
+                style={{
+                  marginTop: '24px',
+                  background: '#f0fdf4',
+                  border: '1px solid #86efac',
+                  borderRadius: '10px',
+                  padding: '20px 24px',
+                  boxShadow: '0 2px 8px rgba(16,185,129,0.06)',
+                }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', flexWrap: 'wrap', gap: '8px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontSize: '1.2rem' }}>💡</span>
+                    <h4 style={{ margin: 0, fontSize: '1.02rem', fontWeight: 700, color: '#14532d' }}>
+                      {locale === 'rw' ? 'Isesengura ry\'Ibyemezo & Icyuho cy\'Intego ya 2026' : 'Decision-Support & 2026 Target Gap Analytics'}
+                    </h4>
+                  </div>
+                  <span style={{ fontSize: '0.74rem', fontWeight: 800, color: '#15803d', background: '#dcfce7', padding: '3px 10px', borderRadius: '12px', textTransform: 'uppercase' }}>
+                    {getDecisionStatus().badge}
+                  </span>
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '14px', marginBottom: '16px' }}>
+                  <div style={{ background: '#ffffff', padding: '12px 14px', borderRadius: '8px', border: '1px solid #bbf7d0' }}>
+                    <div style={{ fontSize: '0.74rem', color: '#64748b' }}>Current Status vs Target</div>
+                    <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#0f172a', marginTop: '2px' }}>
+                      {indicator.current_2025.toLocaleString()} / {indicator.target_2026.toLocaleString()} <span style={{ fontSize: '0.76rem', color: '#64748b' }}>{indicator.unit}</span>
+                    </div>
+                    <div style={{ fontSize: '0.76rem', color: '#16a34a', fontWeight: 700, marginTop: '2px' }}>
+                      {progressPct}% of 2026 Milestone Achieved
+                    </div>
+                  </div>
+
+                  <div style={{ background: '#ffffff', padding: '12px 14px', borderRadius: '8px', border: '1px solid #bbf7d0' }}>
+                    <div style={{ fontSize: '0.74rem', color: '#64748b' }}>Remaining Target Gap</div>
+                    <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#b45309', marginTop: '2px' }}>
+                      +{targetGap.toLocaleString()} <span style={{ fontSize: '0.76rem', color: '#64748b' }}>{indicator.unit}</span>
+                    </div>
+                    <div style={{ fontSize: '0.76rem', color: '#64748b', marginTop: '2px' }}>
+                      Remaining Project Timeline: 16 Months
+                    </div>
+                  </div>
+
+                  <div style={{ background: '#ffffff', padding: '12px 14px', borderRadius: '8px', border: '1px solid #bbf7d0' }}>
+                    <div style={{ fontSize: '0.74rem', color: '#64748b' }}>Required Monthly Run-Rate</div>
+                    <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#0284c7', marginTop: '2px' }}>
+                      {requiredMonthlyVelocity.toLocaleString()} <span style={{ fontSize: '0.76rem', color: '#64748b' }}>{indicator.unit}/mo</span>
+                    </div>
+                    <div style={{ fontSize: '0.76rem', color: '#64748b', marginTop: '2px' }}>
+                      Pace needed to complete 100% by 2026
+                    </div>
+                  </div>
+                </div>
+
+                <div style={{ background: '#ffffff', padding: '14px', borderRadius: '8px', borderLeft: '4px solid #16a34a', fontSize: '0.86rem', color: '#334155', lineHeight: 1.55 }}>
+                  <strong style={{ color: '#166534', display: 'block', marginBottom: '2px' }}>
+                    {locale === 'rw' ? 'Icyifuzo cy\'Ubuyobozi (City of Kigali & RFA):' : 'Actionable Recommendation for City of Kigali & RFA Leadership:'}
+                  </strong>
+                  {getPolicyRecommendation()}
                 </div>
               </div>
             )}
@@ -701,6 +851,209 @@ export default function MyPegIndicatorChartView({
             </div>
           </div>
         </div>
+
+        {/* ========================================================================= */}
+        {/* INDICATOR COMPARISON MODAL (User Interaction: Comparisons)               */}
+        {/* ========================================================================= */}
+        {showCompareModal && compareIndicator && (
+          <div
+            className="modal-overlay open"
+            onClick={() => setShowCompareModal(false)}
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: 'rgba(0, 0, 0, 0.78)',
+              backdropFilter: 'blur(5px)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 9999,
+              padding: '20px',
+              overflowY: 'auto',
+            }}
+          >
+            <div
+              className="modal-container"
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                background: '#ffffff',
+                borderRadius: '14px',
+                maxWidth: '860px',
+                width: '100%',
+                maxHeight: '90vh',
+                overflowY: 'auto',
+                boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
+                padding: '28px',
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', borderBottom: '1px solid #e2e8f0', paddingBottom: '14px' }}>
+                <div>
+                  <span style={{ fontSize: '0.74rem', fontWeight: 800, color: '#0284c7', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                    {locale === 'rw' ? 'Isesengura ryo Kugereranya' : 'Side-by-Side Indicator Comparison'}
+                  </span>
+                  <h3 style={{ margin: '4px 0 0 0', fontSize: '1.4rem', color: '#0f172a', fontWeight: 800 }}>
+                    {locale === 'rw' ? 'Gereranya Ibipimo by\'Ibyavuye mu Mirimo' : 'Compare Impact Indicators'}
+                  </h3>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowCompareModal(false)}
+                  style={{ background: '#f1f5f9', border: 'none', borderRadius: '50%', width: '36px', height: '36px', fontSize: '1.2rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                >
+                  &times;
+                </button>
+              </div>
+
+              {/* Selector for 2nd Indicator */}
+              <div style={{ marginBottom: '22px', background: '#f8fafc', padding: '14px 18px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#475569', marginBottom: '6px' }}>
+                  {locale === 'rw' ? 'Hitamo Igipimo cya 2 cyo Kugereranya:' : 'Select Comparison Indicator to Benchmark Against:'}
+                </label>
+                <select
+                  value={compareId}
+                  onChange={(e) => setCompareId(e.target.value)}
+                  style={{
+                    width: '100%',
+                    padding: '9px 14px',
+                    borderRadius: '6px',
+                    border: '1.5px solid #cbd5e1',
+                    fontSize: '0.9rem',
+                    color: '#0f172a',
+                    fontWeight: 600,
+                  }}
+                >
+                  {allIndicators.map((ind) => (
+                    <option key={ind.id} value={ind.id} disabled={ind.id === indicator.id}>
+                      [{ind.theme.toUpperCase()}] {ind.definition.substring(0, 75)}... ({ind.fmes_code})
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Side-by-Side Comparison Grid */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px', marginBottom: '24px' }}>
+                {/* Indicator A (Current) */}
+                <div style={{ background: '#f8fafc', border: `2px solid ${themeColor}`, borderRadius: '10px', padding: '20px' }}>
+                  <span style={{ fontSize: '0.72rem', fontWeight: 800, color: themeColor, textTransform: 'uppercase' }}>
+                    Active Indicator
+                  </span>
+                  <h4 style={{ margin: '6px 0 10px 0', fontSize: '1.1rem', fontWeight: 800, color: '#0f172a' }}>
+                    {displayTitle}
+                  </h4>
+                  <div style={{ fontSize: '0.82rem', color: '#64748b', marginBottom: '14px', minHeight: '40px' }}>
+                    {indicator.definition}
+                  </div>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.84rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #e2e8f0', paddingBottom: '4px' }}>
+                      <span style={{ color: '#64748b' }}>Theme:</span>
+                      <strong style={{ textTransform: 'capitalize' }}>{indicator.theme}</strong>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #e2e8f0', paddingBottom: '4px' }}>
+                      <span style={{ color: '#64748b' }}>2024 Baseline:</span>
+                      <strong>{indicator.baseline_2024.toLocaleString()} {indicator.unit}</strong>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #e2e8f0', paddingBottom: '4px' }}>
+                      <span style={{ color: '#64748b' }}>2025 Current:</span>
+                      <strong style={{ color: themeColor }}>{indicator.current_2025.toLocaleString()} {indicator.unit}</strong>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #e2e8f0', paddingBottom: '4px' }}>
+                      <span style={{ color: '#64748b' }}>2026 Target:</span>
+                      <strong>{indicator.target_2026.toLocaleString()} {indicator.unit}</strong>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #e2e8f0', paddingBottom: '4px' }}>
+                      <span style={{ color: '#64748b' }}>Target Attainment:</span>
+                      <strong style={{ color: themeColor }}>{progressPct}%</strong>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <span style={{ color: '#64748b' }}>FMES Code:</span>
+                      <span style={{ color: '#0284c7', fontWeight: 700 }}>{indicator.fmes_code}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Indicator B (Compared) */}
+                <div style={{ background: '#f8fafc', border: '2px solid #cbd5e1', borderRadius: '10px', padding: '20px' }}>
+                  <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#64748b', textTransform: 'uppercase' }}>
+                    Benchmark Comparison
+                  </span>
+                  <h4 style={{ margin: '6px 0 10px 0', fontSize: '1.1rem', fontWeight: 800, color: '#0f172a' }}>
+                    {compareIndicator.id.split('_').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
+                  </h4>
+                  <div style={{ fontSize: '0.82rem', color: '#64748b', marginBottom: '14px', minHeight: '40px' }}>
+                    {compareIndicator.definition}
+                  </div>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.84rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #e2e8f0', paddingBottom: '4px' }}>
+                      <span style={{ color: '#64748b' }}>Theme:</span>
+                      <strong style={{ textTransform: 'capitalize' }}>{compareIndicator.theme}</strong>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #e2e8f0', paddingBottom: '4px' }}>
+                      <span style={{ color: '#64748b' }}>2024 Baseline:</span>
+                      <strong>{compareIndicator.baseline_2024.toLocaleString()} {compareIndicator.unit}</strong>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #e2e8f0', paddingBottom: '4px' }}>
+                      <span style={{ color: '#64748b' }}>2025 Current:</span>
+                      <strong style={{ color: '#0284c7' }}>{compareIndicator.current_2025.toLocaleString()} {compareIndicator.unit}</strong>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #e2e8f0', paddingBottom: '4px' }}>
+                      <span style={{ color: '#64748b' }}>2026 Target:</span>
+                      <strong>{compareIndicator.target_2026.toLocaleString()} {compareIndicator.unit}</strong>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #e2e8f0', paddingBottom: '4px' }}>
+                      <span style={{ color: '#64748b' }}>Target Attainment:</span>
+                      <strong style={{ color: '#0284c7' }}>{Math.min(100, Math.round((compareIndicator.current_2025 / compareIndicator.target_2026) * 100))}%</strong>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <span style={{ color: '#64748b' }}>FMES Code:</span>
+                      <span style={{ color: '#0284c7', fontWeight: 700 }}>{compareIndicator.fmes_code}</span>
+                    </div>
+                  </div>
+
+                  <Link
+                    href={`/indicator/${compareIndicator.id}`}
+                    style={{
+                      display: 'block',
+                      marginTop: '16px',
+                      textAlign: 'center',
+                      background: '#0284c7',
+                      color: '#ffffff',
+                      padding: '8px 12px',
+                      borderRadius: '6px',
+                      fontSize: '0.82rem',
+                      fontWeight: 700,
+                      textDecoration: 'none',
+                    }}
+                  >
+                    Open This Indicator Page &rarr;
+                  </Link>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <button
+                  type="button"
+                  onClick={() => setShowCompareModal(false)}
+                  style={{
+                    padding: '10px 22px',
+                    borderRadius: '6px',
+                    background: '#334155',
+                    color: '#ffffff',
+                    border: 'none',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                  }}
+                >
+                  Close Comparison
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
