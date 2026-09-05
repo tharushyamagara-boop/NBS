@@ -36,7 +36,7 @@ export default function AdminPortalPage() {
 
   // Active Workspace Tab
   const [activeTab, setActiveTab] = useState<
-    'indicators' | 'builder' | 'landing_stories' | 'indicator_stories' | 'gps_mapper' | 'rbac' | 'database' | 'interoperability'
+    'indicators' | 'builder' | 'landing_stories' | 'indicator_stories' | 'gps_mapper' | 'rbac' | 'database' | 'interoperability' | 'collaborators'
   >('indicators');
 
   // Indicators State
@@ -185,6 +185,18 @@ export default function AdminPortalPage() {
   const [testOutboundResponse, setTestOutboundResponse] = useState<string | null>(null);
   const [testingOutbound, setTestingOutbound] = useState(false);
 
+  // Collaborators Management State
+  const [collaborators, setCollaborators] = useState<any[]>([]);
+  const [loadingCollaborators, setLoadingCollaborators] = useState(false);
+  const [showCollabModal, setShowCollabModal] = useState(false);
+  const [editingCollab, setEditingCollab] = useState<any | null>(null);
+  const [savingCollab, setSavingCollab] = useState(false);
+  const [deletingCollabId, setDeletingCollabId] = useState<string | null>(null);
+  const [collabName, setCollabName] = useState('');
+  const [collabUrl, setCollabUrl] = useState('');
+  const [collabLogoUrl, setCollabLogoUrl] = useState('');
+  const [collabDescription, setCollabDescription] = useState('');
+
   // Restore session from localStorage on mount
   useEffect(() => {
     try {
@@ -211,6 +223,7 @@ export default function AdminPortalPage() {
       fetchRbacData();
       fetchDbConfig();
       fetchApiKeys();
+      fetchCollaborators();
     }
   }, [session]);
 
@@ -390,6 +403,54 @@ export default function AdminPortalPage() {
       console.error('Failed to load API keys', err);
     } finally {
       setLoadingKeys(false);
+    }
+  };
+
+  const fetchCollaborators = async () => {
+    setLoadingCollaborators(true);
+    try {
+      const res = await fetch('/api/admin/collaborators');
+      const data = await res.json();
+      if (data.success) {
+        setCollaborators(data.collaborators || []);
+      }
+    } catch (err) {
+      console.error('Failed to load collaborators', err);
+    } finally {
+      setLoadingCollaborators(false);
+    }
+  };
+
+  const handleSaveCollab = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!collabName || !collabUrl) return;
+    setSavingCollab(true);
+    try {
+      const payload = {
+        id: editingCollab?.id,
+        name: collabName,
+        url: collabUrl,
+        logoUrl: collabLogoUrl,
+        description: collabDescription,
+      };
+      const method = editingCollab ? 'PUT' : 'POST';
+      const res = await fetch('/api/admin/collaborators', {
+        method,
+        headers: { 'Content-Type': 'application/json', 'x-admin-token': session?.token || '' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setStatusMessage(editingCollab ? `Updated ${collabName}` : `Added ${collabName}`);
+        setShowCollabModal(false);
+        fetchCollaborators();
+      } else {
+        alert(data.error || 'Failed to save collaborator');
+      }
+    } catch (err: any) {
+      alert(err.message || 'Error saving collaborator');
+    } finally {
+      setSavingCollab(false);
     }
   };
 
@@ -1552,6 +1613,44 @@ export default function AdminPortalPage() {
                   REST
                 </span>
               </button>
+
+              {/* 9. Collaborators */}
+              <button
+                type="button"
+                onClick={() => setActiveTab('collaborators')}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '11px 14px',
+                  borderRadius: '8px',
+                  fontSize: '0.88rem',
+                  fontWeight: 600,
+                  border: 'none',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  transition: 'all 0.15s ease',
+                  background: activeTab === 'collaborators' ? '#0284c7' : 'transparent',
+                  color: activeTab === 'collaborators' ? '#ffffff' : '#94a3b8',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <span style={{ fontSize: '1.1rem' }}>🤝</span>
+                  <span>Collaborators</span>
+                </div>
+                <span
+                  style={{
+                    fontSize: '0.72rem',
+                    padding: '2px 6px',
+                    borderRadius: '10px',
+                    background: activeTab === 'collaborators' ? 'rgba(255,255,255,0.2)' : '#1e293b',
+                    color: activeTab === 'collaborators' ? '#ffffff' : '#94a3b8',
+                    fontWeight: 700,
+                  }}
+                >
+                  {collaborators.length}
+                </span>
+              </button>
             </nav>
           </div>
 
@@ -1594,6 +1693,7 @@ export default function AdminPortalPage() {
                 {activeTab === 'rbac' && 'Role-Based Access Control & User Delegation'}
                 {activeTab === 'database' && 'Database Configuration & Interoperability'}
                 {activeTab === 'interoperability' && 'Open REST APIs & Ingestion Gateway'}
+                {activeTab === 'collaborators' && 'Collaborators & Partner Logos'}
               </h1>
             </div>
 
@@ -3774,6 +3874,159 @@ export default function AdminPortalPage() {
                 </div>
               </div>
             )}
+
+            {/* ------------------------------------------------------------- */}
+            {/* TAB 9: COLLABORATORS MANAGEMENT                               */}
+            {/* ------------------------------------------------------------- */}
+            {activeTab === 'collaborators' && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                {/* Header */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+                      <span style={{ fontSize: '0.74rem', fontWeight: 800, color: '#34d399', background: 'rgba(52,211,153,0.12)', padding: '2px 8px', borderRadius: '4px', border: '1px solid rgba(52,211,153,0.3)' }}>
+                        LANDING PAGE
+                      </span>
+                    </div>
+                    <h2 style={{ fontSize: '1.45rem', fontWeight: 800, margin: '0 0 6px 0', color: '#f8fafc' }}>
+                      Partner & Collaborator Logos
+                    </h2>
+                    <p style={{ color: '#94a3b8', fontSize: '0.88rem', margin: 0, maxWidth: '700px', lineHeight: 1.5 }}>
+                      Manage the partner and collaborator logos displayed in the landing page footer. Each entry includes a logo image URL and a link that opens when clicked.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setEditingCollab(null);
+                      setCollabName('');
+                      setCollabUrl('');
+                      setCollabLogoUrl('');
+                      setCollabDescription('');
+                      setShowCollabModal(true);
+                    }}
+                    style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 18px', borderRadius: '8px', background: 'linear-gradient(135deg, #0284c7, #0ea5e9)', border: 'none', color: '#ffffff', fontWeight: 700, fontSize: '0.88rem', cursor: 'pointer' }}
+                  >
+                    <span>+ Add Collaborator</span>
+                  </button>
+                </div>
+
+                {/* Collaborator Grid */}
+                {loadingCollaborators ? (
+                  <div style={{ textAlign: 'center', padding: '40px', color: '#64748b' }}>Loading collaborators...</div>
+                ) : collaborators.length === 0 ? (
+                  <div style={{ textAlign: 'center', padding: '60px 20px', background: '#0a111e', borderRadius: '12px', border: '1px dashed #1e293b' }}>
+                    <div style={{ fontSize: '2.5rem', marginBottom: '12px' }}>🤝</div>
+                    <p style={{ color: '#64748b', fontSize: '0.95rem', margin: '0 0 16px 0' }}>No collaborators yet. Add your first partner logo.</p>
+                    <button
+                      type="button"
+                      onClick={() => { setEditingCollab(null); setCollabName(''); setCollabUrl(''); setCollabLogoUrl(''); setCollabDescription(''); setShowCollabModal(true); }}
+                      style={{ padding: '10px 20px', borderRadius: '8px', background: '#0284c7', border: 'none', color: '#ffffff', fontWeight: 700, cursor: 'pointer' }}
+                    >
+                      + Add First Collaborator
+                    </button>
+                  </div>
+                ) : (
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '16px' }}>
+                    {collaborators.map((collab: any) => (
+                      <div
+                        key={collab.id}
+                        style={{ background: '#0a111e', border: '1px solid #1e293b', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px', transition: 'border-color 0.2s' }}
+                      >
+                        {/* Logo Preview */}
+                        <div style={{ height: '80px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#ffffff10', borderRadius: '8px', overflow: 'hidden' }}>
+                          {collab.logoUrl ? (
+                            <img
+                              src={collab.logoUrl}
+                              alt={collab.name}
+                              style={{ maxHeight: '64px', maxWidth: '100%', objectFit: 'contain' }}
+                              onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                            />
+                          ) : (
+                            <span style={{ fontSize: '2rem' }}>🏢</span>
+                          )}
+                        </div>
+                        {/* Info */}
+                        <div>
+                          <div style={{ fontWeight: 700, color: '#f8fafc', fontSize: '0.95rem', marginBottom: '2px' }}>{collab.name}</div>
+                          {collab.description && (
+                            <div style={{ color: '#64748b', fontSize: '0.78rem', marginBottom: '4px' }}>{collab.description}</div>
+                          )}
+                          <a
+                            href={collab.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{ color: '#38bdf8', fontSize: '0.78rem', textDecoration: 'none', wordBreak: 'break-all' }}
+                          >
+                            {collab.url}
+                          </a>
+                        </div>
+                        {/* Actions */}
+                        <div style={{ display: 'flex', gap: '8px', marginTop: 'auto' }}>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setEditingCollab(collab);
+                              setCollabName(collab.name || '');
+                              setCollabUrl(collab.url || '');
+                              setCollabLogoUrl(collab.logoUrl || '');
+                              setCollabDescription(collab.description || '');
+                              setShowCollabModal(true);
+                            }}
+                            style={{ flex: 1, padding: '8px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#94a3b8', cursor: 'pointer', fontSize: '0.82rem', fontWeight: 600 }}
+                          >
+                            ✏️ Edit
+                          </button>
+                          <button
+                            type="button"
+                            disabled={deletingCollabId === collab.id}
+                            onClick={async () => {
+                              if (!confirm(`Remove ${collab.name} from collaborators?`)) return;
+                              setDeletingCollabId(collab.id);
+                              try {
+                                const res = await fetch(`/api/admin/collaborators?id=${collab.id}`, { method: 'DELETE', headers: { 'x-admin-token': session?.token || '' } });
+                                if (res.ok) {
+                                  setCollaborators((prev) => prev.filter((c: any) => c.id !== collab.id));
+                                  setStatusMessage(`Removed ${collab.name}`);
+                                } else {
+                                  setStatusMessage('Failed to delete collaborator.');
+                                }
+                              } catch {
+                                setStatusMessage('Network error.');
+                              } finally {
+                                setDeletingCollabId(null);
+                              }
+                            }}
+                            style={{ padding: '8px 12px', borderRadius: '6px', background: deletingCollabId === collab.id ? '#334155' : 'rgba(239,68,68,0.15)', border: '1px solid rgba(239,68,68,0.3)', color: '#f87171', cursor: 'pointer', fontSize: '0.82rem', fontWeight: 600 }}
+                          >
+                            {deletingCollabId === collab.id ? '...' : '🗑️'}
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Live Preview */}
+                {collaborators.length > 0 && (
+                  <div style={{ background: '#0a111e', border: '1px solid #1e293b', borderRadius: '12px', padding: '24px' }}>
+                    <div style={{ fontSize: '0.8rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '16px' }}>Landing Page Preview</div>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', alignItems: 'center' }}>
+                      {collaborators.map((collab: any) => (
+                        <div key={collab.id} style={{ background: '#ffffff0d', border: '1px solid #1e293b', borderRadius: '8px', padding: '10px 16px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          {collab.logoUrl ? (
+                            <img src={collab.logoUrl} alt={collab.name} style={{ height: '28px', maxWidth: '80px', objectFit: 'contain' }} onError={(e) => { (e.target as HTMLImageElement).style.display='none'; }} />
+                          ) : (
+                            <span style={{ fontSize: '1.1rem' }}>🏢</span>
+                          )}
+                          <span style={{ fontSize: '0.82rem', color: '#cbd5e1', fontWeight: 600 }}>{collab.name}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
           </main>
         </div>
       </div>
@@ -4404,6 +4657,100 @@ export default function AdminPortalPage() {
                   style={{ padding: '8px 18px', borderRadius: '6px', background: '#0284c7', border: 'none', color: '#ffffff', fontWeight: 700, cursor: 'pointer' }}
                 >
                   Create Role
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+      {/* ------------------------------------------------------------- */}
+      {/* MODAL: ADD / EDIT COLLABORATOR                               */}
+      {/* ------------------------------------------------------------- */}
+      {showCollabModal && (
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.80)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100, padding: '20px' }}>
+          <div style={{ width: '100%', maxWidth: '520px', background: '#0f172a', border: '1px solid #334155', borderRadius: '14px', padding: '28px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+              <h3 style={{ fontSize: '1.15rem', fontWeight: 700, margin: 0, color: '#f8fafc' }}>
+                {editingCollab ? '✏️ Edit Collaborator' : '+ Add Collaborator'}
+              </h3>
+              <button type="button" onClick={() => setShowCollabModal(false)} style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: '1.2rem', cursor: 'pointer' }}>✕</button>
+            </div>
+            <form onSubmit={handleSaveCollab} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <div>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '4px' }}>
+                  Partner / Organization Name <span style={{ color: '#f87171' }}>*</span>
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Rwanda Forestry Authority"
+                  value={collabName}
+                  onChange={(e) => setCollabName(e.target.value)}
+                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem', boxSizing: 'border-box' }}
+                />
+              </div>
+              <div>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '4px' }}>
+                  Website URL <span style={{ color: '#f87171' }}>*</span>
+                </label>
+                <input
+                  type="url"
+                  required
+                  placeholder="https://www.example.rw"
+                  value={collabUrl}
+                  onChange={(e) => setCollabUrl(e.target.value)}
+                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem', boxSizing: 'border-box' }}
+                />
+              </div>
+              <div>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '4px' }}>
+                  Logo Image URL
+                  <span style={{ color: '#64748b', marginLeft: '6px', fontSize: '0.74rem' }}>(direct link to PNG/SVG/JPG)</span>
+                </label>
+                <input
+                  type="url"
+                  placeholder="https://example.rw/logo.png"
+                  value={collabLogoUrl}
+                  onChange={(e) => setCollabLogoUrl(e.target.value)}
+                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem', boxSizing: 'border-box' }}
+                />
+                {collabLogoUrl && (
+                  <div style={{ marginTop: '8px', padding: '10px', background: '#0a111e', borderRadius: '6px', border: '1px solid #1e293b', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <img
+                      src={collabLogoUrl}
+                      alt="Logo preview"
+                      style={{ maxHeight: '48px', maxWidth: '200px', objectFit: 'contain' }}
+                      onError={(e) => { (e.target as HTMLImageElement).src = ''; (e.target as HTMLImageElement).alt = 'Invalid URL'; }}
+                    />
+                  </div>
+                )}
+              </div>
+              <div>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '4px' }}>
+                  Short Description <span style={{ color: '#64748b', fontSize: '0.74rem' }}>(optional)</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. National forest management authority"
+                  value={collabDescription}
+                  onChange={(e) => setCollabDescription(e.target.value)}
+                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem', boxSizing: 'border-box' }}
+                />
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', marginTop: '4px' }}>
+                <button
+                  type="button"
+                  onClick={() => setShowCollabModal(false)}
+                  style={{ padding: '9px 18px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#94a3b8', cursor: 'pointer', fontWeight: 600 }}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={savingCollab}
+                  style={{ padding: '9px 22px', borderRadius: '6px', background: '#0284c7', border: 'none', color: '#ffffff', fontWeight: 700, cursor: 'pointer' }}
+                >
+                  {savingCollab ? 'Saving...' : editingCollab ? 'Update Collaborator' : 'Add Collaborator'}
                 </button>
               </div>
             </form>
