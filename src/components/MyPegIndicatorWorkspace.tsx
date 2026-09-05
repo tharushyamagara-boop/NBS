@@ -242,6 +242,7 @@ export default function MyPegIndicatorWorkspace({
             <div className="mypeg-map-layout">
               <div className="mypeg-map-canvas-wrapper" style={{ height: '380px', borderRadius: '12px', overflow: 'hidden' }}>
                 <CatchmentMap
+                  currentIndicator={indicator}
                   locale={locale}
                   themeFilter={indicator.theme}
                   onSelectSite={(props) => setSelectedMapSite(props)}

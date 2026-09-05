@@ -16,6 +16,21 @@ export interface IndicatorSDG {
   color: string;
 }
 
+export interface IndicatorGpsPoint {
+  id: string;
+  name: string;
+  name_rw?: string;
+  lat: number;
+  lng: number;
+  value: number;
+  unit?: string;
+  sector?: string;
+  district?: string;
+  status?: string;
+  notes?: string;
+  color?: string;
+}
+
 export interface Indicator {
   id: string;
   theme: string;
@@ -37,6 +52,7 @@ export interface Indicator {
   dual_icon?: string;
   legend_label?: string;
   definition?: string;
+  gps_coordinates?: IndicatorGpsPoint[];
 }
 
 export interface ProjectMetadata {

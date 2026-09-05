@@ -124,7 +124,57 @@
         }
       ],
       "measurement_method": "High-resolution satellite spatial telemetry corroborated by on-the-ground GPS boundary polygons surveyed by RFA forestry technicians.",
-      "data_source_citation": "Rwanda Forestry Authority (RFA) & City of Kigali Land Use Registry (2025)"
+      "data_source_citation": "Rwanda Forestry Authority (RFA) & City of Kigali Land Use Registry (2025)",
+      "gps_coordinates": [
+        {
+          "id": "gps-ar-1",
+          "name": "Yanze Micro-Catchment Upper Terraces",
+          "name_rw": "Amaterasi ya Yanze yo Hejuru",
+          "lat": -1.9045,
+          "lng": 30.0381,
+          "value": 410,
+          "sector": "Gatsata",
+          "district": "Gasabo",
+          "status": "Active",
+          "notes": "Continuous contour stone bunds and bamboo stabilization."
+        },
+        {
+          "id": "gps-ar-2",
+          "name": "Mount Kigali Reforestation Slope",
+          "name_rw": "Imisozi ya Mont Kigali Yateweho Ibiti",
+          "lat": -1.9852,
+          "lng": 30.0245,
+          "value": 295,
+          "sector": "Kanyinya",
+          "district": "Nyarugenge",
+          "status": "Verified",
+          "notes": "Native tree canopy restoration on >30% steep gradient."
+        },
+        {
+          "id": "gps-ar-3",
+          "name": "Mpazi Drainage Upper Swales",
+          "name_rw": "Ibyobo bifata amazi mu Mpazi",
+          "lat": -1.9442,
+          "lng": 30.0514,
+          "value": 160,
+          "sector": "Gitega",
+          "district": "Nyarugenge",
+          "status": "Active",
+          "notes": "Bio-engineering live check-dams and swales."
+        },
+        {
+          "id": "gps-ar-4",
+          "name": "Nyabugogo Wetland Restoration Node",
+          "name_rw": "Ahasanwa Igishanga cya Nyabugogo",
+          "lat": -1.936,
+          "lng": 30.0442,
+          "value": 120,
+          "sector": "Muhima",
+          "district": "Nyarugenge",
+          "status": "Completed",
+          "notes": "Wetland marsh vegetation re-establishment."
+        }
+      ]
     },
     {
       "id": "flood_risk_reduction",
@@ -203,7 +253,45 @@
         }
       ],
       "measurement_method": "Calibrated hydrological runoff modeling using hydrometric sensor stations at Mpazi and Yanze outfalls, verified during high-precipitation events.",
-      "data_source_citation": "Rwanda Water Resources Board (RWB) & City of Kigali Stormwater Master Plan (2025)"
+      "data_source_citation": "Rwanda Water Resources Board (RWB) & City of Kigali Stormwater Master Plan (2025)",
+      "gps_coordinates": [
+        {
+          "id": "gps-fr-1",
+          "name": "Mpazi Check-Dam 01 (Upper Sector)",
+          "name_rw": "Urugomero rw'ibiti rwa Mpazi 01",
+          "lat": -1.946,
+          "lng": 30.049,
+          "value": 31.2,
+          "sector": "Gitega",
+          "district": "Nyarugenge",
+          "status": "Verified",
+          "notes": "Peak velocity slowed by 31.2% in hydraulic tests."
+        },
+        {
+          "id": "gps-fr-2",
+          "name": "Mpazi Vegetative Infiltration Trench",
+          "name_rw": "Icyobo gifata amazi mu Mpazi",
+          "lat": -1.9425,
+          "lng": 30.0535,
+          "value": 26.8,
+          "sector": "Kimisagara",
+          "district": "Nyarugenge",
+          "status": "Active",
+          "notes": "High absorption gravel-bamboo bed."
+        },
+        {
+          "id": "gps-fr-3",
+          "name": "Nyabugogo Basin Sump Inlet",
+          "name_rw": "Inzira y'amazi y'isoko rya Nyabugogo",
+          "lat": -1.9372,
+          "lng": 30.045,
+          "value": 28.5,
+          "sector": "Muhima",
+          "district": "Nyarugenge",
+          "status": "Active",
+          "notes": "Culvert protection monitoring station."
+        }
+      ]
     },
     {
       "id": "soil_erosion_prevented",
@@ -282,7 +370,45 @@
         }
       ],
       "measurement_method": "Revised Universal Soil Loss Equation (RUSLE) parameterized with high-resolution digital elevation models and sediment trap audits.",
-      "data_source_citation": "Rwanda Forestry Authority (RFA) Watershed Soil Protection Register (2025)"
+      "data_source_citation": "Rwanda Forestry Authority (RFA) Watershed Soil Protection Register (2025)",
+      "gps_coordinates": [
+        {
+          "id": "gps-se-1",
+          "name": "Yanze Micro-Catchment Sediment Trap A",
+          "name_rw": "Icyobo gifata ibyondo cya Yanze A",
+          "lat": -1.912,
+          "lng": 30.032,
+          "value": 1840,
+          "sector": "Gatsata",
+          "district": "Gasabo",
+          "status": "Active",
+          "notes": "Prevents sediment washing into Yanze water treatment intake."
+        },
+        {
+          "id": "gps-se-2",
+          "name": "Mont Kigali South Terraces",
+          "name_rw": "Amaterasi y'amajyepfo ya Mont Kigali",
+          "lat": -1.992,
+          "lng": 30.018,
+          "value": 1420,
+          "sector": "Mageragere",
+          "district": "Nyarugenge",
+          "status": "Verified",
+          "notes": "Vetiver hedge contour barriers firmly anchoring topsoil."
+        },
+        {
+          "id": "gps-se-3",
+          "name": "Kimisagara Gully Bio-Barrier",
+          "name_rw": "Urukuta rw'ibimera rwa Kimisagara",
+          "lat": -1.951,
+          "lng": 30.039,
+          "value": 890,
+          "sector": "Kimisagara",
+          "district": "Nyarugenge",
+          "status": "Completed",
+          "notes": "Stabilized slope with deep-rooted Markamia lutea trees."
+        }
+      ]
     },
     {
       "id": "trees_planted",
@@ -361,7 +487,45 @@
         }
       ],
       "measurement_method": "Audited dispatch registries from certified cooperative seedling nurseries, matched to georeferenced planting compartments.",
-      "data_source_citation": "RFA Forest Management and Evaluation System (FMES) Silviculture Registry (2025)"
+      "data_source_citation": "RFA Forest Management and Evaluation System (FMES) Silviculture Registry (2025)",
+      "gps_coordinates": [
+        {
+          "id": "gps-tp-1",
+          "name": "Yanze Cooperative Community Nursery",
+          "name_rw": "Ubuhumbikiro bwa Yanze",
+          "lat": -1.908,
+          "lng": 30.041,
+          "value": 215000,
+          "sector": "Gatsata",
+          "district": "Gasabo",
+          "status": "Active",
+          "notes": "Women-led seedling nursery producing native Markamia & bamboo."
+        },
+        {
+          "id": "gps-tp-2",
+          "name": "Mount Kigali Arbor Day Plantation Zone",
+          "name_rw": "Agace k'Ibiti ka Mont Kigali",
+          "lat": -1.981,
+          "lng": 30.031,
+          "value": 175000,
+          "sector": "Kanyinya",
+          "district": "Nyarugenge",
+          "status": "Verified",
+          "notes": "Planted with City of Kigali community volunteers."
+        },
+        {
+          "id": "gps-tp-3",
+          "name": "Mageragere Agroforestry Farm Compartment",
+          "name_rw": "Amashyamba n'Ubuhinzi i Mageragere",
+          "lat": -2.015,
+          "lng": 30.021,
+          "value": 130000,
+          "sector": "Mageragere",
+          "district": "Nyarugenge",
+          "status": "Completed",
+          "notes": "Fruit and timber agroforestry on smallholder parcels."
+        }
+      ]
     },
     {
       "id": "tree_survival_rate",
@@ -433,7 +597,45 @@
         }
       ],
       "measurement_method": "Permanent 20m x 20m random sampling plots surveyed at 3, 6, and 12-month post-planting intervals using mobile ODK survey tools.",
-      "data_source_citation": "RFA Silvicultural Audit Service & SUNCASA Independent Monitoring Unit (2025)"
+      "data_source_citation": "RFA Silvicultural Audit Service & SUNCASA Independent Monitoring Unit (2025)",
+      "gps_coordinates": [
+        {
+          "id": "gps-tree_survival_rate-1",
+          "name": "Percentage of planted native and agroforestry seedlings surviving across surveyed permanent sample plots after 6, 12, and 24 months. - Yanze Station",
+          "name_rw": "Agace ka Yanze",
+          "lat": -1.905,
+          "lng": 30.038,
+          "value": 38,
+          "sector": "Gatsata",
+          "district": "Gasabo",
+          "status": "Active",
+          "notes": "Intervention zone in Upper Yanze."
+        },
+        {
+          "id": "gps-tree_survival_rate-2",
+          "name": "Percentage of planted native and agroforestry seedlings surviving across surveyed permanent sample plots after 6, 12, and 24 months. - Mount Kigali Slope",
+          "name_rw": "Agace ka Mont Kigali",
+          "lat": -1.984,
+          "lng": 30.025,
+          "value": 30,
+          "sector": "Kanyinya",
+          "district": "Nyarugenge",
+          "status": "Verified",
+          "notes": "Intervention zone on Mount Kigali hillside."
+        },
+        {
+          "id": "gps-tree_survival_rate-3",
+          "name": "Percentage of planted native and agroforestry seedlings surviving across surveyed permanent sample plots after 6, 12, and 24 months. - Mpazi Corridor",
+          "name_rw": "Agace ka Mpazi",
+          "lat": -1.944,
+          "lng": 30.051,
+          "value": 17,
+          "sector": "Gitega",
+          "district": "Nyarugenge",
+          "status": "Completed",
+          "notes": "Bio-engineering corridor in Mpazi basin."
+        }
+      ]
     },
     {
       "id": "riparian_buffer_km",
@@ -512,7 +714,45 @@
         }
       ],
       "measurement_method": "High-resolution drone orthomosaics verifying continuous 30-meter native vegetative buffer adherence along surveyed riverbanks.",
-      "data_source_citation": "Rwanda Environment Management Authority (REMA) & RFA Riverine Protection Database (2025)"
+      "data_source_citation": "Rwanda Environment Management Authority (REMA) & RFA Riverine Protection Database (2025)",
+      "gps_coordinates": [
+        {
+          "id": "gps-rb-1",
+          "name": "Lower Nyabarongo 30m Buffer North",
+          "name_rw": "Inkombe za Nyabarongo mu Majyaruguru",
+          "lat": -1.972,
+          "lng": 29.988,
+          "value": 6.8,
+          "sector": "Mageragere",
+          "district": "Nyarugenge",
+          "status": "Active",
+          "notes": "30-meter continuous native vegetative buffer strictly protected."
+        },
+        {
+          "id": "gps-rb-2",
+          "name": "Yanze Confluence Buffer Reach",
+          "name_rw": "Inkombe z'Ihuriro rya Yanze",
+          "lat": -1.918,
+          "lng": 30.035,
+          "value": 5.4,
+          "sector": "Gatsata",
+          "district": "Gasabo",
+          "status": "Verified",
+          "notes": "Bamboo and pennisetum vegetative filtration band."
+        },
+        {
+          "id": "gps-rb-3",
+          "name": "Nyabugogo Wetland Perimeter Band",
+          "name_rw": "Inkombe z'Igishanga cya Nyabugogo",
+          "lat": -1.939,
+          "lng": 30.042,
+          "value": 4.2,
+          "sector": "Muhima",
+          "district": "Nyarugenge",
+          "status": "Completed",
+          "notes": "Prevents commercial encroachment into delicate wetlands."
+        }
+      ]
     },
     {
       "id": "water_quality_index",
@@ -580,7 +820,45 @@
         }
       ],
       "measurement_method": "Nephelometric Turbidity Unit (NTU) lab sampling paired with continuous optical sensors at the WASAC water intake station.",
-      "data_source_citation": "Water and Sanitation Corporation (WASAC) & Rwanda Water Resources Board (2025)"
+      "data_source_citation": "Water and Sanitation Corporation (WASAC) & Rwanda Water Resources Board (2025)",
+      "gps_coordinates": [
+        {
+          "id": "gps-wq-1",
+          "name": "Yanze Water Intake Hydrometric Station",
+          "name_rw": "Icyuma gipima amazi cya Yanze",
+          "lat": -1.901,
+          "lng": 30.039,
+          "value": 78,
+          "sector": "Gatsata",
+          "district": "Gasabo",
+          "status": "Active",
+          "notes": "Turbidity and dissolved oxygen sensors reporting real-time telemetry."
+        },
+        {
+          "id": "gps-wq-2",
+          "name": "Nyabarongo Mid-Stream Gauging Sensor",
+          "name_rw": "Icyuma cya Nyabarongo yo Hagati",
+          "lat": -1.968,
+          "lng": 29.992,
+          "value": 64,
+          "sector": "Mageragere",
+          "district": "Nyarugenge",
+          "status": "Active",
+          "notes": "Continuous WQI score calculation."
+        },
+        {
+          "id": "gps-wq-3",
+          "name": "Nyabugogo Urban Discharge Monitor",
+          "name_rw": "Icyuma gipima amazi y'i Nyabugogo",
+          "lat": -1.938,
+          "lng": 30.046,
+          "value": 58,
+          "sector": "Muhima",
+          "district": "Nyarugenge",
+          "status": "Under Monitoring",
+          "notes": "Monitors runoff from dense commercial area."
+        }
+      ]
     },
     {
       "id": "women_leadership_catchment",
@@ -659,7 +937,45 @@
         }
       ],
       "measurement_method": "Bi-annual audits of official executive committee rosters and meeting sign-in sheets verified by district gender officers.",
-      "data_source_citation": "Ministry of Gender and Family Promotion (MIGEPROF) & City of Kigali Community Governance Unit (2025)"
+      "data_source_citation": "Ministry of Gender and Family Promotion (MIGEPROF) & City of Kigali Community Governance Unit (2025)",
+      "gps_coordinates": [
+        {
+          "id": "gps-women_leadership_catchment-1",
+          "name": "Proportion of leadership and executive governance positions held by women on community watershed and forestry management committees. - Yanze Station",
+          "name_rw": "Agace ka Yanze",
+          "lat": -1.905,
+          "lng": 30.038,
+          "value": 24,
+          "sector": "Gatsata",
+          "district": "Gasabo",
+          "status": "Active",
+          "notes": "Intervention zone in Upper Yanze."
+        },
+        {
+          "id": "gps-women_leadership_catchment-2",
+          "name": "Proportion of leadership and executive governance positions held by women on community watershed and forestry management committees. - Mount Kigali Slope",
+          "name_rw": "Agace ka Mont Kigali",
+          "lat": -1.984,
+          "lng": 30.025,
+          "value": 19,
+          "sector": "Kanyinya",
+          "district": "Nyarugenge",
+          "status": "Verified",
+          "notes": "Intervention zone on Mount Kigali hillside."
+        },
+        {
+          "id": "gps-women_leadership_catchment-3",
+          "name": "Proportion of leadership and executive governance positions held by women on community watershed and forestry management committees. - Mpazi Corridor",
+          "name_rw": "Agace ka Mpazi",
+          "lat": -1.944,
+          "lng": 30.051,
+          "value": 11,
+          "sector": "Gitega",
+          "district": "Nyarugenge",
+          "status": "Completed",
+          "notes": "Bio-engineering corridor in Mpazi basin."
+        }
+      ]
     },
     {
       "id": "participants_trained",
@@ -734,7 +1050,45 @@
         }
       ],
       "measurement_method": "Signed graduation records from district vocational training modules and RFA practical nursery workshops.",
-      "data_source_citation": "SUNCASA Field Directorate & City of Kigali Vocational Training Division (2025)"
+      "data_source_citation": "SUNCASA Field Directorate & City of Kigali Vocational Training Division (2025)",
+      "gps_coordinates": [
+        {
+          "id": "gps-participants_trained-1",
+          "name": "Total local community members, women farmers, and youth trained and certified in progressive hillside terracing, tree seedling nursery management, and bio-engineering. - Yanze Station",
+          "name_rw": "Agace ka Yanze",
+          "lat": -1.905,
+          "lng": 30.038,
+          "value": 1278,
+          "sector": "Gatsata",
+          "district": "Gasabo",
+          "status": "Active",
+          "notes": "Intervention zone in Upper Yanze."
+        },
+        {
+          "id": "gps-participants_trained-2",
+          "name": "Total local community members, women farmers, and youth trained and certified in progressive hillside terracing, tree seedling nursery management, and bio-engineering. - Mount Kigali Slope",
+          "name_rw": "Agace ka Mont Kigali",
+          "lat": -1.984,
+          "lng": 30.025,
+          "value": 994,
+          "sector": "Kanyinya",
+          "district": "Nyarugenge",
+          "status": "Verified",
+          "notes": "Intervention zone on Mount Kigali hillside."
+        },
+        {
+          "id": "gps-participants_trained-3",
+          "name": "Total local community members, women farmers, and youth trained and certified in progressive hillside terracing, tree seedling nursery management, and bio-engineering. - Mpazi Corridor",
+          "name_rw": "Agace ka Mpazi",
+          "lat": -1.944,
+          "lng": 30.051,
+          "value": 568,
+          "sector": "Gitega",
+          "district": "Nyarugenge",
+          "status": "Completed",
+          "notes": "Bio-engineering corridor in Mpazi basin."
+        }
+      ]
     },
     {
       "id": "green_jobs_created",
@@ -809,7 +1163,45 @@
         }
       ],
       "measurement_method": "Audited cooperative payroll disbursement logs and mobile-money direct payment registers verified by district labor inspectors.",
-      "data_source_citation": "SUNCASA Financial Audit & Rwanda Cooperative Agency (RCA) Employment Registry (2025)"
+      "data_source_citation": "SUNCASA Financial Audit & Rwanda Cooperative Agency (RCA) Employment Registry (2025)",
+      "gps_coordinates": [
+        {
+          "id": "gps-green_jobs_created-1",
+          "name": "Cumulative person-days of direct paid employment created through hillside terracing, seedling production, planting, and drainage maintenance. - Yanze Station",
+          "name_rw": "Agace ka Yanze",
+          "lat": -1.905,
+          "lng": 30.038,
+          "value": 44325,
+          "sector": "Gatsata",
+          "district": "Gasabo",
+          "status": "Active",
+          "notes": "Intervention zone in Upper Yanze."
+        },
+        {
+          "id": "gps-green_jobs_created-2",
+          "name": "Cumulative person-days of direct paid employment created through hillside terracing, seedling production, planting, and drainage maintenance. - Mount Kigali Slope",
+          "name_rw": "Agace ka Mont Kigali",
+          "lat": -1.984,
+          "lng": 30.025,
+          "value": 34475,
+          "sector": "Kanyinya",
+          "district": "Nyarugenge",
+          "status": "Verified",
+          "notes": "Intervention zone on Mount Kigali hillside."
+        },
+        {
+          "id": "gps-green_jobs_created-3",
+          "name": "Cumulative person-days of direct paid employment created through hillside terracing, seedling production, planting, and drainage maintenance. - Mpazi Corridor",
+          "name_rw": "Agace ka Mpazi",
+          "lat": -1.944,
+          "lng": 30.051,
+          "value": 19700,
+          "sector": "Gitega",
+          "district": "Nyarugenge",
+          "status": "Completed",
+          "notes": "Bio-engineering corridor in Mpazi basin."
+        }
+      ]
     },
     {
       "id": "female_nursery_operators",
@@ -888,7 +1280,45 @@
         }
       ],
       "measurement_method": "Audited cooperative enterprise registries maintained by the Rwanda Cooperative Agency (RCA).",
-      "data_source_citation": "Rwanda Cooperative Agency (RCA) & RFA Forest Nursery Register (2025)"
+      "data_source_citation": "Rwanda Cooperative Agency (RCA) & RFA Forest Nursery Register (2025)",
+      "gps_coordinates": [
+        {
+          "id": "gps-female_nursery_operators-1",
+          "name": "Percentage of registered community seedling nursery cooperatives owned and operated by women, generating sustainable revenue from tree seedling contracts. - Yanze Station",
+          "name_rw": "Agace ka Yanze",
+          "lat": -1.905,
+          "lng": 30.038,
+          "value": 28,
+          "sector": "Gatsata",
+          "district": "Gasabo",
+          "status": "Active",
+          "notes": "Intervention zone in Upper Yanze."
+        },
+        {
+          "id": "gps-female_nursery_operators-2",
+          "name": "Percentage of registered community seedling nursery cooperatives owned and operated by women, generating sustainable revenue from tree seedling contracts. - Mount Kigali Slope",
+          "name_rw": "Agace ka Mont Kigali",
+          "lat": -1.984,
+          "lng": 30.025,
+          "value": 22,
+          "sector": "Kanyinya",
+          "district": "Nyarugenge",
+          "status": "Verified",
+          "notes": "Intervention zone on Mount Kigali hillside."
+        },
+        {
+          "id": "gps-female_nursery_operators-3",
+          "name": "Percentage of registered community seedling nursery cooperatives owned and operated by women, generating sustainable revenue from tree seedling contracts. - Mpazi Corridor",
+          "name_rw": "Agace ka Mpazi",
+          "lat": -1.944,
+          "lng": 30.051,
+          "value": 12,
+          "sector": "Gitega",
+          "district": "Nyarugenge",
+          "status": "Completed",
+          "notes": "Bio-engineering corridor in Mpazi basin."
+        }
+      ]
     },
     {
       "id": "vulnerable_youth_employed",
@@ -956,7 +1386,45 @@
         }
       ],
       "measurement_method": "National Youth Council employment verification rosters cross-referenced with cooperative contractor manifests.",
-      "data_source_citation": "National Youth Council (NYC) & SUNCASA Field Directorate (2025)"
+      "data_source_citation": "National Youth Council (NYC) & SUNCASA Field Directorate (2025)",
+      "gps_coordinates": [
+        {
+          "id": "gps-vulnerable_youth_employed-1",
+          "name": "Number of vulnerable Rwandan youth (aged 18-30) employed directly in drone surveying, mobile GIS telemetry, check-dam construction, and nursery production. - Yanze Station",
+          "name_rw": "Agace ka Yanze",
+          "lat": -1.905,
+          "lng": 30.038,
+          "value": 504,
+          "sector": "Gatsata",
+          "district": "Gasabo",
+          "status": "Active",
+          "notes": "Intervention zone in Upper Yanze."
+        },
+        {
+          "id": "gps-vulnerable_youth_employed-2",
+          "name": "Number of vulnerable Rwandan youth (aged 18-30) employed directly in drone surveying, mobile GIS telemetry, check-dam construction, and nursery production. - Mount Kigali Slope",
+          "name_rw": "Agace ka Mont Kigali",
+          "lat": -1.984,
+          "lng": 30.025,
+          "value": 392,
+          "sector": "Kanyinya",
+          "district": "Nyarugenge",
+          "status": "Verified",
+          "notes": "Intervention zone on Mount Kigali hillside."
+        },
+        {
+          "id": "gps-vulnerable_youth_employed-3",
+          "name": "Number of vulnerable Rwandan youth (aged 18-30) employed directly in drone surveying, mobile GIS telemetry, check-dam construction, and nursery production. - Mpazi Corridor",
+          "name_rw": "Agace ka Mpazi",
+          "lat": -1.944,
+          "lng": 30.051,
+          "value": 224,
+          "sector": "Gitega",
+          "district": "Nyarugenge",
+          "status": "Completed",
+          "notes": "Bio-engineering corridor in Mpazi basin."
+        }
+      ]
     },
     {
       "id": "building_permit_values",
@@ -1092,7 +1560,45 @@
         }
       ],
       "measurement_method": "Aggregated municipal building inspection valuations and architectural permit filings compiled on an annual schedule.",
-      "data_source_citation": "City of Winnipeg Planning, Property and Development Department & Statistics Canada"
+      "data_source_citation": "City of Winnipeg Planning, Property and Development Department & Statistics Canada",
+      "gps_coordinates": [
+        {
+          "id": "gps-building_permit_values-1",
+          "name": "Building permit values measures the total value of residential and non residential permit values. - Yanze Station",
+          "name_rw": "Agace ka Yanze",
+          "lat": -1.905,
+          "lng": 30.038,
+          "value": 963900,
+          "sector": "Gatsata",
+          "district": "Gasabo",
+          "status": "Active",
+          "notes": "Intervention zone in Upper Yanze."
+        },
+        {
+          "id": "gps-building_permit_values-2",
+          "name": "Building permit values measures the total value of residential and non residential permit values. - Mount Kigali Slope",
+          "name_rw": "Agace ka Mont Kigali",
+          "lat": -1.984,
+          "lng": 30.025,
+          "value": 749700,
+          "sector": "Kanyinya",
+          "district": "Nyarugenge",
+          "status": "Verified",
+          "notes": "Intervention zone on Mount Kigali hillside."
+        },
+        {
+          "id": "gps-building_permit_values-3",
+          "name": "Building permit values measures the total value of residential and non residential permit values. - Mpazi Corridor",
+          "name_rw": "Agace ka Mpazi",
+          "lat": -1.944,
+          "lng": 30.051,
+          "value": 428400,
+          "sector": "Gitega",
+          "district": "Nyarugenge",
+          "status": "Completed",
+          "notes": "Bio-engineering corridor in Mpazi basin."
+        }
+      ]
     },
     {
       "id": "collision_victims",
@@ -1164,7 +1670,45 @@
         }
       ],
       "measurement_method": "Police accident collision reporting registries cross-referenced with regional health trauma center admissions.",
-      "data_source_citation": "Manitoba Public Insurance & City Police Traffic Analysis Division"
+      "data_source_citation": "Manitoba Public Insurance & City Police Traffic Analysis Division",
+      "gps_coordinates": [
+        {
+          "id": "gps-collision_victims-1",
+          "name": "Measures annual traffic collision victims and casualty injury rates per 100,000 population. - Yanze Station",
+          "name_rw": "Agace ka Yanze",
+          "lat": -1.905,
+          "lng": 30.038,
+          "value": 178,
+          "sector": "Gatsata",
+          "district": "Gasabo",
+          "status": "Active",
+          "notes": "Intervention zone in Upper Yanze."
+        },
+        {
+          "id": "gps-collision_victims-2",
+          "name": "Measures annual traffic collision victims and casualty injury rates per 100,000 population. - Mount Kigali Slope",
+          "name_rw": "Agace ka Mont Kigali",
+          "lat": -1.984,
+          "lng": 30.025,
+          "value": 138,
+          "sector": "Kanyinya",
+          "district": "Nyarugenge",
+          "status": "Verified",
+          "notes": "Intervention zone on Mount Kigali hillside."
+        },
+        {
+          "id": "gps-collision_victims-3",
+          "name": "Measures annual traffic collision victims and casualty injury rates per 100,000 population. - Mpazi Corridor",
+          "name_rw": "Agace ka Mpazi",
+          "lat": -1.944,
+          "lng": 30.051,
+          "value": 79,
+          "sector": "Gitega",
+          "district": "Nyarugenge",
+          "status": "Completed",
+          "notes": "Bio-engineering corridor in Mpazi basin."
+        }
+      ]
     }
   ]
 }

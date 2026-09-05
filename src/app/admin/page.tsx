@@ -2,8 +2,29 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Indicator } from '@/lib/db/types';
+import dynamic from 'next/dynamic';
+import { Indicator, IndicatorGpsPoint } from '@/lib/db/types';
 import { Role, AdminUser, AuthSession, Permission } from '@/lib/auth/rbacTypes';
+
+const CatchmentMap = dynamic(() => import('@/components/CatchmentMap'), {
+  ssr: false,
+  loading: () => (
+    <div
+      style={{
+        height: '480px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: '#94a3b8',
+        background: '#0a111e',
+        borderRadius: '12px',
+        border: '1px solid #1e293b',
+      }}
+    >
+      Loading Interactive GPS Map Preview...
+    </div>
+  ),
+});
 
 export default function AdminPortalPage() {
   // Authentication & Session State
@@ -15,7 +36,7 @@ export default function AdminPortalPage() {
 
   // Active Workspace Tab
   const [activeTab, setActiveTab] = useState<
-    'indicators' | 'builder' | 'landing_stories' | 'indicator_stories' | 'rbac' | 'database'
+    'indicators' | 'builder' | 'landing_stories' | 'indicator_stories' | 'gps_mapper' | 'rbac' | 'database'
   >('indicators');
 
   // Indicators State
@@ -49,6 +70,20 @@ export default function AdminPortalPage() {
     en: { title: '', what_is: '', why_matters: '', what_suncasa: '', limitations: '', source: '' },
     rw: { title: '', what_is: '', why_matters: '', what_suncasa: '', limitations: '', source: '' },
   });
+
+  // GPS Data & Map Generator State
+  const [selectedGpsIndId, setSelectedGpsIndId] = useState<string>('area_restored_ha');
+  const [gpsPoints, setGpsPoints] = useState<IndicatorGpsPoint[]>([]);
+  const [newGpsLat, setNewGpsLat] = useState<string>('-1.9442');
+  const [newGpsLng, setNewGpsLng] = useState<string>('30.0514');
+  const [newGpsName, setNewGpsName] = useState<string>('');
+  const [newGpsNameRw, setNewGpsNameRw] = useState<string>('');
+  const [newGpsValue, setNewGpsValue] = useState<number>(120);
+  const [newGpsSector, setNewGpsSector] = useState<string>('Gitega');
+  const [newGpsDistrict, setNewGpsDistrict] = useState<string>('Nyarugenge');
+  const [newGpsStatus, setNewGpsStatus] = useState<string>('Active');
+  const [newGpsNotes, setNewGpsNotes] = useState<string>('');
+  const [generatingMap, setGeneratingMap] = useState<boolean>(false);
 
   // Users & Roles State (RBAC)
   const [users, setUsers] = useState<AdminUser[]>([]);
@@ -273,6 +308,18 @@ export default function AdminPortalPage() {
     }
   }, [selectedNarrativeId, narrativesMap, indicators]);
 
+  // Sync GPS points when selected indicator changes
+  useEffect(() => {
+    if (selectedGpsIndId && indicators.length > 0) {
+      const ind = indicators.find((i) => i.id === selectedGpsIndId);
+      if (ind && ind.gps_coordinates) {
+        setGpsPoints([...ind.gps_coordinates]);
+      } else {
+        setGpsPoints([]);
+      }
+    }
+  }, [selectedGpsIndId, indicators]);
+
   const fetchRbacData = async () => {
     setLoadingRbac(true);
     try {
@@ -353,6 +400,20 @@ export default function AdminPortalPage() {
           color: '#10b981',
         },
       ],
+      gps_coordinates: [
+        {
+          id: `gps-${cleanId}-1`,
+          name: `${builderDef} - Main Field Station`,
+          name_rw: 'Agace k\'Ibanze k\'Igipimo',
+          lat: -1.9442,
+          lng: 30.0514,
+          value: Number(builderCurrent),
+          sector: 'Gitega',
+          district: 'Nyarugenge',
+          status: 'Active',
+          notes: 'Initial field telemetry node.',
+        },
+      ],
     };
 
     const newNarrativePayload = {
@@ -390,7 +451,6 @@ export default function AdminPortalPage() {
         fetchIndicators();
         fetchNarratives();
         setActiveTab('indicators');
-        // Reset builder form
         setBuilderId('');
         setBuilderDef('');
         setBuilderTitleEn('');
@@ -602,6 +662,84 @@ export default function AdminPortalPage() {
     }
   };
 
+  // GPS Waypoint Handlers
+  const handleAddGpsWaypoint = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    if (!newGpsLat || !newGpsLng || !newGpsName) {
+      alert('Please provide Latitude, Longitude, and a Station Name.');
+      return;
+    }
+
+    const latNum = parseFloat(newGpsLat);
+    const lngNum = parseFloat(newGpsLng);
+
+    if (isNaN(latNum) || isNaN(lngNum)) {
+      alert('Latitude and Longitude must be valid numbers (e.g. -1.9442, 30.0514).');
+      return;
+    }
+
+    const newPt: IndicatorGpsPoint = {
+      id: `gps-${Date.now().toString().slice(-6)}`,
+      name: newGpsName,
+      name_rw: newGpsNameRw || newGpsName,
+      lat: latNum,
+      lng: lngNum,
+      value: Number(newGpsValue),
+      sector: newGpsSector,
+      district: newGpsDistrict,
+      status: newGpsStatus,
+      notes: newGpsNotes,
+    };
+
+    setGpsPoints((prev) => [...prev, newPt]);
+    setNewGpsName('');
+    setNewGpsNameRw('');
+    setNewGpsNotes('');
+    setStatusMessage(`GPS Waypoint "${newPt.name}" added to buffer. Click "Generate & Save Map" to commit.`);
+  };
+
+  const handleDeleteGpsWaypoint = (id: string) => {
+    setGpsPoints((prev) => prev.filter((pt) => pt.id !== id));
+  };
+
+  const applyGpsPreset = (preset: { name: string; name_rw: string; lat: number; lng: number; sector: string; district: string }) => {
+    setNewGpsName(preset.name);
+    setNewGpsNameRw(preset.name_rw);
+    setNewGpsLat(preset.lat.toString());
+    setNewGpsLng(preset.lng.toString());
+    setNewGpsSector(preset.sector);
+    setNewGpsDistrict(preset.district);
+  };
+
+  const handleGenerateAndSaveMap = async () => {
+    if (!selectedGpsIndId) return;
+    setGeneratingMap(true);
+
+    try {
+      const res = await fetch(`/api/indicators/${selectedGpsIndId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          gps_coordinates: gpsPoints,
+        }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setStatusMessage(`⚡ Interactive GIS Map generated and saved for indicator '${selectedGpsIndId}' with ${gpsPoints.length} GPS waypoints!`);
+        setIndicators((prev) =>
+          prev.map((ind) => (ind.id === selectedGpsIndId ? { ...ind, gps_coordinates: gpsPoints } : ind))
+        );
+      } else {
+        alert(data.error || 'Failed to save GPS map data.');
+      }
+    } catch (err: any) {
+      alert(err.message || 'Error saving GPS data.');
+    } finally {
+      setGeneratingMap(false);
+    }
+  };
+
   // Create User Handler
   const handleCreateUser = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -668,11 +806,14 @@ export default function AdminPortalPage() {
   const filteredIndicators = indicators.filter((ind) => {
     const matchesSearch =
       ind.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      ind.definition.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      ind.definition?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       ind.fmes_code.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesTheme = themeFilter === 'all' || ind.theme === themeFilter;
     return matchesSearch && matchesTheme;
   });
+
+  const activeGpsIndicator =
+    indicators.find((i) => i.id === selectedGpsIndId) || indicators[0];
 
   // -------------------------------------------------------------
   // 1. UNAUTHENTICATED STATE: LOGIN SCREEN
@@ -894,7 +1035,7 @@ export default function AdminPortalPage() {
               </span>
             </div>
             <div style={{ fontSize: '0.74rem', color: '#94a3b8' }}>
-              Impact Monitoring & Content Governance Console
+              Impact Monitoring, GPS Mapping & Content Governance Console
             </div>
           </div>
         </div>
@@ -1075,7 +1216,45 @@ export default function AdminPortalPage() {
                 </span>
               </button>
 
-              {/* 3. Landing Stories */}
+              {/* 3. GPS & Map Generator */}
+              <button
+                type="button"
+                onClick={() => setActiveTab('gps_mapper')}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '11px 14px',
+                  borderRadius: '8px',
+                  fontSize: '0.88rem',
+                  fontWeight: 600,
+                  border: 'none',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  transition: 'all 0.15s ease',
+                  background: activeTab === 'gps_mapper' ? '#0284c7' : 'transparent',
+                  color: activeTab === 'gps_mapper' ? '#ffffff' : '#94a3b8',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <span style={{ fontSize: '1.1rem' }}>🗺️</span>
+                  <span>GPS & Map Generator</span>
+                </div>
+                <span
+                  style={{
+                    fontSize: '0.68rem',
+                    padding: '2px 6px',
+                    borderRadius: '4px',
+                    background: '#06b6d4',
+                    color: '#000000',
+                    fontWeight: 800,
+                  }}
+                >
+                  GPS
+                </span>
+              </button>
+
+              {/* 4. Landing Stories */}
               <button
                 type="button"
                 onClick={() => setActiveTab('landing_stories')}
@@ -1113,7 +1292,7 @@ export default function AdminPortalPage() {
                 </span>
               </button>
 
-              {/* 4. Indicator Stories (3-Question Narratives) */}
+              {/* 5. Indicator Stories (3-Question Narratives) */}
               <button
                 type="button"
                 onClick={() => setActiveTab('indicator_stories')}
@@ -1151,7 +1330,7 @@ export default function AdminPortalPage() {
                 </span>
               </button>
 
-              {/* 5. RBAC & Roles */}
+              {/* 6. RBAC & Roles */}
               <button
                 type="button"
                 onClick={() => setActiveTab('rbac')}
@@ -1189,7 +1368,7 @@ export default function AdminPortalPage() {
                 </span>
               </button>
 
-              {/* 6. DB & FMES Settings */}
+              {/* 7. DB & FMES Settings */}
               <button
                 type="button"
                 onClick={() => setActiveTab('database')}
@@ -1248,6 +1427,7 @@ export default function AdminPortalPage() {
               <h1 style={{ fontSize: '1.25rem', fontWeight: 700, margin: '2px 0 0 0', color: '#f8fafc' }}>
                 {activeTab === 'indicators' && 'Indicator Catalogue & Live Management'}
                 {activeTab === 'builder' && 'Indicator Builder & Live Publisher'}
+                {activeTab === 'gps_mapper' && 'GPS Telemetry Entry & Dynamic Map Generator'}
                 {activeTab === 'landing_stories' && 'Landing Page Stories & Civic Narratives'}
                 {activeTab === 'indicator_stories' && 'Indicator Stories & 3 Core Questions Editor'}
                 {activeTab === 'rbac' && 'Role-Based Access Control & User Delegation'}
@@ -1332,7 +1512,7 @@ export default function AdminPortalPage() {
                   <div>
                     <h2 style={{ fontSize: '1.4rem', fontWeight: 700, margin: '0 0 4px 0' }}>Published Indicators Catalogue</h2>
                     <p style={{ color: '#94a3b8', fontSize: '0.88rem', margin: 0 }}>
-                      Manage live indicators published on the public SUNCASA portal, edit metric targets & definitions, or manage narratives.
+                      Manage live indicators published on the public SUNCASA portal, edit metric targets & definitions, enter GPS data, or manage narratives.
                     </p>
                   </div>
 
@@ -1391,7 +1571,7 @@ export default function AdminPortalPage() {
                         <th style={{ padding: '14px 16px' }}>Indicator ID & Definition</th>
                         <th style={{ padding: '14px 16px' }}>FMES Code</th>
                         <th style={{ padding: '14px 16px' }}>2025 Progress / 2026 Target</th>
-                        <th style={{ padding: '14px 16px' }}>Status</th>
+                        <th style={{ padding: '14px 16px' }}>GPS Nodes</th>
                         <th style={{ padding: '14px 16px', textAlign: 'right' }}>Actions</th>
                       </tr>
                     </thead>
@@ -1406,6 +1586,7 @@ export default function AdminPortalPage() {
                         };
                         const col = themeColorMap[ind.theme] || '#0284c7';
                         const pct = ind.target_2026 > 0 ? Math.min(100, Math.round((ind.current_2025 / ind.target_2026) * 100)) : 100;
+                        const gpsCount = ind.gps_coordinates?.length || 0;
 
                         return (
                           <tr key={ind.id} style={{ borderBottom: '1px solid #1e293b', transition: 'background 0.15s ease' }}>
@@ -1414,7 +1595,7 @@ export default function AdminPortalPage() {
                                 {ind.theme.replace('_', ' ')}
                               </span>
                             </td>
-                            <td style={{ padding: '14px 16px', maxWidth: '300px' }}>
+                            <td style={{ padding: '14px 16px', maxWidth: '280px' }}>
                               <div style={{ fontWeight: 700, color: '#f8fafc', marginBottom: '4px' }}>
                                 {ind.id}
                               </div>
@@ -1437,8 +1618,18 @@ export default function AdminPortalPage() {
                               </div>
                             </td>
                             <td style={{ padding: '14px 16px' }}>
-                              <span style={{ fontSize: '0.76rem', color: ind.status === 'on-track' ? '#10b981' : '#f59e0b', fontWeight: 600 }}>
-                                &bull; {ind.status}
+                              <span
+                                style={{
+                                  fontSize: '0.76rem',
+                                  padding: '3px 8px',
+                                  borderRadius: '6px',
+                                  background: gpsCount > 0 ? 'rgba(6, 182, 212, 0.15)' : 'rgba(239, 68, 68, 0.15)',
+                                  color: gpsCount > 0 ? '#38bdf8' : '#fca5a5',
+                                  fontWeight: 700,
+                                  border: `1px solid ${gpsCount > 0 ? 'rgba(6, 182, 212, 0.3)' : 'rgba(239, 68, 68, 0.3)'}`,
+                                }}
+                              >
+                                🛰️ {gpsCount} points
                               </span>
                             </td>
                             <td style={{ padding: '14px 16px', textAlign: 'right' }}>
@@ -1458,6 +1649,18 @@ export default function AdminPortalPage() {
                                   style={{ padding: '6px 10px', borderRadius: '6px', background: 'rgba(2, 132, 199, 0.15)', border: '1px solid #0284c7', color: '#38bdf8', fontSize: '0.78rem', fontWeight: 600, cursor: 'pointer' }}
                                 >
                                   ✏️ Edit
+                                </button>
+
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    setSelectedGpsIndId(ind.id);
+                                    setActiveTab('gps_mapper');
+                                  }}
+                                  style={{ padding: '6px 10px', borderRadius: '6px', background: 'rgba(6, 182, 212, 0.15)', border: '1px solid #06b6d4', color: '#67e8f9', fontSize: '0.78rem', fontWeight: 600, cursor: 'pointer' }}
+                                  title="Enter GPS Coordinates & Generate Map"
+                                >
+                                  🗺️ GPS
                                 </button>
 
                                 <button
@@ -1501,7 +1704,460 @@ export default function AdminPortalPage() {
             )}
 
             {/* ------------------------------------------------------------- */}
-            {/* TAB 2: INDICATOR BUILDER & PUBLISHER                          */}
+            {/* TAB 2: GPS DATA ENTRY & DYNAMIC MAP GENERATOR                 */}
+            {/* ------------------------------------------------------------- */}
+            {activeTab === 'gps_mapper' && (
+              <div>
+                <div style={{ marginBottom: '24px' }}>
+                  <h2 style={{ fontSize: '1.4rem', fontWeight: 700, margin: '0 0 4px 0' }}>
+                    GPS Telemetry Entry & Dynamic Map Generator
+                  </h2>
+                  <p style={{ color: '#94a3b8', fontSize: '0.88rem', margin: 0 }}>
+                    Enter field-verified GPS coordinates (lat, lng, progress metric, sector) for any indicator and generate keyless OpenStreetMap / Satellite GIS maps with auto-fit bounds.
+                  </p>
+                </div>
+
+                {/* Indicator Picker Banner */}
+                <div
+                  style={{
+                    background: '#0f172a',
+                    border: '1px solid #1e293b',
+                    borderRadius: '12px',
+                    padding: '20px 24px',
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    gap: '16px',
+                    marginBottom: '24px',
+                  }}
+                >
+                  <div style={{ flex: 1, minWidth: '320px' }}>
+                    <label style={{ display: 'block', fontSize: '0.78rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.04em', fontWeight: 700, marginBottom: '6px' }}>
+                      Select Target Indicator for GPS Mapping
+                    </label>
+                    <select
+                      value={selectedGpsIndId}
+                      onChange={(e) => setSelectedGpsIndId(e.target.value)}
+                      style={{
+                        width: '100%',
+                        padding: '10px 14px',
+                        borderRadius: '8px',
+                        background: '#1e293b',
+                        border: '1px solid #334155',
+                        color: '#ffffff',
+                        fontSize: '0.92rem',
+                        fontWeight: 600,
+                        outline: 'none',
+                      }}
+                    >
+                      {indicators.map((ind) => (
+                        <option key={ind.id} value={ind.id}>
+                          [{ind.theme.toUpperCase()}] {ind.definition || ind.id} ({ind.gps_coordinates?.length || 0} GPS nodes)
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                    <div style={{ textAlign: 'right' }}>
+                      <div style={{ fontSize: '0.76rem', color: '#94a3b8' }}>FMES System Code</div>
+                      <code style={{ fontSize: '0.85rem', color: '#38bdf8', fontWeight: 700 }}>
+                        {activeGpsIndicator?.fmes_code}
+                      </code>
+                    </div>
+
+                    <Link
+                      href={`/indicator/${selectedGpsIndId}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        padding: '10px 16px',
+                        borderRadius: '8px',
+                        background: '#1e293b',
+                        border: '1px solid #334155',
+                        color: '#38bdf8',
+                        textDecoration: 'none',
+                        fontSize: '0.85rem',
+                        fontWeight: 600,
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                      }}
+                    >
+                      <span>🌐</span>
+                      <span>Public Indicator View ↗</span>
+                    </Link>
+                  </div>
+                </div>
+
+                {/* 2-Column Workspace: Left GPS Entry & Table / Right Live Generated Map */}
+                <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '24px' }}>
+                  {/* Left Column: GPS Input & Points Table */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                    {/* GPS Entry Form Card */}
+                    <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '12px', padding: '22px' }}>
+                      <h3 style={{ fontSize: '1.05rem', fontWeight: 700, margin: '0 0 14px 0', color: '#38bdf8' }}>
+                        1. Enter GPS Waypoint Data
+                      </h3>
+
+                      {/* Quick 1-Click Kigali Preset Buttons */}
+                      <div style={{ marginBottom: '16px' }}>
+                        <span style={{ display: 'block', fontSize: '0.74rem', color: '#94a3b8', marginBottom: '6px', fontWeight: 600 }}>
+                          📍 Quick Kigali Field Presets (Click to autofill GPS):
+                        </span>
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                          {[
+                            { name: 'Yanze River Water Intake Node', name_rw: 'Icyuma cya Yanze', lat: -1.9045, lng: 30.0381, sector: 'Gatsata', district: 'Gasabo' },
+                            { name: 'Mount Kigali Summit Hillside Plot', name_rw: 'Imisozi ya Mont Kigali', lat: -1.9852, lng: 30.0245, sector: 'Kanyinya', district: 'Nyarugenge' },
+                            { name: 'Mpazi Ravine Stormwater Swale', name_rw: 'Ibyobo bya Mpazi', lat: -1.9442, lng: 30.0514, sector: 'Gitega', district: 'Nyarugenge' },
+                            { name: 'Nyabugogo Commercial Buffer Node', name_rw: 'Igishanga cyi Nyabugogo', lat: -1.9360, lng: 30.0442, sector: 'Muhima', district: 'Nyarugenge' },
+                            { name: 'Mageragere Afforestation Belt', name_rw: 'Amashyamba ya Mageragere', lat: -2.0251, lng: 30.0152, sector: 'Mageragere', district: 'Nyarugenge' },
+                            { name: 'Kimisagara Erosion Gully Barrier', name_rw: 'Urukuta rwa Kimisagara', lat: -1.9510, lng: 30.0390, sector: 'Kimisagara', district: 'Nyarugenge' },
+                          ].map((pre) => (
+                            <button
+                              key={pre.name}
+                              type="button"
+                              onClick={() => applyGpsPreset(pre)}
+                              style={{
+                                padding: '4px 8px',
+                                borderRadius: '4px',
+                                background: '#1e293b',
+                                border: '1px solid #334155',
+                                color: '#cbd5e1',
+                                fontSize: '0.72rem',
+                                cursor: 'pointer',
+                                transition: 'all 0.1s ease',
+                              }}
+                            >
+                              {pre.name.split(' ')[0]} {pre.name.split(' ')[1]}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      <form onSubmit={handleAddGpsWaypoint} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                          <div>
+                            <label style={{ display: 'block', fontSize: '0.78rem', color: '#cbd5e1', marginBottom: '4px' }}>
+                              Latitude (Decimal) *
+                            </label>
+                            <input
+                              type="text"
+                              required
+                              placeholder="-1.9442"
+                              value={newGpsLat}
+                              onChange={(e) => setNewGpsLat(e.target.value)}
+                              style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.86rem' }}
+                            />
+                          </div>
+
+                          <div>
+                            <label style={{ display: 'block', fontSize: '0.78rem', color: '#cbd5e1', marginBottom: '4px' }}>
+                              Longitude (Decimal) *
+                            </label>
+                            <input
+                              type="text"
+                              required
+                              placeholder="30.0514"
+                              value={newGpsLng}
+                              onChange={(e) => setNewGpsLng(e.target.value)}
+                              style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.86rem' }}
+                            />
+                          </div>
+                        </div>
+
+                        <div>
+                          <label style={{ display: 'block', fontSize: '0.78rem', color: '#cbd5e1', marginBottom: '4px' }}>
+                            Station / Site Name (English) *
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            placeholder="e.g. Mpazi Vegetative Bio-Engineering Check Dam A"
+                            value={newGpsName}
+                            onChange={(e) => setNewGpsName(e.target.value)}
+                            style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.86rem' }}
+                          />
+                        </div>
+
+                        <div>
+                          <label style={{ display: 'block', fontSize: '0.78rem', color: '#cbd5e1', marginBottom: '4px' }}>
+                            Izina ry&apos;Agace mu Kinyarwanda (Name in Kinyarwanda)
+                          </label>
+                          <input
+                            type="text"
+                            placeholder="e.g. Urugomero rw'ibiti rwa Mpazi A"
+                            value={newGpsNameRw}
+                            onChange={(e) => setNewGpsNameRw(e.target.value)}
+                            style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.86rem' }}
+                          />
+                        </div>
+
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px' }}>
+                          <div>
+                            <label style={{ display: 'block', fontSize: '0.78rem', color: '#cbd5e1', marginBottom: '4px' }}>
+                              Measured Value ({activeGpsIndicator?.unit || ''})
+                            </label>
+                            <input
+                              type="number"
+                              required
+                              value={newGpsValue}
+                              onChange={(e) => setNewGpsValue(Number(e.target.value))}
+                              style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.86rem' }}
+                            />
+                          </div>
+
+                          <div>
+                            <label style={{ display: 'block', fontSize: '0.78rem', color: '#cbd5e1', marginBottom: '4px' }}>
+                              Sector
+                            </label>
+                            <input
+                              type="text"
+                              value={newGpsSector}
+                              onChange={(e) => setNewGpsSector(e.target.value)}
+                              placeholder="Gitega"
+                              style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.86rem' }}
+                            />
+                          </div>
+
+                          <div>
+                            <label style={{ display: 'block', fontSize: '0.78rem', color: '#cbd5e1', marginBottom: '4px' }}>
+                              District
+                            </label>
+                            <input
+                              type="text"
+                              value={newGpsDistrict}
+                              onChange={(e) => setNewGpsDistrict(e.target.value)}
+                              placeholder="Nyarugenge"
+                              style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.86rem' }}
+                            />
+                          </div>
+                        </div>
+
+                        <div>
+                          <label style={{ display: 'block', fontSize: '0.78rem', color: '#cbd5e1', marginBottom: '4px' }}>
+                            Status & Verification
+                          </label>
+                          <select
+                            value={newGpsStatus}
+                            onChange={(e) => setNewGpsStatus(e.target.value)}
+                            style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.86rem' }}
+                          >
+                            <option value="Active">Active Intervention</option>
+                            <option value="Verified">Field Verified (RFA Audited)</option>
+                            <option value="Completed">Completed Milestone</option>
+                            <option value="Under Monitoring">Continuous Telemetry Monitoring</option>
+                            <option value="Planned">Planned / Future Swale</option>
+                          </select>
+                        </div>
+
+                        <div>
+                          <label style={{ display: 'block', fontSize: '0.78rem', color: '#cbd5e1', marginBottom: '4px' }}>
+                            Telemetry & Field Notes
+                          </label>
+                          <input
+                            type="text"
+                            value={newGpsNotes}
+                            onChange={(e) => setNewGpsNotes(e.target.value)}
+                            placeholder="e.g. Bio-engineering live check-dam delayed peak crest by 28%."
+                            style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.86rem' }}
+                          />
+                        </div>
+
+                        <button
+                          type="submit"
+                          style={{
+                            padding: '10px',
+                            marginTop: '6px',
+                            borderRadius: '6px',
+                            background: '#0284c7',
+                            border: 'none',
+                            color: '#ffffff',
+                            fontWeight: 700,
+                            fontSize: '0.86rem',
+                            cursor: 'pointer',
+                          }}
+                        >
+                          + Add GPS Waypoint to Indicator Buffer
+                        </button>
+                      </form>
+                    </div>
+
+                    {/* GPS Waypoints List Table */}
+                    <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '12px', padding: '20px' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                        <h4 style={{ fontSize: '0.96rem', fontWeight: 700, margin: 0 }}>
+                          2. GPS Points Stored for Indicator ({gpsPoints.length})
+                        </h4>
+                        <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>
+                          Target: <code style={{ color: '#38bdf8' }}>{selectedGpsIndId}</code>
+                        </span>
+                      </div>
+
+                      <div style={{ maxHeight: '280px', overflowY: 'auto' }}>
+                        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.8rem', textAlign: 'left' }}>
+                          <thead>
+                            <tr style={{ background: '#1e293b', color: '#94a3b8' }}>
+                              <th style={{ padding: '8px 10px' }}>Site Name</th>
+                              <th style={{ padding: '8px 10px' }}>Coordinates</th>
+                              <th style={{ padding: '8px 10px' }}>Metric Value</th>
+                              <th style={{ padding: '8px 10px' }}>Status</th>
+                              <th style={{ padding: '8px 10px', textAlign: 'right' }}>Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {gpsPoints.map((pt) => (
+                              <tr key={pt.id} style={{ borderBottom: '1px solid #1e293b' }}>
+                                <td style={{ padding: '8px 10px', fontWeight: 600, color: '#f8fafc' }}>
+                                  <div>{pt.name}</div>
+                                  <div style={{ fontSize: '0.7rem', color: '#64748b' }}>{pt.sector}, {pt.district}</div>
+                                </td>
+                                <td style={{ padding: '8px 10px', fontFamily: 'monospace', color: '#38bdf8', fontSize: '0.74rem' }}>
+                                  {pt.lat.toFixed(4)}, {pt.lng.toFixed(4)}
+                                </td>
+                                <td style={{ padding: '8px 10px', fontWeight: 700 }}>
+                                  {pt.value?.toLocaleString()} {pt.unit || activeGpsIndicator?.unit}
+                                </td>
+                                <td style={{ padding: '8px 10px' }}>
+                                  <span style={{ fontSize: '0.7rem', color: '#10b981', fontWeight: 600 }}>
+                                    &bull; {pt.status || 'Active'}
+                                  </span>
+                                </td>
+                                <td style={{ padding: '8px 10px', textAlign: 'right' }}>
+                                  <button
+                                    type="button"
+                                    onClick={() => handleDeleteGpsWaypoint(pt.id)}
+                                    style={{
+                                      background: 'none',
+                                      border: 'none',
+                                      color: '#fca5a5',
+                                      cursor: 'pointer',
+                                      fontWeight: 700,
+                                      fontSize: '0.8rem',
+                                    }}
+                                  >
+                                    ✕
+                                  </button>
+                                </td>
+                              </tr>
+                            ))}
+
+                            {gpsPoints.length === 0 && (
+                              <tr>
+                                <td colSpan={5} style={{ padding: '24px', textAlign: 'center', color: '#64748b' }}>
+                                  No GPS points added yet. Use the form above or click a Kigali preset to add waypoints!
+                                </td>
+                              </tr>
+                            )}
+                          </tbody>
+                        </table>
+                      </div>
+
+                      {/* Primary Generate & Save Action Button */}
+                      <div style={{ marginTop: '16px', borderTop: '1px solid #1e293b', paddingTop: '16px' }}>
+                        <button
+                          type="button"
+                          disabled={generatingMap}
+                          onClick={handleGenerateAndSaveMap}
+                          style={{
+                            width: '100%',
+                            padding: '14px',
+                            borderRadius: '8px',
+                            background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                            color: '#ffffff',
+                            border: 'none',
+                            fontWeight: 800,
+                            fontSize: '0.98rem',
+                            cursor: 'pointer',
+                            boxShadow: '0 4px 14px rgba(16, 185, 129, 0.4)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '8px',
+                          }}
+                        >
+                          <span>⚡</span>
+                          <span>
+                            {generatingMap
+                              ? 'Generating & Synchronizing GIS Map...'
+                              : `Generate & Save Map for '${selectedGpsIndId}' (${gpsPoints.length} GPS Points)`}
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right Column: Interactive Live Generated Map Preview */}
+                  <div>
+                    <div
+                      style={{
+                        background: '#0f172a',
+                        border: '1px solid #1e293b',
+                        borderRadius: '12px',
+                        padding: '20px',
+                        position: 'sticky',
+                        top: '90px',
+                      }}
+                    >
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                        <div>
+                          <h3 style={{ fontSize: '1.05rem', fontWeight: 700, margin: 0, color: '#ffffff' }}>
+                            Interactive Generated Map Preview
+                          </h3>
+                          <span style={{ fontSize: '0.74rem', color: '#10b981', fontWeight: 600 }}>
+                            ● Keyless OpenStreetMap & Satellite Tiles (Zero API Key Required)
+                          </span>
+                        </div>
+
+                        <span
+                          style={{
+                            fontSize: '0.74rem',
+                            background: 'rgba(2, 132, 199, 0.2)',
+                            color: '#38bdf8',
+                            padding: '3px 8px',
+                            borderRadius: '6px',
+                            fontWeight: 700,
+                          }}
+                        >
+                          {gpsPoints.length} Pins Plotted
+                        </span>
+                      </div>
+
+                      {/* Map Container */}
+                      <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1px solid #334155' }}>
+                        <CatchmentMap
+                          currentIndicator={{
+                            ...activeGpsIndicator,
+                            gps_coordinates: gpsPoints,
+                          }}
+                          height={460}
+                          showControls={true}
+                          showLegend={true}
+                        />
+                      </div>
+
+                      <div style={{ marginTop: '12px', padding: '10px 14px', background: '#1e293b', borderRadius: '8px', fontSize: '0.76rem', color: '#94a3b8', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <span>
+                          🛰️ Live auto-fit bounds centers onto verified GPS nodes.
+                        </span>
+                        <Link
+                          href={`/indicator/${selectedGpsIndId}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{ color: '#38bdf8', fontWeight: 700, textDecoration: 'none' }}
+                        >
+                          Open Full Spatial View ↗
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* ------------------------------------------------------------- */}
+            {/* TAB 3: INDICATOR BUILDER & PUBLISHER                          */}
             {/* ------------------------------------------------------------- */}
             {activeTab === 'builder' && (
               <div>
@@ -1746,7 +2402,7 @@ export default function AdminPortalPage() {
             )}
 
             {/* ------------------------------------------------------------- */}
-            {/* TAB 3: LANDING PAGE STORIES & CIVIC NARRATIVES                */}
+            {/* TAB 4: LANDING PAGE STORIES & CIVIC NARRATIVES                */}
             {/* ------------------------------------------------------------- */}
             {activeTab === 'landing_stories' && (
               <div>
@@ -1885,7 +2541,7 @@ export default function AdminPortalPage() {
             )}
 
             {/* ------------------------------------------------------------- */}
-            {/* TAB 4: INDICATOR STORIES & 3 CORE QUESTIONS EDITOR            */}
+            {/* TAB 5: INDICATOR STORIES & 3 CORE QUESTIONS EDITOR            */}
             {/* ------------------------------------------------------------- */}
             {activeTab === 'indicator_stories' && (
               <div>
@@ -1894,7 +2550,7 @@ export default function AdminPortalPage() {
                     Indicator Stories & 3 Core Questions Editor
                   </h2>
                   <p style={{ color: '#94a3b8', fontSize: '0.88rem', margin: 0 }}>
-                    Author and customize the 3-question narratives required by the SUNCASA RFP: 'What is this indicator?', 'Why does it matter for Kigali?', and 'What is SUNCASA doing about it?', alongside data limitations and official source lineage.
+                    Author and customize the 3-question narratives required by the SUNCASA RFP: &apos;What is this indicator?&apos;, &apos;Why does it matter for Kigali?&apos;, and &apos;What is SUNCASA doing about it?&apos;, alongside data limitations and official source lineage.
                   </p>
                 </div>
 
@@ -2065,8 +2721,8 @@ export default function AdminPortalPage() {
                     <div style={{ background: '#1e293b', padding: '18px', borderRadius: '10px', borderLeft: '4px solid #10b981' }}>
                       <label style={{ display: 'block', fontSize: '0.86rem', fontWeight: 700, color: '#34d399', marginBottom: '6px' }}>
                         {narrativeLocaleTab === 'en'
-                          ? '2. Why does it matter for Kigali\'s climate resilience?'
-                          : '2. Kuki iki gipimo gifite akamaro ku mibereho n\'ikirere by\'i Kigali?'}
+                          ? "2. Why does it matter for Kigali's climate resilience?"
+                          : "2. Kuki iki gipimo gifite akamaro ku mibereho n'ikirere by'i Kigali?"}
                       </label>
                       <textarea
                         rows={3}
@@ -2092,7 +2748,7 @@ export default function AdminPortalPage() {
                       <label style={{ display: 'block', fontSize: '0.86rem', fontWeight: 700, color: '#fbbf24', marginBottom: '6px' }}>
                         {narrativeLocaleTab === 'en'
                           ? '3. What is SUNCASA doing about it with City of Kigali and RFA?'
-                          : '3. Ni iki SUNCASA ikorana n\'Umujyi wa Kigali na RFA kuri iki gipimo?'}
+                          : "3. Ni iki SUNCASA ikorana n'Umujyi wa Kigali na RFA kuri iki gipimo?"}
                       </label>
                       <textarea
                         rows={3}
@@ -2186,7 +2842,7 @@ export default function AdminPortalPage() {
             )}
 
             {/* ------------------------------------------------------------- */}
-            {/* TAB 5: ROLES & USER DELEGATION (RBAC)                          */}
+            {/* TAB 6: ROLES & USER DELEGATION (RBAC)                          */}
             {/* ------------------------------------------------------------- */}
             {activeTab === 'rbac' && (
               <div>
@@ -2265,7 +2921,6 @@ export default function AdminPortalPage() {
                             </td>
                             <td style={{ padding: '14px 18px', textAlign: 'right' }}>
                               <div style={{ display: 'inline-flex', gap: '8px', alignItems: 'center' }}>
-                                {/* Role Assignment Dropdown */}
                                 <select
                                   value={u.role_id}
                                   onChange={async (e) => {
@@ -2303,7 +2958,6 @@ export default function AdminPortalPage() {
                                   ))}
                                 </select>
 
-                                {/* Toggle Super Admin Quick Button */}
                                 <button
                                   type="button"
                                   onClick={async () => {
@@ -2354,7 +3008,7 @@ export default function AdminPortalPage() {
             )}
 
             {/* ------------------------------------------------------------- */}
-            {/* TAB 6: DATABASE CONFIGURATION & INTEROPERABILITY              */}
+            {/* TAB 7: DATABASE CONFIGURATION & INTEROPERABILITY              */}
             {/* ------------------------------------------------------------- */}
             {activeTab === 'database' && (
               <div>
@@ -2590,13 +3244,13 @@ export default function AdminPortalPage() {
                 <button
                   type="button"
                   onClick={() => {
-                    setSelectedNarrativeId(editingIndicator.id);
+                    setSelectedGpsIndId(editingIndicator.id);
                     setShowEditIndicatorModal(false);
-                    setActiveTab('indicator_stories');
+                    setActiveTab('gps_mapper');
                   }}
-                  style={{ background: 'none', border: 'none', color: '#c4b5fd', fontSize: '0.82rem', textDecoration: 'underline', cursor: 'pointer' }}
+                  style={{ background: 'none', border: 'none', color: '#38bdf8', fontSize: '0.82rem', textDecoration: 'underline', cursor: 'pointer' }}
                 >
-                  📖 Edit 3-Question Stories for this indicator &rarr;
+                  🗺️ Open GPS & Map Generator for this indicator &rarr;
                 </button>
 
                 <div style={{ display: 'flex', gap: '10px' }}>
@@ -2612,7 +3266,7 @@ export default function AdminPortalPage() {
                     disabled={savingIndicator}
                     style={{ padding: '10px 22px', borderRadius: '6px', background: '#0284c7', border: 'none', color: '#ffffff', fontWeight: 700, cursor: 'pointer' }}
                   >
-                    {savingIndicator ? 'Saving Changes...' : 'Save Indicator'}
+                    {savingIndicator ? 'Saving Indicator...' : 'Save Indicator'}
                   </button>
                 </div>
               </div>

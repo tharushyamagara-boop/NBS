@@ -37,8 +37,10 @@ export default function CatchmentMap({
   const catchmentLayerRef = useRef<L.GeoJSON | null>(null);
   const specializedLayerRef = useRef<L.LayerGroup | null>(null);
   const markersRef = useRef<L.LayerGroup | null>(null);
+  const gpsLayerRef = useRef<L.LayerGroup | null>(null);
 
-  const [activeBasemap, setActiveBasemap] = useState<'dark' | 'voyager'>('dark');
+  // Basemap options: 'osm' (OpenStreetMap - 100% Free, Zero Key), 'dark' (Carto Dark), 'satellite' (ESRI World Imagery Keyless)
+  const [activeBasemap, setActiveBasemap] = useState<'osm' | 'dark' | 'satellite'>('osm');
   const [selectedFeature, setSelectedFeature] = useState<any>(null);
   const [legendRange, setLegendRange] = useState<{ min: number; max: number; unit: string; color: string } | null>(null);
   const baseTileLayerRef = useRef<L.TileLayer | null>(null);
@@ -53,35 +55,30 @@ export default function CatchmentMap({
 
     // Theme color palettes
     if (baseColor === '#0284c7') {
-      // Blue palette
       if (ratio > 0.8) return '#0369a1';
       if (ratio > 0.6) return '#0284c7';
       if (ratio > 0.4) return '#38bdf8';
       if (ratio > 0.2) return '#7dd3fc';
       return '#bae6fd';
     } else if (baseColor === '#10b981') {
-      // Green palette
       if (ratio > 0.8) return '#047857';
       if (ratio > 0.6) return '#10b981';
       if (ratio > 0.4) return '#34d399';
       if (ratio > 0.2) return '#6ee7b7';
       return '#a7f3d0';
     } else if (baseColor === '#8b5cf6') {
-      // Purple palette
       if (ratio > 0.8) return '#6d28d9';
       if (ratio > 0.6) return '#8b5cf6';
       if (ratio > 0.4) return '#a78bfa';
       if (ratio > 0.2) return '#c4b5fd';
       return '#ddd6fe';
     } else if (baseColor === '#f59e0b') {
-      // Amber palette
       if (ratio > 0.8) return '#b45309';
       if (ratio > 0.6) return '#f59e0b';
       if (ratio > 0.4) return '#fbbf24';
       if (ratio > 0.2) return '#fde68a';
       return '#fef3c7';
     } else {
-      // Default orange/red palette
       if (ratio > 0.8) return '#c2410c';
       if (ratio > 0.6) return '#ea580c';
       if (ratio > 0.4) return '#f97316';
@@ -98,27 +95,24 @@ export default function CatchmentMap({
     const map = L.map(mapContainerRef.current, {
       center: KIGALI_CENTER,
       zoom: initialZoom,
-      minZoom: 10,
-      maxZoom: 16,
+      minZoom: 9,
+      maxZoom: 18,
       zoomControl: false,
     });
 
     // Zoom control at top right
     L.control.zoom({ position: 'topright' }).addTo(map);
 
-    // Default Dark Carto tile layer
-    const darkTiles = L.tileLayer(
-      'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-      {
-        attribution: '&copy; <a href="https://carto.com/">CARTO</a> &bull; City of Kigali & RFA',
-        subdomains: 'abcd',
-        maxZoom: 19,
-      }
-    ).addTo(map);
-    baseTileLayerRef.current = darkTiles;
+    // 100% Free Public Keyless OpenStreetMap Tile Layer
+    const osmTiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &bull; City of Kigali & RFA',
+      maxZoom: 19,
+    }).addTo(map);
+    baseTileLayerRef.current = osmTiles;
 
     specializedLayerRef.current = L.layerGroup().addTo(map);
     markersRef.current = L.layerGroup().addTo(map);
+    gpsLayerRef.current = L.layerGroup().addTo(map);
 
     mapInstanceRef.current = map;
 
@@ -128,18 +122,24 @@ export default function CatchmentMap({
     };
   }, []);
 
-  // Basemap switch effect
+  // Basemap switch effect - Keyless Public Providers Only
   useEffect(() => {
     if (!mapInstanceRef.current || !baseTileLayerRef.current) return;
     mapInstanceRef.current.removeLayer(baseTileLayerRef.current);
 
-    const tileUrl =
-      activeBasemap === 'dark'
-        ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
-        : 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+    let tileUrl = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+    let attribution = '&copy; OpenStreetMap contributors &bull; City of Kigali & RFA';
+
+    if (activeBasemap === 'dark') {
+      tileUrl = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+      attribution = '&copy; CARTO &bull; City of Kigali & RFA';
+    } else if (activeBasemap === 'satellite') {
+      tileUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
+      attribution = '&copy; Esri World Imagery &bull; City of Kigali & RFA';
+    }
 
     const newTiles = L.tileLayer(tileUrl, {
-      attribution: '&copy; CARTO &bull; City of Kigali & RFA',
+      attribution,
       subdomains: 'abcd',
       maxZoom: 19,
     }).addTo(mapInstanceRef.current);
@@ -147,7 +147,7 @@ export default function CatchmentMap({
     baseTileLayerRef.current = newTiles;
   }, [activeBasemap]);
 
-  // Main Layer Rendering & Indicator Choropleth Logic
+  // Main Layer Rendering & Indicator GPS / Choropleth Logic
   useEffect(() => {
     const map = mapInstanceRef.current;
     if (!map) return;
@@ -158,9 +158,10 @@ export default function CatchmentMap({
       catchmentLayerRef.current = null;
     }
 
-    // Clear specialized layers & markers
+    // Clear specialized layers, general markers, and indicator GPS layer
     if (specializedLayerRef.current) specializedLayerRef.current.clearLayers();
     if (markersRef.current) markersRef.current.clearLayers();
+    if (gpsLayerRef.current) gpsLayerRef.current.clearLayers();
 
     // Determine theme and color
     const themeColor =
@@ -231,7 +232,7 @@ export default function CatchmentMap({
           opacity: 0.9,
           color: fillColor,
           dashArray: '3',
-          fillOpacity: currentIndicator ? 0.55 : 0.22,
+          fillOpacity: currentIndicator ? 0.45 : 0.22,
         };
       },
       onEachFeature: (feature: any, layer: L.Layer) => {
@@ -243,7 +244,7 @@ export default function CatchmentMap({
 
         layer.on({
           mouseover: (e: any) => {
-            e.target.setStyle({ weight: 3.5, fillOpacity: 0.75 });
+            e.target.setStyle({ weight: 3.5, fillOpacity: 0.65 });
           },
           mouseout: (e: any) => {
             catchmentLayer.resetStyle(e.target);
@@ -288,17 +289,103 @@ export default function CatchmentMap({
 
     catchmentLayerRef.current = catchmentLayer;
 
-    // 2. RENDER SPECIALIZED GIS NODES (Water Quality, Corridors, Nurseries, Youth Hubs)
+    // 2. RENDER DEDICATED GPS COORDINATES FOR THIS INDICATOR (If entered by admin)
+    if (gpsLayerRef.current && currentIndicator?.gps_coordinates && currentIndicator.gps_coordinates.length > 0) {
+      const boundsArr: L.LatLngExpression[] = [];
+
+      currentIndicator.gps_coordinates.forEach((pt) => {
+        if (!pt.lat || !pt.lng) return;
+        boundsArr.push([pt.lat, pt.lng]);
+
+        const pinIcon = L.divIcon({
+          className: 'indicator-gps-pin',
+          html: `
+            <div style="
+              position: relative;
+              width: 38px;
+              height: 38px;
+              background: ${themeColor};
+              border: 2.5px solid #ffffff;
+              border-radius: 50%;
+              box-shadow: 0 4px 14px rgba(0,0,0,0.45);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              color: #ffffff;
+              font-weight: 800;
+              font-size: 0.95rem;
+              cursor: pointer;
+              transition: transform 0.2s ease;
+            ">
+              <span>📍</span>
+            </div>
+          `,
+          iconSize: [38, 38],
+          iconAnchor: [19, 19],
+        });
+
+        const marker = L.marker([pt.lat, pt.lng], { icon: pinIcon });
+
+        const displayName = locale === 'rw' ? pt.name_rw || pt.name : pt.name;
+
+        // Rich Popup with GPS Coordinates and Telemetry
+        marker.bindPopup(`
+          <div style="font-family: Inter, sans-serif; min-width: 240px; padding: 4px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+              <span style="font-size: 0.72rem; font-weight: 800; background: ${themeColor}22; color: ${themeColor}; padding: 2px 8px; border-radius: 4px; text-transform: uppercase;">
+                GPS Node &bull; ${pt.status || 'Active'}
+              </span>
+            </div>
+            <h4 style="font-size: 0.98rem; font-weight: 800; color: #0f172a; margin: 0 0 4px 0;">${displayName}</h4>
+            <div style="font-size: 0.78rem; color: #64748b; margin-bottom: 8px;">
+              ${pt.sector ? `${pt.sector}, ` : ''}${pt.district || 'Kigali'}
+            </div>
+            <div style="background: #f1f5f9; padding: 8px 12px; border-radius: 6px; margin-bottom: 8px;">
+              <div style="font-size: 0.72rem; color: #64748b;">Telemetry / Measured Progress</div>
+              <div style="font-size: 1.15rem; font-weight: 800; color: ${themeColor};">
+                ${pt.value?.toLocaleString()} ${pt.unit || currentIndicator.unit}
+              </div>
+            </div>
+            <div style="font-size: 0.74rem; color: #475569; font-family: monospace; background: #e2e8f0; padding: 4px 8px; border-radius: 4px; display: inline-block;">
+              🛰️ Lat: ${pt.lat.toFixed(5)}, Lng: ${pt.lng.toFixed(5)}
+            </div>
+            ${pt.notes ? `<div style="font-size: 0.76rem; color: #64748b; margin-top: 6px; font-style: italic; line-height: 1.4;">${pt.notes}</div>` : ''}
+          </div>
+        `);
+
+        marker.on('click', () => {
+          const payload = {
+            type: 'GPS Telemetry Waypoint',
+            ...pt,
+            indicatorValue: pt.value,
+            unit: pt.unit || currentIndicator.unit,
+          };
+          setSelectedFeature(payload);
+          if (onSelectSite) onSelectSite(payload);
+        });
+
+        gpsLayerRef.current?.addLayer(marker);
+      });
+
+      // Auto-fit bounds to enclose all GPS points for this indicator
+      if (boundsArr.length > 0) {
+        try {
+          const latLngBounds = L.latLngBounds(boundsArr);
+          map.fitBounds(latLngBounds, { padding: [40, 40], maxZoom: 14 });
+        } catch (e) {
+          // Ignore bounds errors
+        }
+      }
+    }
+
+    // 3. RENDER SPECIALIZED GIS NODES (Water Quality, Corridors, Nurseries, Youth Hubs)
     if (specializedLayerRef.current) {
       (monitoringNodesGeoJSON as any).features.forEach((node: any) => {
         const p = node.properties;
-
-        // Filter: match current indicator or show all in global view
         const matchesIndicator = !currentIndicator || p.indicator_id === currentIndicator.id;
         if (!matchesIndicator) return;
 
         if (node.geometry.type === 'LineString') {
-          // Linear Corridor (Riparian Buffer 30m or Traffic Corridor)
           const latLngs = node.geometry.coordinates.map(([lng, lat]: [number, number]) => [lat, lng]);
           const isRiparian = p.indicator_id === 'riparian_buffer_km';
           const lineColor = isRiparian ? '#06b6d4' : '#ef4444';
@@ -323,7 +410,6 @@ export default function CatchmentMap({
 
           specializedLayerRef.current?.addLayer(polyline);
         } else if (node.geometry.type === 'Point') {
-          // Specialized Station/Hub Pin
           const [lng, lat] = node.geometry.coordinates;
 
           let badgeIcon = '💧';
@@ -384,8 +470,8 @@ export default function CatchmentMap({
       });
     }
 
-    // 3. RENDER GENERAL INTERVENTION SITES (When no specific indicator or for tree/ha/job counts)
-    if (markersRef.current) {
+    // 4. RENDER GENERAL INTERVENTION SITES (When no indicator-specific GPS points exist)
+    if (markersRef.current && (!currentIndicator?.gps_coordinates || currentIndicator.gps_coordinates.length === 0)) {
       const showSiteMarkers =
         !currentIndicator ||
         ['area_restored_ha', 'trees_planted', 'green_jobs_created', 'flood_risk_reduction', 'soil_erosion_prevented'].includes(
@@ -399,8 +485,7 @@ export default function CatchmentMap({
 
           const [lng, lat] = feature.geometry.coordinates;
 
-          // Compute size: if trees_planted indicator, scale marker by tree count
-          let bubbleSize = 24;
+          let bubbleSize = 26;
           if (currentIndicator?.id === 'trees_planted' && p.trees_planted) {
             bubbleSize = Math.max(22, Math.min(42, Math.round(p.trees_planted / 9000)));
           } else if (currentIndicator?.id === 'green_jobs_created' && p.jobs_created) {
@@ -448,17 +533,25 @@ export default function CatchmentMap({
             `
               <div style="font-family: Inter, sans-serif; font-size: 0.84rem;">
                 <strong style="color: #0f172a;">${siteName}</strong>
-                <div style="color: #64748b; font-size: 0.75rem;">${p.district} &bull; ${p.fmes_compartment}</div>
-                <div style="margin-top: 4px; font-weight: 700; color: ${pinColor};">
-                  ${p.area_ha} ha &bull; ${p.trees_planted?.toLocaleString()} trees
-                </div>
+                <div style="color: #64748b; font-size: 0.74rem;">${p.district} &bull; ${p.fmes_compartment}</div>
+                <div style="color: ${themeColor}; font-weight: 700; margin-top: 3px;">${p.intervention_type}</div>
               </div>
             `,
             { offset: [0, -12] }
           );
 
           marker.on('click', () => {
-            const payload = { type: 'Intervention Site Parcel', ...p };
+            const payload = {
+              type: 'Restoration Site',
+              ...p,
+              indicatorValue:
+                currentIndicator?.id === 'trees_planted'
+                  ? p.trees_planted
+                  : currentIndicator?.id === 'green_jobs_created'
+                  ? p.jobs_created
+                  : p.area_ha,
+              unit: currentIndicator?.unit || 'ha',
+            };
             setSelectedFeature(payload);
             if (onSelectSite) onSelectSite(payload);
           });
@@ -467,14 +560,7 @@ export default function CatchmentMap({
         });
       }
     }
-  }, [currentIndicator, activeSelectedTheme, locale]);
-
-  // Reset map view to Lower Nyabarongo
-  const handleResetView = () => {
-    if (mapInstanceRef.current) {
-      mapInstanceRef.current.flyTo(KIGALI_CENTER, initialZoom, { duration: 0.8 });
-    }
-  };
+  }, [currentIndicator, activeSelectedTheme, locale, onSelectSite]);
 
   return (
     <div
@@ -482,102 +568,85 @@ export default function CatchmentMap({
         position: 'relative',
         width: '100%',
         height: typeof height === 'number' ? `${height}px` : height,
-        borderRadius: '12px',
-        overflow: 'hidden',
         background: '#0a111e',
       }}
     >
-      {/* Map Container */}
+      {/* Map DOM Canvas */}
       <div ref={mapContainerRef} style={{ width: '100%', height: '100%' }} />
 
-      {/* Top Controls Overlay */}
+      {/* Floating Basemap Switcher (Keyless OpenStreetMap & Satellite) */}
       {showControls && (
         <div
           style={{
             position: 'absolute',
-            top: '12px',
-            left: '12px',
+            top: '16px',
+            left: '16px',
             zIndex: 900,
             display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
+            gap: '6px',
+            background: 'rgba(15, 23, 42, 0.9)',
+            backdropFilter: 'blur(8px)',
+            padding: '5px',
+            borderRadius: '8px',
+            border: '1px solid #334155',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
           }}
         >
-          {/* Basemap Switcher */}
-          <div
-            style={{
-              background: 'rgba(15, 23, 42, 0.85)',
-              backdropFilter: 'blur(8px)',
-              border: '1px solid rgba(255, 255, 255, 0.15)',
-              borderRadius: '8px',
-              padding: '3px',
-              display: 'flex',
-              gap: '4px',
-            }}
-          >
-            <button
-              type="button"
-              onClick={() => setActiveBasemap('dark')}
-              style={{
-                padding: '5px 10px',
-                borderRadius: '6px',
-                border: 'none',
-                fontSize: '0.74rem',
-                fontWeight: 700,
-                cursor: 'pointer',
-                background: activeBasemap === 'dark' ? '#0284c7' : 'transparent',
-                color: activeBasemap === 'dark' ? '#ffffff' : '#94a3b8',
-                transition: 'all 0.15s ease',
-              }}
-            >
-              🌙 Dark GIS
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveBasemap('voyager')}
-              style={{
-                padding: '5px 10px',
-                borderRadius: '6px',
-                border: 'none',
-                fontSize: '0.74rem',
-                fontWeight: 700,
-                cursor: 'pointer',
-                background: activeBasemap === 'voyager' ? '#0284c7' : 'transparent',
-                color: activeBasemap === 'voyager' ? '#ffffff' : '#94a3b8',
-                transition: 'all 0.15s ease',
-              }}
-            >
-              ☀️ Street Map
-            </button>
-          </div>
-
-          {/* Reset View Button */}
           <button
             type="button"
-            onClick={handleResetView}
-            title="Reset to Lower Nyabarongo View"
+            onClick={() => setActiveBasemap('osm')}
             style={{
-              background: 'rgba(15, 23, 42, 0.85)',
-              backdropFilter: 'blur(8px)',
-              border: '1px solid rgba(255, 255, 255, 0.15)',
-              borderRadius: '8px',
-              padding: '6px 10px',
-              color: '#f8fafc',
-              fontSize: '0.76rem',
-              fontWeight: 600,
+              padding: '6px 12px',
+              borderRadius: '6px',
+              fontSize: '0.78rem',
+              fontWeight: 700,
               cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '4px',
+              border: 'none',
+              background: activeBasemap === 'osm' ? '#0284c7' : 'transparent',
+              color: activeBasemap === 'osm' ? '#ffffff' : '#94a3b8',
+              transition: 'all 0.15s ease',
             }}
           >
-            <span>🎯</span>
-            <span>Reset View</span>
+            🗺️ OpenStreetMap
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveBasemap('satellite')}
+            style={{
+              padding: '6px 12px',
+              borderRadius: '6px',
+              fontSize: '0.78rem',
+              fontWeight: 700,
+              cursor: 'pointer',
+              border: 'none',
+              background: activeBasemap === 'satellite' ? '#0284c7' : 'transparent',
+              color: activeBasemap === 'satellite' ? '#ffffff' : '#94a3b8',
+              transition: 'all 0.15s ease',
+            }}
+          >
+            🛰️ Satellite (ESRI)
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveBasemap('dark')}
+            style={{
+              padding: '6px 12px',
+              borderRadius: '6px',
+              fontSize: '0.78rem',
+              fontWeight: 700,
+              cursor: 'pointer',
+              border: 'none',
+              background: activeBasemap === 'dark' ? '#0284c7' : 'transparent',
+              color: activeBasemap === 'dark' ? '#ffffff' : '#94a3b8',
+              transition: 'all 0.15s ease',
+            }}
+          >
+            🌙 Dark
           </button>
         </div>
       )}
 
-      {/* Dynamic Indicator Map Legend Overlay */}
+      {/* Floating Dynamic Indicator Legend */}
       {showLegend && legendRange && currentIndicator && (
         <div
           style={{
@@ -587,15 +656,15 @@ export default function CatchmentMap({
             zIndex: 900,
             background: 'rgba(15, 23, 42, 0.92)',
             backdropFilter: 'blur(10px)',
-            border: '1px solid rgba(255, 255, 255, 0.18)',
+            border: '1px solid #334155',
             borderRadius: '10px',
             padding: '12px 16px',
-            maxWidth: '280px',
+            minWidth: '220px',
             boxShadow: '0 4px 16px rgba(0,0,0,0.4)',
           }}
         >
-          <div style={{ fontSize: '0.74rem', color: '#94a3b8', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-            Spatial Distribution
+          <div style={{ fontSize: '0.74rem', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.04em', fontWeight: 700 }}>
+            {currentIndicator.legend_label || 'Indicator Intensity'}
           </div>
           <div style={{ fontSize: '0.86rem', color: '#f8fafc', fontWeight: 700, marginTop: '2px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
             {currentIndicator.unit}
@@ -664,34 +733,22 @@ export default function CatchmentMap({
 
           {selectedFeature.indicatorValue !== undefined && (
             <div style={{ marginTop: '10px', padding: '8px 10px', background: 'rgba(2, 132, 199, 0.15)', border: '1px solid rgba(2, 132, 199, 0.3)', borderRadius: '6px' }}>
-              <div style={{ fontSize: '0.72rem', color: '#94a3b8' }}>Verified Value</div>
+              <div style={{ fontSize: '0.72rem', color: '#94a3b8' }}>Telemetry Metric</div>
               <div style={{ fontSize: '1.15rem', fontWeight: 800, color: '#38bdf8' }}>
                 {selectedFeature.indicatorValue?.toLocaleString()} {selectedFeature.unit || ''}
               </div>
             </div>
           )}
 
-          {selectedFeature.wqi_score !== undefined && (
-            <div style={{ marginTop: '8px', display: 'flex', gap: '8px' }}>
-              <div style={{ flex: 1, background: '#1e293b', padding: '6px', borderRadius: '4px', textAlign: 'center' }}>
-                <div style={{ fontSize: '0.68rem', color: '#94a3b8' }}>WQI Score</div>
-                <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#38bdf8' }}>{selectedFeature.wqi_score} / 100</div>
-              </div>
-              <div style={{ flex: 1, background: '#1e293b', padding: '6px', borderRadius: '4px', textAlign: 'center' }}>
-                <div style={{ fontSize: '0.68rem', color: '#94a3b8' }}>Turbidity</div>
-                <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#fbbf24' }}>{selectedFeature.turbidity_ntu} NTU</div>
-              </div>
+          {selectedFeature.lat !== undefined && selectedFeature.lng !== undefined && (
+            <div style={{ marginTop: '6px', fontSize: '0.72rem', color: '#64748b', fontFamily: 'monospace' }}>
+              GPS: {selectedFeature.lat.toFixed(5)}, {selectedFeature.lng.toFixed(5)}
             </div>
           )}
 
-          {selectedFeature.area_km2 && (
-            <div style={{ fontSize: '0.76rem', color: '#cbd5e1', marginTop: '8px' }}>
-              <strong>Catchment Area:</strong> {selectedFeature.area_km2} km²
-            </div>
-          )}
-          {selectedFeature.priority_intervention && (
-            <div style={{ fontSize: '0.74rem', color: '#94a3b8', marginTop: '4px', lineHeight: 1.4 }}>
-              <strong>Priority:</strong> {selectedFeature.priority_intervention}
+          {selectedFeature.notes && (
+            <div style={{ fontSize: '0.74rem', color: '#94a3b8', marginTop: '6px', fontStyle: 'italic', lineHeight: 1.4 }}>
+              {selectedFeature.notes}
             </div>
           )}
         </div>
