@@ -91,7 +91,7 @@ export default function MyPegThemeNav({
             placeholder={
               isRw
                 ? 'Shakisha igipimo, agace, kode ya FMES...'
-                : 'Search 11 indicators by keyword, micro-catchment, or FMES code...'
+                : 'Search indicators by keyword, micro-catchment, or FMES code...'
             }
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}

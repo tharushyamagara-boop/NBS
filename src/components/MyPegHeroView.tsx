@@ -217,6 +217,183 @@ export default function MyPegHeroView({
         </div>
       </section>
 
+      {/* 2B. Thematic Communication Pillars (RFP Mandated Thematic Structure) */}
+      <section style={{ padding: '64px 32px', background: '#f8fafc', borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0' }} id="thematic-pillars-section">
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '42px' }}>
+            <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#0284c7', textTransform: 'uppercase', letterSpacing: '0.08em', background: '#e0f2fe', padding: '5px 14px', borderRadius: '20px', display: 'inline-block' }}>
+              {locale === 'rw' ? 'Inkingi z\'Ubutumwa n\'Ibisubizo Kamere' : 'Thematic Communication Pillars'}
+            </span>
+            <h2 style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontSize: '2.3rem', color: '#0f172a', fontWeight: 600, marginTop: '14px', lineHeight: 1.25 }}>
+              {locale === 'rw' ? 'Inkingi Enye z\'Imiyoborere y\'Ikibaya cya Nyabarongo' : 'Four Narrative Pillars of Kigali’s NbS Strategy'}
+            </h2>
+            <p style={{ color: '#475569', fontSize: '1rem', marginTop: '10px', maxWidth: '780px', margin: '10px auto 0 auto', lineHeight: 1.6 }}>
+              {locale === 'rw'
+                ? 'Iyi mbonerahamwe yubatse ku nkingi enye z\'ingenzi zigaragaza ibyihutirwa mu bufatanye n\'abafatanyabikorwa. Buri nkingi ishyigikiwe n\'ubutumwa bwihariye n\'ibipimo byizewe.'
+                : 'The SUNCASA dashboard is organized around four narrative themes reflecting stakeholder priorities and the Kigali roadmap. Each theme serves as a communication pillar supported by key messages and verified indicator datasets.'}
+            </p>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))', gap: '24px' }}>
+            {[
+              {
+                id: 'climate',
+                name_en: 'Climate Adaptation',
+                name_rw: 'Kwirinda Imihindagurikire',
+                icon: '🌧️',
+                color: '#0284c7',
+                bgGradient: 'linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%)',
+                keyMessage_en: 'Mitigating catastrophic flood risks, stabilizing volcanic hillsides, and buffering informal downstream settlements against peak storm runoff.',
+                keyMessage_rw: 'Kugabanya inkangu zikomeye, kurinda imyuzure yangiza ibikorwa remezo, no gufata amazi ku misozi mbere y\'uko agera mu bibaya.',
+                indicators: [
+                  { id: 'area_restored_ha', label_en: 'Hectares Restored', label_rw: 'Hegitari Zasanywe', value: '985 ha' },
+                  { id: 'flood_risk_reduction', label_en: 'Flood Peak Reduction', label_rw: 'Kugabanya Imyuzure', value: '28.5%' },
+                  { id: 'soil_erosion_prevented', label_en: 'Topsoil Conserved', label_rw: 'Ubutaka Bwafashwe', value: '14,600 t/yr' },
+                ],
+                exploreLink: '/indicator/area_restored_ha',
+              },
+              {
+                id: 'biodiversity',
+                name_en: 'Biodiversity Protection',
+                name_rw: 'Kubungabunga Urusobe',
+                icon: '🌱',
+                color: '#10b981',
+                bgGradient: 'linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%)',
+                keyMessage_en: 'Rehabilitating indigenous flora, enforcing 30m riparian river buffers, and safeguarding water quality for the Yanze intake.',
+                keyMessage_rw: 'Kugarura ibiti gakondo by\'u Rwanda, kurinda metero 30 z\'inkombe za Nyabarongo, no kubungabunga amazi y\'uruganda rwa Yanze.',
+                indicators: [
+                  { id: 'trees_planted', label_en: 'Native Trees Planted', label_rw: 'Ibiti Gakondo Byatewe', value: '842,000' },
+                  { id: 'tree_survival_rate', label_en: 'Survival Rate', label_rw: 'Ikigero cy\'Ubuzima', value: '84.5%' },
+                  { id: 'riparian_buffer_km', label_en: 'Riparian Buffer Restored', label_rw: 'Inkombe Zasigasiriwe', value: '32.8 km' },
+                  { id: 'water_quality_index', label_en: 'Water Quality Index', label_rw: 'Ubuziranenge bw\'Amazi', value: '68.5 / 100' },
+                ],
+                exploreLink: '/indicator/trees_planted',
+              },
+              {
+                id: 'gesi',
+                name_en: 'Gender Equality & Social Inclusion',
+                name_rw: 'Uburinganire (GESI)',
+                icon: '⚖️',
+                color: '#8b5cf6',
+                bgGradient: 'linear-gradient(180deg, #faf5ff 0%, #ffffff 100%)',
+                keyMessage_en: 'Centering women and youth in climate governance, nursery enterprise ownership, and high-tech digital geospatial telemetry.',
+                keyMessage_rw: 'Gushyira abagore ku ruhembo rw\'ubuyobozi bw\'amazi, guha urubyiruko akazi ka GIS, no kuzamura ingo zikennye.',
+                indicators: [
+                  { id: 'women_leadership_catchment', label_en: 'Women in Leadership', label_rw: 'Abagore mu Buyobozi', value: '54.2%' },
+                  { id: 'participants_trained', label_en: 'Certified Eco-Stewards', label_rw: 'Abahuguwe ku Bidukikije', value: '2,840' },
+                ],
+                exploreLink: '/indicator/women_leadership_catchment',
+              },
+              {
+                id: 'economy',
+                name_en: 'Employment & Economy',
+                name_rw: 'Imirimo n\'Ubukungu',
+                icon: '💼',
+                color: '#f59e0b',
+                bgGradient: 'linear-gradient(180deg, #fffbeb 0%, #ffffff 100%)',
+                keyMessage_en: 'Generating dignified green employment, boosting smallholder agroforestry crop yields, and spurring cooperative nursery revenues.',
+                keyMessage_rw: 'Guhanga imirimo yishyuwe y\'icyatsi, guteza imbere abahinzi b\'amaterasi y\'imbuto, no kwinjiza amafaranga mu buhumbikiro.',
+                indicators: [
+                  { id: 'green_jobs_created', label_en: 'Green Workdays Created', label_rw: 'Iminsi y\'Akazi y\'Icyatsi', value: '98,500' },
+                  { id: 'female_nursery_operators', label_en: 'Women-Led Nurseries', label_rw: 'Ubuhumbikiro bw\'Abagore', value: '61.5%' },
+                  { id: 'vulnerable_youth_employed', label_en: 'Youth Employed', label_rw: 'Urubyiruko Rwashakishirijwe Akazi', value: '1,120' },
+                ],
+                exploreLink: '/indicator/green_jobs_created',
+              },
+            ].map((pillar) => (
+              <div
+                key={pillar.id}
+                style={{
+                  background: pillar.bgGradient,
+                  borderRadius: '14px',
+                  border: `1.5px solid ${pillar.color}26`,
+                  padding: '26px',
+                  boxShadow: '0 4px 14px rgba(0,0,0,0.04)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                }}
+              >
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
+                    <span style={{ fontSize: '1.75rem' }}>{pillar.icon}</span>
+                    <span style={{ fontSize: '0.72rem', fontWeight: 800, color: pillar.color, background: `${pillar.color}18`, padding: '3px 10px', borderRadius: '12px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                      PILLAR &bull; {pillar.id}
+                    </span>
+                  </div>
+
+                  <h3 style={{ fontSize: '1.22rem', fontWeight: 800, color: '#0f172a', marginBottom: '8px' }}>
+                    {locale === 'rw' ? pillar.name_rw : pillar.name_en}
+                  </h3>
+
+                  <div style={{ fontSize: '0.88rem', color: '#475569', lineHeight: 1.5, background: '#ffffff', padding: '12px', borderRadius: '8px', borderLeft: `3px solid ${pillar.color}`, marginBottom: '18px' }}>
+                    <div style={{ fontSize: '0.7rem', fontWeight: 700, color: pillar.color, textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '4px' }}>
+                      {locale === 'rw' ? 'Ubutumwa bw\'Ingenzi' : 'Key Message'}
+                    </div>
+                    {locale === 'rw' ? pillar.keyMessage_rw : pillar.keyMessage_en}
+                  </div>
+
+                  <div style={{ marginBottom: '16px' }}>
+                    <div style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '8px' }}>
+                      {locale === 'rw' ? 'Ibipimo Bishyigikiye iyi Nkingi:' : 'Supporting Indicators:'}
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                      {pillar.indicators.map((ind) => (
+                        <Link
+                          key={ind.id}
+                          href={`/indicator/${ind.id}`}
+                          style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            padding: '6px 10px',
+                            background: '#ffffff',
+                            borderRadius: '6px',
+                            border: '1px solid #e2e8f0',
+                            textDecoration: 'none',
+                            fontSize: '0.82rem',
+                            color: '#1e293b',
+                            transition: 'border-color 0.15s ease',
+                          }}
+                        >
+                          <span style={{ fontWeight: 600, color: '#334155' }}>
+                            {locale === 'rw' ? ind.label_rw : ind.label_en}
+                          </span>
+                          <span style={{ fontWeight: 800, color: pillar.color, fontSize: '0.84rem' }}>
+                            {ind.value} &rarr;
+                          </span>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div style={{ marginTop: '12px', paddingTop: '14px', borderTop: '1px solid #e2e8f0' }}>
+                  <Link
+                    href={pillar.exploreLink}
+                    style={{
+                      display: 'block',
+                      textAlign: 'center',
+                      background: pillar.color,
+                      color: '#ffffff',
+                      padding: '10px 14px',
+                      borderRadius: '8px',
+                      fontSize: '0.84rem',
+                      fontWeight: 700,
+                      textDecoration: 'none',
+                      boxShadow: `0 2px 6px ${pillar.color}33`,
+                    }}
+                  >
+                    {locale === 'rw' ? 'Suzuma Iyi Nkingi' : `Explore ${pillar.name_en}`} &rarr;
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* 3. Interactive GIS Micro-Catchment Map Section (RFP Section 7.1 & 7.3) */}
       <section style={{ padding: '60px 32px', background: '#ffffff' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
