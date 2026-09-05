@@ -1,0 +1,98 @@
+[
+  {
+    "id": "mpazi-flood",
+    "tagColor": "#0284c7",
+    "en": {
+      "tag": "Flood Resilience",
+      "title": "Bio-Engineering the Mpazi Ravine: Protecting Nyabugogo from Flash Flooding",
+      "date": "February 2025",
+      "author": "SUNCASA Kigali Field Mission",
+      "summary": "How vegetative check-dams, bamboo riparian buffers, and contour infiltration swales in upper basins delay torrential runoff, protecting informal settlements and markets downstream.",
+      "quote": "\"Before SUNCASA restored the upper ravine, a two-hour rainstorm meant total market closure in Nyabugogo. The vegetative check-dams have delayed peak storm crests by over 45 minutes, saving thousands of livelihoods.\"",
+      "quoteAuthor": "Jean-Damascène H., Nyabugogo Traders Association",
+      "fullBody": [
+        "The Mpazi drainage corridor cuts through steep informal settlements in Nyarugenge district before discharging directly into the Nyabugogo commercial basin. Historical downpours generated devastating torrents carrying thousands of tons of sediment, regularly drowning businesses and severing vital transit routes.",
+        "Under the SUNCASA initiative led by IISD and WRI with the City of Kigali and RFA, bio-engineering solutions replaced concrete channelization. Over 45,000 native bamboo culms were established alongside live willow-type check-dams and progressive hillside terraces across upper sectors.",
+        "Real-time hydrometric gauges have registered a 28.5% drop in peak stormwater velocity during extreme precipitation events, significantly lowering insurance loss risks and municipal culvert clearance expenditures."
+      ]
+    },
+    "rw": {
+      "tag": "Kurwanya Imyuzure",
+      "title": "Gusana Umukoki wa Mpazi: Kurinda Nyabugogo Imyuzure y'Inkukuma",
+      "date": "Gashyantare 2025",
+      "author": "Ubunyamabanga bwa SUNCASA Kigali",
+      "summary": "Uburyo ingomero z'ibiti, imigano ku nkombe, n'ibyobo bifata amazi mu misozi yo hejuru birinda amazu n'amasoko y'i Nyabugogo kurengerwa n'amazi.",
+      "quote": "\"Mbere imvura yagwaga tukikanga ko ibicuruzwa byacu byi Nyabugogo bitwarwa n'amazi. None ubu amazi yagabanutseho hejuru ya 28% kubera ibiti n'ingomero byakozwe hejuru mu mukoki.\"",
+      "quoteAuthor": "Jean-Damascène H., Umucuruzi i Nyabugogo",
+      "fullBody": [
+        "Umukoki wa Mpazi unyura mu mirenge ituwe cyane mu Karere ka Nyarugenge. Mu myaka yashize, imvura y'inkukuma yamanukaga ifite umuvuduko ukabije, ikangiza ibiraro, amazu, n'isoko rikuru rya Nyabugogo.",
+        "Binyuze mu mushinga SUNCASA ku bufatanye n'Umujyi wa Kigali na RFA, hakozwe imirimo y'ubuhanga bwa kamere: haterwa imigano irenga ibihumbi 45 ku nkombe, hacibwa amaterasi ku misozi ihanamiye, hanashyirwaho ingomero zikoze mu biti (live check-dams) zigabanya umuvuduko w'amazi.",
+        "Ubu ibipimo bya tekiniki byerekana ko amazi y'imyuzure yagabanutseho 28.5%, bikarinda ibikorwa remezo bya leta bifite agaciro ka miliyari z'amafaranga y'u Rwanda."
+      ]
+    }
+  },
+  {
+    "id": "women-nurseries",
+    "tagColor": "#8b5cf6",
+    "en": {
+      "tag": "Gender & Inclusion",
+      "title": "Women at the Helm: Female-Led Nursery Cooperatives Powering Reforestation",
+      "date": "January 2025",
+      "author": "SUNCASA GESI Working Group",
+      "summary": "Over 61% of community seedling nurseries in Kigali are now operated by women cooperatives, transforming climate finance into sustainable household income and nutrition.",
+      "quote": "\"Through the cooperative nursery grant, our women's group supplied 180,000 native Markhamia lutea seedlings. For the first time, our members hold their own bank savings accounts and health insurance policies.\"",
+      "quoteAuthor": "Chantal Mukamana, President of Abahuje Nursery Cooperative, Yanze",
+      "fullBody": [
+        "Traditionally, commercial forestry and nursery operations were heavily male-dominated. SUNCASA enacted mandatory gender quotas and tailored capacity building to break financial barriers for peri-urban women in Kigali.",
+        "Fourteen women-led cooperatives received solar-powered irrigation sets, high-germination seed banks of native species (Markhamia lutea, Polyscias fulva), and guaranteed forward-purchase agreements directly from RFA and municipal contractors.",
+        "Cooperative revenue records show over 48.6 million RWF paid directly to female-led enterprises, with audited household surveys demonstrating a 73% reinvestment rate into family health, child education, and household food security."
+      ]
+    },
+    "rw": {
+      "tag": "Uburinganire n'Iterambere",
+      "title": "Abagore ku Rhembo: Amakoperative y'Abagore Ayoboye Ubuhumbikiro bw'Ibiti",
+      "date": "Mutarama 2025",
+      "author": "Ishami rishinzwe Uburinganire (GESI)",
+      "summary": "Hafi 61.5% by'ubuhumbikiro bw'ingemwe i Kigali buyobowe n'amakoperative y'abagore, bigatuma amafaranga yinjira mu mibereho myiza y'ingo zabo.",
+      "quote": "\"Kugurisha ingemwe byatumye tubasha kwishyura mituweli ku gihe no kurihira abana amashuri yisumbuye. Amashyamba ntabwo akiri umushinga w'abagabo gusa.\"",
+      "quoteAuthor": "Chantal Mukamana, Umuyobozi wa Koperative Abahuje i Yanze",
+      "fullBody": [
+        "Ubusanzwe imirimo yo gutera amashyamba n'ubucuruzi bwayo yakunze kwiharirwa n'abagabo. SUNCASA yashyizeho politiki ihamye y'uko nibura 50% by'abafata ibyemezo n'abagenerwabikorwa b'ubuhumbikiro bagomba kuba abagore.",
+        "Kugeza ubu, amakoperative 14 y'abagore yarahawe imbuto z'indobanure, imashini zihumbika zikoresha imirasire y'izuba, n'amasezerano yo kugura ingemwe zose batubuye ku giciro cyiza.",
+        "Ibi byatumye amakoperative yinjiza amafaranga arenga miliyoni 48 RWF, bikomeza kuzamura ubukungu bw'ingo z'abaturage mu nkengero za Kigali."
+      ]
+    }
+  },
+  {
+    "id": "youth-gis",
+    "tagColor": "#10b981",
+    "en": {
+      "tag": "Green Jobs & Tech",
+      "title": "Youth GIS Environmental Stewards: Digital Telemetry for Forest Tracking",
+      "date": "December 2024",
+      "author": "Spatial Informatics Unit, WRI & RFA",
+      "summary": "Empowering young Rwandan technicians with mobile geospatial tools and drone mapping to verify seedling survival rates and compartment boundaries in real time.",
+      "quote": "\"Mapping hill compartments with RTK drones and mobile forms opened professional career doors for us. We ensure every dollar invested in Kigali's trees is accounted for with GPS coordinates.\"",
+      "quoteAuthor": "Aimé Nshuti, Lead Youth Drone Pilot, Mount Kigali Sector",
+      "fullBody": [
+        "Sustainable nature-based solutions require verifiable telemetry rather than optimistic estimates. SUNCASA partnered with the Rwanda Forestry Authority to train and certify 380 youth in open-source GIS, drone flight operations, and mobile ground-truthing tools.",
+        "Operating in teams across Yanze and Mount Kigali, youth stewards survey 20m x 20m permanent sample plots every quarter, recording individual seedling health, height increments, and canopy density on digital tablets.",
+        "Their verified datasets sync directly into RFA’s national FMES database, ensuring unprecedented transparency and donor accountability for Canada's climate adaptation investment."
+      ]
+    },
+    "rw": {
+      "tag": "Imirimo n'Ikoranabuhanga",
+      "title": "Urubyiruko n'Ikoranabuhanga rya GIS: Gukurikirana Amashyamba hakoreshejwe Drone",
+      "date": "Ukuboza 2024",
+      "author": "Ikipe ya GIS n'Ikoranabuhanga",
+      "summary": "Guha urubyiruko rwa Kigali ubushobozi n'ibikoresho byo gupima amashyamba no kureba niba ibiti byatewe bikura neza muri sisitemu ya RFA.",
+      "quote": "\"Koresha drone na porogaramu za telefoni mu kureba imikurire y'ibiti byaduhaye akazi keza k'umwuga. Ubu dufatanya n'inzego za RFA mu kubika amakuru nyayo.\"",
+      "quoteAuthor": "Aimé Nshuti, Umugenzuzi w'Amashyamba wa GIS",
+      "fullBody": [
+        "Kugira ngo amashyamba yatewe arambe, bisaba gukurikirana imikurire yayo no kumenya niba atangirika. SUNCASA yahuguye urubyiruko 380 mu gukoresha ikoranabuhanga rya GIS, za drone, na porogaramu za ODK.",
+        "Uru rubyiruko rukora amakarita agaragaza ibiti byatewe, rugapima uburebure bwabyo, rukandika amakuru muri sisitemu ya FMES ya RFA, bityo leta ikamenya neza aho amashyamba ageze.",
+        "Uru rubyiruko ruhemberwa akazi ko mu murima, bikanabafasha kubona impamyabumenyi zibinjiza mu mirimo yo kurengera ibidukikije mu buryo bw'umwuga."
+      ]
+    }
+  }
+]
