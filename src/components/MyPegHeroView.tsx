@@ -394,20 +394,20 @@ export default function MyPegHeroView({
         </div>
       </section>
 
-      {/* 3. Interactive GIS Micro-Catchment Map Section (RFP Section 7.1 & 7.3) */}
-      <section style={{ padding: '60px 32px', background: '#ffffff' }}>
+      {/* 3. Simple Map of Intervention Locations (RFP Requirement) */}
+      <section style={{ padding: '64px 32px', background: '#ffffff' }} id="intervention-map-section">
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-            <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-              {locale === 'rw' ? 'Ikarita ya GIS' : 'Spatial Intervention Map'}
+            <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.08em', background: '#ecfdf5', padding: '5px 14px', borderRadius: '20px', display: 'inline-block' }}>
+              {locale === 'rw' ? 'Aho Imirimo Ibereye' : 'Intervention Locations'}
             </span>
-            <h2 style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontSize: '2.1rem', color: '#1e293b', fontWeight: 500, marginTop: '6px' }}>
-              {locale === 'rw' ? 'Ahakorerwa Imirimo mu Kibaya cya Nyabarongo' : 'SUNCASA Intervention Sites in Kigali'}
+            <h2 style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontSize: '2.3rem', color: '#0f172a', fontWeight: 600, marginTop: '12px' }}>
+              {locale === 'rw' ? 'Ikarita y\'Aho Imirimo ya SUNCASA Ibereye i Kigali' : 'Simple Map of Intervention Locations'}
             </h2>
-            <p style={{ color: '#64748b', fontSize: '0.96rem', marginTop: '8px', maxWidth: '700px', margin: '8px auto 0 auto' }}>
+            <p style={{ color: '#64748b', fontSize: '1rem', marginTop: '10px', maxWidth: '750px', margin: '10px auto 0 auto', lineHeight: 1.6 }}>
               {locale === 'rw'
-                ? 'Kanda ku bimenyetso biri ku ikarita kugira ngo urebe amakuru y\'ubuso bw\'amashyamba n\'ibiti byatewe mu mikoki ya Yanze, Mpazi, na Mont Kigali.'
-                : 'Click any site marker on the map to inspect intervention attributes, hectares restored, seedlings planted, and flood risk mitigation focus.'}
+                ? 'Ikarita yoroshye igaragaza aho imirimo ya SUNCASA ibereye mu mikoki ya Yanze, Mpazi, Mont Kigali, na Nyabugogo. Kanda ku kimenyetso cy\'ahantu hose kugira ngo urebe amakuru n\'ibipimo byaho.'
+                : 'An intuitive, interactive map tracking key Nature-Based Solution intervention locations across Kigali’s Lower Nyabarongo watershed. Click on any location marker to inspect hectares restored, seedlings planted, and flood resilience metrics.'}
             </p>
           </div>
 
