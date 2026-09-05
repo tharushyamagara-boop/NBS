@@ -418,6 +418,28 @@ export default function AdminPortalPage() {
     }
   };
 
+  // Update / Assign User Role (Add or remove Super Admin)
+  const handleUpdateUserRole = async (userId: string, newRoleId: string) => {
+    try {
+      setStatusMessage(`Updating role for user...`);
+      const res = await fetch('/api/admin/users', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: userId, role_id: newRoleId }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setStatusMessage(data.message || 'User role updated successfully.');
+        fetchRbacData();
+      } else {
+        alert(data.error || 'Failed to update role.');
+        setStatusMessage(data.error);
+      }
+    } catch (err: any) {
+      alert(err.message);
+    }
+  };
+
   // Switch Database Driver
   const handleSwitchDriver = async (newDriver: string) => {
     try {
@@ -1376,9 +1398,28 @@ export default function AdminPortalPage() {
                           {u.organization || 'SUNCASA Directorate'}
                         </td>
                         <td style={{ padding: '12px 16px' }}>
-                          <span style={{ padding: '3px 8px', borderRadius: '4px', background: `${userRole?.color || '#0284c7'}22`, color: userRole?.color || '#0284c7', fontSize: '0.76rem', fontWeight: 700 }}>
-                            {userRole?.name || u.role_id}
-                          </span>
+                          <select
+                            value={u.role_id}
+                            onChange={(e) => handleUpdateUserRole(u.id, e.target.value)}
+                            title="Click to assign a different role to this user"
+                            style={{
+                              padding: '5px 10px',
+                              borderRadius: '6px',
+                              background: '#1e293b',
+                              border: `1px solid ${userRole?.color || '#38bdf8'}`,
+                              color: userRole?.color || '#ffffff',
+                              fontSize: '0.8rem',
+                              fontWeight: 700,
+                              cursor: 'pointer',
+                              outline: 'none',
+                            }}
+                          >
+                            {roles.map((r) => (
+                              <option key={r.id} value={r.id} style={{ background: '#0f172a', color: '#ffffff' }}>
+                                {r.id === 'super_admin' ? '⭐ Super Administrator' : r.name}
+                              </option>
+                            ))}
+                          </select>
                         </td>
                         <td style={{ padding: '12px 16px' }}>
                           <span style={{ color: u.status === 'active' ? '#10b981' : '#ef4444', fontSize: '0.8rem', fontWeight: 600 }}>
@@ -1386,19 +1427,79 @@ export default function AdminPortalPage() {
                           </span>
                         </td>
                         <td style={{ padding: '12px 16px', textAlign: 'right' }}>
-                          {canManageUsers && u.email !== 'admin@suncasa.rw' && (
-                            <div style={{ display: 'inline-flex', gap: '8px' }}>
+                          {canManageUsers && (
+                            <div style={{ display: 'inline-flex', gap: '8px', alignItems: 'center' }}>
+                              {u.role_id !== 'super_admin' ? (
+                                <button
+                                  type="button"
+                                  onClick={() => handleUpdateUserRole(u.id, 'super_admin')}
+                                  title="Add/Promote user as Super Administrator"
+                                  style={{
+                                    padding: '5px 10px',
+                                    borderRadius: '4px',
+                                    background: 'rgba(239, 68, 68, 0.15)',
+                                    border: '1px solid #ef4444',
+                                    color: '#fca5a5',
+                                    fontSize: '0.76rem',
+                                    fontWeight: 700,
+                                    cursor: 'pointer',
+                                  }}
+                                >
+                                  ⭐ Make Super Admin
+                                </button>
+                              ) : (
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const confirm = window.confirm(`Remove '${u.name}' as Super Administrator and assign Theme Content Editor role?`);
+                                    if (confirm) handleUpdateUserRole(u.id, 'theme_editor');
+                                  }}
+                                  title="Remove Super Administrator privileges and reassign role"
+                                  style={{
+                                    padding: '5px 10px',
+                                    borderRadius: '4px',
+                                    background: 'rgba(245, 158, 11, 0.15)',
+                                    border: '1px solid #f59e0b',
+                                    color: '#fcd34d',
+                                    fontSize: '0.76rem',
+                                    fontWeight: 700,
+                                    cursor: 'pointer',
+                                  }}
+                                >
+                                  Revoke Super Admin
+                                </button>
+                              )}
+
                               <button
                                 type="button"
                                 onClick={() => handleToggleUserStatus(u)}
-                                style={{ padding: '4px 10px', borderRadius: '4px', background: '#1e293b', border: '1px solid #334155', color: '#94a3b8', fontSize: '0.76rem', cursor: 'pointer' }}
+                                title={u.status === 'active' ? 'Suspend access' : 'Activate access'}
+                                style={{
+                                  padding: '5px 10px',
+                                  borderRadius: '4px',
+                                  background: '#1e293b',
+                                  border: '1px solid #334155',
+                                  color: '#94a3b8',
+                                  fontSize: '0.76rem',
+                                  cursor: 'pointer',
+                                }}
                               >
                                 {u.status === 'active' ? 'Suspend' : 'Activate'}
                               </button>
+
                               <button
                                 type="button"
                                 onClick={() => handleDeleteUser(u.id, u.name)}
-                                style={{ padding: '4px 10px', borderRadius: '4px', background: 'rgba(239, 68, 68, 0.15)', border: '1px solid #ef4444', color: '#fca5a5', fontSize: '0.76rem', cursor: 'pointer' }}
+                                title="Permanently delete user"
+                                style={{
+                                  padding: '5px 10px',
+                                  borderRadius: '4px',
+                                  background: 'rgba(239, 68, 68, 0.12)',
+                                  border: '1px solid rgba(239, 68, 68, 0.3)',
+                                  color: '#fca5a5',
+                                  fontSize: '0.76rem',
+                                  cursor: 'pointer',
+                                }}
                               >
                                 Remove
                               </button>
@@ -1555,10 +1656,24 @@ export default function AdminPortalPage() {
                 >
                   {roles.map((r) => (
                     <option key={r.id} value={r.id}>
-                      {r.name} ({r.description.slice(0, 45)}...)
+                      {r.id === 'super_admin' ? '⭐ Super Administrator (Full Unrestricted Authority)' : r.name} ({r.description.slice(0, 45)}...)
                     </option>
                   ))}
                 </select>
+              </div>
+
+              {/* Quick Super Admin Toggle */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.3)', borderRadius: '6px' }}>
+                <input
+                  type="checkbox"
+                  id="grant_super_admin"
+                  checked={newUserRoleId === 'super_admin'}
+                  onChange={(e) => setNewUserRoleId(e.target.checked ? 'super_admin' : 'theme_editor')}
+                  style={{ cursor: 'pointer' }}
+                />
+                <label htmlFor="grant_super_admin" style={{ fontSize: '0.82rem', color: '#fca5a5', fontWeight: 600, cursor: 'pointer' }}>
+                  ⭐ Grant Unrestricted Super Administrator Privileges
+                </label>
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', marginTop: '12px' }}>

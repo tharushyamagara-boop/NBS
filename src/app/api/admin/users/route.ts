@@ -131,17 +131,38 @@ export async function PATCH(req: NextRequest) {
       return NextResponse.json({ success: false, error: 'User not found.' }, { status: 404 });
     }
 
-    // Protect primary super admin
-    if (users[userIndex].email === 'admin@suncasa.rw' && status === 'suspended') {
-      return NextResponse.json(
-        { success: false, error: 'The primary Super Administrator cannot be suspended.' },
-        { status: 400 }
-      );
+    const targetUser = users[userIndex];
+    const isTargetSuperAdmin = targetUser.role_id === 'super_admin';
+    const activeSuperAdmins = users.filter(
+      (u) => u.role_id === 'super_admin' && u.status === 'active'
+    );
+
+    // Safety: ensure at least one active Super Admin remains
+    if (isTargetSuperAdmin && activeSuperAdmins.length <= 1) {
+      if (role_id && role_id !== 'super_admin') {
+        return NextResponse.json(
+          {
+            success: false,
+            error: 'Cannot remove the last active Super Administrator. Please assign another Super Administrator first before reassigning this user.',
+          },
+          { status: 400 }
+        );
+      }
+      if (status === 'suspended') {
+        return NextResponse.json(
+          {
+            success: false,
+            error: 'Cannot suspend the last active Super Administrator. Please assign another active Super Administrator first.',
+          },
+          { status: 400 }
+        );
+      }
     }
 
     if (role_id) {
       const roles = getRoles();
-      if (!roles.some((r) => r.id === role_id)) {
+      const roleObj = roles.find((r) => r.id === role_id);
+      if (!roleObj) {
         return NextResponse.json({ success: false, error: 'Invalid role_id.' }, { status: 400 });
       }
       users[userIndex].role_id = role_id;
@@ -157,7 +178,7 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({
       success: true,
       data: safeUpdated,
-      message: `User '${safeUpdated.name}' updated successfully.`,
+      message: `User '${safeUpdated.name}' updated successfully. Role is now '${users[userIndex].role_id}'.`,
     });
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
@@ -168,7 +189,16 @@ export async function PATCH(req: NextRequest) {
 export async function DELETE(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
-    const id = searchParams.get('id');
+    let id = searchParams.get('id');
+
+    if (!id) {
+      try {
+        const body = await req.json();
+        id = body?.id;
+      } catch (e) {
+        // ignore json parse error
+      }
+    }
 
     if (!id) {
       return NextResponse.json({ success: false, error: 'User ID is required.' }, { status: 400 });
@@ -181,9 +211,16 @@ export async function DELETE(req: NextRequest) {
       return NextResponse.json({ success: false, error: 'User not found.' }, { status: 404 });
     }
 
-    if (targetUser.email === 'admin@suncasa.rw') {
+    // Safety: ensure at least one active Super Admin remains
+    const activeSuperAdmins = users.filter(
+      (u) => u.role_id === 'super_admin' && u.status === 'active'
+    );
+    if (targetUser.role_id === 'super_admin' && activeSuperAdmins.length <= 1) {
       return NextResponse.json(
-        { success: false, error: 'The primary Super Administrator cannot be deleted.' },
+        {
+          success: false,
+          error: 'Cannot delete the last remaining active Super Administrator. Please designate another Super Administrator first.',
+        },
         { status: 400 }
       );
     }
