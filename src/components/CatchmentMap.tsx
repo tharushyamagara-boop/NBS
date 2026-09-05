@@ -7,7 +7,7 @@ import sitesGeoJSON from '../data/geojson/intervention_sites.json';
 interface CatchmentMapProps {
   locale: 'en' | 'rw';
   themeFilter: string;
-  onSelectSite: (properties: any) => void;
+  onSelectSite?: (properties: any) => void;
 }
 
 export default function CatchmentMap({ locale, themeFilter, onSelectSite }: CatchmentMapProps) {

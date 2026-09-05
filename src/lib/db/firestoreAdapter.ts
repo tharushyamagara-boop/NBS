@@ -58,8 +58,18 @@ export class FirestoreDatabaseAdapter implements DatabaseAdapter {
 
   async getIndicators(): Promise<Indicator[]> {
     const db = this.ensureDb();
-    const snap = await getDocs(collection(db, this.collectionName));
-    return snap.docs.map(d => ({ ...(d.data() as Indicator), id: d.id }));
+    try {
+      const snap = await getDocs(collection(db, this.collectionName));
+      if (snap.docs.length === 0) {
+        const rawData = (await import('../../data/indicators.json')).default;
+        return rawData.indicators as Indicator[];
+      }
+      return snap.docs.map(d => ({ ...(d.data() as Indicator), id: d.id }));
+    } catch (err) {
+      console.warn('Firestore fetch failed, falling back to verified local indicators:', err);
+      const rawData = (await import('../../data/indicators.json')).default;
+      return rawData.indicators as Indicator[];
+    }
   }
 
   async getIndicatorById(id: string): Promise<Indicator | null> {

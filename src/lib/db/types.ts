@@ -8,9 +8,17 @@ export interface SiteBreakdown {
   value: number;
 }
 
+export interface IndicatorSDG {
+  sdg_number: number;
+  sdg_title: string;
+  target_code: string;
+  target_desc: string;
+  color: string;
+}
+
 export interface Indicator {
   id: string;
-  theme: 'climate' | 'biodiversity' | 'gesi' | 'economy';
+  theme: string;
   fmes_code: string;
   fmes_alignment: string;
   unit: string;
@@ -18,11 +26,17 @@ export interface Indicator {
   current_2025: number;
   target_2026: number;
   change_pct: number;
-  status: 'on-track' | 'exceeded' | 'needs-acceleration';
+  status: 'on-track' | 'exceeded' | 'needs-acceleration' | string;
   priority_rank: number;
   featured_in_hero: boolean;
   trend_history: TrendPoint[];
   site_breakdown: SiteBreakdown[];
+  sdgs?: IndicatorSDG[];
+  measurement_method?: string;
+  data_source_citation?: string;
+  dual_icon?: string;
+  legend_label?: string;
+  definition?: string;
 }
 
 export interface ProjectMetadata {

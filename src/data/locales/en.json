@@ -9,6 +9,7 @@
     "themes": "Thematic Pillars",
     "map": "Interactive Catchment Map",
     "indicators": "Indicator Explorer",
+    "stories": "Watershed Stories",
     "interoperability": "RFA FMES Data",
     "export": "Export Brief"
   },
@@ -22,6 +23,21 @@
     "stat_trees": "Seedlings Planted",
     "stat_flood": "Peak Runoff Reduction",
     "stat_jobs": "Person-Days of Green Work"
+  },
+  "stories": {
+    "tag": "Civic Narratives",
+    "title": "Latest Watershed Stories & Impact Reports",
+    "subtitle": "Inspiring real-world community impact narratives linking hillside restoration to family resilience across Kigali.",
+    "read_more": "Read Story",
+    "story1_tag": "Flood Resilience",
+    "story1_title": "Bio-Engineering the Mpazi Ravine: Protecting Nyabugogo from Flash Flooding",
+    "story1_desc": "How vegetative check-dams, bamboo riparian buffers, and contour swales delay torrential runoff in upper basins, protecting informal settlements and markets downstream.",
+    "story2_tag": "Gender & Inclusion",
+    "story2_title": "Women at the Helm: Female-Led Nursery Cooperatives Powering Reforestation",
+    "story2_desc": "Over 61% of community seedling nurseries in Kigali are now operated by women's cooperatives, converting climate finance into sustainable household income.",
+    "story3_tag": "Green Jobs & Tech",
+    "story3_title": "Youth GIS Environmental Stewards: Digital Telemetry for Forest Tracking",
+    "story3_desc": "Empowering next-generation Rwandan youth with mobile mapping tools and drone spatial analysis to verify tree survival benchmarks directly in RFA compartments."
   },
   "themes": {
     "all": "All Themes",
@@ -68,29 +84,41 @@
     "select_prompt": "Click on any site marker or catchment area on the map to inspect intervention details."
   },
   "indicator_explorer": {
-    "title": "Curated NbS Impact Indicators",
-    "subtitle": "Transparent, indicator-driven monitoring aligned with RFA FMES standards.",
-    "search_placeholder": "Search indicators (e.g. flood, trees, jobs, women)...",
+    "tag": "MyPeg Indicator Platform",
+    "title": "Indicator-Driven Impact Hub",
+    "subtitle": "Explore any indicator in two clicks. Experience IISD MyPeg's signature 4-tier model: Description & Story, Interactive Trajectory Graphs, Catchment Geography, and UN SDGs Alignment.",
+    "search_placeholder": "Search indicators (e.g. flood, trees, jobs, women, FMES code)...",
     "filter_by_theme": "Filter by Theme",
     "progress_label": "Progress to 2026 Target",
-    "view_deep_dive": "View Detailed Analysis",
+    "view_deep_dive": "Open MyPeg Workspace",
     "baseline": "2024 Baseline",
     "current": "Current Status (2025)",
     "target": "2026 SUNCASA Target",
-    "fmes_alignment_badge": "FMES Aligned"
+    "fmes_alignment_badge": "FMES Aligned",
+    "two_clicks_prompt": "Browse themes and indicators below. Click any indicator for its complete civic story and analytics."
   },
-  "modal": {
-    "three_questions": "MyPeg 3-Tier Storytelling Analysis",
-    "what_is": "What is this indicator?",
-    "why_matters": "Why does it matter for Kigali?",
-    "what_suncasa": "What is SUNCASA doing?",
-    "site_breakdown": "Micro-Catchment Breakdown",
-    "historical_trend": "Quarterly Trend & Target Trajectory",
-    "technical_metadata": "Technical & Interoperability Metadata",
-    "fmes_code": "RFA FMES System Code",
-    "unit_of_measure": "Unit of Measurement",
-    "data_source": "Verification Source",
-    "close": "Close Analysis"
+  "mypeg_workspace": {
+    "tab_desc": "Description & Story",
+    "tab_graphs": "Graphs & Trajectory",
+    "tab_map": "Catchment Map",
+    "tab_sdgs": "UN SDGs Alignment",
+    "def_title": "Definition & Purpose",
+    "why_title": "Why This Matters for Kigali",
+    "suncasa_title": "What SUNCASA Is Doing",
+    "limitations_title": "Measurement & Limitations",
+    "sources_title": "Data Source & RFA Partnership",
+    "graph_title": "Quarterly Trend & 2026 Milestone Trajectory",
+    "breakdown_title": "Distribution Across Micro-Catchments",
+    "map_title": "Geographic Footprint in Lower Nyabarongo",
+    "download_geo": "Download Geography (GeoJSON)",
+    "download_data": "Download Indicator (JSON)",
+    "sdg_title": "United Nations Sustainable Development Goals Alignment",
+    "sdg_subtitle": "How this indicator advances the UN 2030 Agenda in the City of Kigali.",
+    "fmes_label": "FMES Code",
+    "unit_label": "Unit",
+    "status_label": "Status",
+    "target_pct": "of 2026 Target Achieved",
+    "close": "Close Workspace"
   },
   "fmes_interoperability": {
     "title": "Rwanda Forestry Authority (RFA) FMES Interoperability",

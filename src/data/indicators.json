@@ -2,8 +2,14 @@
   "project": {
     "name": "SUNCASA Kigali NbS Impact Dashboard",
     "funder": "Global Affairs Canada",
-    "leads": ["International Institute for Sustainable Development (IISD)", "World Resources Institute (WRI)"],
-    "government_partners": ["City of Kigali", "Rwanda Forestry Authority (RFA)"],
+    "leads": [
+      "International Institute for Sustainable Development (IISD)",
+      "World Resources Institute (WRI)"
+    ],
+    "government_partners": [
+      "City of Kigali",
+      "Rwanda Forestry Authority (RFA)"
+    ],
     "target_area": "Lower Nyabarongo River Watershed, Kigali",
     "timeline": "2023 - 2026",
     "budget_mvp": "$20,000 USD"
@@ -11,28 +17,38 @@
   "themes": [
     {
       "id": "climate",
+      "name": "Climate Adaptation",
       "icon": "cloud-rain",
       "color": "#0284c7"
     },
     {
       "id": "biodiversity",
+      "name": "Biodiversity Protection",
       "icon": "trees",
       "color": "#10b981"
     },
     {
       "id": "gesi",
+      "name": "Gender Equality & Inclusion (GESI)",
       "icon": "users",
       "color": "#8b5cf6"
     },
     {
       "id": "economy",
+      "name": "Employment & Economy",
       "icon": "trending-up",
       "color": "#f59e0b"
+    },
+    {
+      "id": "mypeg_benchmark",
+      "name": "Built Environment (MyPeg)",
+      "icon": "building",
+      "color": "#eb6b23"
     }
   ],
   "indicators": [
     {
-      "id": "hectares_restored",
+      "id": "area_restored_ha",
       "theme": "climate",
       "fmes_code": "RFA-FMES-LU-01",
       "fmes_alignment": "National Forest Inventory (NFI) Land Restoration Layer",
@@ -44,48 +60,150 @@
       "status": "on-track",
       "priority_rank": 1,
       "featured_in_hero": true,
+      "dual_icon": "tree",
+      "legend_label": "Lower Nyabarongo Watershed",
+      "definition": "Area of degraded hillside micro-catchments actively restored through terracing, agroforestry, and afforestation.",
       "trend_history": [
-        { "period": "2024 Q1", "value": 150 },
-        { "period": "2024 Q2", "value": 340 },
-        { "period": "2024 Q3", "value": 520 },
-        { "period": "2024 Q4", "value": 710 },
-        { "period": "2025 Q1", "value": 845 },
-        { "period": "2025 Q2", "value": 985 }
+        {
+          "period": "2024 Q1",
+          "value": 150
+        },
+        {
+          "period": "2024 Q2",
+          "value": 340
+        },
+        {
+          "period": "2024 Q3",
+          "value": 520
+        },
+        {
+          "period": "2024 Q4",
+          "value": 710
+        },
+        {
+          "period": "2025 Q1",
+          "value": 845
+        },
+        {
+          "period": "2025 Q2",
+          "value": 985
+        }
       ],
       "site_breakdown": [
-        { "site": "Yanze River Catchment", "value": 410 },
-        { "site": "Mount Kigali Slopes", "value": 295 },
-        { "site": "Mpazi Drainage Ravine", "value": 160 },
-        { "site": "Nyabugogo Wetland Corridor", "value": 120 }
-      ]
+        {
+          "site": "Yanze River Catchment",
+          "value": 410
+        },
+        {
+          "site": "Mount Kigali Slopes",
+          "value": 295
+        },
+        {
+          "site": "Mpazi Drainage Ravine",
+          "value": 160
+        },
+        {
+          "site": "Nyabugogo Wetland Corridor",
+          "value": 120
+        }
+      ],
+      "sdgs": [
+        {
+          "sdg_number": 15,
+          "sdg_title": "15. Life on Land",
+          "target_code": "15.3",
+          "target_desc": "Combat desertification, restore degraded land and soil, including land affected by desertification, drought and floods.",
+          "color": "#56c02b"
+        },
+        {
+          "sdg_number": 13,
+          "sdg_title": "13. Climate Action",
+          "target_code": "13.1",
+          "target_desc": "Strengthen resilience and adaptive capacity to climate-related hazards and natural disasters in all countries.",
+          "color": "#3f7e44"
+        }
+      ],
+      "measurement_method": "High-resolution satellite spatial telemetry corroborated by on-the-ground GPS boundary polygons surveyed by RFA forestry technicians.",
+      "data_source_citation": "Rwanda Forestry Authority (RFA) & City of Kigali Land Use Registry (2025)"
     },
     {
-      "id": "flood_peak_reduction",
+      "id": "flood_risk_reduction",
       "theme": "climate",
       "fmes_code": "RFA-FMES-HYDRO-04",
       "fmes_alignment": "Rwanda Water Resources Board (RWB) Catchment Hydrology",
       "unit": "Percentage (%)",
       "baseline_2024": 0,
       "current_2025": 28.5,
-      "target_2026": 40.0,
+      "target_2026": 40,
       "change_pct": 28.5,
       "status": "on-track",
       "priority_rank": 2,
       "featured_in_hero": true,
+      "dual_icon": "leaf",
+      "legend_label": "Mpazi & Nyabugogo Basins",
+      "definition": "Estimated percentage reduction in peak stormwater runoff discharge entering vulnerable urban ravines and commercial zones during intense tropical rainfall events.",
       "trend_history": [
-        { "period": "2024 Q1", "value": 0 },
-        { "period": "2024 Q2", "value": 6.2 },
-        { "period": "2024 Q3", "value": 12.8 },
-        { "period": "2024 Q4", "value": 19.5 },
-        { "period": "2025 Q1", "value": 24.1 },
-        { "period": "2025 Q2", "value": 28.5 }
+        {
+          "period": "2024 Q1",
+          "value": 0
+        },
+        {
+          "period": "2024 Q2",
+          "value": 6.2
+        },
+        {
+          "period": "2024 Q3",
+          "value": 12.8
+        },
+        {
+          "period": "2024 Q4",
+          "value": 19.5
+        },
+        {
+          "period": "2025 Q1",
+          "value": 24.1
+        },
+        {
+          "period": "2025 Q2",
+          "value": 28.5
+        }
       ],
       "site_breakdown": [
-        { "site": "Mpazi Ravine Micro-catchment", "value": 34.0 },
-        { "site": "Nyabugogo Lower Basin", "value": 29.5 },
-        { "site": "Yanze Upstream Buffer", "value": 26.0 },
-        { "site": "Gikondo Wetland Transition", "value": 24.5 }
-      ]
+        {
+          "site": "Mpazi Ravine Micro-catchment",
+          "value": 34
+        },
+        {
+          "site": "Nyabugogo Lower Basin",
+          "value": 29.5
+        },
+        {
+          "site": "Yanze Upstream Buffer",
+          "value": 26
+        },
+        {
+          "site": "Gikondo Wetland Transition",
+          "value": 24.5
+        }
+      ],
+      "sdgs": [
+        {
+          "sdg_number": 11,
+          "sdg_title": "11. Sustainable Cities & Communities",
+          "target_code": "11.5",
+          "target_desc": "Significantly reduce the number of deaths and the number of people affected and decrease direct economic losses caused by water-related disasters.",
+          "color": "#f99d26"
+        },
+        {
+          "sdg_number": 13,
+          "sdg_title": "13. Climate Action",
+          "target_code": "13.1",
+          "target_desc": "Strengthen resilience to climate hazards and extreme storm runoff.",
+          "color": "#3f7e44"
+        }
+      ],
+      "measurement_method": "Calibrated hydrological runoff modeling using hydrometric sensor stations at Mpazi and Yanze outfalls, verified during high-precipitation events.",
+      "data_source_citation": "Rwanda Water Resources Board (RWB) & City of Kigali Stormwater Master Plan (2025)"
     },
     {
       "id": "soil_erosion_prevented",
@@ -100,27 +218,78 @@
       "status": "on-track",
       "priority_rank": 3,
       "featured_in_hero": false,
+      "dual_icon": "leaf",
+      "legend_label": "Lower Nyabarongo Slopes",
+      "definition": "Conserved metric tons of fertile hillside topsoil retained annually that would otherwise wash into the Nyabarongo River and urban culverts.",
       "trend_history": [
-        { "period": "2024 Q1", "value": 1200 },
-        { "period": "2024 Q2", "value": 4100 },
-        { "period": "2024 Q3", "value": 7800 },
-        { "period": "2024 Q4", "value": 10500 },
-        { "period": "2025 Q1", "value": 12800 },
-        { "period": "2025 Q2", "value": 14600 }
+        {
+          "period": "2024 Q1",
+          "value": 1200
+        },
+        {
+          "period": "2024 Q2",
+          "value": 4100
+        },
+        {
+          "period": "2024 Q3",
+          "value": 7800
+        },
+        {
+          "period": "2024 Q4",
+          "value": 10500
+        },
+        {
+          "period": "2025 Q1",
+          "value": 12800
+        },
+        {
+          "period": "2025 Q2",
+          "value": 14600
+        }
       ],
       "site_breakdown": [
-        { "site": "Mount Kigali Terraces", "value": 6200 },
-        { "site": "Yanze Catchment Slopes", "value": 4900 },
-        { "site": "Jali Ridge Buffer", "value": 2100 },
-        { "site": "Mpazi Headwaters", "value": 1400 }
-      ]
+        {
+          "site": "Mount Kigali Terraces",
+          "value": 6200
+        },
+        {
+          "site": "Yanze Catchment Slopes",
+          "value": 4900
+        },
+        {
+          "site": "Jali Ridge Buffer",
+          "value": 2100
+        },
+        {
+          "site": "Mpazi Headwaters",
+          "value": 1400
+        }
+      ],
+      "sdgs": [
+        {
+          "sdg_number": 15,
+          "sdg_title": "15. Life on Land",
+          "target_code": "15.3",
+          "target_desc": "Restore degraded land and soil, striving to achieve a land degradation-neutral world.",
+          "color": "#56c02b"
+        },
+        {
+          "sdg_number": 6,
+          "sdg_title": "6. Clean Water & Sanitation",
+          "target_code": "6.6",
+          "target_desc": "Protect and restore water-related ecosystems, including mountains, forests, wetlands and rivers.",
+          "color": "#00aed9"
+        }
+      ],
+      "measurement_method": "Revised Universal Soil Loss Equation (RUSLE) parameterized with high-resolution digital elevation models and sediment trap audits.",
+      "data_source_citation": "Rwanda Forestry Authority (RFA) Watershed Soil Protection Register (2025)"
     },
     {
       "id": "trees_planted",
       "theme": "biodiversity",
       "fmes_code": "RFA-FMES-SILV-01",
       "fmes_alignment": "FMES Plantation & Nursery Register (Compartment DB)",
-      "unit": "Trees / Seedlings",
+      "unit": "Seedlings / Trees",
       "baseline_2024": 85000,
       "current_2025": 842000,
       "target_2026": 1200000,
@@ -128,48 +297,71 @@
       "status": "on-track",
       "priority_rank": 1,
       "featured_in_hero": true,
+      "dual_icon": "tree",
+      "legend_label": "Kigali NbS Sites",
+      "definition": "Total number of certified indigenous, multipurpose, and agroforestry seedlings planted across hillsides, riparian zones, and urban corridors.",
       "trend_history": [
-        { "period": "2024 Q1", "value": 85000 },
-        { "period": "2024 Q2", "value": 240000 },
-        { "period": "2024 Q3", "value": 430000 },
-        { "period": "2024 Q4", "value": 610000 },
-        { "period": "2025 Q1", "value": 735000 },
-        { "period": "2025 Q2", "value": 842000 }
+        {
+          "period": "2024 Q1",
+          "value": 85000
+        },
+        {
+          "period": "2024 Q2",
+          "value": 240000
+        },
+        {
+          "period": "2024 Q3",
+          "value": 430000
+        },
+        {
+          "period": "2024 Q4",
+          "value": 610000
+        },
+        {
+          "period": "2025 Q1",
+          "value": 735000
+        },
+        {
+          "period": "2025 Q2",
+          "value": 842000
+        }
       ],
       "site_breakdown": [
-        { "site": "Yanze Catchment Reforestation", "value": 365000 },
-        { "site": "Mount Kigali Hillside Agroforestry", "value": 248000 },
-        { "site": "Nyabarongo Riparian Green Belt", "value": 145000 },
-        { "site": "Urban Roads & Public Spaces", "value": 84000 }
-      ]
-    },
-    {
-      "id": "riparian_buffer_restored",
-      "theme": "biodiversity",
-      "fmes_code": "RFA-FMES-ECO-03",
-      "fmes_alignment": "RFA Riverine & Wetland Protection Framework",
-      "unit": "Kilometers (km)",
-      "baseline_2024": 4.5,
-      "current_2025": 32.8,
-      "target_2026": 45.0,
-      "change_pct": 628.9,
-      "status": "on-track",
-      "priority_rank": 2,
-      "featured_in_hero": false,
-      "trend_history": [
-        { "period": "2024 Q1", "value": 4.5 },
-        { "period": "2024 Q2", "value": 11.0 },
-        { "period": "2024 Q3", "value": 18.2 },
-        { "period": "2024 Q4", "value": 24.5 },
-        { "period": "2025 Q1", "value": 29.0 },
-        { "period": "2025 Q2", "value": 32.8 }
+        {
+          "site": "Yanze Catchment Reforestation",
+          "value": 365000
+        },
+        {
+          "site": "Mount Kigali Hillside Agroforestry",
+          "value": 248000
+        },
+        {
+          "site": "Nyabarongo Riparian Green Belt",
+          "value": 145000
+        },
+        {
+          "site": "Urban Roads & Public Spaces",
+          "value": 84000
+        }
       ],
-      "site_breakdown": [
-        { "site": "Nyabarongo Main Channel Shoreline", "value": 16.4 },
-        { "site": "Yanze River Riparian Margins", "value": 9.2 },
-        { "site": "Nyabugogo Wetland Tributary", "value": 4.8 },
-        { "site": "Mpazi Drainage Outfall Buffer", "value": 2.4 }
-      ]
+      "sdgs": [
+        {
+          "sdg_number": 15,
+          "sdg_title": "15. Life on Land",
+          "target_code": "15.2",
+          "target_desc": "Promote the implementation of sustainable management of all types of forests, halt deforestation, and substantially increase afforestation.",
+          "color": "#56c02b"
+        },
+        {
+          "sdg_number": 13,
+          "sdg_title": "13. Climate Action",
+          "target_code": "13.2",
+          "target_desc": "Integrate climate change measures and ecosystem preservation into municipal spatial policies.",
+          "color": "#3f7e44"
+        }
+      ],
+      "measurement_method": "Audited dispatch registries from certified cooperative seedling nurseries, matched to georeferenced planting compartments.",
+      "data_source_citation": "RFA Forest Management and Evaluation System (FMES) Silviculture Registry (2025)"
     },
     {
       "id": "tree_survival_rate",
@@ -177,27 +369,218 @@
       "fmes_code": "RFA-FMES-SURV-02",
       "fmes_alignment": "FMES Post-Planting Audit & Survival Protocol",
       "unit": "Percentage (%)",
-      "baseline_2024": 62.0,
+      "baseline_2024": 62,
       "current_2025": 84.5,
-      "target_2026": 85.0,
+      "target_2026": 85,
       "change_pct": 36.3,
       "status": "exceeded",
-      "priority_rank": 3,
+      "priority_rank": 2,
       "featured_in_hero": false,
+      "dual_icon": "leaf",
+      "legend_label": "Permanent Sample Plots",
+      "definition": "Percentage of planted native and agroforestry seedlings surviving across surveyed permanent sample plots after 6, 12, and 24 months.",
       "trend_history": [
-        { "period": "2024 Q1", "value": 62.0 },
-        { "period": "2024 Q2", "value": 71.5 },
-        { "period": "2024 Q3", "value": 76.0 },
-        { "period": "2024 Q4", "value": 81.2 },
-        { "period": "2025 Q1", "value": 83.0 },
-        { "period": "2025 Q2", "value": 84.5 }
+        {
+          "period": "2024 Q1",
+          "value": 62
+        },
+        {
+          "period": "2024 Q2",
+          "value": 71.5
+        },
+        {
+          "period": "2024 Q3",
+          "value": 76
+        },
+        {
+          "period": "2024 Q4",
+          "value": 81.2
+        },
+        {
+          "period": "2025 Q1",
+          "value": 83
+        },
+        {
+          "period": "2025 Q2",
+          "value": 84.5
+        }
       ],
       "site_breakdown": [
-        { "site": "Community Managed Nurseries (Yanze)", "value": 88.0 },
-        { "site": "Mount Kigali Slopes", "value": 83.5 },
-        { "site": "Riparian Wetland Margins", "value": 86.2 },
-        { "site": "Urban High-Traffic Corridors", "value": 80.3 }
-      ]
+        {
+          "site": "Community Managed Plots (Yanze)",
+          "value": 88
+        },
+        {
+          "site": "Mount Kigali Terraces",
+          "value": 83.5
+        },
+        {
+          "site": "Riparian Wetland Margins",
+          "value": 86.2
+        },
+        {
+          "site": "Urban High-Traffic Corridors",
+          "value": 80.3
+        }
+      ],
+      "sdgs": [
+        {
+          "sdg_number": 15,
+          "sdg_title": "15. Life on Land",
+          "target_code": "15.2",
+          "target_desc": "Halt deforestation, restore degraded forests and substantially increase afforestation and reforestation globally.",
+          "color": "#56c02b"
+        }
+      ],
+      "measurement_method": "Permanent 20m x 20m random sampling plots surveyed at 3, 6, and 12-month post-planting intervals using mobile ODK survey tools.",
+      "data_source_citation": "RFA Silvicultural Audit Service & SUNCASA Independent Monitoring Unit (2025)"
+    },
+    {
+      "id": "riparian_buffer_km",
+      "theme": "biodiversity",
+      "fmes_code": "RFA-FMES-ECO-03",
+      "fmes_alignment": "RFA Riverine & Wetland Protection Framework",
+      "unit": "Kilometers (km)",
+      "baseline_2024": 4.5,
+      "current_2025": 32.8,
+      "target_2026": 45,
+      "change_pct": 628.9,
+      "status": "on-track",
+      "priority_rank": 3,
+      "featured_in_hero": false,
+      "dual_icon": "tree",
+      "legend_label": "Lower Nyabarongo Shoreline",
+      "definition": "Linear kilometers of continuous 30-meter native vegetative buffer restored along the Lower Nyabarongo River and its tributary wetland corridors.",
+      "trend_history": [
+        {
+          "period": "2024 Q1",
+          "value": 4.5
+        },
+        {
+          "period": "2024 Q2",
+          "value": 11
+        },
+        {
+          "period": "2024 Q3",
+          "value": 18.2
+        },
+        {
+          "period": "2024 Q4",
+          "value": 24.5
+        },
+        {
+          "period": "2025 Q1",
+          "value": 29
+        },
+        {
+          "period": "2025 Q2",
+          "value": 32.8
+        }
+      ],
+      "site_breakdown": [
+        {
+          "site": "Nyabarongo Main Channel Shoreline",
+          "value": 16.4
+        },
+        {
+          "site": "Yanze River Riparian Margins",
+          "value": 9.2
+        },
+        {
+          "site": "Nyabugogo Wetland Tributary",
+          "value": 4.8
+        },
+        {
+          "site": "Mpazi Drainage Outfall Buffer",
+          "value": 2.4
+        }
+      ],
+      "sdgs": [
+        {
+          "sdg_number": 6,
+          "sdg_title": "6. Clean Water & Sanitation",
+          "target_code": "6.6",
+          "target_desc": "Protect and restore water-related ecosystems, including mountains, forests, wetlands, rivers, aquifers and lakes.",
+          "color": "#00aed9"
+        },
+        {
+          "sdg_number": 15,
+          "sdg_title": "15. Life on Land",
+          "target_code": "15.1",
+          "target_desc": "Ensure the conservation, restoration and sustainable use of terrestrial and inland freshwater ecosystems.",
+          "color": "#56c02b"
+        }
+      ],
+      "measurement_method": "High-resolution drone orthomosaics verifying continuous 30-meter native vegetative buffer adherence along surveyed riverbanks.",
+      "data_source_citation": "Rwanda Environment Management Authority (REMA) & RFA Riverine Protection Database (2025)"
+    },
+    {
+      "id": "water_quality_index",
+      "theme": "biodiversity",
+      "fmes_code": "RFA-FMES-WQ-05",
+      "fmes_alignment": "Rwanda Water Quality Telemetry Network (WASAC)",
+      "unit": "Index Score (0-100)",
+      "baseline_2024": 42,
+      "current_2025": 68.5,
+      "target_2026": 80,
+      "change_pct": 63.1,
+      "status": "on-track",
+      "priority_rank": 4,
+      "featured_in_hero": false,
+      "dual_icon": "leaf",
+      "legend_label": "Yanze Water Treatment Intake",
+      "definition": "Surface water quality and turbidity reduction score measured at the Yanze water treatment intake supplying over 60% of Kigali's potable water.",
+      "trend_history": [
+        {
+          "period": "2024 Q1",
+          "value": 42
+        },
+        {
+          "period": "2024 Q2",
+          "value": 48
+        },
+        {
+          "period": "2024 Q3",
+          "value": 55.5
+        },
+        {
+          "period": "2024 Q4",
+          "value": 61
+        },
+        {
+          "period": "2025 Q1",
+          "value": 64.8
+        },
+        {
+          "period": "2025 Q2",
+          "value": 68.5
+        }
+      ],
+      "site_breakdown": [
+        {
+          "site": "Yanze Main Treatment Intake",
+          "value": 72
+        },
+        {
+          "site": "Upstream Agro-Terrace Runoff",
+          "value": 68
+        },
+        {
+          "site": "Lower Nyabarongo Confluence",
+          "value": 65.5
+        }
+      ],
+      "sdgs": [
+        {
+          "sdg_number": 6,
+          "sdg_title": "6. Clean Water & Sanitation",
+          "target_code": "6.3",
+          "target_desc": "Improve water quality by reducing pollution, eliminating dumping and minimizing release of hazardous chemicals.",
+          "color": "#00aed9"
+        }
+      ],
+      "measurement_method": "Nephelometric Turbidity Unit (NTU) lab sampling paired with continuous optical sensors at the WASAC water intake station.",
+      "data_source_citation": "Water and Sanitation Corporation (WASAC) & Rwanda Water Resources Board (2025)"
     },
     {
       "id": "women_leadership_catchment",
@@ -205,166 +588,583 @@
       "fmes_code": "RFA-FMES-GESI-01",
       "fmes_alignment": "RFA Community Forestry Committee GESI Standard",
       "unit": "Percentage (%)",
-      "baseline_2024": 18.0,
+      "baseline_2024": 18,
       "current_2025": 54.2,
-      "target_2026": 50.0,
+      "target_2026": 50,
       "change_pct": 201.1,
       "status": "exceeded",
       "priority_rank": 1,
       "featured_in_hero": true,
+      "dual_icon": "users",
+      "legend_label": "Catchment Committees",
+      "definition": "Proportion of leadership and executive governance positions held by women on community watershed and forestry management committees.",
       "trend_history": [
-        { "period": "2024 Q1", "value": 18.0 },
-        { "period": "2024 Q2", "value": 27.5 },
-        { "period": "2024 Q3", "value": 36.0 },
-        { "period": "2024 Q4", "value": 45.0 },
-        { "period": "2025 Q1", "value": 51.5 },
-        { "period": "2025 Q2", "value": 54.2 }
+        {
+          "period": "2024 Q1",
+          "value": 18
+        },
+        {
+          "period": "2024 Q2",
+          "value": 27.5
+        },
+        {
+          "period": "2024 Q3",
+          "value": 36
+        },
+        {
+          "period": "2024 Q4",
+          "value": 45
+        },
+        {
+          "period": "2025 Q1",
+          "value": 51.5
+        },
+        {
+          "period": "2025 Q2",
+          "value": 54.2
+        }
       ],
       "site_breakdown": [
-        { "site": "Yanze Catchment Committees", "value": 58.0 },
-        { "site": "Nyarugenge Sector NbS Groups", "value": 55.5 },
-        { "site": "Gasabo Watershed Associations", "value": 52.0 },
-        { "site": "Kicukiro Urban Green Teams", "value": 51.3 }
-      ]
+        {
+          "site": "Yanze Catchment Committees",
+          "value": 58
+        },
+        {
+          "site": "Nyarugenge Sector NbS Groups",
+          "value": 55.5
+        },
+        {
+          "site": "Gasabo Watershed Associations",
+          "value": 52
+        },
+        {
+          "site": "Kicukiro Urban Green Teams",
+          "value": 51.3
+        }
+      ],
+      "sdgs": [
+        {
+          "sdg_number": 5,
+          "sdg_title": "5. Gender Equality",
+          "target_code": "5.5",
+          "target_desc": "Ensure women's full and effective participation and equal opportunities for leadership at all levels of decision-making.",
+          "color": "#ef402d"
+        },
+        {
+          "sdg_number": 16,
+          "sdg_title": "16. Peace, Justice & Strong Institutions",
+          "target_code": "16.7",
+          "target_desc": "Ensure responsive, inclusive, participatory and representative decision-making at all levels.",
+          "color": "#00689d"
+        }
+      ],
+      "measurement_method": "Bi-annual audits of official executive committee rosters and meeting sign-in sheets verified by district gender officers.",
+      "data_source_citation": "Ministry of Gender and Family Promotion (MIGEPROF) & City of Kigali Community Governance Unit (2025)"
     },
     {
-      "id": "female_nursery_operators",
+      "id": "participants_trained",
       "theme": "gesi",
-      "fmes_code": "RFA-FMES-GESI-02",
-      "fmes_alignment": "SUNCASA Gender Responsive Livelihoods Framework",
-      "unit": "Percentage (%)",
-      "baseline_2024": 22.0,
-      "current_2025": 61.5,
-      "target_2026": 60.0,
-      "change_pct": 179.5,
-      "status": "exceeded",
+      "fmes_code": "RFA-FMES-CAP-02",
+      "fmes_alignment": "SUNCASA Capacity Building Framework",
+      "unit": "Trainees",
+      "baseline_2024": 320,
+      "current_2025": 2840,
+      "target_2026": 4000,
+      "change_pct": 787.5,
+      "status": "on-track",
       "priority_rank": 2,
       "featured_in_hero": false,
+      "dual_icon": "users",
+      "legend_label": "Certified NbS Practitioners",
+      "definition": "Total local community members, women farmers, and youth trained and certified in progressive hillside terracing, tree seedling nursery management, and bio-engineering.",
       "trend_history": [
-        { "period": "2024 Q1", "value": 22.0 },
-        { "period": "2024 Q2", "value": 34.0 },
-        { "period": "2024 Q3", "value": 46.5 },
-        { "period": "2024 Q4", "value": 55.0 },
-        { "period": "2025 Q1", "value": 58.5 },
-        { "period": "2025 Q2", "value": 61.5 }
+        {
+          "period": "2024 Q1",
+          "value": 320
+        },
+        {
+          "period": "2024 Q2",
+          "value": 850
+        },
+        {
+          "period": "2024 Q3",
+          "value": 1450
+        },
+        {
+          "period": "2024 Q4",
+          "value": 2100
+        },
+        {
+          "period": "2025 Q1",
+          "value": 2520
+        },
+        {
+          "period": "2025 Q2",
+          "value": 2840
+        }
       ],
       "site_breakdown": [
-        { "site": "Yanze Tree Cooperative", "value": 67.0 },
-        { "site": "Mpazi Green Nursery Union", "value": 62.5 },
-        { "site": "Mount Kigali Agroforestry Hub", "value": 59.0 },
-        { "site": "Nyabugogo Basin Seedling Hub", "value": 57.5 }
-      ]
-    },
-    {
-      "id": "youth_environmental_stewards",
-      "theme": "gesi",
-      "fmes_code": "RFA-FMES-YOUTH-01",
-      "fmes_alignment": "National Youth in Forestry & Climate Action Registry",
-      "unit": "Youth Trained (Count)",
-      "baseline_2024": 45,
-      "current_2025": 380,
-      "target_2026": 500,
-      "change_pct": 744.4,
-      "status": "on-track",
-      "priority_rank": 3,
-      "featured_in_hero": false,
-      "trend_history": [
-        { "period": "2024 Q1", "value": 45 },
-        { "period": "2024 Q2", "value": 110 },
-        { "period": "2024 Q3", "value": 195 },
-        { "period": "2024 Q4", "value": 270 },
-        { "period": "2025 Q1", "value": 330 },
-        { "period": "2025 Q2", "value": 380 }
+        {
+          "site": "Women Agroforestry Farmers",
+          "value": 1680
+        },
+        {
+          "site": "Youth GIS & Nursery Technicians",
+          "value": 820
+        },
+        {
+          "site": "Local Administrative Leaders",
+          "value": 340
+        }
       ],
-      "site_breakdown": [
-        { "site": "GIS & Drone Tree Tracking", "value": 125 },
-        { "site": "Seedling Propagation Techniques", "value": 140 },
-        { "site": "Gully & Ravine Bio-engineering", "value": 75 },
-        { "site": "Community Climate Advocacy", "value": 40 }
-      ]
+      "sdgs": [
+        {
+          "sdg_number": 4,
+          "sdg_title": "4. Quality Education",
+          "target_code": "4.4",
+          "target_desc": "Substantially increase the number of youth and adults who have relevant skills for employment, decent jobs and entrepreneurship.",
+          "color": "#c5192d"
+        },
+        {
+          "sdg_number": 5,
+          "sdg_title": "5. Gender Equality",
+          "target_code": "5.5",
+          "target_desc": "Equal access to capacity building and vocational climate adaptation skills.",
+          "color": "#ef402d"
+        }
+      ],
+      "measurement_method": "Signed graduation records from district vocational training modules and RFA practical nursery workshops.",
+      "data_source_citation": "SUNCASA Field Directorate & City of Kigali Vocational Training Division (2025)"
     },
     {
       "id": "green_jobs_created",
       "theme": "economy",
       "fmes_code": "RFA-FMES-ECON-01",
-      "fmes_alignment": "RFA Green Employment & Labor Tracking System",
-      "unit": "Person-days of labor",
-      "baseline_2024": 4200,
-      "current_2025": 42800,
-      "target_2026": 60000,
-      "change_pct": 919.0,
+      "fmes_alignment": "National Green Jobs Strategy & SUNCASA PMF",
+      "unit": "Person-Days",
+      "baseline_2024": 12000,
+      "current_2025": 98500,
+      "target_2026": 150000,
+      "change_pct": 720.8,
       "status": "on-track",
       "priority_rank": 1,
       "featured_in_hero": true,
+      "dual_icon": "dollar",
+      "legend_label": "Cumulative Person-Days",
+      "definition": "Cumulative person-days of direct paid employment created through hillside terracing, seedling production, planting, and drainage maintenance.",
       "trend_history": [
-        { "period": "2024 Q1", "value": 4200 },
-        { "period": "2024 Q2", "value": 11800 },
-        { "period": "2024 Q3", "value": 20500 },
-        { "period": "2024 Q4", "value": 29800 },
-        { "period": "2025 Q1", "value": 36500 },
-        { "period": "2025 Q2", "value": 42800 }
+        {
+          "period": "2024 Q1",
+          "value": 12000
+        },
+        {
+          "period": "2024 Q2",
+          "value": 32000
+        },
+        {
+          "period": "2024 Q3",
+          "value": 54000
+        },
+        {
+          "period": "2024 Q4",
+          "value": 76000
+        },
+        {
+          "period": "2025 Q1",
+          "value": 89000
+        },
+        {
+          "period": "2025 Q2",
+          "value": 98500
+        }
       ],
       "site_breakdown": [
-        { "site": "Hillside Planting & Terracing", "value": 19400 },
-        { "site": "Seedling Nursery Propagation", "value": 12300 },
-        { "site": "Riparian Buffer Maintenance", "value": 7100 },
-        { "site": "Urban Tree Pit Prep & Mulching", "value": 4000 }
-      ]
+        {
+          "site": "Women Workers (62% of Total)",
+          "value": 61070
+        },
+        {
+          "site": "Youth Workers (31% of Total)",
+          "value": 30535
+        },
+        {
+          "site": "Adult Men (7% of Total)",
+          "value": 6895
+        }
+      ],
+      "sdgs": [
+        {
+          "sdg_number": 8,
+          "sdg_title": "8. Decent Work & Economic Growth",
+          "target_code": "8.5",
+          "target_desc": "Achieve full and productive employment and decent work for all women and men, including for young people and persons with disabilities.",
+          "color": "#8f1838"
+        },
+        {
+          "sdg_number": 1,
+          "sdg_title": "1. No Poverty",
+          "target_code": "1.2",
+          "target_desc": "Reduce at least by half the proportion of men, women and children of all ages living in poverty in all its dimensions.",
+          "color": "#e5243b"
+        }
+      ],
+      "measurement_method": "Audited cooperative payroll disbursement logs and mobile-money direct payment registers verified by district labor inspectors.",
+      "data_source_citation": "SUNCASA Financial Audit & Rwanda Cooperative Agency (RCA) Employment Registry (2025)"
     },
     {
-      "id": "community_nursery_income",
+      "id": "female_nursery_operators",
       "theme": "economy",
-      "fmes_code": "RFA-FMES-ECON-02",
-      "fmes_alignment": "National Forest Fund (FONERWA) Local Revenue Index",
-      "unit": "Million RWF",
-      "baseline_2024": 6.8,
-      "current_2025": 48.6,
-      "target_2026": 70.0,
-      "change_pct": 614.7,
-      "status": "on-track",
+      "fmes_code": "RFA-FMES-GESI-02",
+      "fmes_alignment": "SUNCASA Gender Responsive Livelihoods Framework",
+      "unit": "Percentage (%)",
+      "baseline_2024": 22,
+      "current_2025": 61.5,
+      "target_2026": 60,
+      "change_pct": 179.5,
+      "status": "exceeded",
       "priority_rank": 2,
       "featured_in_hero": false,
+      "dual_icon": "dollar",
+      "legend_label": "Cooperative Ownership",
+      "definition": "Percentage of registered community seedling nursery cooperatives owned and operated by women, generating sustainable revenue from tree seedling contracts.",
       "trend_history": [
-        { "period": "2024 Q1", "value": 6.8 },
-        { "period": "2024 Q2", "value": 15.2 },
-        { "period": "2024 Q3", "value": 24.8 },
-        { "period": "2024 Q4", "value": 33.5 },
-        { "period": "2025 Q1", "value": 41.2 },
-        { "period": "2025 Q2", "value": 48.6 }
+        {
+          "period": "2024 Q1",
+          "value": 22
+        },
+        {
+          "period": "2024 Q2",
+          "value": 34
+        },
+        {
+          "period": "2024 Q3",
+          "value": 46.5
+        },
+        {
+          "period": "2024 Q4",
+          "value": 55
+        },
+        {
+          "period": "2025 Q1",
+          "value": 58.5
+        },
+        {
+          "period": "2025 Q2",
+          "value": 61.5
+        }
       ],
       "site_breakdown": [
-        { "site": "Yanze Valley Nurseries", "value": 21.4 },
-        { "site": "Mount Kigali Cooperatives", "value": 14.8 },
-        { "site": "Nyabugogo Women Nursery", "value": 8.2 },
-        { "site": "Mpazi Bamboo Initiative", "value": 4.2 }
-      ]
+        {
+          "site": "Yanze Tree Cooperative",
+          "value": 67
+        },
+        {
+          "site": "Mpazi Green Nursery Union",
+          "value": 62.5
+        },
+        {
+          "site": "Mount Kigali Agroforestry Hub",
+          "value": 59
+        },
+        {
+          "site": "Nyabugogo Basin Seedling Hub",
+          "value": 57.5
+        }
+      ],
+      "sdgs": [
+        {
+          "sdg_number": 5,
+          "sdg_title": "5. Gender Equality",
+          "target_code": "5.a",
+          "target_desc": "Undertake reforms to give women equal rights to economic resources, ownership and control over land, financial services and natural resources.",
+          "color": "#ef402d"
+        },
+        {
+          "sdg_number": 8,
+          "sdg_title": "8. Decent Work & Economic Growth",
+          "target_code": "8.5",
+          "target_desc": "Achieve full and productive employment and decent work for all women and men.",
+          "color": "#8f1838"
+        }
+      ],
+      "measurement_method": "Audited cooperative enterprise registries maintained by the Rwanda Cooperative Agency (RCA).",
+      "data_source_citation": "Rwanda Cooperative Agency (RCA) & RFA Forest Nursery Register (2025)"
     },
     {
-      "id": "agroforestry_farmers_supported",
+      "id": "vulnerable_youth_employed",
       "theme": "economy",
-      "fmes_code": "RFA-FMES-ECON-03",
-      "fmes_alignment": "Ministry of Agriculture (MINAGRI) Agroforestry Farmer Register",
-      "unit": "Smallholder Farmers",
-      "baseline_2024": 320,
-      "current_2025": 2850,
-      "target_2026": 4000,
-      "change_pct": 790.6,
+      "fmes_code": "RFA-FMES-YOUTH-03",
+      "fmes_alignment": "National Youth Employment in Green Economy Framework",
+      "unit": "Youth Employed",
+      "baseline_2024": 140,
+      "current_2025": 1120,
+      "target_2026": 1600,
+      "change_pct": 700,
       "status": "on-track",
       "priority_rank": 3,
       "featured_in_hero": false,
+      "dual_icon": "dollar",
+      "legend_label": "Youth in NbS & Telemetry",
+      "definition": "Number of vulnerable Rwandan youth (aged 18-30) employed directly in drone surveying, mobile GIS telemetry, check-dam construction, and nursery production.",
       "trend_history": [
-        { "period": "2024 Q1", "value": 320 },
-        { "period": "2024 Q2", "value": 890 },
-        { "period": "2024 Q3", "value": 1540 },
-        { "period": "2024 Q4", "value": 2100 },
-        { "period": "2025 Q1", "value": 2520 },
-        { "period": "2025 Q2", "value": 2850 }
+        {
+          "period": "2024 Q1",
+          "value": 140
+        },
+        {
+          "period": "2024 Q2",
+          "value": 380
+        },
+        {
+          "period": "2024 Q3",
+          "value": 640
+        },
+        {
+          "period": "2024 Q4",
+          "value": 890
+        },
+        {
+          "period": "2025 Q1",
+          "value": 1010
+        },
+        {
+          "period": "2025 Q2",
+          "value": 1120
+        }
       ],
       "site_breakdown": [
-        { "site": "Nyarugenge Rural Terraces", "value": 1150 },
-        { "site": "Gasabo Upstream Hillsides", "value": 980 },
-        { "site": "Kicukiro Slopes & Buffers", "value": 720 }
-      ]
+        {
+          "site": "Digital GIS & Drone Telemetry",
+          "value": 280
+        },
+        {
+          "site": "Check-Dam Bio-Engineering",
+          "value": 490
+        },
+        {
+          "site": "Seedling Nursery Logistics",
+          "value": 350
+        }
+      ],
+      "sdgs": [
+        {
+          "sdg_number": 8,
+          "sdg_title": "8. Decent Work & Economic Growth",
+          "target_code": "8.6",
+          "target_desc": "Substantially reduce the proportion of youth not in employment, education or training.",
+          "color": "#8f1838"
+        }
+      ],
+      "measurement_method": "National Youth Council employment verification rosters cross-referenced with cooperative contractor manifests.",
+      "data_source_citation": "National Youth Council (NYC) & SUNCASA Field Directorate (2025)"
+    },
+    {
+      "id": "building_permit_values",
+      "theme": "mypeg_benchmark",
+      "fmes_code": "PEG-BE-01",
+      "fmes_alignment": "Municipal Construction & Infrastructure Investment Registry",
+      "unit": "CAD ($)",
+      "baseline_2024": 372000,
+      "current_2025": 2142000,
+      "target_2026": 2500000,
+      "change_pct": 475.8,
+      "status": "on-track",
+      "priority_rank": 1,
+      "featured_in_hero": false,
+      "dual_icon": "dollar",
+      "legend_label": "Winnipeg (City)",
+      "definition": "Building permit values measures the total value of residential and non residential permit values.",
+      "trend_history": [
+        {
+          "period": "2001",
+          "value": 372000
+        },
+        {
+          "period": "2002",
+          "value": 421000
+        },
+        {
+          "period": "2003",
+          "value": 648000
+        },
+        {
+          "period": "2004",
+          "value": 671000
+        },
+        {
+          "period": "2005",
+          "value": 653000
+        },
+        {
+          "period": "2006",
+          "value": 842000
+        },
+        {
+          "period": "2007",
+          "value": 841000
+        },
+        {
+          "period": "2008",
+          "value": 1052000
+        },
+        {
+          "period": "2009",
+          "value": 1104000
+        },
+        {
+          "period": "2010",
+          "value": 1152000
+        },
+        {
+          "period": "2011",
+          "value": 1161000
+        },
+        {
+          "period": "2012",
+          "value": 1512000
+        },
+        {
+          "period": "2013",
+          "value": 1783000
+        },
+        {
+          "period": "2014",
+          "value": 1541000
+        },
+        {
+          "period": "2015",
+          "value": 1432000
+        },
+        {
+          "period": "2016",
+          "value": 1812000
+        },
+        {
+          "period": "2017",
+          "value": 2021000
+        },
+        {
+          "period": "2018",
+          "value": 1852000
+        },
+        {
+          "period": "2019",
+          "value": 2174000
+        },
+        {
+          "period": "2020",
+          "value": 1653000
+        },
+        {
+          "period": "2021",
+          "value": 2281000
+        },
+        {
+          "period": "2022",
+          "value": 2142000
+        }
+      ],
+      "site_breakdown": [
+        {
+          "site": "Winnipeg (City)",
+          "value": 2142000
+        },
+        {
+          "site": "Downtown Core Zone",
+          "value": 885000
+        },
+        {
+          "site": "Urban Growth Sectors",
+          "value": 745000
+        },
+        {
+          "site": "Commercial & Industrial",
+          "value": 512000
+        }
+      ],
+      "sdgs": [
+        {
+          "sdg_number": 11,
+          "sdg_title": "11. Sustainable Cities & Communities",
+          "target_code": "11.3",
+          "target_desc": "Enhance inclusive and sustainable urbanization and capacity for participatory human settlement planning.",
+          "color": "#f99d26"
+        }
+      ],
+      "measurement_method": "Aggregated municipal building inspection valuations and architectural permit filings compiled on an annual schedule.",
+      "data_source_citation": "City of Winnipeg Planning, Property and Development Department & Statistics Canada"
+    },
+    {
+      "id": "collision_victims",
+      "theme": "mypeg_benchmark",
+      "fmes_code": "PEG-BE-02",
+      "fmes_alignment": "Urban Mobility & Road Safety Database",
+      "unit": "Casualties / 100k",
+      "baseline_2024": 480,
+      "current_2025": 395,
+      "target_2026": 320,
+      "change_pct": -17.7,
+      "status": "on-track",
+      "priority_rank": 2,
+      "featured_in_hero": false,
+      "dual_icon": "none",
+      "legend_label": "Winnipeg (City)",
+      "definition": "Measures annual traffic collision victims and casualty injury rates per 100,000 population.",
+      "trend_history": [
+        {
+          "period": "2010",
+          "value": 540
+        },
+        {
+          "period": "2012",
+          "value": 520
+        },
+        {
+          "period": "2014",
+          "value": 495
+        },
+        {
+          "period": "2016",
+          "value": 460
+        },
+        {
+          "period": "2018",
+          "value": 440
+        },
+        {
+          "period": "2020",
+          "value": 375
+        },
+        {
+          "period": "2022",
+          "value": 395
+        }
+      ],
+      "site_breakdown": [
+        {
+          "site": "Major Arterial Roads",
+          "value": 195
+        },
+        {
+          "site": "Downtown Core",
+          "value": 110
+        },
+        {
+          "site": "Suburban Corridors",
+          "value": 90
+        }
+      ],
+      "sdgs": [
+        {
+          "sdg_number": 3,
+          "sdg_title": "3. Good Health & Well-Being",
+          "target_code": "3.6",
+          "target_desc": "Halve the number of global deaths and injuries from road traffic accidents.",
+          "color": "#4c9f38"
+        }
+      ],
+      "measurement_method": "Police accident collision reporting registries cross-referenced with regional health trauma center admissions.",
+      "data_source_citation": "Manitoba Public Insurance & City Police Traffic Analysis Division"
     }
   ]
 }

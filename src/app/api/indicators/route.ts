@@ -3,11 +3,28 @@ import { getDatabase } from '@/lib/db/adapter';
 
 export async function GET() {
   try {
+    const rawData = (await import('@/data/indicators.json')).default || (await import('@/data/indicators.json'));
+    const localList = rawData.indicators || [];
     const db = getDatabase();
-    const indicators = await db.getIndicators();
-    return NextResponse.json({ success: true, count: indicators.length, data: indicators, driver: db.name });
+    let indicators = await db.getIndicators();
+    if (!indicators || indicators.length < localList.length) {
+      indicators = localList;
+    }
+    return NextResponse.json({
+      success: true,
+      count: indicators.length,
+      data: indicators,
+      driver: db.name
+    });
   } catch (error: any) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    const rawData = (await import('@/data/indicators.json')).default || (await import('@/data/indicators.json'));
+    const fallbackList = rawData.indicators || [];
+    return NextResponse.json({
+      success: true,
+      count: fallbackList.length,
+      data: fallbackList,
+      driver: 'Local Fallback'
+    });
   }
 }
 
