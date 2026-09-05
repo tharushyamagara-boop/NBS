@@ -36,7 +36,7 @@ export default function AdminPortalPage() {
 
   // Active Workspace Tab
   const [activeTab, setActiveTab] = useState<
-    'indicators' | 'builder' | 'landing_stories' | 'indicator_stories' | 'gps_mapper' | 'rbac' | 'database'
+    'indicators' | 'builder' | 'landing_stories' | 'indicator_stories' | 'gps_mapper' | 'rbac' | 'database' | 'interoperability'
   >('indicators');
 
   // Indicators State
@@ -159,6 +159,32 @@ export default function AdminPortalPage() {
   const [firebaseApiKey, setFirebaseApiKey] = useState('');
   const [firebaseProjectId, setFirebaseProjectId] = useState('');
 
+  // Interoperability & API Gateway State
+  const [apiKeys, setApiKeys] = useState<any[]>([]);
+  const [loadingKeys, setLoadingKeys] = useState(false);
+  const [newKeyOrgName, setNewKeyOrgName] = useState('');
+  const [testPayload, setTestPayload] = useState(
+    JSON.stringify(
+      {
+        indicator_id: 'area_restored_ha',
+        current_2025: 1420,
+        new_reading: {
+          period: '2025 Q3',
+          value: 1420,
+        },
+      },
+      null,
+      2
+    )
+  );
+  const [testApiKey, setTestApiKey] = useState('suncasa-kigali-partner-key-2025');
+  const [testResponse, setTestResponse] = useState<string | null>(null);
+  const [testingIngest, setTestingIngest] = useState(false);
+  const [copiedKeyId, setCopiedKeyId] = useState<string | null>(null);
+  const [testOutboundUrl, setTestOutboundUrl] = useState('/api/v1/indicators');
+  const [testOutboundResponse, setTestOutboundResponse] = useState<string | null>(null);
+  const [testingOutbound, setTestingOutbound] = useState(false);
+
   // Restore session from localStorage on mount
   useEffect(() => {
     try {
@@ -184,6 +210,7 @@ export default function AdminPortalPage() {
       fetchNarratives();
       fetchRbacData();
       fetchDbConfig();
+      fetchApiKeys();
     }
   }, [session]);
 
@@ -348,6 +375,102 @@ export default function AdminPortalPage() {
       }
     } catch (err) {
       console.error('Failed to load DB config', err);
+    }
+  };
+
+  const fetchApiKeys = async () => {
+    setLoadingKeys(true);
+    try {
+      const res = await fetch('/api/admin/api-keys');
+      const data = await res.json();
+      if (data.success) {
+        setApiKeys(data.keys || []);
+      }
+    } catch (err) {
+      console.error('Failed to load API keys', err);
+    } finally {
+      setLoadingKeys(false);
+    }
+  };
+
+  const handleGenerateApiKey = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newKeyOrgName) return;
+    try {
+      const res = await fetch('/api/admin/api-keys', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: newKeyOrgName }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setStatusMessage(`API Key generated for ${newKeyOrgName}`);
+        setNewKeyOrgName('');
+        fetchApiKeys();
+      } else {
+        alert(data.error || 'Failed to create key');
+      }
+    } catch (err: any) {
+      alert(err.message || 'Error generating key');
+    }
+  };
+
+  const handleRevokeApiKey = async (id: string, name: string) => {
+    if (!confirm(`Revoke and deactivate API key for "${name}"? External clients using this token will be immediately blocked.`)) {
+      return;
+    }
+    try {
+      const res = await fetch(`/api/admin/api-keys?id=${id}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (data.success) {
+        setStatusMessage(`API key for ${name} revoked.`);
+        fetchApiKeys();
+      } else {
+        alert(data.error || 'Failed to revoke key');
+      }
+    } catch (err: any) {
+      alert(err.message || 'Error revoking key');
+    }
+  };
+
+  const handleRunIngestTest = async () => {
+    setTestingIngest(true);
+    setTestResponse(null);
+    try {
+      const parsedBody = JSON.parse(testPayload);
+      const res = await fetch('/api/v1/ingest', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': testApiKey,
+        },
+        body: JSON.stringify(parsedBody),
+      });
+      const data = await res.json();
+      setTestResponse(JSON.stringify(data, null, 2));
+      if (data.success) {
+        fetchIndicators();
+      }
+    } catch (err: any) {
+      setTestResponse(`Error: ${err.message}`);
+    } finally {
+      setTestingIngest(false);
+    }
+  };
+
+  const handleRunOutboundTest = async (endpoint: string) => {
+    setTestingOutbound(true);
+    setTestOutboundUrl(endpoint);
+    try {
+      const res = await fetch(endpoint);
+      const data = await res.json();
+      setTestOutboundResponse(JSON.stringify(data, null, 2));
+    } catch (err: any) {
+      setTestOutboundResponse(`Error: ${err.message}`);
+    } finally {
+      setTestingOutbound(false);
     }
   };
 
@@ -1391,6 +1514,44 @@ export default function AdminPortalPage() {
                 <span style={{ fontSize: '1.1rem' }}>⚙️</span>
                 <span>DB & FMES Settings</span>
               </button>
+
+              {/* 8. Interoperability & Open APIs */}
+              <button
+                type="button"
+                onClick={() => setActiveTab('interoperability')}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '11px 14px',
+                  borderRadius: '8px',
+                  fontSize: '0.88rem',
+                  fontWeight: 600,
+                  border: 'none',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  transition: 'all 0.15s ease',
+                  background: activeTab === 'interoperability' ? '#0284c7' : 'transparent',
+                  color: activeTab === 'interoperability' ? '#ffffff' : '#94a3b8',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <span style={{ fontSize: '1.1rem' }}>⚡</span>
+                  <span>APIs & Interoperability</span>
+                </div>
+                <span
+                  style={{
+                    fontSize: '0.68rem',
+                    padding: '2px 6px',
+                    borderRadius: '4px',
+                    background: '#f59e0b',
+                    color: '#000000',
+                    fontWeight: 800,
+                  }}
+                >
+                  REST
+                </span>
+              </button>
             </nav>
           </div>
 
@@ -1432,6 +1593,7 @@ export default function AdminPortalPage() {
                 {activeTab === 'indicator_stories' && 'Indicator Stories & 3 Core Questions Editor'}
                 {activeTab === 'rbac' && 'Role-Based Access Control & User Delegation'}
                 {activeTab === 'database' && 'Database Configuration & Interoperability'}
+                {activeTab === 'interoperability' && 'Open REST APIs & Ingestion Gateway'}
               </h1>
             </div>
 
@@ -3084,6 +3246,530 @@ export default function AdminPortalPage() {
                     >
                       {driver === 'inhouse' ? 'Save & Reconnect' : 'Switch to RFA Gateway'}
                     </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* ------------------------------------------------------------- */}
+            {/* TAB 8: OPEN APIs & INTEROPERABILITY GATEWAY                   */}
+            {/* ------------------------------------------------------------- */}
+            {activeTab === 'interoperability' && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                {/* Header Banner */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                      <span style={{ fontSize: '0.74rem', fontWeight: 800, color: '#f59e0b', background: 'rgba(245, 158, 11, 0.15)', padding: '2px 8px', borderRadius: '4px', border: '1px solid rgba(245, 158, 11, 0.3)' }}>
+                        ENTERPRISE INTEROPERABILITY
+                      </span>
+                      <span style={{ fontSize: '0.74rem', fontWeight: 700, color: '#10b981' }}>
+                        ● CORS Unrestricted
+                      </span>
+                    </div>
+                    <h2 style={{ fontSize: '1.45rem', fontWeight: 800, margin: '0 0 6px 0', color: '#f8fafc' }}>
+                      Open REST APIs, Telemetry Ingestion & Embed Syndication
+                    </h2>
+                    <p style={{ color: '#94a3b8', fontSize: '0.88rem', margin: 0, maxWidth: '850px', lineHeight: 1.5 }}>
+                      Enable seamless bidirectional communication between the SUNCASA Kigali Dashboard and external municipal portals (City of Kigali GIS, RFA-FMES, WRI Global Forest Watch, IISD SDG Knowledge Hub).
+                    </p>
+                  </div>
+
+                  <a
+                    href="/api/v1/indicators"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      padding: '9px 16px',
+                      borderRadius: '8px',
+                      background: '#0284c7',
+                      color: '#ffffff',
+                      textDecoration: 'none',
+                      fontSize: '0.84rem',
+                      fontWeight: 700,
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      boxShadow: '0 2px 8px rgba(2, 132, 199, 0.3)',
+                    }}
+                  >
+                    <span>⚡ Test Public JSON Feed</span>
+                    <span>↗</span>
+                  </a>
+                </div>
+
+                {/* Status KPI Cards */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
+                  <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '10px', padding: '16px' }}>
+                    <div style={{ fontSize: '0.75rem', color: '#94a3b8', fontWeight: 600 }}>Public API v1 Status</div>
+                    <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#10b981', marginTop: '4px' }}>
+                      200 OK Active
+                    </div>
+                    <div style={{ fontSize: '0.74rem', color: '#64748b', marginTop: '4px' }}>
+                      GET /api/v1/indicators
+                    </div>
+                  </div>
+
+                  <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '10px', padding: '16px' }}>
+                    <div style={{ fontSize: '0.75rem', color: '#94a3b8', fontWeight: 600 }}>Inbound Ingest API</div>
+                    <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#38bdf8', marginTop: '4px' }}>
+                      POST /api/v1/ingest
+                    </div>
+                    <div style={{ fontSize: '0.74rem', color: '#64748b', marginTop: '4px' }}>
+                      Secured with x-api-key
+                    </div>
+                  </div>
+
+                  <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '10px', padding: '16px' }}>
+                    <div style={{ fontSize: '0.75rem', color: '#94a3b8', fontWeight: 600 }}>Active Partner Keys</div>
+                    <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#f59e0b', marginTop: '4px' }}>
+                      {apiKeys.length} Registered
+                    </div>
+                    <div style={{ fontSize: '0.74rem', color: '#64748b', marginTop: '4px' }}>
+                      Kigali, RFA, WRI & IISD
+                    </div>
+                  </div>
+
+                  <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '10px', padding: '16px' }}>
+                    <div style={{ fontSize: '0.75rem', color: '#94a3b8', fontWeight: 600 }}>Cross-Origin Sharing</div>
+                    <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#a855f7', marginTop: '4px' }}>
+                      CORS: * (Open)
+                    </div>
+                    <div style={{ fontSize: '0.74rem', color: '#64748b', marginTop: '4px' }}>
+                      Iframe & AJAX syndication
+                    </div>
+                  </div>
+                </div>
+
+                {/* Section 1: Registered Ingestion API Keys */}
+                <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '12px', padding: '24px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px', flexWrap: 'wrap', gap: '12px' }}>
+                    <div>
+                      <h3 style={{ fontSize: '1.15rem', fontWeight: 700, margin: '0 0 4px 0', color: '#f8fafc' }}>
+                        🔑 Authorized External Client API Keys
+                      </h3>
+                      <p style={{ fontSize: '0.82rem', color: '#94a3b8', margin: 0 }}>
+                        These cryptographic API keys allow verified institutional partners to push live sensor and intervention telemetry into this dashboard.
+                      </p>
+                    </div>
+
+                    <form onSubmit={handleGenerateApiKey} style={{ display: 'flex', gap: '8px' }}>
+                      <input
+                        type="text"
+                        required
+                        placeholder="Partner Org (e.g., MeteoRwanda)"
+                        value={newKeyOrgName}
+                        onChange={(e) => setNewKeyOrgName(e.target.value)}
+                        style={{
+                          padding: '7px 12px',
+                          borderRadius: '6px',
+                          background: '#1e293b',
+                          border: '1px solid #334155',
+                          color: '#ffffff',
+                          fontSize: '0.82rem',
+                          minWidth: '220px',
+                        }}
+                      />
+                      <button
+                        type="submit"
+                        style={{
+                          padding: '7px 14px',
+                          borderRadius: '6px',
+                          background: '#10b981',
+                          color: '#000000',
+                          border: 'none',
+                          fontWeight: 700,
+                          fontSize: '0.82rem',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        + Generate Key
+                      </button>
+                    </form>
+                  </div>
+
+                  <div style={{ overflowX: 'auto' }}>
+                    <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.84rem' }}>
+                      <thead>
+                        <tr style={{ borderBottom: '1px solid #334155', textAlign: 'left', color: '#94a3b8' }}>
+                          <th style={{ padding: '10px 12px' }}>Client / Partner Organization</th>
+                          <th style={{ padding: '10px 12px' }}>API Key Token</th>
+                          <th style={{ padding: '10px 12px' }}>Permissions</th>
+                          <th style={{ padding: '10px 12px' }}>Status</th>
+                          <th style={{ padding: '10px 12px' }}>Last Activity</th>
+                          <th style={{ padding: '10px 12px', textAlign: 'right' }}>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {apiKeys.map((k: any) => (
+                          <tr key={k.id} style={{ borderBottom: '1px solid rgba(51,65,85,0.5)' }}>
+                            <td style={{ padding: '12px' }}>
+                              <strong style={{ color: '#f8fafc', display: 'block' }}>{k.name}</strong>
+                              <span style={{ fontSize: '0.72rem', color: '#64748b' }}>ID: {k.id}</span>
+                            </td>
+                            <td style={{ padding: '12px' }}>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                <code style={{ background: '#1e293b', padding: '4px 8px', borderRadius: '4px', color: '#38bdf8', fontSize: '0.78rem', fontFamily: 'monospace' }}>
+                                  {k.key}
+                                </code>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    if (navigator.clipboard) {
+                                      navigator.clipboard.writeText(k.key);
+                                      setCopiedKeyId(k.id);
+                                      setTimeout(() => setCopiedKeyId(null), 2000);
+                                    }
+                                  }}
+                                  style={{
+                                    background: copiedKeyId === k.id ? '#10b981' : '#334155',
+                                    color: '#ffffff',
+                                    border: 'none',
+                                    padding: '3px 8px',
+                                    borderRadius: '4px',
+                                    fontSize: '0.72rem',
+                                    cursor: 'pointer',
+                                  }}
+                                  title="Copy Key"
+                                >
+                                  {copiedKeyId === k.id ? '✓' : 'Copy'}
+                                </button>
+                              </div>
+                            </td>
+                            <td style={{ padding: '12px' }}>
+                              <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
+                                {(k.permissions || []).map((p: string, idx: number) => (
+                                  <span key={idx} style={{ fontSize: '0.7rem', padding: '2px 6px', borderRadius: '3px', background: 'rgba(2, 132, 199, 0.2)', color: '#38bdf8' }}>
+                                    {p}
+                                  </span>
+                                ))}
+                              </div>
+                            </td>
+                            <td style={{ padding: '12px' }}>
+                              <span style={{ fontSize: '0.72rem', fontWeight: 700, padding: '2px 8px', borderRadius: '10px', background: k.status === 'Active' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(239, 68, 68, 0.2)', color: k.status === 'Active' ? '#34d399' : '#fca5a5' }}>
+                                {k.status}
+                              </span>
+                            </td>
+                            <td style={{ padding: '12px', color: '#94a3b8', fontSize: '0.78rem' }}>
+                              {k.last_used || 'Never'}
+                            </td>
+                            <td style={{ padding: '12px', textAlign: 'right' }}>
+                              <button
+                                type="button"
+                                onClick={() => handleRevokeApiKey(k.id, k.name)}
+                                style={{
+                                  padding: '4px 10px',
+                                  borderRadius: '4px',
+                                  background: 'rgba(239, 68, 68, 0.15)',
+                                  border: '1px solid #ef4444',
+                                  color: '#fca5a5',
+                                  fontSize: '0.74rem',
+                                  fontWeight: 600,
+                                  cursor: 'pointer',
+                                }}
+                              >
+                                Revoke
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                {/* Section 2: Interactive Inbound Ingestion Simulator */}
+                <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '12px', padding: '24px' }}>
+                  <div style={{ marginBottom: '16px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ fontSize: '1.2rem' }}>📥</span>
+                      <h3 style={{ fontSize: '1.15rem', fontWeight: 700, margin: 0, color: '#f8fafc' }}>
+                        Inbound Data Ingestion Simulator (POST /api/v1/ingest)
+                      </h3>
+                    </div>
+                    <p style={{ fontSize: '0.82rem', color: '#94a3b8', marginTop: '4px', marginBottom: 0 }}>
+                      Simulate an automated machine-to-machine payload sent from an external IoT telemetry feed or partner server.
+                    </p>
+                  </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
+                    <div>
+                      <div style={{ marginBottom: '12px' }}>
+                        <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#cbd5e1', marginBottom: '4px' }}>
+                          Client API Key (Header: x-api-key)
+                        </label>
+                        <input
+                          type="text"
+                          value={testApiKey}
+                          onChange={(e) => setTestApiKey(e.target.value)}
+                          style={{
+                            width: '100%',
+                            padding: '8px 12px',
+                            borderRadius: '6px',
+                            background: '#1e293b',
+                            border: '1px solid #334155',
+                            color: '#38bdf8',
+                            fontSize: '0.82rem',
+                            fontFamily: 'monospace',
+                          }}
+                        />
+                      </div>
+
+                      <div style={{ marginBottom: '14px' }}>
+                        <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#cbd5e1', marginBottom: '4px' }}>
+                          JSON Telemetry Payload (Single reading, batch, or indicator schema)
+                        </label>
+                        <textarea
+                          rows={9}
+                          value={testPayload}
+                          onChange={(e) => setTestPayload(e.target.value)}
+                          style={{
+                            width: '100%',
+                            padding: '10px 12px',
+                            borderRadius: '6px',
+                            background: '#1e293b',
+                            border: '1px solid #334155',
+                            color: '#ffffff',
+                            fontSize: '0.8rem',
+                            fontFamily: 'monospace',
+                            resize: 'vertical',
+                          }}
+                        />
+                      </div>
+
+                      <button
+                        type="button"
+                        disabled={testingIngest}
+                        onClick={handleRunIngestTest}
+                        style={{
+                          padding: '10px 20px',
+                          borderRadius: '6px',
+                          background: '#0284c7',
+                          color: '#ffffff',
+                          border: 'none',
+                          fontWeight: 700,
+                          fontSize: '0.84rem',
+                          cursor: testingIngest ? 'wait' : 'pointer',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '6px',
+                        }}
+                      >
+                        {testingIngest ? 'Transmitting Payload...' : '🚀 Transmit Ingestion Payload'}
+                      </button>
+                    </div>
+
+                    <div>
+                      <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#cbd5e1', marginBottom: '4px' }}>
+                        Server Response & Verification
+                      </label>
+                      <div
+                        style={{
+                          background: '#0b1324',
+                          border: '1px solid #334155',
+                          borderRadius: '6px',
+                          padding: '12px 14px',
+                          minHeight: '230px',
+                          maxHeight: '300px',
+                          overflowY: 'auto',
+                          fontFamily: 'monospace',
+                          fontSize: '0.78rem',
+                          color: testResponse?.includes('"success": true') ? '#34d399' : '#94a3b8',
+                          whiteSpace: 'pre-wrap',
+                        }}
+                      >
+                        {testResponse || '// Server HTTP response will appear here after transmitting...'}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Section 3: REST API v1 Documentation & Outbound Endpoints */}
+                <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '12px', padding: '24px' }}>
+                  <div style={{ marginBottom: '18px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ fontSize: '1.2rem' }}>📖</span>
+                      <h3 style={{ fontSize: '1.15rem', fontWeight: 700, margin: 0, color: '#f8fafc' }}>
+                        REST API v1 Endpoints & Developer Integration Guide
+                      </h3>
+                    </div>
+                    <p style={{ fontSize: '0.82rem', color: '#94a3b8', marginTop: '4px', marginBottom: 0 }}>
+                      Complete API specifications for third-party dashboards, spatial analysts, and automated harvesting bots.
+                    </p>
+                  </div>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                    {/* Endpoint 1: Outbound Indicators List */}
+                    <div style={{ background: '#1e293b', borderRadius: '8px', padding: '14px 18px', border: '1px solid #334155' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          <span style={{ background: '#10b981', color: '#000000', fontWeight: 800, padding: '3px 8px', borderRadius: '4px', fontSize: '0.74rem' }}>
+                            GET
+                          </span>
+                          <code style={{ fontSize: '0.9rem', color: '#38bdf8', fontWeight: 700 }}>
+                            /api/v1/indicators
+                          </code>
+                          <span style={{ fontSize: '0.78rem', color: '#94a3b8' }}>
+                            Returns full indicator catalogue with optional query filters (?theme=climate&status=on-track)
+                          </span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => handleRunOutboundTest('/api/v1/indicators')}
+                          style={{
+                            padding: '4px 12px',
+                            background: '#0284c7',
+                            color: '#ffffff',
+                            border: 'none',
+                            borderRadius: '4px',
+                            fontSize: '0.74rem',
+                            fontWeight: 700,
+                            cursor: 'pointer',
+                          }}
+                        >
+                          Execute Test
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Endpoint 2: Single Indicator Detail */}
+                    <div style={{ background: '#1e293b', borderRadius: '8px', padding: '14px 18px', border: '1px solid #334155' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          <span style={{ background: '#10b981', color: '#000000', fontWeight: 800, padding: '3px 8px', borderRadius: '4px', fontSize: '0.74rem' }}>
+                            GET
+                          </span>
+                          <code style={{ fontSize: '0.9rem', color: '#38bdf8', fontWeight: 700 }}>
+                            /api/v1/indicators/:id
+                          </code>
+                          <span style={{ fontSize: '0.78rem', color: '#94a3b8' }}>
+                            Returns single indicator with trends, micro-catchment GPS points, and English/Kinyarwanda narratives
+                          </span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => handleRunOutboundTest('/api/v1/indicators/area_restored_ha')}
+                          style={{
+                            padding: '4px 12px',
+                            background: '#0284c7',
+                            color: '#ffffff',
+                            border: 'none',
+                            borderRadius: '4px',
+                            fontSize: '0.74rem',
+                            fontWeight: 700,
+                            cursor: 'pointer',
+                          }}
+                        >
+                          Execute Test
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Endpoint 3: Embed Route */}
+                    <div style={{ background: '#1e293b', borderRadius: '8px', padding: '14px 18px', border: '1px solid #334155' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          <span style={{ background: '#f59e0b', color: '#000000', fontWeight: 800, padding: '3px 8px', borderRadius: '4px', fontSize: '0.74rem' }}>
+                            EMBED
+                          </span>
+                          <code style={{ fontSize: '0.9rem', color: '#38bdf8', fontWeight: 700 }}>
+                            /embed/indicator/:id?view=chart|card|map&theme=light|dark&lang=en|rw
+                          </code>
+                          <span style={{ fontSize: '0.78rem', color: '#94a3b8' }}>
+                            Zero-dependency standalone iframe container
+                          </span>
+                        </div>
+                        <a
+                          href="/embed/indicator/area_restored_ha?view=chart"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{
+                            padding: '4px 12px',
+                            background: '#334155',
+                            color: '#38bdf8',
+                            borderRadius: '4px',
+                            fontSize: '0.74rem',
+                            fontWeight: 700,
+                            textDecoration: 'none',
+                          }}
+                        >
+                          Open Widget ↗
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Test Outbound Result Box */}
+                  {testOutboundResponse && (
+                    <div style={{ marginTop: '16px' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                        <span style={{ fontSize: '0.76rem', color: '#cbd5e1', fontWeight: 700 }}>
+                          Live Response Output from: <code style={{ color: '#38bdf8' }}>{testOutboundUrl}</code>
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => setTestOutboundResponse(null)}
+                          style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: '0.74rem', cursor: 'pointer' }}
+                        >
+                          Clear
+                        </button>
+                      </div>
+                      <div
+                        style={{
+                          background: '#0b1324',
+                          border: '1px solid #334155',
+                          borderRadius: '6px',
+                          padding: '12px 14px',
+                          maxHeight: '260px',
+                          overflowY: 'auto',
+                          fontFamily: 'monospace',
+                          fontSize: '0.76rem',
+                          color: '#34d399',
+                          whiteSpace: 'pre-wrap',
+                        }}
+                      >
+                        {testOutboundResponse}
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Section 4: Strategic Expansion Roadmap */}
+                <div style={{ background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.7) 100%)', border: '1px solid rgba(2, 132, 199, 0.3)', borderRadius: '12px', padding: '24px' }}>
+                  <h3 style={{ fontSize: '1.15rem', fontWeight: 800, margin: '0 0 8px 0', color: '#38bdf8' }}>
+                    🚀 Future Expansion Architecture & Strategic Roadmap
+                  </h3>
+                  <p style={{ fontSize: '0.84rem', color: '#cbd5e1', lineHeight: 1.5, margin: '0 0 16px 0' }}>
+                    As SUNCASA expands past the initial Kigali Catchment pilot, this architecture supports the following expansion vectors:
+                  </p>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
+                    <div style={{ background: 'rgba(15, 23, 42, 0.6)', border: '1px solid #334155', borderRadius: '8px', padding: '14px' }}>
+                      <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#10b981', marginBottom: '4px' }}>
+                        1. IoT Hydrometric Sensors
+                      </div>
+                      <div style={{ fontSize: '0.78rem', color: '#94a3b8', lineHeight: 1.4 }}>
+                        Automated LoRaWAN ultrasonic water-level gauges and rain gauges installed at the Mpazi ravine and Nyabugogo confluence streaming 15-minute telemetry directly via <code style={{ color: '#38bdf8' }}>/api/v1/ingest</code>.
+                      </div>
+                    </div>
+
+                    <div style={{ background: 'rgba(15, 23, 42, 0.6)', border: '1px solid #334155', borderRadius: '8px', padding: '14px' }}>
+                      <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#f59e0b', marginBottom: '4px' }}>
+                        2. Citizen Science & Mobile ODK
+                      </div>
+                      <div style={{ fontSize: '0.78rem', color: '#94a3b8', lineHeight: 1.4 }}>
+                        Field rangers and local community cooperatives submit geotagged tree seedling survival photos and erosion reports via ODK / KoboToolbox webhooks.
+                      </div>
+                    </div>
+
+                    <div style={{ background: 'rgba(15, 23, 42, 0.6)', border: '1px solid #334155', borderRadius: '8px', padding: '14px' }}>
+                      <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#a855f7', marginBottom: '4px' }}>
+                        3. Multi-City Federation
+                      </div>
+                      <div style={{ fontSize: '0.78rem', color: '#94a3b8', lineHeight: 1.4 }}>
+                        Federated node architecture allowing secondary cities in Rwanda (Musanze, Rubavu, Huye) to launch their own branded instances while synchronizing national indicators to the central Kigali node.
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

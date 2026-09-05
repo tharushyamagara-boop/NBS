@@ -1,0 +1,28 @@
+{
+  "keys": [
+    {
+      "id": "key-kigali-rfa-primary",
+      "name": "City of Kigali & RFA Interoperability Bridge",
+      "key": "suncasa-kigali-partner-key-2025",
+      "created_at": "2025-01-15",
+      "status": "Active",
+      "permissions": [
+        "ingest:indicators",
+        "read:telemetry"
+      ],
+      "last_used": "2026-09-05"
+    },
+    {
+      "id": "key-wri-iisd-global",
+      "name": "IISD & WRI Global Climate Portals",
+      "key": "suncasa-wri-iisd-integration-2025",
+      "created_at": "2025-02-01",
+      "status": "Active",
+      "permissions": [
+        "ingest:indicators",
+        "read:telemetry"
+      ],
+      "last_used": "2025-08-30"
+    }
+  ]
+}

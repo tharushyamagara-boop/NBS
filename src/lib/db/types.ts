@@ -49,6 +49,8 @@ export interface Indicator {
   sdgs?: IndicatorSDG[];
   measurement_method?: string;
   data_source_citation?: string;
+  data_source?: string;
+  last_updated?: string;
   dual_icon?: string;
   legend_label?: string;
   definition?: string;

@@ -73,6 +73,17 @@ export default function MyPegAppShell({ children }: MyPegAppShellProps) {
     );
   }
 
+  // If on embed route, render clean standalone embed container without header/sidebar/footer
+  if (pathname.startsWith('/embed')) {
+    return (
+      <LocaleContext.Provider value={{ locale, setLocale }}>
+        <div className="mypeg-embed-standalone-root" style={{ minHeight: '100%', background: '#ffffff', width: '100%', margin: 0, padding: 0 }}>
+          {children}
+        </div>
+      </LocaleContext.Provider>
+    );
+  }
+
   return (
     <LocaleContext.Provider value={{ locale, setLocale }}>
       <div className="mypeg-root-app-shell">

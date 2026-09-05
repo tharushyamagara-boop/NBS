@@ -51,6 +51,13 @@ export default function MyPegIndicatorChartView({
   );
   const [showDecisionSupport, setShowDecisionSupport] = useState(true);
 
+  // Embed Widget modal and configuration state
+  const [showEmbedModal, setShowEmbedModal] = useState(false);
+  const [embedView, setEmbedView] = useState<'chart' | 'card' | 'map'>('chart');
+  const [embedTheme, setEmbedTheme] = useState<'light' | 'dark'>('light');
+  const [embedLang, setEmbedLang] = useState<'en' | 'rw'>(locale as 'en' | 'rw');
+  const [embedCopied, setEmbedCopied] = useState(false);
+
   const t = locale === 'rw' ? rwLocale : enLocale;
 
   // Retrieve localized story / narrative
@@ -381,6 +388,28 @@ export default function MyPegIndicatorChartView({
                 }}
               >
                 💡 {locale === 'rw' ? 'Isesengura ry\'Ibyemezo' : 'Decision-Support Analytics'}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setShowEmbedModal(true)}
+                style={{
+                  background: '#ffffff',
+                  border: '1.5px solid #0284c7',
+                  color: '#0284c7',
+                  padding: '9px 18px',
+                  borderRadius: '6px',
+                  fontSize: '0.86rem',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  boxShadow: '0 2px 6px rgba(2,132,199,0.08)',
+                  transition: 'all 0.15s ease',
+                }}
+              >
+                🔗 {locale === 'rw' ? 'Injiza Igipimo muri Website' : 'Embed Indicator Widget'}
               </button>
             </div>
 
@@ -1049,6 +1078,208 @@ export default function MyPegIndicatorChartView({
                   }}
                 >
                   Close Comparison
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Modal 2: Embed Widget Generator */}
+        {showEmbedModal && (
+          <div
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: 'rgba(15, 23, 42, 0.75)',
+              zIndex: 9999,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '20px',
+            }}
+          >
+            <div
+              style={{
+                background: '#ffffff',
+                borderRadius: '12px',
+                maxWidth: '780px',
+                width: '100%',
+                maxHeight: '90vh',
+                overflowY: 'auto',
+                boxShadow: '0 20px 40px rgba(0,0,0,0.35)',
+                padding: '28px',
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px', borderBottom: '1px solid #e2e8f0', paddingBottom: '14px' }}>
+                <div>
+                  <span style={{ fontSize: '0.74rem', fontWeight: 800, color: '#0284c7', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                    Interoperability & Syndication
+                  </span>
+                  <h3 style={{ margin: '4px 0 0 0', fontSize: '1.35rem', color: '#0f172a', fontWeight: 800 }}>
+                    {locale === 'rw' ? 'Injiza iki Gipimo mu Rundi Rubuga' : 'Embed Indicator on External Website'}
+                  </h3>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowEmbedModal(false)}
+                  style={{ background: '#f1f5f9', border: 'none', borderRadius: '50%', width: '36px', height: '36px', fontSize: '1.2rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                >
+                  &times;
+                </button>
+              </div>
+
+              <p style={{ fontSize: '0.88rem', color: '#475569', marginTop: 0, marginBottom: '20px', lineHeight: 1.5 }}>
+                Integrate live SUNCASA Kigali Nature-based Solutions telemetry directly into municipal dashboards, partner portals (WRI, IISD, RFA), and news articles using this responsive, zero-dependency embed snippet.
+              </p>
+
+              {/* Options Grid */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '14px', marginBottom: '20px', background: '#f8fafc', padding: '16px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
+                    View Type:
+                  </label>
+                  <select
+                    value={embedView}
+                    onChange={(e) => setEmbedView(e.target.value as any)}
+                    style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', border: '1.5px solid #cbd5e1', fontSize: '0.85rem', fontWeight: 600 }}
+                  >
+                    <option value="chart">📊 Chart View (Trends & History)</option>
+                    <option value="card">📋 Card View (Compact Stats & Progress)</option>
+                    <option value="map">🗺️ GIS Catchment Map View</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
+                    Theme:
+                  </label>
+                  <select
+                    value={embedTheme}
+                    onChange={(e) => setEmbedTheme(e.target.value as any)}
+                    style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', border: '1.5px solid #cbd5e1', fontSize: '0.85rem', fontWeight: 600 }}
+                  >
+                    <option value="light">☀️ Light Theme (Default)</option>
+                    <option value="dark">🌙 Dark Theme (Modern Night)</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#334155', marginBottom: '6px' }}>
+                    Language:
+                  </label>
+                  <select
+                    value={embedLang}
+                    onChange={(e) => setEmbedLang(e.target.value as any)}
+                    style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', border: '1.5px solid #cbd5e1', fontSize: '0.85rem', fontWeight: 600 }}
+                  >
+                    <option value="en">English (EN)</option>
+                    <option value="rw">Kinyarwanda (RW)</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Code Snippet */}
+              <div style={{ marginBottom: '20px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                  <label style={{ fontSize: '0.82rem', fontWeight: 700, color: '#1e293b' }}>
+                    HTML Iframe Snippet:
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const snippet = `<iframe src="${typeof window !== 'undefined' ? window.location.origin : ''}/embed/indicator/${indicator.id}?view=${embedView}&theme=${embedTheme}&lang=${embedLang}" width="100%" height="${embedView === 'card' ? '340' : '460'}" frameborder="0" style="border:1px solid #e2e8f0;border-radius:10px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.05);" title="${displayTitle}"></iframe>`;
+                      if (navigator.clipboard) {
+                        navigator.clipboard.writeText(snippet);
+                        setEmbedCopied(true);
+                        setTimeout(() => setEmbedCopied(false), 2500);
+                      }
+                    }}
+                    style={{
+                      background: embedCopied ? '#10b981' : '#0284c7',
+                      color: '#ffffff',
+                      border: 'none',
+                      padding: '6px 14px',
+                      borderRadius: '6px',
+                      fontSize: '0.78rem',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '4px',
+                      transition: 'all 0.15s ease',
+                    }}
+                  >
+                    {embedCopied ? '✓ Copied to Clipboard!' : '📋 Copy Snippet'}
+                  </button>
+                </div>
+
+                <div
+                  style={{
+                    background: '#0f172a',
+                    color: '#38bdf8',
+                    padding: '14px 16px',
+                    borderRadius: '8px',
+                    fontFamily: 'monospace',
+                    fontSize: '0.8rem',
+                    overflowX: 'auto',
+                    whiteSpace: 'pre-wrap',
+                    wordBreak: 'break-all',
+                    lineHeight: 1.6,
+                    border: '1px solid #334155',
+                  }}
+                >
+                  {`<iframe\n  src="${typeof window !== 'undefined' ? window.location.origin : ''}/embed/indicator/${indicator.id}?view=${embedView}&theme=${embedTheme}&lang=${embedLang}"\n  width="100%"\n  height="${embedView === 'card' ? '340' : '460'}"\n  frameborder="0"\n  style="border:1px solid #e2e8f0;border-radius:10px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.05);"\n  title="${displayTitle}"\n></iframe>`}
+                </div>
+              </div>
+
+              {/* Live Preview Inside Modal */}
+              <div style={{ marginBottom: '20px' }}>
+                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#1e293b', marginBottom: '8px' }}>
+                  Live Preview:
+                </label>
+                <div style={{ border: '2px dashed #cbd5e1', borderRadius: '10px', overflow: 'hidden', height: embedView === 'card' ? '340px' : '460px' }}>
+                  <iframe
+                    src={`/embed/indicator/${indicator.id}?view=${embedView}&theme=${embedTheme}&lang=${embedLang}`}
+                    width="100%"
+                    height="100%"
+                    style={{ border: 'none' }}
+                    title="Live Embed Preview"
+                  />
+                </div>
+              </div>
+
+              {/* Developer REST API callout */}
+              <div style={{ background: '#f0f9ff', border: '1px solid #bae6fd', borderRadius: '8px', padding: '12px 16px', fontSize: '0.82rem', color: '#0369a1', marginBottom: '20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
+                <div>
+                  <strong>Headless / Machine-to-Machine Integration?</strong> Fetch raw JSON data directly from{' '}
+                  <code style={{ background: '#e0f2fe', padding: '2px 6px', borderRadius: '4px', fontWeight: 700 }}>/api/v1/indicators/{indicator.id}</code>
+                </div>
+                <Link
+                  href="/admin#interoperability"
+                  style={{ color: '#0284c7', fontWeight: 700, textDecoration: 'none' }}
+                >
+                  View Open API Docs &rarr;
+                </Link>
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <button
+                  type="button"
+                  onClick={() => setShowEmbedModal(false)}
+                  style={{
+                    padding: '10px 22px',
+                    borderRadius: '6px',
+                    background: '#334155',
+                    color: '#ffffff',
+                    border: 'none',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                  }}
+                >
+                  Close
                 </button>
               </div>
             </div>
