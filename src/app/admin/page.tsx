@@ -549,81 +549,352 @@ export default function AdminPortalPage() {
   const canConfigureDb = session.role.permissions.includes('database:configure');
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#0a111e', color: '#f8fafc', fontFamily: 'Inter, sans-serif' }}>
-      {/* Admin Top Navigation Bar */}
-      <header style={{ background: '#0f172a', borderBottom: '1px solid #1e293b', padding: '14px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'sticky', top: 0, zIndex: 50 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '38px', height: '38px', borderRadius: '8px', background: 'linear-gradient(135deg, #0284c7, #10b981)', color: '#ffffff', fontWeight: 800, fontSize: '1rem' }}>
-            SK
+    <div style={{ minHeight: '100vh', backgroundColor: '#0a111e', color: '#f8fafc', fontFamily: 'Inter, sans-serif', display: 'flex' }}>
+      {/* ------------------------------------------------------------- */}
+      {/* ADMIN LEFT SIDEBAR MENU                                       */}
+      {/* ------------------------------------------------------------- */}
+      <aside
+        style={{
+          width: '270px',
+          backgroundColor: '#0f172a',
+          borderRight: '1px solid #1e293b',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          position: 'sticky',
+          top: 0,
+          height: '100vh',
+          zIndex: 40,
+          flexShrink: 0,
+          boxShadow: '2px 0 12px rgba(0,0,0,0.25)',
+        }}
+      >
+        <div>
+          {/* Brand Header */}
+          <div style={{ padding: '24px 20px', borderBottom: '1px solid #1e293b' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <div
+                style={{
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '10px',
+                  background: 'linear-gradient(135deg, #0284c7, #10b981)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#ffffff',
+                  fontWeight: 800,
+                  fontSize: '1.1rem',
+                  boxShadow: '0 4px 12px rgba(2, 132, 199, 0.3)',
+                }}
+              >
+                SK
+              </div>
+              <div>
+                <h2 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#f8fafc', margin: 0, letterSpacing: '-0.02em' }}>
+                  SUNCASA Admin
+                </h2>
+                <p style={{ fontSize: '0.74rem', color: '#94a3b8', margin: '2px 0 0 0' }}>
+                  Kigali NbS Impact Portal
+                </p>
+              </div>
+            </div>
           </div>
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <h2 style={{ fontSize: '1.1rem', fontWeight: 700, margin: 0, color: '#f8fafc' }}>
-                SUNCASA Kigali Admin Portal
-              </h2>
-              <span style={{ fontSize: '0.7rem', padding: '2px 8px', borderRadius: '4px', background: session.role.color || '#ef4444', color: '#ffffff', fontWeight: 700, textTransform: 'uppercase' }}>
+
+          {/* User Profile Card */}
+          <div style={{ padding: '16px 20px', borderBottom: '1px solid #1e293b', background: 'rgba(30, 41, 59, 0.4)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <div
+                style={{
+                  width: '34px',
+                  height: '34px',
+                  borderRadius: '50%',
+                  background: session.role.color || '#0284c7',
+                  color: '#ffffff',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontWeight: 700,
+                  fontSize: '0.88rem',
+                  flexShrink: 0,
+                }}
+              >
+                {session.user.name.charAt(0)}
+              </div>
+              <div style={{ overflow: 'hidden' }}>
+                <div style={{ fontSize: '0.86rem', fontWeight: 700, color: '#f8fafc', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                  {session.user.name}
+                </div>
+                <div style={{ fontSize: '0.72rem', color: '#94a3b8', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                  {session.user.organization}
+                </div>
+              </div>
+            </div>
+            <div style={{ marginTop: '8px' }}>
+              <span
+                style={{
+                  fontSize: '0.68rem',
+                  padding: '2px 8px',
+                  borderRadius: '4px',
+                  background: `${session.role.color || '#ef4444'}22`,
+                  color: session.role.color || '#ef4444',
+                  fontWeight: 700,
+                  textTransform: 'uppercase',
+                  border: `1px solid ${session.role.color || '#ef4444'}44`,
+                }}
+              >
                 {session.role.name}
               </span>
             </div>
-            <span style={{ fontSize: '0.78rem', color: '#94a3b8' }}>
-              {session.user.name} &bull; {session.user.organization}
-            </span>
           </div>
-        </div>
 
-        {/* Tab Switcher & Logout */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          <div style={{ display: 'flex', background: '#1e293b', borderRadius: '8px', padding: '4px' }}>
+          {/* Navigation Menu */}
+          <nav style={{ padding: '16px 12px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
             <button
               type="button"
               onClick={() => setActiveTab('indicators')}
-              style={{ padding: '6px 14px', borderRadius: '6px', fontSize: '0.84rem', fontWeight: 600, border: 'none', cursor: 'pointer', background: activeTab === 'indicators' ? '#0284c7' : 'transparent', color: activeTab === 'indicators' ? '#ffffff' : '#94a3b8' }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '11px 14px',
+                borderRadius: '8px',
+                fontSize: '0.88rem',
+                fontWeight: 600,
+                border: 'none',
+                cursor: 'pointer',
+                textAlign: 'left',
+                transition: 'all 0.15s ease',
+                background: activeTab === 'indicators' ? '#0284c7' : 'transparent',
+                color: activeTab === 'indicators' ? '#ffffff' : '#94a3b8',
+              }}
             >
-              📋 Catalogue & Removal
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <span style={{ fontSize: '1.1rem' }}>📋</span>
+                <span>Indicator Catalogue</span>
+              </div>
+              <span
+                style={{
+                  fontSize: '0.72rem',
+                  padding: '2px 6px',
+                  borderRadius: '10px',
+                  background: activeTab === 'indicators' ? 'rgba(255,255,255,0.2)' : '#1e293b',
+                  color: activeTab === 'indicators' ? '#ffffff' : '#94a3b8',
+                  fontWeight: 700,
+                }}
+              >
+                {indicators.length}
+              </span>
             </button>
+
             <button
               type="button"
               onClick={() => setActiveTab('builder')}
-              style={{ padding: '6px 14px', borderRadius: '6px', fontSize: '0.84rem', fontWeight: 600, border: 'none', cursor: 'pointer', background: activeTab === 'builder' ? '#0284c7' : 'transparent', color: activeTab === 'builder' ? '#ffffff' : '#94a3b8' }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '11px 14px',
+                borderRadius: '8px',
+                fontSize: '0.88rem',
+                fontWeight: 600,
+                border: 'none',
+                cursor: 'pointer',
+                textAlign: 'left',
+                transition: 'all 0.15s ease',
+                background: activeTab === 'builder' ? '#0284c7' : 'transparent',
+                color: activeTab === 'builder' ? '#ffffff' : '#94a3b8',
+              }}
             >
-              🛠️ Indicator Builder
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <span style={{ fontSize: '1.1rem' }}>🛠️</span>
+                <span>Indicator Builder</span>
+              </div>
+              <span
+                style={{
+                  fontSize: '0.68rem',
+                  padding: '2px 6px',
+                  borderRadius: '4px',
+                  background: '#10b981',
+                  color: '#000000',
+                  fontWeight: 800,
+                }}
+              >
+                BUILD
+              </span>
             </button>
+
             <button
               type="button"
               onClick={() => setActiveTab('rbac')}
-              style={{ padding: '6px 14px', borderRadius: '6px', fontSize: '0.84rem', fontWeight: 600, border: 'none', cursor: 'pointer', background: activeTab === 'rbac' ? '#0284c7' : 'transparent', color: activeTab === 'rbac' ? '#ffffff' : '#94a3b8' }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '11px 14px',
+                borderRadius: '8px',
+                fontSize: '0.88rem',
+                fontWeight: 600,
+                border: 'none',
+                cursor: 'pointer',
+                textAlign: 'left',
+                transition: 'all 0.15s ease',
+                background: activeTab === 'rbac' ? '#0284c7' : 'transparent',
+                color: activeTab === 'rbac' ? '#ffffff' : '#94a3b8',
+              }}
             >
-              👥 Roles & Delegation
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <span style={{ fontSize: '1.1rem' }}>👥</span>
+                <span>Roles & Delegation</span>
+              </div>
+              <span
+                style={{
+                  fontSize: '0.72rem',
+                  padding: '2px 6px',
+                  borderRadius: '10px',
+                  background: activeTab === 'rbac' ? 'rgba(255,255,255,0.2)' : '#1e293b',
+                  color: activeTab === 'rbac' ? '#ffffff' : '#94a3b8',
+                  fontWeight: 700,
+                }}
+              >
+                {users.length}
+              </span>
             </button>
+
             <button
               type="button"
               onClick={() => setActiveTab('database')}
-              style={{ padding: '6px 14px', borderRadius: '6px', fontSize: '0.84rem', fontWeight: 600, border: 'none', cursor: 'pointer', background: activeTab === 'database' ? '#0284c7' : 'transparent', color: activeTab === 'database' ? '#ffffff' : '#94a3b8' }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
+                padding: '11px 14px',
+                borderRadius: '8px',
+                fontSize: '0.88rem',
+                fontWeight: 600,
+                border: 'none',
+                cursor: 'pointer',
+                textAlign: 'left',
+                transition: 'all 0.15s ease',
+                background: activeTab === 'database' ? '#0284c7' : 'transparent',
+                color: activeTab === 'database' ? '#ffffff' : '#94a3b8',
+              }}
             >
-              ⚙️ DB Settings
+              <span style={{ fontSize: '1.1rem' }}>⚙️</span>
+              <span>DB & FMES Settings</span>
             </button>
-          </div>
+          </nav>
+        </div>
+
+        {/* Bottom Actions in Sidebar */}
+        <div style={{ padding: '16px 14px', borderTop: '1px solid #1e293b', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          <Link
+            href="/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '6px',
+              padding: '9px 12px',
+              borderRadius: '6px',
+              background: '#1e293b',
+              color: '#38bdf8',
+              fontSize: '0.8rem',
+              fontWeight: 600,
+              textDecoration: 'none',
+              border: '1px solid #334155',
+            }}
+          >
+            🌐 Preview Public Portal ↗
+          </Link>
 
           <button
             type="button"
             onClick={handleLogout}
-            style={{ background: 'rgba(239, 68, 68, 0.15)', border: '1px solid #ef4444', color: '#fca5a5', padding: '6px 14px', borderRadius: '6px', fontSize: '0.84rem', fontWeight: 600, cursor: 'pointer' }}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '6px',
+              padding: '9px 12px',
+              borderRadius: '6px',
+              background: 'rgba(239, 68, 68, 0.12)',
+              border: '1px solid rgba(239, 68, 68, 0.3)',
+              color: '#fca5a5',
+              fontSize: '0.82rem',
+              fontWeight: 600,
+              cursor: 'pointer',
+            }}
           >
             Sign Out
           </button>
         </div>
-      </header>
+      </aside>
 
-      {/* Notification Toast */}
-      {statusMessage && (
-        <div style={{ maxWidth: '1200px', margin: '16px auto 0 auto', padding: '12px 20px', borderRadius: '8px', background: 'rgba(2, 132, 199, 0.15)', border: '1px solid #0284c7', color: '#38bdf8', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span>{statusMessage}</span>
-          <button type="button" onClick={() => setStatusMessage('')} style={{ background: 'none', border: 'none', color: '#38bdf8', cursor: 'pointer', fontWeight: 700 }}>✕</button>
-        </div>
-      )}
+      {/* ------------------------------------------------------------- */}
+      {/* MAIN WORKSPACE AREA (Right of Left Sidebar)                   */}
+      {/* ------------------------------------------------------------- */}
+      <div style={{ flex: 1, minHeight: '100vh', overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
+        {/* Top Breadcrumb Header Bar */}
+        <header
+          style={{
+            background: '#0f172a',
+            borderBottom: '1px solid #1e293b',
+            padding: '16px 36px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            position: 'sticky',
+            top: 0,
+            zIndex: 30,
+          }}
+        >
+          <div>
+            <span style={{ fontSize: '0.76rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+              Admin Console &rsaquo;
+            </span>
+            <h1 style={{ fontSize: '1.25rem', fontWeight: 700, margin: '2px 0 0 0', color: '#f8fafc' }}>
+              {activeTab === 'indicators' && 'Indicator Catalogue & Removal'}
+              {activeTab === 'builder' && 'Indicator Builder & Live Publisher'}
+              {activeTab === 'rbac' && 'Role-Based Access Control & User Delegation'}
+              {activeTab === 'database' && 'Database Configuration & Interoperability'}
+            </h1>
+          </div>
 
-      {/* Main Workspace Area */}
-      <main style={{ maxWidth: '1200px', margin: '24px auto', padding: '0 20px 60px 20px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            {activeTab === 'indicators' && canCreate && (
+              <button
+                type="button"
+                onClick={() => setActiveTab('builder')}
+                style={{
+                  padding: '8px 16px',
+                  borderRadius: '6px',
+                  background: '#10b981',
+                  color: '#000000',
+                  fontWeight: 700,
+                  fontSize: '0.85rem',
+                  border: 'none',
+                  cursor: 'pointer',
+                }}
+              >
+                + Build New Indicator
+              </button>
+            )}
+          </div>
+        </header>
+
+        {/* Notification Toast */}
+        {statusMessage && (
+          <div style={{ margin: '16px 36px 0 36px', padding: '12px 20px', borderRadius: '8px', background: 'rgba(2, 132, 199, 0.15)', border: '1px solid #0284c7', color: '#38bdf8', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span>{statusMessage}</span>
+            <button type="button" onClick={() => setStatusMessage('')} style={{ background: 'none', border: 'none', color: '#38bdf8', cursor: 'pointer', fontWeight: 700 }}>✕</button>
+          </div>
+        )}
+
+        {/* Main Content Body */}
+        <main style={{ padding: '28px 36px 60px 36px', maxWidth: '1400px', width: '100%' }}>
 
         {/* ------------------------------------------------------------- */}
         {/* TAB 1: INDICATOR CATALOGUE & REMOVAL                          */}
@@ -1213,7 +1484,8 @@ export default function AdminPortalPage() {
           </div>
         )}
 
-      </main>
+        </main>
+      </div>
 
       {/* ------------------------------------------------------------- */}
       {/* MODAL: CREATE USER & DELEGATE ROLE                            */}
