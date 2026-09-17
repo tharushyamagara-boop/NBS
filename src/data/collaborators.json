@@ -1,0 +1,70 @@
+{
+  "collaborators": [
+    {
+      "id": "peg",
+      "name": "peg",
+      "sub_name": "Community Indicators",
+      "logo_url": "",
+      "icon_emoji": "◎",
+      "icon_color": "#e5243b",
+      "website_url": "https://www.mypeg.ca",
+      "order": 1,
+      "is_active": true
+    },
+    {
+      "id": "iisd",
+      "name": "IISD",
+      "sub_name": "Sustainable Development",
+      "logo_url": "https://www.iisd.org/sites/default/files/iisd-logo.svg",
+      "icon_emoji": "Q",
+      "icon_color": "#00a3e0",
+      "website_url": "https://www.iisd.org",
+      "order": 2,
+      "is_active": true
+    },
+    {
+      "id": "wri",
+      "name": "WORLD RESOURCES",
+      "sub_name": "INSTITUTE (WRI)",
+      "logo_url": "https://www.wri.org/themes/custom/wri/logo.svg",
+      "icon_emoji": "W",
+      "icon_color": "#fab423",
+      "website_url": "https://www.wri.org",
+      "order": 3,
+      "is_active": true
+    },
+    {
+      "id": "kigali",
+      "name": "CITY OF KIGALI",
+      "sub_name": "Umujyi wa Kigali",
+      "logo_url": "",
+      "icon_emoji": "🇷🇼",
+      "icon_color": "#27ae60",
+      "website_url": "https://www.kigalicity.gov.rw",
+      "order": 4,
+      "is_active": true
+    },
+    {
+      "id": "rfa",
+      "name": "RFA",
+      "sub_name": "Rwanda Forestry Authority",
+      "logo_url": "",
+      "icon_emoji": "🌲",
+      "icon_color": "#10b981",
+      "website_url": "https://www.rfa.rw",
+      "order": 5,
+      "is_active": true
+    },
+    {
+      "id": "canada",
+      "name": "CANADA",
+      "sub_name": "Global Affairs Canada",
+      "logo_url": "",
+      "icon_emoji": "🍁",
+      "icon_color": "#ef4444",
+      "website_url": "https://www.international.gc.ca",
+      "order": 6,
+      "is_active": true
+    }
+  ]
+}

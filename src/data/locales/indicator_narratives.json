@@ -232,5 +232,23 @@
       "limitations": "Agaciro kagaragara ku mpushya kagereranywa mbere yo gutangira kubaka, bishobora gutandukana n'amafaranga nyakuri yishyuwe.",
       "source": "Ishami ry'Imyubakire n'Iterambere ry'Umujyi na Sitatisitiki"
     }
+  },
+  "collision_victims": {
+    "en": {
+      "title": "Collision Victims: Injuries & Fatalities (MyPeg Benchmark)",
+      "what_is": "Collision victims measures the casualty rate of traffic collisions resulting in personal injury or fatality per 100,000 population.",
+      "why_matters": "Measuring traffic collision victims is essential for urban safety, pedestrian-friendly transit planning, and protecting vulnerable road users across high-density corridors.",
+      "what_suncasa": "Green infrastructure corridors, traffic-calming tree buffers, and roadside bio-swales enhance urban street design to calm vehicular speed and protect pedestrians.",
+      "limitations": "Data relies on formal police and hospital collision incident reporting; minor unreported collisions are not captured.",
+      "source": "Peg / Manitoba Public Insurance & Statistics Canada (PEG-BE-02)"
+    },
+    "rw": {
+      "title": "Abaguye mu Mpanuka zo mu Muhanda (MyPeg)",
+      "what_is": "Iki gipimo kigaragaza umubare w'abantu bakomerekeye cyangwa bitabye Imana mu mpanuka zo mu muhanda kuri buri baturage 100,000.",
+      "why_matters": "Kumenya ibipimo by'impanuka bifasha mu gutegura imihanda itekanye ku banyamaguru no kugabanya impfu z'abagenzi mu bice bituwe cyane.",
+      "what_suncasa": "Gutera ibiti n'ibyatsi bitandukanya imihanda n'inzira z'abanyamaguru bigabanya umuvuduko w'ibinyabiziga bikarinda impanuka zikomeye.",
+      "limitations": "Amakuru akusanywa ava muri raporo za Polisi n'ibitaro; impanuka zoroheje zidatanzweho raporo ntizigaragara muri ubu bushakashatsi.",
+      "source": "Sitatisitiki z'Umutekano wo mu Muhanda (PEG-BE-02)"
+    }
   }
 }
