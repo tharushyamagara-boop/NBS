@@ -155,13 +155,7 @@ export default function MyPegThemeNav({
             const title = getNarrativeTitle(ind.id);
             const pct = Math.min(100, Math.round((ind.current_2025 / ind.target_2026) * 100));
 
-            const themeColorMap: Record<string, string> = {
-              climate: '#0284c7',
-              biodiversity: '#10b981',
-              gesi: '#8b5cf6',
-              economy: '#f59e0b',
-            };
-            const col = themeColorMap[ind.theme] || '#10b981';
+            const col = '#0284c7';
 
             return (
               <button

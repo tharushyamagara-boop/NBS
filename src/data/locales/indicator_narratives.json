@@ -214,41 +214,5 @@
       "limitations": "Bisaba gukomeza kubaha amakarita ya interineti no gusana ibikoresho by'ikoranabuhanga mu gihe byangiritse.",
       "source": "Inama y'Igihugu y'Urubyiruko (NYC) n'Ishami rya SUNCASA (FMES-YOUTH-03)"
     }
-  },
-  "building_permit_values": {
-    "en": {
-      "title": "Building Permit Values",
-      "what_is": "Building permit values measures the total value of residential and non residential permit values.",
-      "why_matters": "Building permit values indicate the level of investment and construction activity taking place in a community. High values signal economic confidence, job creation, and municipal expansion.",
-      "what_suncasa": "Integrated spatial zoning balances urban construction expansion with permeable surface protection, floodplain avoidance, and Nature-based Solutions (NbS).",
-      "limitations": "Permit values represent anticipated construction costs reported at the time of application, not actual final project expenditures.",
-      "source": "City Planning, Property and Development Department & Statistics Canada"
-    },
-    "rw": {
-      "title": "Agaciro k'Impushya zo Kubaka",
-      "what_is": "Iki gipimo gipima agaciro k'impushya zo kubaka amazu yo guturamo n'ay'ubucuruzi cyangwa ibikorwa remezo.",
-      "why_matters": "Agaciro k'impushya zo kubaka kerekana urwego rw'ishoramari n'iterambere ry'ubwubatsi mu mujyi. Agaciro gakomeye kerekana ubukungu bwiyongera n'akazi gashya ku baturage.",
-      "what_suncasa": "Guhuza amakuru y'ubwubatsi n'amabwiriza yo kubungabunga ibidukikije bifasha umujyi gukura hatangijwe ibishanga cyangwa amashyamba.",
-      "limitations": "Agaciro kagaragara ku mpushya kagereranywa mbere yo gutangira kubaka, bishobora gutandukana n'amafaranga nyakuri yishyuwe.",
-      "source": "Ishami ry'Imyubakire n'Iterambere ry'Umujyi na Sitatisitiki"
-    }
-  },
-  "collision_victims": {
-    "en": {
-      "title": "Collision Victims: Injuries & Fatalities",
-      "what_is": "Collision victims measures the casualty rate of traffic collisions resulting in personal injury or fatality per 100,000 population.",
-      "why_matters": "Measuring traffic collision victims is essential for urban safety, pedestrian-friendly transit planning, and protecting vulnerable road users across high-density corridors.",
-      "what_suncasa": "Green infrastructure corridors, traffic-calming tree buffers, and roadside bio-swales enhance urban street design to calm vehicular speed and protect pedestrians.",
-      "limitations": "Data relies on formal police and hospital collision incident reporting; minor unreported collisions are not captured.",
-      "source": "Municipal Traffic Safety & Statistics Canada (BE-02)"
-    },
-    "rw": {
-      "title": "Abaguye mu Mpanuka zo mu Muhanda",
-      "what_is": "Iki gipimo kigaragaza umubare w'abantu bakomerekeye cyangwa bitabye Imana mu mpanuka zo mu muhanda kuri buri baturage 100,000.",
-      "why_matters": "Kumenya ibipimo by'impanuka bifasha mu gutegura imihanda itekanye ku banyamaguru no kugabanya impfu z'abagenzi mu bice bituwe cyane.",
-      "what_suncasa": "Gutera ibiti n'ibyatsi bitandukanya imihanda n'inzira z'abanyamaguru bigabanya umuvuduko w'ibinyabiziga bikarinda impanuka zikomeye.",
-      "limitations": "Amakuru akusanywa ava muri raporo za Polisi n'ibitaro; impanuka zoroheje zidatanzweho raporo ntizigaragara muri ubu bushakashatsi.",
-      "source": "Sitatisitiki z'Umutekano wo mu Muhanda (BE-02)"
-    }
   }
 }

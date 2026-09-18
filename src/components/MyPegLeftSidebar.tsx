@@ -25,28 +25,28 @@ export const MYPEG_THEMES: ThemeDef[] = [
     id: 'biodiversity',
     name_en: 'Biodiversity Protection',
     name_rw: 'Kubungabunga Urusobe',
-    color: '#10b981',
+    color: '#0284c7',
     icon: 'trees',
   },
   {
     id: 'gesi',
     name_en: 'Gender & Inclusion (GESI)',
     name_rw: 'Uburinganire (GESI)',
-    color: '#8b5cf6',
+    color: '#0284c7',
     icon: 'users',
   },
   {
     id: 'economy',
     name_en: 'Employment & Economy',
     name_rw: 'Imirimo n\'Ubukungu',
-    color: '#f59e0b',
+    color: '#0284c7',
     icon: 'trending-up',
   },
   {
     id: 'mypeg_benchmark',
     name_en: 'Built Environment',
     name_rw: 'Imiturire',
-    color: '#eb6b23',
+    color: '#0284c7',
     icon: 'building',
   },
 ];
@@ -97,7 +97,7 @@ export default function MyPegLeftSidebar({
   indicators,
   activeThemeId: initialThemeId = 'climate',
   selectedIndicatorId = null,
-  defaultDrawerOpen = true,
+  defaultDrawerOpen = false,
   locale = 'en',
 }: MyPegLeftSidebarProps) {
   const pathname = usePathname();

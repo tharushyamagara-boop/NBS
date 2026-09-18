@@ -50,9 +50,9 @@ export default function MyPegHeroView({
 
   const themeColors: Record<string, string> = {
     climate: '#0284c7',
-    biodiversity: '#10b981',
-    gesi: '#8b5cf6',
-    economy: '#f59e0b',
+    biodiversity: '#0284c7',
+    gesi: '#0284c7',
+    economy: '#0284c7',
   };
 
   return (
@@ -257,8 +257,8 @@ export default function MyPegHeroView({
                 name_en: 'Biodiversity Protection',
                 name_rw: 'Kubungabunga Urusobe',
                 icon: '🌱',
-                color: '#10b981',
-                bgGradient: 'linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%)',
+                color: '#0284c7',
+                bgGradient: 'linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%)',
                 keyMessage_en: 'Rehabilitating indigenous flora, enforcing 30m riparian river buffers, and safeguarding water quality for the Yanze intake.',
                 keyMessage_rw: 'Kugarura ibiti gakondo by\'u Rwanda, kurinda metero 30 z\'inkombe za Nyabarongo, no kubungabunga amazi y\'uruganda rwa Yanze.',
                 indicators: [
@@ -274,8 +274,8 @@ export default function MyPegHeroView({
                 name_en: 'Gender Equality & Social Inclusion',
                 name_rw: 'Uburinganire (GESI)',
                 icon: '⚖️',
-                color: '#8b5cf6',
-                bgGradient: 'linear-gradient(180deg, #faf5ff 0%, #ffffff 100%)',
+                color: '#0284c7',
+                bgGradient: 'linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%)',
                 keyMessage_en: 'Centering women and youth in climate governance, nursery enterprise ownership, and high-tech digital geospatial telemetry.',
                 keyMessage_rw: 'Gushyira abagore ku ruhembo rw\'ubuyobozi bw\'amazi, guha urubyiruko akazi ka GIS, no kuzamura ingo zikennye.',
                 indicators: [
@@ -289,8 +289,8 @@ export default function MyPegHeroView({
                 name_en: 'Employment & Economy',
                 name_rw: 'Imirimo n\'Ubukungu',
                 icon: '💼',
-                color: '#f59e0b',
-                bgGradient: 'linear-gradient(180deg, #fffbeb 0%, #ffffff 100%)',
+                color: '#0284c7',
+                bgGradient: 'linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%)',
                 keyMessage_en: 'Generating dignified green employment, boosting smallholder agroforestry crop yields, and spurring cooperative nursery revenues.',
                 keyMessage_rw: 'Guhanga imirimo yishyuwe y\'icyatsi, guteza imbere abahinzi b\'amaterasi y\'imbuto, no kwinjiza amafaranga mu buhumbikiro.',
                 indicators: [
@@ -398,13 +398,13 @@ export default function MyPegHeroView({
       <section style={{ padding: '64px 32px', background: '#ffffff' }} id="intervention-map-section">
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-            <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.08em', background: '#ecfdf5', padding: '5px 14px', borderRadius: '20px', display: 'inline-block' }}>
+            <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#0284c7', textTransform: 'uppercase', letterSpacing: '0.08em', background: '#e0f2fe', padding: '5px 14px', borderRadius: '20px', display: 'inline-block' }}>
               {locale === 'rw' ? 'Aho Imirimo Ibereye' : 'Intervention Locations'}
             </span>
             <h2 style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontSize: '2.3rem', color: '#0f172a', fontWeight: 600, marginTop: '12px' }}>
               {locale === 'rw' ? 'Ikarita y\'Aho Imirimo ya SUNCASA Ibereye i Kigali' : 'Simple Map of Intervention Locations'}
             </h2>
-            <p style={{ color: '#64748b', fontSize: '1rem', marginTop: '10px', maxWidth: '750px', margin: '10px auto 0 auto', lineHeight: 1.6 }}>
+            <p style={{ color: '#0f172a', fontSize: '1rem', marginTop: '10px', maxWidth: '750px', margin: '10px auto 0 auto', lineHeight: 1.6 }}>
               {locale === 'rw'
                 ? 'Ikarita yoroshye igaragaza aho imirimo ya SUNCASA ibereye mu mikoki ya Yanze, Mpazi, Mont Kigali, na Nyabugogo. Kanda ku kimenyetso cy\'ahantu hose kugira ngo urebe amakuru n\'ibipimo byaho.'
                 : 'An intuitive, interactive map tracking key Nature-Based Solution intervention locations across Kigali’s Lower Nyabarongo watershed. Click on any location marker to inspect hectares restored, seedlings planted, and flood resilience metrics.'}
@@ -416,9 +416,9 @@ export default function MyPegHeroView({
             {[
               { id: 'all', label_en: 'All Themes & Sites', label_rw: 'Imishinga Yose', icon: '🌐', color: '#0284c7' },
               { id: 'climate', label_en: 'Climate Adaptation', label_rw: 'Kwirinda Imihindagurikire', icon: '🌧️', color: '#0284c7' },
-              { id: 'biodiversity', label_en: 'Biodiversity Protection', label_rw: 'Kubungabunga Urusobe', icon: '🌱', color: '#10b981' },
-              { id: 'gesi', label_en: 'Gender & Inclusion', label_rw: 'Uburinganire (GESI)', icon: '👥', color: '#8b5cf6' },
-              { id: 'economy', label_en: 'Employment & Economy', label_rw: 'Imirimo n\'Ubukungu', icon: '📈', color: '#f59e0b' },
+              { id: 'biodiversity', label_en: 'Biodiversity Protection', label_rw: 'Kubungabunga Urusobe', icon: '🌱', color: '#0284c7' },
+              { id: 'gesi', label_en: 'Gender & Inclusion', label_rw: 'Uburinganire (GESI)', icon: '👥', color: '#0284c7' },
+              { id: 'economy', label_en: 'Employment & Economy', label_rw: 'Imirimo n\'Ubukungu', icon: '📈', color: '#0284c7' },
             ].map((th) => (
               <button
                 key={th.id}
@@ -457,9 +457,9 @@ export default function MyPegHeroView({
             </div>
 
             {selectedSite && (
-              <div style={{ background: '#0f172a', color: '#f8fafc', border: '1px solid #334155', borderRadius: '12px', padding: '24px', boxShadow: '0 4px 20px rgba(0,0,0,0.25)' }}>
+              <div style={{ background: '#0369a1', color: '#f8fafc', border: '1px solid rgba(255, 255, 255, 0.2)', borderRadius: '12px', padding: '24px', boxShadow: '0 4px 20px rgba(0,0,0,0.25)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontSize: '0.7rem', background: '#10b981', color: '#ffffff', padding: '3px 8px', borderRadius: '4px', fontWeight: 700 }}>
+                  <span style={{ fontSize: '0.7rem', background: '#0284c7', color: '#ffffff', padding: '3px 8px', borderRadius: '4px', fontWeight: 700 }}>
                     {selectedSite.type}
                   </span>
                   <button
@@ -555,7 +555,7 @@ export default function MyPegHeroView({
 
             {/* Update Card 2: Biodiversity Protection */}
             <article className="mypeg-update-card">
-              <div className="update-card-tag" style={{ backgroundColor: '#10b981' }}>
+              <div className="update-card-tag" style={{ backgroundColor: '#0284c7' }}>
                 BIODIVERSITY PROTECTION
               </div>
               <h3 className="update-card-title">
@@ -575,7 +575,7 @@ export default function MyPegHeroView({
 
             {/* Update Card 3: GESI */}
             <article className="mypeg-update-card">
-              <div className="update-card-tag" style={{ backgroundColor: '#8b5cf6' }}>
+              <div className="update-card-tag" style={{ backgroundColor: '#0284c7' }}>
                 GENDER & INCLUSION
               </div>
               <h3 className="update-card-title">

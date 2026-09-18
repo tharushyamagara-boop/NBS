@@ -39,6 +39,13 @@ h1, h2, h3, h4, h5, h6 {
 
 p {
   color: var(--text-secondary);
+  font-weight: 400;
+  font-style: normal;
+}
+
+body, p, .story-summary, .update-card-excerpt, .mypeg-chart-subtitle, .story-answer-text, .section-subtitle {
+  font-weight: 400;
+  font-style: normal;
 }
 
 a {
@@ -1179,7 +1186,7 @@ a:hover {
 
 .quote-text {
   font-size: 0.82rem;
-  font-style: italic;
+  font-style: normal;
   color: #e2e8f0;
   line-height: 1.5;
   margin-bottom: 6px;
@@ -1230,7 +1237,7 @@ a:hover {
 
 .story-modal-quote p {
   font-size: 0.95rem;
-  font-style: italic;
+  font-style: normal;
   color: #f1f5f9;
   line-height: 1.6;
 }
@@ -2489,7 +2496,7 @@ a:hover {
 
 .update-card-title {
   font-size: 1.15rem;
-  color: #1e293b;
+  color: #0f172a;
   font-weight: 700;
   line-height: 1.35;
   margin-bottom: 12px;
@@ -2497,7 +2504,7 @@ a:hover {
 
 .update-card-excerpt {
   font-size: 0.92rem;
-  color: #64748b;
+  color: #0f172a;
   line-height: 1.55;
   margin-bottom: 20px;
 }
@@ -2512,7 +2519,7 @@ a:hover {
 
 .update-card-date {
   font-size: 0.8rem;
-  color: #94a3b8;
+  color: #0f172a;
 }
 
 .update-card-link {
@@ -2545,13 +2552,13 @@ a:hover {
 
 .mypeg-explore-banner h4 {
   font-size: 1.1rem;
-  color: #1e293b;
+  color: #0f172a;
   margin-bottom: 4px;
 }
 
 .mypeg-explore-banner p {
   font-size: 0.9rem;
-  color: #64748b;
+  color: #0f172a;
   margin: 0;
 }
 
@@ -2627,14 +2634,14 @@ a:hover {
   font-family: Georgia, 'Times New Roman', serif;
   font-size: clamp(2rem, 3.5vw, 2.6rem);
   font-weight: 400;
-  color: #2c3e50;
+  color: #0f172a;
   margin: 10px 0 6px 0;
   line-height: 1.25;
 }
 
 .mypeg-chart-subtitle {
   font-size: 1.05rem;
-  color: #475569;
+  color: #0f172a;
   margin-bottom: 26px;
   line-height: 1.55;
   max-width: 960px;
@@ -2654,7 +2661,7 @@ a:hover {
   padding: 10px 18px;
   font-size: 0.94rem;
   font-weight: 600;
-  color: #64748b;
+  color: #0f172a;
   cursor: pointer;
   border-bottom: 3px solid transparent;
   margin-bottom: -2px;
@@ -2663,12 +2670,12 @@ a:hover {
 }
 
 .mypeg-tab-btn:hover {
-  color: #0f172a;
+  color: #0284c7;
 }
 
 .mypeg-tab-btn.active {
-  color: #1e88e5;
-  border-bottom-color: #1e88e5;
+  color: #0284c7;
+  border-bottom-color: #0284c7;
 }
 
 .mypeg-graph-tab-body {
@@ -2681,7 +2688,6 @@ a:hover {
 }
 
 .mypeg-download-link-wrap {
-  text-align: center;
   margin-top: 18px;
   margin-bottom: 32px;
 }
@@ -2689,7 +2695,7 @@ a:hover {
 .mypeg-download-graph-link {
   background: transparent;
   border: none;
-  color: #1e88e5;
+  color: #0284c7;
   font-size: 1rem;
   font-weight: 500;
   text-decoration: underline;
@@ -2698,7 +2704,7 @@ a:hover {
 }
 
 .mypeg-download-graph-link:hover {
-  color: #0d47a1;
+  color: #0369a1;
 }
 
 .mypeg-breakdown-subgrid {
@@ -2718,7 +2724,7 @@ a:hover {
 
 .breakdown-card-label {
   font-size: 0.8rem;
-  color: #64748b;
+  color: #0f172a;
   font-weight: 600;
   margin-bottom: 4px;
 }
@@ -2726,6 +2732,7 @@ a:hover {
 .breakdown-card-val {
   font-size: 1.25rem;
   font-weight: 700;
+  color: #0284c7;
 }
 
 /* 5. Story, Map & SDG Tabs */
@@ -2753,7 +2760,7 @@ a:hover {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: #1e88e5;
+  background: #0284c7;
   color: #ffffff;
   font-weight: 700;
   font-size: 0.88rem;
@@ -2772,7 +2779,7 @@ a:hover {
 
 .story-answer-text {
   font-size: 0.96rem;
-  color: #334155;
+  color: #0f172a;
   line-height: 1.6;
   margin: 0;
 }
@@ -3054,5 +3061,13 @@ a:hover {
   animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Admin Main Content Tables & Cards */
+.admin-root-container main table {
+  background: #ffffff !important;
+  color: #0f172a !important;
+}
 
-
+.admin-root-container main table th,
+.admin-root-container main table td {
+  color: #0f172a !important;
+}

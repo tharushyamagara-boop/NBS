@@ -374,9 +374,9 @@ export default function MyPegIndicatorChartView({
                 type="button"
                 onClick={() => setShowDecisionSupport(!showDecisionSupport)}
                 style={{
-                  background: showDecisionSupport ? '#f0fdf4' : '#ffffff',
-                  border: `1.5px solid ${showDecisionSupport ? '#10b981' : '#cbd5e1'}`,
-                  color: showDecisionSupport ? '#047857' : '#475569',
+                  background: showDecisionSupport ? '#e0f2fe' : '#ffffff',
+                  border: `1.5px solid ${showDecisionSupport ? '#0284c7' : '#cbd5e1'}`,
+                  color: showDecisionSupport ? '#0284c7' : '#0f172a',
                   padding: '9px 18px',
                   borderRadius: '6px',
                   fontSize: '0.86rem',
@@ -437,59 +437,59 @@ export default function MyPegIndicatorChartView({
               <div
                 style={{
                   marginTop: '24px',
-                  background: '#f0fdf4',
-                  border: '1px solid #86efac',
+                  background: '#f8fafc',
+                  border: '1px solid #e2e8f0',
                   borderRadius: '10px',
                   padding: '20px 24px',
-                  boxShadow: '0 2px 8px rgba(16,185,129,0.06)',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', flexWrap: 'wrap', gap: '8px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <span style={{ fontSize: '1.2rem' }}>💡</span>
-                    <h4 style={{ margin: 0, fontSize: '1.02rem', fontWeight: 700, color: '#14532d' }}>
+                    <h4 style={{ margin: 0, fontSize: '1.02rem', fontWeight: 700, color: '#0f172a' }}>
                       {locale === 'rw' ? 'Isesengura ry\'Ibyemezo & Icyuho cy\'Intego ya 2026' : 'Decision-Support & 2026 Target Gap Analytics'}
                     </h4>
                   </div>
-                  <span style={{ fontSize: '0.74rem', fontWeight: 800, color: '#15803d', background: '#dcfce7', padding: '3px 10px', borderRadius: '12px', textTransform: 'uppercase' }}>
+                  <span style={{ fontSize: '0.74rem', fontWeight: 800, color: '#0284c7', background: '#e0f2fe', padding: '3px 10px', borderRadius: '12px', textTransform: 'uppercase' }}>
                     {getDecisionStatus().badge}
                   </span>
                 </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '14px', marginBottom: '16px' }}>
-                  <div style={{ background: '#ffffff', padding: '12px 14px', borderRadius: '8px', border: '1px solid #bbf7d0' }}>
-                    <div style={{ fontSize: '0.74rem', color: '#64748b' }}>Current Status vs Target</div>
+                  <div style={{ background: '#ffffff', padding: '12px 14px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                    <div style={{ fontSize: '0.74rem', color: '#0f172a', fontWeight: 600 }}>Current Status vs Target</div>
                     <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#0f172a', marginTop: '2px' }}>
-                      {indicator.current_2025.toLocaleString()} / {indicator.target_2026.toLocaleString()} <span style={{ fontSize: '0.76rem', color: '#64748b' }}>{indicator.unit}</span>
+                      {indicator.current_2025.toLocaleString()} / {indicator.target_2026.toLocaleString()} <span style={{ fontSize: '0.76rem', color: '#0f172a' }}>{indicator.unit}</span>
                     </div>
-                    <div style={{ fontSize: '0.76rem', color: '#16a34a', fontWeight: 700, marginTop: '2px' }}>
+                    <div style={{ fontSize: '0.76rem', color: '#0284c7', fontWeight: 700, marginTop: '2px' }}>
                       {progressPct}% of 2026 Milestone Achieved
                     </div>
                   </div>
 
-                  <div style={{ background: '#ffffff', padding: '12px 14px', borderRadius: '8px', border: '1px solid #bbf7d0' }}>
-                    <div style={{ fontSize: '0.74rem', color: '#64748b' }}>Remaining Target Gap</div>
-                    <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#b45309', marginTop: '2px' }}>
-                      +{targetGap.toLocaleString()} <span style={{ fontSize: '0.76rem', color: '#64748b' }}>{indicator.unit}</span>
+                  <div style={{ background: '#ffffff', padding: '12px 14px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                    <div style={{ fontSize: '0.74rem', color: '#0f172a', fontWeight: 600 }}>Remaining Target Gap</div>
+                    <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#0284c7', marginTop: '2px' }}>
+                      +{targetGap.toLocaleString()} <span style={{ fontSize: '0.76rem', color: '#0f172a' }}>{indicator.unit}</span>
                     </div>
-                    <div style={{ fontSize: '0.76rem', color: '#64748b', marginTop: '2px' }}>
+                    <div style={{ fontSize: '0.76rem', color: '#0f172a', marginTop: '2px' }}>
                       Remaining Project Timeline: 16 Months
                     </div>
                   </div>
 
-                  <div style={{ background: '#ffffff', padding: '12px 14px', borderRadius: '8px', border: '1px solid #bbf7d0' }}>
-                    <div style={{ fontSize: '0.74rem', color: '#64748b' }}>Required Monthly Run-Rate</div>
+                  <div style={{ background: '#ffffff', padding: '12px 14px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                    <div style={{ fontSize: '0.74rem', color: '#0f172a', fontWeight: 600 }}>Required Monthly Run-Rate</div>
                     <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#0284c7', marginTop: '2px' }}>
-                      {requiredMonthlyVelocity.toLocaleString()} <span style={{ fontSize: '0.76rem', color: '#64748b' }}>{indicator.unit}/mo</span>
+                      {requiredMonthlyVelocity.toLocaleString()} <span style={{ fontSize: '0.76rem', color: '#0f172a' }}>{indicator.unit}/mo</span>
                     </div>
-                    <div style={{ fontSize: '0.76rem', color: '#64748b', marginTop: '2px' }}>
+                    <div style={{ fontSize: '0.76rem', color: '#0f172a', marginTop: '2px' }}>
                       Pace needed to complete 100% by 2026
                     </div>
                   </div>
                 </div>
 
-                <div style={{ background: '#ffffff', padding: '14px', borderRadius: '8px', borderLeft: '4px solid #16a34a', fontSize: '0.86rem', color: '#334155', lineHeight: 1.55 }}>
-                  <strong style={{ color: '#166534', display: 'block', marginBottom: '2px' }}>
+                <div style={{ background: '#ffffff', padding: '14px', borderRadius: '8px', borderLeft: '4px solid #0284c7', fontSize: '0.86rem', color: '#0f172a', lineHeight: 1.55 }}>
+                  <strong style={{ color: '#0f172a', display: 'block', marginBottom: '2px' }}>
                     {locale === 'rw' ? 'Icyifuzo cy\'Ubuyobozi (City of Kigali & RFA):' : 'Actionable Recommendation for City of Kigali & RFA Leadership:'}
                   </strong>
                   {getPolicyRecommendation()}
@@ -667,7 +667,7 @@ export default function MyPegIndicatorChartView({
 
               {/* Selected Feature Card */}
               {selectedMapFeature && (
-                <div style={{ background: '#0f172a', color: '#f8fafc', border: '1px solid #334155', borderRadius: '10px', padding: '20px' }}>
+                <div style={{ background: '#0369a1', color: '#f8fafc', border: '1px solid rgba(255, 255, 255, 0.2)', borderRadius: '10px', padding: '20px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
                     <span style={{ fontSize: '0.68rem', background: themeColor, color: '#ffffff', padding: '2px 8px', borderRadius: '4px', fontWeight: 700 }}>
                       {selectedMapFeature.type}
@@ -768,15 +768,15 @@ export default function MyPegIndicatorChartView({
         >
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px', flexWrap: 'wrap', gap: '8px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span style={{ fontSize: '0.75rem', fontWeight: 800, color: themeColor, background: `${themeColor}18`, padding: '4px 10px', borderRadius: '6px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                RFP 7.2 Core Indicator Profile
+              <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#0284c7', background: '#e0f2fe', padding: '4px 10px', borderRadius: '6px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                Core Indicator Profile
               </span>
-              <span style={{ fontSize: '0.85rem', color: '#64748b', fontWeight: 600 }}>
-                &bull; {indicator.theme.toUpperCase()}
+              <span style={{ fontSize: '0.85rem', color: '#0f172a', fontWeight: 600 }}>
+                &bull; {indicator.theme.toUpperCase().replace('_', ' ')}
               </span>
             </div>
 
-            <span style={{ fontSize: '0.78rem', color: '#64748b' }}>
+            <span style={{ fontSize: '0.78rem', color: '#0f172a' }}>
               Verified against Rwanda Forestry Authority (RFA) Silvicultural Standards
             </span>
           </div>
@@ -791,13 +791,13 @@ export default function MyPegIndicatorChartView({
                 <h4 style={{ fontSize: '1.02rem', fontWeight: 700, color: '#0f172a', margin: '6px 0 8px 0' }}>
                   {locale === 'rw' ? 'Iki gipimo gipima iki?' : 'What does this indicator measure?'}
                 </h4>
-                <p style={{ fontSize: '0.88rem', color: '#475569', lineHeight: 1.6, margin: 0 }}>
+                <p style={{ fontSize: '0.88rem', color: '#0f172a', lineHeight: 1.6, margin: 0 }}>
                   {story?.what_is || displayDefinition}
                 </p>
               </div>
 
               {indicator.measurement_method && (
-                <div style={{ marginTop: '14px', paddingTop: '10px', borderTop: '1px solid #f1f5f9', fontSize: '0.76rem', color: '#64748b' }}>
+                <div style={{ marginTop: '14px', paddingTop: '10px', borderTop: '1px solid #f1f5f9', fontSize: '0.76rem', color: '#0f172a' }}>
                   <strong>{locale === 'rw' ? 'Uburyo bupimwa:' : 'Method:'}</strong> {indicator.measurement_method}
                 </div>
               )}
@@ -806,27 +806,27 @@ export default function MyPegIndicatorChartView({
             {/* 2. "Why this matters" narrative */}
             <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '10px', padding: '18px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
               <div>
-                <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#0284c7', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                   {locale === 'rw' ? '2. Akamaro ku Batuye Kigali' : '2. "Why This Matters" Narrative'}
                 </span>
                 <h4 style={{ fontSize: '1.02rem', fontWeight: 700, color: '#0f172a', margin: '6px 0 8px 0' }}>
                   {locale === 'rw' ? 'Kuki iki gipimo gifite akamaro?' : 'Relevance to Kigali’s Climate Resilience'}
                 </h4>
-                <p style={{ fontSize: '0.88rem', color: '#475569', lineHeight: 1.6, margin: 0 }}>
+                <p style={{ fontSize: '0.88rem', color: '#0f172a', lineHeight: 1.6, margin: 0 }}>
                   {story?.why_matters || 'High-fidelity environmental telemetry provides municipal planners, RFA forestry technicians, and civic communities with empirical verification of resilience outcomes.'}
                 </p>
               </div>
 
               {story?.what_suncasa && (
-                <div style={{ marginTop: '14px', paddingTop: '10px', borderTop: '1px solid #f1f5f9', fontSize: '0.76rem', color: '#047857' }}>
-                  <strong>{locale === 'rw' ? 'Icyo SUNCASA ikora:' : 'SUNCASA Action:'}</strong> {story.what_suncasa.substring(0, 110)}...
+                <div style={{ marginTop: '14px', paddingTop: '10px', borderTop: '1px solid #f1f5f9', fontSize: '0.76rem', color: '#0f172a' }}>
+                  <strong style={{ color: '#0284c7' }}>{locale === 'rw' ? 'Icyo SUNCASA ikora:' : 'SUNCASA Action:'}</strong> {story.what_suncasa.substring(0, 110)}...
                 </div>
               )}
             </div>
 
             {/* 3. Data Source and Update Information */}
             <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '10px', padding: '18px' }}>
-              <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#8b5cf6', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#0284c7', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                 {locale === 'rw' ? '3. Isoko y\'Amakuru n\'Ivugurura' : '3. Data Source & Update Information'}
               </span>
               <h4 style={{ fontSize: '1.02rem', fontWeight: 700, color: '#0f172a', margin: '6px 0 10px 0' }}>
@@ -835,7 +835,7 @@ export default function MyPegIndicatorChartView({
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.84rem' }}>
                 <div>
-                  <span style={{ color: '#64748b', fontSize: '0.75rem', fontWeight: 700, display: 'block', textTransform: 'uppercase' }}>
+                  <span style={{ color: '#0f172a', fontSize: '0.75rem', fontWeight: 700, display: 'block', textTransform: 'uppercase' }}>
                     {locale === 'rw' ? 'Inkomoko y\'Amakuru' : 'Data Source Citation:'}
                   </span>
                   <span style={{ color: '#0f172a', fontWeight: 600 }}>
@@ -845,7 +845,7 @@ export default function MyPegIndicatorChartView({
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginTop: '4px' }}>
                   <div>
-                    <span style={{ color: '#64748b', fontSize: '0.74rem', fontWeight: 700, display: 'block' }}>
+                    <span style={{ color: '#0f172a', fontSize: '0.74rem', fontWeight: 700, display: 'block' }}>
                       {locale === 'rw' ? 'Igihe Yavuguruwe:' : 'Latest Update:'}
                     </span>
                     <span style={{ color: '#0f172a', fontWeight: 600 }}>
@@ -853,7 +853,7 @@ export default function MyPegIndicatorChartView({
                     </span>
                   </div>
                   <div>
-                    <span style={{ color: '#64748b', fontSize: '0.74rem', fontWeight: 700, display: 'block' }}>
+                    <span style={{ color: '#0f172a', fontSize: '0.74rem', fontWeight: 700, display: 'block' }}>
                       {locale === 'rw' ? 'Inshuro Ivugururwa:' : 'Frequency:'}
                     </span>
                     <span style={{ color: '#0f172a', fontWeight: 600 }}>
@@ -863,7 +863,7 @@ export default function MyPegIndicatorChartView({
                 </div>
 
                 <div style={{ marginTop: '4px' }}>
-                  <span style={{ color: '#64748b', fontSize: '0.74rem', fontWeight: 700, display: 'block' }}>
+                  <span style={{ color: '#0f172a', fontSize: '0.74rem', fontWeight: 700, display: 'block' }}>
                     FMES Interoperability Code:
                   </span>
                   <span style={{ color: '#0284c7', fontWeight: 700 }}>
@@ -872,8 +872,8 @@ export default function MyPegIndicatorChartView({
                 </div>
 
                 {story?.limitations && (
-                  <div style={{ marginTop: '6px', paddingTop: '8px', borderTop: '1px solid #f1f5f9', fontSize: '0.74rem', color: '#64748b' }}>
-                    <strong style={{ color: '#b91c1c' }}>Caveats:</strong> {story.limitations}
+                  <div style={{ marginTop: '6px', paddingTop: '8px', borderTop: '1px solid #f1f5f9', fontSize: '0.74rem', color: '#0f172a' }}>
+                    <strong style={{ color: '#0f172a' }}>Caveats:</strong> {story.limitations}
                   </div>
                 )}
               </div>

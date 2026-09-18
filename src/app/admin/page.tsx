@@ -1007,13 +1007,13 @@ export default function AdminPortalPage() {
       <div
         style={{
           minHeight: '100vh',
-          backgroundColor: '#0a111e',
+          backgroundColor: '#ffffff',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           padding: '24px',
           fontFamily: 'Inter, sans-serif',
-          color: '#f8fafc',
+          color: '#0f172a',
         }}
       >
         <div
@@ -1171,7 +1171,7 @@ export default function AdminPortalPage() {
   const canDelete = session.role.permissions.includes('indicators:delete');
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#0a111e', color: '#f8fafc', fontFamily: 'Inter, sans-serif', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: '#ffffff', color: '#0f172a', fontFamily: 'Inter, sans-serif', display: 'flex', flexDirection: 'column' }}>
       {/* ------------------------------------------------------------- */}
       {/* 1. TOP HEADER BAR (Spans Full Width Edge-to-Edge at Level 0)  */}
       {/* ------------------------------------------------------------- */}
@@ -1665,12 +1665,12 @@ export default function AdminPortalPage() {
         {/* ------------------------------------------------------------- */}
         {/* MAIN WORKSPACE AREA (Right of Left Sidebar)                   */}
         {/* ------------------------------------------------------------- */}
-        <div style={{ flex: 1, minHeight: '100vh', overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ flex: 1, minHeight: '100vh', overflowY: 'auto', display: 'flex', flexDirection: 'column', background: '#ffffff', color: '#0f172a' }}>
           {/* Top Breadcrumb Header Bar */}
           <header
             style={{
-              background: '#0f172a',
-              borderBottom: '1px solid #1e293b',
+              background: '#ffffff',
+              borderBottom: '1px solid #e2e8f0',
               padding: '16px 36px',
               display: 'flex',
               justifyContent: 'space-between',
@@ -1681,10 +1681,10 @@ export default function AdminPortalPage() {
             }}
           >
             <div>
-              <span style={{ fontSize: '0.76rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+              <span style={{ fontSize: '0.76rem', color: '#0284c7', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
                 Admin Console &rsaquo;
               </span>
-              <h1 style={{ fontSize: '1.25rem', fontWeight: 700, margin: '2px 0 0 0', color: '#f8fafc' }}>
+              <h1 style={{ fontSize: '1.25rem', fontWeight: 700, margin: '2px 0 0 0', color: '#0f172a' }}>
                 {activeTab === 'indicators' && 'Indicator Catalogue & Live Management'}
                 {activeTab === 'builder' && 'Indicator Builder & Live Publisher'}
                 {activeTab === 'gps_mapper' && 'GPS Telemetry Entry & Dynamic Map Generator'}
@@ -1764,7 +1764,7 @@ export default function AdminPortalPage() {
           )}
 
           {/* Main Content Body */}
-          <main style={{ padding: '28px 36px 60px 36px', maxWidth: '1400px', width: '100%' }}>
+          <main style={{ padding: '28px 36px 60px 36px', maxWidth: '1400px', width: '100%', background: '#ffffff' }}>
             {/* ------------------------------------------------------------- */}
             {/* TAB 1: INDICATOR CATALOGUE & EDIT / REMOVAL                   */}
             {/* ------------------------------------------------------------- */}
@@ -1773,7 +1773,7 @@ export default function AdminPortalPage() {
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                   <div>
                     <h2 style={{ fontSize: '1.4rem', fontWeight: 700, margin: '0 0 4px 0' }}>Published Indicators Catalogue</h2>
-                    <p style={{ color: '#94a3b8', fontSize: '0.88rem', margin: 0 }}>
+                    <p style={{ color: '#475569', fontSize: '0.88rem', margin: 0 }}>
                       Manage live indicators published on the public SUNCASA portal, edit metric targets & definitions, enter GPS data, or manage narratives.
                     </p>
                   </div>
@@ -1808,12 +1808,12 @@ export default function AdminPortalPage() {
                     placeholder="Search indicator by title, ID, or FMES code..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    style={{ flex: 1, padding: '10px 14px', borderRadius: '8px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.9rem', outline: 'none' }}
+                    style={{ flex: 1, padding: '10px 14px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.9rem', outline: 'none' }}
                   />
                   <select
                     value={themeFilter}
                     onChange={(e) => setThemeFilter(e.target.value)}
-                    style={{ padding: '10px 14px', borderRadius: '8px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.9rem', outline: 'none' }}
+                    style={{ padding: '10px 14px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.9rem', outline: 'none' }}
                   >
                     <option value="all">All Themes</option>
                     <option value="climate">Climate Adaptation</option>
@@ -1825,10 +1825,10 @@ export default function AdminPortalPage() {
                 </div>
 
                 {/* Indicator Table */}
-                <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '12px', overflow: 'hidden' }}>
+                <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', overflow: 'hidden' }}>
                   <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.88rem' }}>
                     <thead>
-                      <tr style={{ background: '#1e293b', color: '#94a3b8', borderBottom: '1px solid #334155' }}>
+                      <tr style={{ background: '#f8fafc', color: '#0f172a', borderBottom: '1px solid #e2e8f0' }}>
                         <th style={{ padding: '14px 16px' }}>Theme</th>
                         <th style={{ padding: '14px 16px' }}>Indicator ID & Definition</th>
                         <th style={{ padding: '14px 16px' }}>FMES Code</th>
@@ -1851,22 +1851,22 @@ export default function AdminPortalPage() {
                         const gpsCount = ind.gps_coordinates?.length || 0;
 
                         return (
-                          <tr key={ind.id} style={{ borderBottom: '1px solid #1e293b', transition: 'background 0.15s ease' }}>
+                          <tr key={ind.id} style={{ borderBottom: '1px solid #f1f5f9', transition: 'background 0.15s ease' }}>
                             <td style={{ padding: '14px 16px' }}>
                               <span style={{ fontSize: '0.74rem', fontWeight: 700, padding: '3px 8px', borderRadius: '4px', background: `${col}22`, color: col, textTransform: 'uppercase' }}>
                                 {ind.theme.replace('_', ' ')}
                               </span>
                             </td>
                             <td style={{ padding: '14px 16px', maxWidth: '280px' }}>
-                              <div style={{ fontWeight: 700, color: '#f8fafc', marginBottom: '4px' }}>
+                              <div style={{ fontWeight: 700, color: '#0f172a', marginBottom: '4px' }}>
                                 {ind.id}
                               </div>
-                              <div style={{ fontSize: '0.8rem', color: '#94a3b8', lineHeight: 1.4 }}>
+                              <div style={{ fontSize: '0.8rem', color: '#475569', lineHeight: 1.4 }}>
                                 {ind.definition}
                               </div>
                             </td>
                             <td style={{ padding: '14px 16px' }}>
-                              <code style={{ fontSize: '0.76rem', background: '#1e293b', padding: '2px 6px', borderRadius: '4px', color: '#38bdf8' }}>
+                              <code style={{ fontSize: '0.76rem', background: '#f8fafc', padding: '2px 6px', borderRadius: '4px', color: '#38bdf8' }}>
                                 {ind.fmes_code}
                               </code>
                             </td>
@@ -1875,7 +1875,7 @@ export default function AdminPortalPage() {
                                 <span>{ind.current_2025.toLocaleString()}</span>
                                 <span style={{ color: '#64748b', fontSize: '0.76rem' }}>/ {ind.target_2026.toLocaleString()} {ind.unit}</span>
                               </div>
-                              <div style={{ width: '120px', height: '6px', background: '#334155', borderRadius: '3px', marginTop: '6px', overflow: 'hidden' }}>
+                              <div style={{ width: '120px', height: '6px', background: '#e2e8f0', borderRadius: '3px', marginTop: '6px', overflow: 'hidden' }}>
                                 <div style={{ width: `${pct}%`, height: '100%', background: col }} />
                               </div>
                             </td>
@@ -1900,7 +1900,7 @@ export default function AdminPortalPage() {
                                   href={`/indicator/${ind.id}`}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  style={{ padding: '6px 10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#38bdf8', textDecoration: 'none', fontSize: '0.78rem', fontWeight: 600 }}
+                                  style={{ padding: '6px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#38bdf8', textDecoration: 'none', fontSize: '0.78rem', fontWeight: 600 }}
                                 >
                                   Public ↗
                                 </Link>
@@ -1974,7 +1974,7 @@ export default function AdminPortalPage() {
                   <h2 style={{ fontSize: '1.4rem', fontWeight: 700, margin: '0 0 4px 0' }}>
                     GPS Telemetry Entry & Dynamic Map Generator
                   </h2>
-                  <p style={{ color: '#94a3b8', fontSize: '0.88rem', margin: 0 }}>
+                  <p style={{ color: '#475569', fontSize: '0.88rem', margin: 0 }}>
                     Enter field-verified GPS coordinates (lat, lng, progress metric, sector) for any indicator and generate keyless OpenStreetMap / Satellite GIS maps with auto-fit bounds.
                   </p>
                 </div>
@@ -1982,8 +1982,8 @@ export default function AdminPortalPage() {
                 {/* Indicator Picker Banner */}
                 <div
                   style={{
-                    background: '#0f172a',
-                    border: '1px solid #1e293b',
+                    background: '#ffffff',
+                    border: '1px solid #e2e8f0',
                     borderRadius: '12px',
                     padding: '20px 24px',
                     display: 'flex',
@@ -2005,9 +2005,9 @@ export default function AdminPortalPage() {
                         width: '100%',
                         padding: '10px 14px',
                         borderRadius: '8px',
-                        background: '#1e293b',
-                        border: '1px solid #334155',
-                        color: '#ffffff',
+                        background: '#f8fafc',
+                        border: '1px solid #cbd5e1',
+                        color: '#0f172a',
                         fontSize: '0.92rem',
                         fontWeight: 600,
                         outline: 'none',
@@ -2023,7 +2023,7 @@ export default function AdminPortalPage() {
 
                   <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                     <div style={{ textAlign: 'right' }}>
-                      <div style={{ fontSize: '0.76rem', color: '#94a3b8' }}>FMES System Code</div>
+                      <div style={{ fontSize: '0.76rem', color: '#475569' }}>FMES System Code</div>
                       <code style={{ fontSize: '0.85rem', color: '#38bdf8', fontWeight: 700 }}>
                         {activeGpsIndicator?.fmes_code}
                       </code>
@@ -2036,8 +2036,8 @@ export default function AdminPortalPage() {
                       style={{
                         padding: '10px 16px',
                         borderRadius: '8px',
-                        background: '#1e293b',
-                        border: '1px solid #334155',
+                        background: '#f8fafc',
+                        border: '1px solid #cbd5e1',
                         color: '#38bdf8',
                         textDecoration: 'none',
                         fontSize: '0.85rem',
@@ -2058,14 +2058,14 @@ export default function AdminPortalPage() {
                   {/* Left Column: GPS Input & Points Table */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                     {/* GPS Entry Form Card */}
-                    <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '12px', padding: '22px' }}>
+                    <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '22px' }}>
                       <h3 style={{ fontSize: '1.05rem', fontWeight: 700, margin: '0 0 14px 0', color: '#38bdf8' }}>
                         1. Enter GPS Waypoint Data
                       </h3>
 
                       {/* Quick 1-Click Kigali Preset Buttons */}
                       <div style={{ marginBottom: '16px' }}>
-                        <span style={{ display: 'block', fontSize: '0.74rem', color: '#94a3b8', marginBottom: '6px', fontWeight: 600 }}>
+                        <span style={{ display: 'block', fontSize: '0.74rem', color: '#475569', marginBottom: '6px', fontWeight: 600 }}>
                           📍 Quick Kigali Field Presets (Click to autofill GPS):
                         </span>
                         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
@@ -2084,9 +2084,9 @@ export default function AdminPortalPage() {
                               style={{
                                 padding: '4px 8px',
                                 borderRadius: '4px',
-                                background: '#1e293b',
-                                border: '1px solid #334155',
-                                color: '#cbd5e1',
+                                background: '#f8fafc',
+                                border: '1px solid #cbd5e1',
+                                color: '#334155',
                                 fontSize: '0.72rem',
                                 cursor: 'pointer',
                                 transition: 'all 0.1s ease',
@@ -2101,7 +2101,7 @@ export default function AdminPortalPage() {
                       <form onSubmit={handleAddGpsWaypoint} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                           <div>
-                            <label style={{ display: 'block', fontSize: '0.78rem', color: '#cbd5e1', marginBottom: '4px' }}>
+                            <label style={{ display: 'block', fontSize: '0.78rem', color: '#334155', marginBottom: '4px' }}>
                               Latitude (Decimal) *
                             </label>
                             <input
@@ -2110,12 +2110,12 @@ export default function AdminPortalPage() {
                               placeholder="-1.9442"
                               value={newGpsLat}
                               onChange={(e) => setNewGpsLat(e.target.value)}
-                              style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.86rem' }}
+                              style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.86rem' }}
                             />
                           </div>
 
                           <div>
-                            <label style={{ display: 'block', fontSize: '0.78rem', color: '#cbd5e1', marginBottom: '4px' }}>
+                            <label style={{ display: 'block', fontSize: '0.78rem', color: '#334155', marginBottom: '4px' }}>
                               Longitude (Decimal) *
                             </label>
                             <input
@@ -2124,13 +2124,13 @@ export default function AdminPortalPage() {
                               placeholder="30.0514"
                               value={newGpsLng}
                               onChange={(e) => setNewGpsLng(e.target.value)}
-                              style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.86rem' }}
+                              style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.86rem' }}
                             />
                           </div>
                         </div>
 
                         <div>
-                          <label style={{ display: 'block', fontSize: '0.78rem', color: '#cbd5e1', marginBottom: '4px' }}>
+                          <label style={{ display: 'block', fontSize: '0.78rem', color: '#334155', marginBottom: '4px' }}>
                             Station / Site Name (English) *
                           </label>
                           <input
@@ -2139,12 +2139,12 @@ export default function AdminPortalPage() {
                             placeholder="e.g. Mpazi Vegetative Bio-Engineering Check Dam A"
                             value={newGpsName}
                             onChange={(e) => setNewGpsName(e.target.value)}
-                            style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.86rem' }}
+                            style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.86rem' }}
                           />
                         </div>
 
                         <div>
-                          <label style={{ display: 'block', fontSize: '0.78rem', color: '#cbd5e1', marginBottom: '4px' }}>
+                          <label style={{ display: 'block', fontSize: '0.78rem', color: '#334155', marginBottom: '4px' }}>
                             Izina ry&apos;Agace mu Kinyarwanda (Name in Kinyarwanda)
                           </label>
                           <input
@@ -2152,13 +2152,13 @@ export default function AdminPortalPage() {
                             placeholder="e.g. Urugomero rw'ibiti rwa Mpazi A"
                             value={newGpsNameRw}
                             onChange={(e) => setNewGpsNameRw(e.target.value)}
-                            style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.86rem' }}
+                            style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.86rem' }}
                           />
                         </div>
 
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px' }}>
                           <div>
-                            <label style={{ display: 'block', fontSize: '0.78rem', color: '#cbd5e1', marginBottom: '4px' }}>
+                            <label style={{ display: 'block', fontSize: '0.78rem', color: '#334155', marginBottom: '4px' }}>
                               Measured Value ({activeGpsIndicator?.unit || ''})
                             </label>
                             <input
@@ -2166,12 +2166,12 @@ export default function AdminPortalPage() {
                               required
                               value={newGpsValue}
                               onChange={(e) => setNewGpsValue(Number(e.target.value))}
-                              style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.86rem' }}
+                              style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.86rem' }}
                             />
                           </div>
 
                           <div>
-                            <label style={{ display: 'block', fontSize: '0.78rem', color: '#cbd5e1', marginBottom: '4px' }}>
+                            <label style={{ display: 'block', fontSize: '0.78rem', color: '#334155', marginBottom: '4px' }}>
                               Sector
                             </label>
                             <input
@@ -2179,12 +2179,12 @@ export default function AdminPortalPage() {
                               value={newGpsSector}
                               onChange={(e) => setNewGpsSector(e.target.value)}
                               placeholder="Gitega"
-                              style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.86rem' }}
+                              style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.86rem' }}
                             />
                           </div>
 
                           <div>
-                            <label style={{ display: 'block', fontSize: '0.78rem', color: '#cbd5e1', marginBottom: '4px' }}>
+                            <label style={{ display: 'block', fontSize: '0.78rem', color: '#334155', marginBottom: '4px' }}>
                               District
                             </label>
                             <input
@@ -2192,19 +2192,19 @@ export default function AdminPortalPage() {
                               value={newGpsDistrict}
                               onChange={(e) => setNewGpsDistrict(e.target.value)}
                               placeholder="Nyarugenge"
-                              style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.86rem' }}
+                              style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.86rem' }}
                             />
                           </div>
                         </div>
 
                         <div>
-                          <label style={{ display: 'block', fontSize: '0.78rem', color: '#cbd5e1', marginBottom: '4px' }}>
+                          <label style={{ display: 'block', fontSize: '0.78rem', color: '#334155', marginBottom: '4px' }}>
                             Status & Verification
                           </label>
                           <select
                             value={newGpsStatus}
                             onChange={(e) => setNewGpsStatus(e.target.value)}
-                            style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.86rem' }}
+                            style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.86rem' }}
                           >
                             <option value="Active">Active Intervention</option>
                             <option value="Verified">Field Verified (RFA Audited)</option>
@@ -2215,7 +2215,7 @@ export default function AdminPortalPage() {
                         </div>
 
                         <div>
-                          <label style={{ display: 'block', fontSize: '0.78rem', color: '#cbd5e1', marginBottom: '4px' }}>
+                          <label style={{ display: 'block', fontSize: '0.78rem', color: '#334155', marginBottom: '4px' }}>
                             Telemetry & Field Notes
                           </label>
                           <input
@@ -2223,7 +2223,7 @@ export default function AdminPortalPage() {
                             value={newGpsNotes}
                             onChange={(e) => setNewGpsNotes(e.target.value)}
                             placeholder="e.g. Bio-engineering live check-dam delayed peak crest by 28%."
-                            style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.86rem' }}
+                            style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.86rem' }}
                           />
                         </div>
 
@@ -2247,12 +2247,12 @@ export default function AdminPortalPage() {
                     </div>
 
                     {/* GPS Waypoints List Table */}
-                    <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '12px', padding: '20px' }}>
+                    <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '20px' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
                         <h4 style={{ fontSize: '0.96rem', fontWeight: 700, margin: 0 }}>
                           2. GPS Points Stored for Indicator ({gpsPoints.length})
                         </h4>
-                        <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>
+                        <span style={{ fontSize: '0.75rem', color: '#475569' }}>
                           Target: <code style={{ color: '#38bdf8' }}>{selectedGpsIndId}</code>
                         </span>
                       </div>
@@ -2260,7 +2260,7 @@ export default function AdminPortalPage() {
                       <div style={{ maxHeight: '280px', overflowY: 'auto' }}>
                         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.8rem', textAlign: 'left' }}>
                           <thead>
-                            <tr style={{ background: '#1e293b', color: '#94a3b8' }}>
+                            <tr style={{ background: '#f8fafc', color: '#475569' }}>
                               <th style={{ padding: '8px 10px' }}>Site Name</th>
                               <th style={{ padding: '8px 10px' }}>Coordinates</th>
                               <th style={{ padding: '8px 10px' }}>Metric Value</th>
@@ -2270,8 +2270,8 @@ export default function AdminPortalPage() {
                           </thead>
                           <tbody>
                             {gpsPoints.map((pt) => (
-                              <tr key={pt.id} style={{ borderBottom: '1px solid #1e293b' }}>
-                                <td style={{ padding: '8px 10px', fontWeight: 600, color: '#f8fafc' }}>
+                              <tr key={pt.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                                <td style={{ padding: '8px 10px', fontWeight: 600, color: '#0f172a' }}>
                                   <div>{pt.name}</div>
                                   <div style={{ fontSize: '0.7rem', color: '#64748b' }}>{pt.sector}, {pt.district}</div>
                                 </td>
@@ -2317,7 +2317,7 @@ export default function AdminPortalPage() {
                       </div>
 
                       {/* Primary Generate & Save Action Button */}
-                      <div style={{ marginTop: '16px', borderTop: '1px solid #1e293b', paddingTop: '16px' }}>
+                      <div style={{ marginTop: '16px', borderTop: '1px solid #f1f5f9', paddingTop: '16px' }}>
                         <button
                           type="button"
                           disabled={generatingMap}
@@ -2354,8 +2354,8 @@ export default function AdminPortalPage() {
                   <div>
                     <div
                       style={{
-                        background: '#0f172a',
-                        border: '1px solid #1e293b',
+                        background: '#ffffff',
+                        border: '1px solid #e2e8f0',
                         borderRadius: '12px',
                         padding: '20px',
                         position: 'sticky',
@@ -2387,7 +2387,7 @@ export default function AdminPortalPage() {
                       </div>
 
                       {/* Map Container */}
-                      <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1px solid #334155' }}>
+                      <div style={{ borderRadius: '10px', overflow: 'hidden', border: '1px solid #cbd5e1' }}>
                         <CatchmentMap
                           currentIndicator={{
                             ...activeGpsIndicator,
@@ -2399,7 +2399,7 @@ export default function AdminPortalPage() {
                         />
                       </div>
 
-                      <div style={{ marginTop: '12px', padding: '10px 14px', background: '#1e293b', borderRadius: '8px', fontSize: '0.76rem', color: '#94a3b8', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <div style={{ marginTop: '12px', padding: '10px 14px', background: '#f8fafc', borderRadius: '8px', fontSize: '0.76rem', color: '#475569', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <span>
                           🛰️ Live auto-fit bounds centers onto verified GPS nodes.
                         </span>
@@ -2425,7 +2425,7 @@ export default function AdminPortalPage() {
               <div>
                 <div style={{ marginBottom: '24px' }}>
                   <h2 style={{ fontSize: '1.4rem', fontWeight: 700, margin: '0 0 4px 0' }}>Build & Publish New Indicator</h2>
-                  <p style={{ color: '#94a3b8', fontSize: '0.88rem', margin: 0 }}>
+                  <p style={{ color: '#475569', fontSize: '0.88rem', margin: 0 }}>
                     Author a new Nature-Based Solutions indicator with quarterly time-series, spatial breakdowns, bilingual narratives, and publish it directly to the public portal.
                   </p>
                 </div>
@@ -2434,20 +2434,20 @@ export default function AdminPortalPage() {
                   {/* Left Column: Form Fields */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                     {/* 1. Basic Metadata Card */}
-                    <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '12px', padding: '24px' }}>
+                    <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '24px' }}>
                       <h3 style={{ fontSize: '1.05rem', fontWeight: 700, margin: '0 0 16px 0', color: '#38bdf8' }}>
                         1. Core Attributes & Theme
                       </h3>
 
                       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
                         <div>
-                          <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#cbd5e1', marginBottom: '6px' }}>
+                          <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
                             Communication Theme
                           </label>
                           <select
                             value={builderTheme}
                             onChange={(e) => setBuilderTheme(e.target.value)}
-                            style={{ width: '100%', padding: '10px', borderRadius: '8px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem' }}
+                            style={{ width: '100%', padding: '10px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
                           >
                             <option value="climate">Climate Adaptation (#0284c7)</option>
                             <option value="biodiversity">Biodiversity Protection (#10b981)</option>
@@ -2457,7 +2457,7 @@ export default function AdminPortalPage() {
                           </select>
                         </div>
                         <div>
-                          <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#cbd5e1', marginBottom: '6px' }}>
+                          <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
                             Unique Slug ID (e.g. wetland_restored_ha)
                           </label>
                           <input
@@ -2466,13 +2466,13 @@ export default function AdminPortalPage() {
                             placeholder="e.g. wetland_restored_ha"
                             value={builderId}
                             onChange={(e) => setBuilderId(e.target.value)}
-                            style={{ width: '100%', padding: '10px', borderRadius: '8px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem' }}
+                            style={{ width: '100%', padding: '10px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
                           />
                         </div>
                       </div>
 
                       <div style={{ marginBottom: '16px' }}>
-                        <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#cbd5e1', marginBottom: '6px' }}>
+                        <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
                           Indicator Scientific Definition (English)
                         </label>
                         <input
@@ -2481,114 +2481,114 @@ export default function AdminPortalPage() {
                           placeholder="e.g. Total Area of Nyabarongo Riparian Wetland Buffer Restored"
                           value={builderDef}
                           onChange={(e) => setBuilderDef(e.target.value)}
-                          style={{ width: '100%', padding: '10px', borderRadius: '8px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem' }}
+                          style={{ width: '100%', padding: '10px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
                         />
                       </div>
 
                       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: '12px' }}>
                         <div>
-                          <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#cbd5e1', marginBottom: '6px' }}>Unit</label>
+                          <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>Unit</label>
                           <input
                             type="text"
                             value={builderUnit}
                             onChange={(e) => setBuilderUnit(e.target.value)}
-                            style={{ width: '100%', padding: '10px', borderRadius: '8px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem' }}
+                            style={{ width: '100%', padding: '10px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
                           />
                         </div>
                         <div>
-                          <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#cbd5e1', marginBottom: '6px' }}>2024 Baseline</label>
+                          <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>2024 Baseline</label>
                           <input
                             type="number"
                             value={builderBaseline}
                             onChange={(e) => setBuilderBaseline(Number(e.target.value))}
-                            style={{ width: '100%', padding: '10px', borderRadius: '8px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem' }}
+                            style={{ width: '100%', padding: '10px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
                           />
                         </div>
                         <div>
-                          <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#cbd5e1', marginBottom: '6px' }}>2025 Current</label>
+                          <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>2025 Current</label>
                           <input
                             type="number"
                             value={builderCurrent}
                             onChange={(e) => setBuilderCurrent(Number(e.target.value))}
-                            style={{ width: '100%', padding: '10px', borderRadius: '8px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem' }}
+                            style={{ width: '100%', padding: '10px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
                           />
                         </div>
                         <div>
-                          <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#cbd5e1', marginBottom: '6px' }}>2026 Target</label>
+                          <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>2026 Target</label>
                           <input
                             type="number"
                             value={builderTarget}
                             onChange={(e) => setBuilderTarget(Number(e.target.value))}
-                            style={{ width: '100%', padding: '10px', borderRadius: '8px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem' }}
+                            style={{ width: '100%', padding: '10px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
                           />
                         </div>
                       </div>
                     </div>
 
                     {/* 2. RFA-FMES & Metadata Card */}
-                    <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '12px', padding: '24px' }}>
+                    <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '24px' }}>
                       <h3 style={{ fontSize: '1.05rem', fontWeight: 700, margin: '0 0 16px 0', color: '#10b981' }}>
                         2. RFA-FMES Interoperability & Lineage (5-Part Standard)
                       </h3>
 
                       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
                         <div>
-                          <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#cbd5e1', marginBottom: '6px' }}>
+                          <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
                             FMES System Code
                           </label>
                           <input
                             type="text"
                             value={builderFmesCode}
                             onChange={(e) => setBuilderFmesCode(e.target.value)}
-                            style={{ width: '100%', padding: '10px', borderRadius: '8px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem' }}
+                            style={{ width: '100%', padding: '10px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
                           />
                         </div>
                         <div>
-                          <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#cbd5e1', marginBottom: '6px' }}>
+                          <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
                             Responsible Agency
                           </label>
                           <input
                             type="text"
                             value={builderProvider}
                             onChange={(e) => setBuilderProvider(e.target.value)}
-                            style={{ width: '100%', padding: '10px', borderRadius: '8px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem' }}
+                            style={{ width: '100%', padding: '10px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
                           />
                         </div>
                       </div>
 
                       <div style={{ marginBottom: '16px' }}>
-                        <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#cbd5e1', marginBottom: '6px' }}>
+                        <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
                           Data Source Citation
                         </label>
                         <input
                           type="text"
                           value={builderSource}
                           onChange={(e) => setBuilderSource(e.target.value)}
-                          style={{ width: '100%', padding: '10px', borderRadius: '8px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem' }}
+                          style={{ width: '100%', padding: '10px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
                         />
                       </div>
 
                       <div>
-                        <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#cbd5e1', marginBottom: '6px' }}>
+                        <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
                           Methodological Limitations & Caveats
                         </label>
                         <input
                           type="text"
                           value={builderLimitations}
                           onChange={(e) => setBuilderLimitations(e.target.value)}
-                          style={{ width: '100%', padding: '10px', borderRadius: '8px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem' }}
+                          style={{ width: '100%', padding: '10px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
                         />
                       </div>
                     </div>
 
                     {/* 3. The Story (3 Questions) Card */}
-                    <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '12px', padding: '24px' }}>
+                    <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '24px' }}>
                       <h3 style={{ fontSize: '1.05rem', fontWeight: 700, margin: '0 0 16px 0', color: '#f59e0b' }}>
                         3. The Story (3 Core Questions)
                       </h3>
 
                       <div style={{ marginBottom: '14px' }}>
-                        <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#cbd5e1', marginBottom: '4px' }}>
+                        <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
                           Question 1: What is this indicator and what does it measure?
                         </label>
                         <textarea
@@ -2596,12 +2596,12 @@ export default function AdminPortalPage() {
                           placeholder="Explains what the metric represents..."
                           value={builderStoryWhatEn}
                           onChange={(e) => setBuilderStoryWhatEn(e.target.value)}
-                          style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.86rem' }}
+                          style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.86rem' }}
                         />
                       </div>
 
                       <div style={{ marginBottom: '14px' }}>
-                        <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#cbd5e1', marginBottom: '4px' }}>
+                        <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
                           Question 2: Why does it matter for Kigali's climate resilience?
                         </label>
                         <textarea
@@ -2609,12 +2609,12 @@ export default function AdminPortalPage() {
                           placeholder="Explains why this matters for erosion, floods, or community welfare..."
                           value={builderStoryWhyEn}
                           onChange={(e) => setBuilderStoryWhyEn(e.target.value)}
-                          style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.86rem' }}
+                          style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.86rem' }}
                         />
                       </div>
 
                       <div>
-                        <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#cbd5e1', marginBottom: '4px' }}>
+                        <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
                           Question 3: What is SUNCASA doing with the City and RFA?
                         </label>
                         <textarea
@@ -2622,7 +2622,7 @@ export default function AdminPortalPage() {
                           placeholder="Highlights specific nature-based interventions..."
                           value={builderStoryActionEn}
                           onChange={(e) => setBuilderStoryActionEn(e.target.value)}
-                          style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.86rem' }}
+                          style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.86rem' }}
                         />
                       </div>
                     </div>
@@ -2630,19 +2630,19 @@ export default function AdminPortalPage() {
 
                   {/* Right Column: Preview & Publish Card */}
                   <div>
-                    <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '12px', padding: '24px', position: 'sticky', top: '90px' }}>
+                    <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '24px', position: 'sticky', top: '90px' }}>
                       <h3 style={{ fontSize: '1.05rem', fontWeight: 700, margin: '0 0 16px 0', color: '#ffffff' }}>
                         Indicator Publication Summary
                       </h3>
 
-                      <div style={{ background: '#1e293b', padding: '16px', borderRadius: '8px', marginBottom: '16px' }}>
-                        <div style={{ fontSize: '0.74rem', color: '#94a3b8', textTransform: 'uppercase' }}>Target URL</div>
+                      <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '8px', marginBottom: '16px' }}>
+                        <div style={{ fontSize: '0.74rem', color: '#475569', textTransform: 'uppercase' }}>Target URL</div>
                         <div style={{ fontSize: '0.88rem', color: '#38bdf8', fontWeight: 600, marginTop: '2px', wordBreak: 'break-all' }}>
                           /indicator/{builderId || '[slug_id]'}
                         </div>
                       </div>
 
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.85rem', color: '#cbd5e1', marginBottom: '20px' }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.85rem', color: '#334155', marginBottom: '20px' }}>
                         <div>Theme: <strong>{builderTheme}</strong></div>
                         <div>FMES Code: <strong>{builderFmesCode}</strong></div>
                         <div>2025 Current: <strong>{builderCurrent} {builderUnit}</strong></div>
@@ -2671,7 +2671,7 @@ export default function AdminPortalPage() {
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
                   <div>
                     <h2 style={{ fontSize: '1.4rem', fontWeight: 700, margin: '0 0 4px 0' }}>Landing Page Stories & Civic Narratives</h2>
-                    <p style={{ color: '#94a3b8', fontSize: '0.88rem', margin: 0 }}>
+                    <p style={{ color: '#475569', fontSize: '0.88rem', margin: 0 }}>
                       Manage the featured watershed stories displayed on the homepage. Edit quotes, author affiliations, and full multi-paragraph reports in English and Kinyarwanda.
                     </p>
                   </div>
@@ -2699,7 +2699,7 @@ export default function AdminPortalPage() {
                 </div>
 
                 {loadingStories ? (
-                  <div style={{ padding: '60px', textAlign: 'center', color: '#94a3b8' }}>Loading stories...</div>
+                  <div style={{ padding: '60px', textAlign: 'center', color: '#475569' }}>Loading stories...</div>
                 ) : (
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(380px, 1fr))', gap: '24px' }}>
                     {landingStories.map((story) => {
@@ -2707,8 +2707,8 @@ export default function AdminPortalPage() {
                         <div
                           key={story.id}
                           style={{
-                            background: '#0f172a',
-                            border: '1px solid #1e293b',
+                            background: '#ffffff',
+                            border: '1px solid #e2e8f0',
                             borderRadius: '12px',
                             padding: '22px',
                             display: 'flex',
@@ -2735,7 +2735,7 @@ export default function AdminPortalPage() {
                               <code style={{ fontSize: '0.74rem', color: '#64748b' }}>id: {story.id}</code>
                             </div>
 
-                            <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: '#f8fafc', margin: '0 0 8px 0', lineHeight: 1.4 }}>
+                            <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: '#0f172a', margin: '0 0 8px 0', lineHeight: 1.4 }}>
                               {story.en?.title}
                             </h3>
 
@@ -2743,19 +2743,19 @@ export default function AdminPortalPage() {
                               🇷🇼 {story.rw?.title}
                             </div>
 
-                            <p style={{ fontSize: '0.84rem', color: '#94a3b8', lineHeight: 1.5, marginBottom: '14px' }}>
+                            <p style={{ fontSize: '0.84rem', color: '#475569', lineHeight: 1.5, marginBottom: '14px' }}>
                               {story.en?.summary?.slice(0, 140)}...
                             </p>
 
-                            <div style={{ background: '#1e293b', padding: '10px 14px', borderRadius: '8px', borderLeft: `3px solid ${story.tagColor || '#0284c7'}`, marginBottom: '14px' }}>
-                              <p style={{ fontSize: '0.78rem', color: '#cbd5e1', fontStyle: 'italic', margin: '0 0 4px 0' }}>
+                            <div style={{ background: '#f8fafc', padding: '10px 14px', borderRadius: '8px', borderLeft: `3px solid ${story.tagColor || '#0284c7'}`, marginBottom: '14px' }}>
+                              <p style={{ fontSize: '0.78rem', color: '#334155', fontStyle: 'italic', margin: '0 0 4px 0' }}>
                                 {story.en?.quote?.slice(0, 110)}...
                               </p>
                               <span style={{ fontSize: '0.72rem', color: '#64748b' }}>&mdash; {story.en?.quoteAuthor}</span>
                             </div>
                           </div>
 
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '14px', borderTop: '1px solid #1e293b' }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '14px', borderTop: '1px solid #f1f5f9' }}>
                             <span style={{ fontSize: '0.74rem', color: '#64748b' }}>
                               🏛️ {story.en?.author}
                             </span>
@@ -2811,7 +2811,7 @@ export default function AdminPortalPage() {
                   <h2 style={{ fontSize: '1.4rem', fontWeight: 700, margin: '0 0 4px 0' }}>
                     Indicator Stories & 3 Core Questions Editor
                   </h2>
-                  <p style={{ color: '#94a3b8', fontSize: '0.88rem', margin: 0 }}>
+                  <p style={{ color: '#475569', fontSize: '0.88rem', margin: 0 }}>
                     Author and customize the 3-question narratives required by the SUNCASA RFP: &apos;What is this indicator?&apos;, &apos;Why does it matter for Kigali?&apos;, and &apos;What is SUNCASA doing about it?&apos;, alongside data limitations and official source lineage.
                   </p>
                 </div>
@@ -2819,8 +2819,8 @@ export default function AdminPortalPage() {
                 {/* Indicator Picker Banner */}
                 <div
                   style={{
-                    background: '#0f172a',
-                    border: '1px solid #1e293b',
+                    background: '#ffffff',
+                    border: '1px solid #e2e8f0',
                     borderRadius: '12px',
                     padding: '20px 24px',
                     display: 'flex',
@@ -2842,9 +2842,9 @@ export default function AdminPortalPage() {
                         width: '100%',
                         padding: '10px 14px',
                         borderRadius: '8px',
-                        background: '#1e293b',
-                        border: '1px solid #334155',
-                        color: '#ffffff',
+                        background: '#f8fafc',
+                        border: '1px solid #cbd5e1',
+                        color: '#0f172a',
                         fontSize: '0.92rem',
                         fontWeight: 600,
                         outline: 'none',
@@ -2866,8 +2866,8 @@ export default function AdminPortalPage() {
                       style={{
                         padding: '10px 16px',
                         borderRadius: '8px',
-                        background: '#1e293b',
-                        border: '1px solid #334155',
+                        background: '#f8fafc',
+                        border: '1px solid #cbd5e1',
                         color: '#38bdf8',
                         textDecoration: 'none',
                         fontSize: '0.85rem',
@@ -2884,9 +2884,9 @@ export default function AdminPortalPage() {
                 </div>
 
                 {/* Bilingual Narratives Editor Form */}
-                <form onSubmit={handleSaveNarrative} style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '14px', padding: '28px' }}>
+                <form onSubmit={handleSaveNarrative} style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '28px' }}>
                   {/* Locale Toggle Tabs */}
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px', borderBottom: '1px solid #1e293b', paddingBottom: '16px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px', borderBottom: '1px solid #f1f5f9', paddingBottom: '16px' }}>
                     <div style={{ display: 'flex', gap: '8px' }}>
                       <button
                         type="button"
@@ -2929,7 +2929,7 @@ export default function AdminPortalPage() {
 
                   {/* Indicator Display Title */}
                   <div style={{ marginBottom: '20px' }}>
-                    <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: '#cbd5e1', marginBottom: '6px' }}>
+                    <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
                       Indicator Narrative Display Title ({narrativeLocaleTab.toUpperCase()})
                     </label>
                     <input
@@ -2947,14 +2947,14 @@ export default function AdminPortalPage() {
                         }));
                       }}
                       placeholder="e.g. Total Area Restored and Managed through NbS"
-                      style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.92rem' }}
+                      style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.92rem' }}
                     />
                   </div>
 
                   {/* 3 Core Questions Section */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginBottom: '24px' }}>
                     {/* Question 1: What is this indicator? */}
-                    <div style={{ background: '#1e293b', padding: '18px', borderRadius: '10px', borderLeft: '4px solid #0284c7' }}>
+                    <div style={{ background: '#f8fafc', padding: '18px', borderRadius: '10px', borderLeft: '4px solid #0284c7' }}>
                       <label style={{ display: 'block', fontSize: '0.86rem', fontWeight: 700, color: '#38bdf8', marginBottom: '6px' }}>
                         {narrativeLocaleTab === 'en'
                           ? '1. What is this indicator and what does it measure?'
@@ -2975,12 +2975,12 @@ export default function AdminPortalPage() {
                           }));
                         }}
                         placeholder="Detailed scientific explanation of metric scope and spatial methodology..."
-                        style={{ width: '100%', padding: '10px 12px', borderRadius: '6px', background: '#0f172a', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem', lineHeight: 1.6 }}
+                        style={{ width: '100%', padding: '10px 12px', borderRadius: '6px', background: '#ffffff', border: '1px solid #cbd5e1', color: '#ffffff', fontSize: '0.88rem', lineHeight: 1.6 }}
                       />
                     </div>
 
                     {/* Question 2: Why does it matter? */}
-                    <div style={{ background: '#1e293b', padding: '18px', borderRadius: '10px', borderLeft: '4px solid #10b981' }}>
+                    <div style={{ background: '#f8fafc', padding: '18px', borderRadius: '10px', borderLeft: '4px solid #10b981' }}>
                       <label style={{ display: 'block', fontSize: '0.86rem', fontWeight: 700, color: '#34d399', marginBottom: '6px' }}>
                         {narrativeLocaleTab === 'en'
                           ? "2. Why does it matter for Kigali's climate resilience?"
@@ -3001,12 +3001,12 @@ export default function AdminPortalPage() {
                           }));
                         }}
                         placeholder="Civic rationale connecting metric to steep slopes, erosion, floods, and household livelihood..."
-                        style={{ width: '100%', padding: '10px 12px', borderRadius: '6px', background: '#0f172a', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem', lineHeight: 1.6 }}
+                        style={{ width: '100%', padding: '10px 12px', borderRadius: '6px', background: '#ffffff', border: '1px solid #cbd5e1', color: '#ffffff', fontSize: '0.88rem', lineHeight: 1.6 }}
                       />
                     </div>
 
                     {/* Question 3: What is SUNCASA doing? */}
-                    <div style={{ background: '#1e293b', padding: '18px', borderRadius: '10px', borderLeft: '4px solid #f59e0b' }}>
+                    <div style={{ background: '#f8fafc', padding: '18px', borderRadius: '10px', borderLeft: '4px solid #f59e0b' }}>
                       <label style={{ display: 'block', fontSize: '0.86rem', fontWeight: 700, color: '#fbbf24', marginBottom: '6px' }}>
                         {narrativeLocaleTab === 'en'
                           ? '3. What is SUNCASA doing about it with City of Kigali and RFA?'
@@ -3027,7 +3027,7 @@ export default function AdminPortalPage() {
                           }));
                         }}
                         placeholder="Specific on-the-ground interventions: vegetative check-dams, seedling nurseries, hillside terracing..."
-                        style={{ width: '100%', padding: '10px 12px', borderRadius: '6px', background: '#0f172a', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem', lineHeight: 1.6 }}
+                        style={{ width: '100%', padding: '10px 12px', borderRadius: '6px', background: '#ffffff', border: '1px solid #cbd5e1', color: '#ffffff', fontSize: '0.88rem', lineHeight: 1.6 }}
                       />
                     </div>
                   </div>
@@ -3035,7 +3035,7 @@ export default function AdminPortalPage() {
                   {/* Limitations & Citation */}
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '18px', marginBottom: '24px' }}>
                     <div>
-                      <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#cbd5e1', marginBottom: '6px' }}>
+                      <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
                         Methodological Limitations & Measurement Caveats
                       </label>
                       <textarea
@@ -3052,12 +3052,12 @@ export default function AdminPortalPage() {
                           }));
                         }}
                         placeholder="e.g. Canopy closure takes 3-5 years; permanent sample plots have +/- 3.5% error margin..."
-                        style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.85rem' }}
+                        style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.85rem' }}
                       />
                     </div>
 
                     <div>
-                      <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#cbd5e1', marginBottom: '6px' }}>
+                      <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
                         Official Data Source Citation
                       </label>
                       <textarea
@@ -3074,7 +3074,7 @@ export default function AdminPortalPage() {
                           }));
                         }}
                         placeholder="e.g. Rwanda Forestry Authority (RFA) & City of Kigali Land Use Registry (FMES-LU-01)"
-                        style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.85rem' }}
+                        style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.85rem' }}
                       />
                     </div>
                   </div>
@@ -3111,7 +3111,7 @@ export default function AdminPortalPage() {
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
                   <div>
                     <h2 style={{ fontSize: '1.4rem', fontWeight: 700, margin: '0 0 4px 0' }}>Role-Based Access Control & User Delegation</h2>
-                    <p style={{ color: '#94a3b8', fontSize: '0.88rem', margin: 0 }}>
+                    <p style={{ color: '#475569', fontSize: '0.88rem', margin: 0 }}>
                       Manage administrators, assign Super Administrator privileges, and delegate roles across SUNCASA partner organizations.
                     </p>
                   </div>
@@ -3127,7 +3127,7 @@ export default function AdminPortalPage() {
                     <button
                       type="button"
                       onClick={() => setShowCreateRoleModal(true)}
-                      style={{ padding: '10px 16px', borderRadius: '8px', background: '#1e293b', border: '1px solid #334155', color: '#f8fafc', fontWeight: 700, fontSize: '0.88rem', cursor: 'pointer' }}
+                      style={{ padding: '10px 16px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontWeight: 700, fontSize: '0.88rem', cursor: 'pointer' }}
                     >
                       + Add Custom Role
                     </button>
@@ -3135,15 +3135,15 @@ export default function AdminPortalPage() {
                 </div>
 
                 {/* Users List Table */}
-                <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '12px', overflow: 'hidden', marginBottom: '32px' }}>
-                  <div style={{ padding: '16px 20px', borderBottom: '1px solid #1e293b', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <h3 style={{ fontSize: '1.05rem', fontWeight: 700, margin: 0 }}>Delegated Administrators & Analysts</h3>
+                <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', overflow: 'hidden', marginBottom: '32px' }}>
+                  <div style={{ padding: '16px 20px', borderBottom: '1px solid #f1f5f9', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <h3 style={{ fontSize: '1.05rem', fontWeight: 700, margin: 0, color: '#0f172a' }}>Delegated Administrators & Analysts</h3>
                     <span style={{ fontSize: '0.78rem', color: '#64748b' }}>{users.length} registered accounts</span>
                   </div>
 
                   <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.88rem' }}>
                     <thead>
-                      <tr style={{ background: '#1e293b', color: '#94a3b8', borderBottom: '1px solid #334155' }}>
+                      <tr style={{ background: '#f8fafc', color: '#0f172a', borderBottom: '1px solid #e2e8f0' }}>
                         <th style={{ padding: '12px 18px' }}>User Name</th>
                         <th style={{ padding: '12px 18px' }}>Email</th>
                         <th style={{ padding: '12px 18px' }}>Organization</th>
@@ -3157,15 +3157,15 @@ export default function AdminPortalPage() {
                         const isSuperAdmin = u.role_id === 'super_admin';
 
                         return (
-                          <tr key={u.id} style={{ borderBottom: '1px solid #1e293b' }}>
-                            <td style={{ padding: '14px 18px', fontWeight: 700, color: '#f8fafc' }}>
+                          <tr key={u.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                            <td style={{ padding: '14px 18px', fontWeight: 700, color: '#0f172a' }}>
                               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                                 <span>{u.name}</span>
                                 {isSuperAdmin && <span title="Super Administrator">⭐</span>}
                               </div>
                             </td>
-                            <td style={{ padding: '14px 18px', color: '#94a3b8' }}>{u.email}</td>
-                            <td style={{ padding: '14px 18px', color: '#cbd5e1' }}>{u.organization}</td>
+                            <td style={{ padding: '14px 18px', color: '#475569' }}>{u.email}</td>
+                            <td style={{ padding: '14px 18px', color: '#334155' }}>{u.organization}</td>
                             <td style={{ padding: '14px 18px' }}>
                               <span
                                 style={{
@@ -3207,9 +3207,9 @@ export default function AdminPortalPage() {
                                   style={{
                                     padding: '5px 8px',
                                     borderRadius: '6px',
-                                    background: '#1e293b',
-                                    border: '1px solid #334155',
-                                    color: '#ffffff',
+                                    background: '#f8fafc',
+                                    border: '1px solid #cbd5e1',
+                                    color: '#0f172a',
                                     fontSize: '0.78rem',
                                   }}
                                 >
@@ -3276,14 +3276,14 @@ export default function AdminPortalPage() {
               <div>
                 <div style={{ marginBottom: '24px' }}>
                   <h2 style={{ fontSize: '1.4rem', fontWeight: 700, margin: '0 0 4px 0' }}>Database & System Interoperability</h2>
-                  <p style={{ color: '#94a3b8', fontSize: '0.88rem', margin: 0 }}>
+                  <p style={{ color: '#475569', fontSize: '0.88rem', margin: 0 }}>
                     Configure the active database driver, sync with Rwanda Forestry Authority FMES REST APIs, or switch to Firebase Firestore.
                   </p>
                 </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px' }}>
                   {/* Driver Card 1: Memory / Local JSON */}
-                  <div style={{ background: '#0f172a', border: driver === 'memory' ? '2px solid #0284c7' : '1px solid #1e293b', borderRadius: '12px', padding: '24px' }}>
+                  <div style={{ background: '#ffffff', border: driver === 'memory' ? '2px solid #0284c7' : '1px solid #1e293b', borderRadius: '12px', padding: '24px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
                       <h3 style={{ fontSize: '1.1rem', fontWeight: 700, margin: 0 }}>In-Memory / Local JSON</h3>
                       {driver === 'memory' && (
@@ -3292,7 +3292,7 @@ export default function AdminPortalPage() {
                         </span>
                       )}
                     </div>
-                    <p style={{ fontSize: '0.84rem', color: '#94a3b8', lineHeight: 1.5, marginBottom: '16px' }}>
+                    <p style={{ fontSize: '0.84rem', color: '#475569', lineHeight: 1.5, marginBottom: '16px' }}>
                       Uses bundled indicators.json, indicator_narratives.json, and landing_stories.json files with instantaneous zero-latency in-memory query execution and disk sync.
                     </p>
                     <button
@@ -3313,7 +3313,7 @@ export default function AdminPortalPage() {
                   </div>
 
                   {/* Driver Card 2: RFA In-House REST Adapter */}
-                  <div style={{ background: '#0f172a', border: driver === 'inhouse' ? '2px solid #10b981' : '1px solid #1e293b', borderRadius: '12px', padding: '24px' }}>
+                  <div style={{ background: '#ffffff', border: driver === 'inhouse' ? '2px solid #10b981' : '1px solid #1e293b', borderRadius: '12px', padding: '24px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
                       <h3 style={{ fontSize: '1.1rem', fontWeight: 700, margin: 0 }}>RFA-FMES REST Gateway</h3>
                       {driver === 'inhouse' && (
@@ -3322,7 +3322,7 @@ export default function AdminPortalPage() {
                         </span>
                       )}
                     </div>
-                    <p style={{ fontSize: '0.84rem', color: '#94a3b8', lineHeight: 1.5, marginBottom: '16px' }}>
+                    <p style={{ fontSize: '0.84rem', color: '#475569', lineHeight: 1.5, marginBottom: '16px' }}>
                       Connects directly to the Rwanda Forestry Authority FMES REST endpoint for bidirectional indicators syncing.
                     </p>
                     <input
@@ -3330,7 +3330,7 @@ export default function AdminPortalPage() {
                       value={inHouseUrl}
                       onChange={(e) => setInHouseUrl(e.target.value)}
                       placeholder="http://localhost:8000/api/v1"
-                      style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.82rem', marginBottom: '12px' }}
+                      style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.82rem', marginBottom: '12px' }}
                     />
                     <button
                       type="button"
@@ -3367,10 +3367,10 @@ export default function AdminPortalPage() {
                         ● CORS Unrestricted
                       </span>
                     </div>
-                    <h2 style={{ fontSize: '1.45rem', fontWeight: 800, margin: '0 0 6px 0', color: '#f8fafc' }}>
+                    <h2 style={{ fontSize: '1.45rem', fontWeight: 800, margin: '0 0 6px 0', color: '#0f172a' }}>
                       Open REST APIs, Telemetry Ingestion & Embed Syndication
                     </h2>
-                    <p style={{ color: '#94a3b8', fontSize: '0.88rem', margin: 0, maxWidth: '850px', lineHeight: 1.5 }}>
+                    <p style={{ color: '#475569', fontSize: '0.88rem', margin: 0, maxWidth: '850px', lineHeight: 1.5 }}>
                       Enable seamless bidirectional communication between the SUNCASA Kigali Dashboard and external municipal portals (City of Kigali GIS, RFA-FMES, WRI Global Forest Watch, IISD SDG Knowledge Hub).
                     </p>
                   </div>
@@ -3400,8 +3400,8 @@ export default function AdminPortalPage() {
 
                 {/* Status KPI Cards */}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
-                  <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '10px', padding: '16px' }}>
-                    <div style={{ fontSize: '0.75rem', color: '#94a3b8', fontWeight: 600 }}>Public API v1 Status</div>
+                  <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '10px', padding: '16px' }}>
+                    <div style={{ fontSize: '0.75rem', color: '#475569', fontWeight: 600 }}>Public API v1 Status</div>
                     <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#10b981', marginTop: '4px' }}>
                       200 OK Active
                     </div>
@@ -3410,8 +3410,8 @@ export default function AdminPortalPage() {
                     </div>
                   </div>
 
-                  <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '10px', padding: '16px' }}>
-                    <div style={{ fontSize: '0.75rem', color: '#94a3b8', fontWeight: 600 }}>Inbound Ingest API</div>
+                  <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '10px', padding: '16px' }}>
+                    <div style={{ fontSize: '0.75rem', color: '#475569', fontWeight: 600 }}>Inbound Ingest API</div>
                     <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#38bdf8', marginTop: '4px' }}>
                       POST /api/v1/ingest
                     </div>
@@ -3420,8 +3420,8 @@ export default function AdminPortalPage() {
                     </div>
                   </div>
 
-                  <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '10px', padding: '16px' }}>
-                    <div style={{ fontSize: '0.75rem', color: '#94a3b8', fontWeight: 600 }}>Active Partner Keys</div>
+                  <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '10px', padding: '16px' }}>
+                    <div style={{ fontSize: '0.75rem', color: '#475569', fontWeight: 600 }}>Active Partner Keys</div>
                     <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#f59e0b', marginTop: '4px' }}>
                       {apiKeys.length} Registered
                     </div>
@@ -3430,8 +3430,8 @@ export default function AdminPortalPage() {
                     </div>
                   </div>
 
-                  <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '10px', padding: '16px' }}>
-                    <div style={{ fontSize: '0.75rem', color: '#94a3b8', fontWeight: 600 }}>Cross-Origin Sharing</div>
+                  <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '10px', padding: '16px' }}>
+                    <div style={{ fontSize: '0.75rem', color: '#475569', fontWeight: 600 }}>Cross-Origin Sharing</div>
                     <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#a855f7', marginTop: '4px' }}>
                       CORS: * (Open)
                     </div>
@@ -3442,13 +3442,13 @@ export default function AdminPortalPage() {
                 </div>
 
                 {/* Section 1: Registered Ingestion API Keys */}
-                <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '12px', padding: '24px' }}>
+                <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '24px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px', flexWrap: 'wrap', gap: '12px' }}>
                     <div>
-                      <h3 style={{ fontSize: '1.15rem', fontWeight: 700, margin: '0 0 4px 0', color: '#f8fafc' }}>
+                      <h3 style={{ fontSize: '1.15rem', fontWeight: 700, margin: '0 0 4px 0', color: '#0f172a' }}>
                         🔑 Authorized External Client API Keys
                       </h3>
-                      <p style={{ fontSize: '0.82rem', color: '#94a3b8', margin: 0 }}>
+                      <p style={{ fontSize: '0.82rem', color: '#475569', margin: 0 }}>
                         These cryptographic API keys allow verified institutional partners to push live sensor and intervention telemetry into this dashboard.
                       </p>
                     </div>
@@ -3463,9 +3463,9 @@ export default function AdminPortalPage() {
                         style={{
                           padding: '7px 12px',
                           borderRadius: '6px',
-                          background: '#1e293b',
-                          border: '1px solid #334155',
-                          color: '#ffffff',
+                          background: '#f8fafc',
+                          border: '1px solid #cbd5e1',
+                          color: '#0f172a',
                           fontSize: '0.82rem',
                           minWidth: '220px',
                         }}
@@ -3491,7 +3491,7 @@ export default function AdminPortalPage() {
                   <div style={{ overflowX: 'auto' }}>
                     <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.84rem' }}>
                       <thead>
-                        <tr style={{ borderBottom: '1px solid #334155', textAlign: 'left', color: '#94a3b8' }}>
+                        <tr style={{ borderBottom: '1px solid #e2e8f0', textAlign: 'left', color: '#475569' }}>
                           <th style={{ padding: '10px 12px' }}>Client / Partner Organization</th>
                           <th style={{ padding: '10px 12px' }}>API Key Token</th>
                           <th style={{ padding: '10px 12px' }}>Permissions</th>
@@ -3504,12 +3504,12 @@ export default function AdminPortalPage() {
                         {apiKeys.map((k: any) => (
                           <tr key={k.id} style={{ borderBottom: '1px solid rgba(51,65,85,0.5)' }}>
                             <td style={{ padding: '12px' }}>
-                              <strong style={{ color: '#f8fafc', display: 'block' }}>{k.name}</strong>
+                              <strong style={{ color: '#0f172a', display: 'block' }}>{k.name}</strong>
                               <span style={{ fontSize: '0.72rem', color: '#64748b' }}>ID: {k.id}</span>
                             </td>
                             <td style={{ padding: '12px' }}>
                               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                                <code style={{ background: '#1e293b', padding: '4px 8px', borderRadius: '4px', color: '#38bdf8', fontSize: '0.78rem', fontFamily: 'monospace' }}>
+                                <code style={{ background: '#f8fafc', padding: '4px 8px', borderRadius: '4px', color: '#38bdf8', fontSize: '0.78rem', fontFamily: 'monospace' }}>
                                   {k.key}
                                 </code>
                                 <button
@@ -3550,7 +3550,7 @@ export default function AdminPortalPage() {
                                 {k.status}
                               </span>
                             </td>
-                            <td style={{ padding: '12px', color: '#94a3b8', fontSize: '0.78rem' }}>
+                            <td style={{ padding: '12px', color: '#475569', fontSize: '0.78rem' }}>
                               {k.last_used || 'Never'}
                             </td>
                             <td style={{ padding: '12px', textAlign: 'right' }}>
@@ -3579,15 +3579,15 @@ export default function AdminPortalPage() {
                 </div>
 
                 {/* Section 2: Interactive Inbound Ingestion Simulator */}
-                <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '12px', padding: '24px' }}>
+                <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '24px' }}>
                   <div style={{ marginBottom: '16px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                       <span style={{ fontSize: '1.2rem' }}>📥</span>
-                      <h3 style={{ fontSize: '1.15rem', fontWeight: 700, margin: 0, color: '#f8fafc' }}>
+                      <h3 style={{ fontSize: '1.15rem', fontWeight: 700, margin: 0, color: '#0f172a' }}>
                         Inbound Data Ingestion Simulator (POST /api/v1/ingest)
                       </h3>
                     </div>
-                    <p style={{ fontSize: '0.82rem', color: '#94a3b8', marginTop: '4px', marginBottom: 0 }}>
+                    <p style={{ fontSize: '0.82rem', color: '#475569', marginTop: '4px', marginBottom: 0 }}>
                       Simulate an automated machine-to-machine payload sent from an external IoT telemetry feed or partner server.
                     </p>
                   </div>
@@ -3595,7 +3595,7 @@ export default function AdminPortalPage() {
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
                     <div>
                       <div style={{ marginBottom: '12px' }}>
-                        <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#cbd5e1', marginBottom: '4px' }}>
+                        <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#334155', marginBottom: '4px' }}>
                           Client API Key (Header: x-api-key)
                         </label>
                         <input
@@ -3606,8 +3606,8 @@ export default function AdminPortalPage() {
                             width: '100%',
                             padding: '8px 12px',
                             borderRadius: '6px',
-                            background: '#1e293b',
-                            border: '1px solid #334155',
+                            background: '#f8fafc',
+                            border: '1px solid #cbd5e1',
                             color: '#38bdf8',
                             fontSize: '0.82rem',
                             fontFamily: 'monospace',
@@ -3616,7 +3616,7 @@ export default function AdminPortalPage() {
                       </div>
 
                       <div style={{ marginBottom: '14px' }}>
-                        <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#cbd5e1', marginBottom: '4px' }}>
+                        <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#334155', marginBottom: '4px' }}>
                           JSON Telemetry Payload (Single reading, batch, or indicator schema)
                         </label>
                         <textarea
@@ -3627,9 +3627,9 @@ export default function AdminPortalPage() {
                             width: '100%',
                             padding: '10px 12px',
                             borderRadius: '6px',
-                            background: '#1e293b',
-                            border: '1px solid #334155',
-                            color: '#ffffff',
+                            background: '#f8fafc',
+                            border: '1px solid #cbd5e1',
+                            color: '#0f172a',
                             fontSize: '0.8rem',
                             fontFamily: 'monospace',
                             resize: 'vertical',
@@ -3660,13 +3660,13 @@ export default function AdminPortalPage() {
                     </div>
 
                     <div>
-                      <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#cbd5e1', marginBottom: '4px' }}>
+                      <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 700, color: '#334155', marginBottom: '4px' }}>
                         Server Response & Verification
                       </label>
                       <div
                         style={{
                           background: '#0b1324',
-                          border: '1px solid #334155',
+                          border: '1px solid #cbd5e1',
                           borderRadius: '6px',
                           padding: '12px 14px',
                           minHeight: '230px',
@@ -3685,22 +3685,22 @@ export default function AdminPortalPage() {
                 </div>
 
                 {/* Section 3: REST API v1 Documentation & Outbound Endpoints */}
-                <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: '12px', padding: '24px' }}>
+                <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '24px' }}>
                   <div style={{ marginBottom: '18px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                       <span style={{ fontSize: '1.2rem' }}>📖</span>
-                      <h3 style={{ fontSize: '1.15rem', fontWeight: 700, margin: 0, color: '#f8fafc' }}>
+                      <h3 style={{ fontSize: '1.15rem', fontWeight: 700, margin: 0, color: '#0f172a' }}>
                         REST API v1 Endpoints & Developer Integration Guide
                       </h3>
                     </div>
-                    <p style={{ fontSize: '0.82rem', color: '#94a3b8', marginTop: '4px', marginBottom: 0 }}>
+                    <p style={{ fontSize: '0.82rem', color: '#475569', marginTop: '4px', marginBottom: 0 }}>
                       Complete API specifications for third-party dashboards, spatial analysts, and automated harvesting bots.
                     </p>
                   </div>
 
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                     {/* Endpoint 1: Outbound Indicators List */}
-                    <div style={{ background: '#1e293b', borderRadius: '8px', padding: '14px 18px', border: '1px solid #334155' }}>
+                    <div style={{ background: '#f8fafc', borderRadius: '8px', padding: '14px 18px', border: '1px solid #cbd5e1' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                           <span style={{ background: '#10b981', color: '#000000', fontWeight: 800, padding: '3px 8px', borderRadius: '4px', fontSize: '0.74rem' }}>
@@ -3709,7 +3709,7 @@ export default function AdminPortalPage() {
                           <code style={{ fontSize: '0.9rem', color: '#38bdf8', fontWeight: 700 }}>
                             /api/v1/indicators
                           </code>
-                          <span style={{ fontSize: '0.78rem', color: '#94a3b8' }}>
+                          <span style={{ fontSize: '0.78rem', color: '#475569' }}>
                             Returns full indicator catalogue with optional query filters (?theme=climate&status=on-track)
                           </span>
                         </div>
@@ -3733,7 +3733,7 @@ export default function AdminPortalPage() {
                     </div>
 
                     {/* Endpoint 2: Single Indicator Detail */}
-                    <div style={{ background: '#1e293b', borderRadius: '8px', padding: '14px 18px', border: '1px solid #334155' }}>
+                    <div style={{ background: '#f8fafc', borderRadius: '8px', padding: '14px 18px', border: '1px solid #cbd5e1' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                           <span style={{ background: '#10b981', color: '#000000', fontWeight: 800, padding: '3px 8px', borderRadius: '4px', fontSize: '0.74rem' }}>
@@ -3742,7 +3742,7 @@ export default function AdminPortalPage() {
                           <code style={{ fontSize: '0.9rem', color: '#38bdf8', fontWeight: 700 }}>
                             /api/v1/indicators/:id
                           </code>
-                          <span style={{ fontSize: '0.78rem', color: '#94a3b8' }}>
+                          <span style={{ fontSize: '0.78rem', color: '#475569' }}>
                             Returns single indicator with trends, micro-catchment GPS points, and English/Kinyarwanda narratives
                           </span>
                         </div>
@@ -3766,7 +3766,7 @@ export default function AdminPortalPage() {
                     </div>
 
                     {/* Endpoint 3: Embed Route */}
-                    <div style={{ background: '#1e293b', borderRadius: '8px', padding: '14px 18px', border: '1px solid #334155' }}>
+                    <div style={{ background: '#f8fafc', borderRadius: '8px', padding: '14px 18px', border: '1px solid #cbd5e1' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                           <span style={{ background: '#f59e0b', color: '#000000', fontWeight: 800, padding: '3px 8px', borderRadius: '4px', fontSize: '0.74rem' }}>
@@ -3775,7 +3775,7 @@ export default function AdminPortalPage() {
                           <code style={{ fontSize: '0.9rem', color: '#38bdf8', fontWeight: 700 }}>
                             /embed/indicator/:id?view=chart|card|map&theme=light|dark&lang=en|rw
                           </code>
-                          <span style={{ fontSize: '0.78rem', color: '#94a3b8' }}>
+                          <span style={{ fontSize: '0.78rem', color: '#475569' }}>
                             Zero-dependency standalone iframe container
                           </span>
                         </div>
@@ -3803,13 +3803,13 @@ export default function AdminPortalPage() {
                   {testOutboundResponse && (
                     <div style={{ marginTop: '16px' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                        <span style={{ fontSize: '0.76rem', color: '#cbd5e1', fontWeight: 700 }}>
+                        <span style={{ fontSize: '0.76rem', color: '#334155', fontWeight: 700 }}>
                           Live Response Output from: <code style={{ color: '#38bdf8' }}>{testOutboundUrl}</code>
                         </span>
                         <button
                           type="button"
                           onClick={() => setTestOutboundResponse(null)}
-                          style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: '0.74rem', cursor: 'pointer' }}
+                          style={{ background: 'none', border: 'none', color: '#475569', fontSize: '0.74rem', cursor: 'pointer' }}
                         >
                           Clear
                         </button>
@@ -3817,7 +3817,7 @@ export default function AdminPortalPage() {
                       <div
                         style={{
                           background: '#0b1324',
-                          border: '1px solid #334155',
+                          border: '1px solid #cbd5e1',
                           borderRadius: '6px',
                           padding: '12px 14px',
                           maxHeight: '260px',
@@ -3839,34 +3839,34 @@ export default function AdminPortalPage() {
                   <h3 style={{ fontSize: '1.15rem', fontWeight: 800, margin: '0 0 8px 0', color: '#38bdf8' }}>
                     🚀 Future Expansion Architecture & Strategic Roadmap
                   </h3>
-                  <p style={{ fontSize: '0.84rem', color: '#cbd5e1', lineHeight: 1.5, margin: '0 0 16px 0' }}>
+                  <p style={{ fontSize: '0.84rem', color: '#334155', lineHeight: 1.5, margin: '0 0 16px 0' }}>
                     As SUNCASA expands past the initial Kigali Catchment pilot, this architecture supports the following expansion vectors:
                   </p>
 
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
-                    <div style={{ background: 'rgba(15, 23, 42, 0.6)', border: '1px solid #334155', borderRadius: '8px', padding: '14px' }}>
+                    <div style={{ background: 'rgba(15, 23, 42, 0.6)', border: '1px solid #cbd5e1', borderRadius: '8px', padding: '14px' }}>
                       <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#10b981', marginBottom: '4px' }}>
                         1. IoT Hydrometric Sensors
                       </div>
-                      <div style={{ fontSize: '0.78rem', color: '#94a3b8', lineHeight: 1.4 }}>
+                      <div style={{ fontSize: '0.78rem', color: '#475569', lineHeight: 1.4 }}>
                         Automated LoRaWAN ultrasonic water-level gauges and rain gauges installed at the Mpazi ravine and Nyabugogo confluence streaming 15-minute telemetry directly via <code style={{ color: '#38bdf8' }}>/api/v1/ingest</code>.
                       </div>
                     </div>
 
-                    <div style={{ background: 'rgba(15, 23, 42, 0.6)', border: '1px solid #334155', borderRadius: '8px', padding: '14px' }}>
+                    <div style={{ background: 'rgba(15, 23, 42, 0.6)', border: '1px solid #cbd5e1', borderRadius: '8px', padding: '14px' }}>
                       <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#f59e0b', marginBottom: '4px' }}>
                         2. Citizen Science & Mobile ODK
                       </div>
-                      <div style={{ fontSize: '0.78rem', color: '#94a3b8', lineHeight: 1.4 }}>
+                      <div style={{ fontSize: '0.78rem', color: '#475569', lineHeight: 1.4 }}>
                         Field rangers and local community cooperatives submit geotagged tree seedling survival photos and erosion reports via ODK / KoboToolbox webhooks.
                       </div>
                     </div>
 
-                    <div style={{ background: 'rgba(15, 23, 42, 0.6)', border: '1px solid #334155', borderRadius: '8px', padding: '14px' }}>
+                    <div style={{ background: 'rgba(15, 23, 42, 0.6)', border: '1px solid #cbd5e1', borderRadius: '8px', padding: '14px' }}>
                       <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#a855f7', marginBottom: '4px' }}>
                         3. Multi-City Federation
                       </div>
-                      <div style={{ fontSize: '0.78rem', color: '#94a3b8', lineHeight: 1.4 }}>
+                      <div style={{ fontSize: '0.78rem', color: '#475569', lineHeight: 1.4 }}>
                         Federated node architecture allowing secondary cities in Rwanda (Musanze, Rubavu, Huye) to launch their own branded instances while synchronizing national indicators to the central Kigali node.
                       </div>
                     </div>
@@ -3888,10 +3888,10 @@ export default function AdminPortalPage() {
                         LANDING PAGE
                       </span>
                     </div>
-                    <h2 style={{ fontSize: '1.45rem', fontWeight: 800, margin: '0 0 6px 0', color: '#f8fafc' }}>
+                    <h2 style={{ fontSize: '1.45rem', fontWeight: 800, margin: '0 0 6px 0', color: '#0f172a' }}>
                       Partner & Collaborator Logos
                     </h2>
-                    <p style={{ color: '#94a3b8', fontSize: '0.88rem', margin: 0, maxWidth: '700px', lineHeight: 1.5 }}>
+                    <p style={{ color: '#475569', fontSize: '0.88rem', margin: 0, maxWidth: '700px', lineHeight: 1.5 }}>
                       Manage the partner and collaborator logos displayed in the landing page footer. Each entry includes a logo image URL and a link that opens when clicked.
                     </p>
                   </div>
@@ -3915,7 +3915,7 @@ export default function AdminPortalPage() {
                 {loadingCollaborators ? (
                   <div style={{ textAlign: 'center', padding: '40px', color: '#64748b' }}>Loading collaborators...</div>
                 ) : collaborators.length === 0 ? (
-                  <div style={{ textAlign: 'center', padding: '60px 20px', background: '#0a111e', borderRadius: '12px', border: '1px dashed #1e293b' }}>
+                  <div style={{ textAlign: 'center', padding: '60px 20px', background: '#ffffff', borderRadius: '12px', border: '1px dashed #1e293b' }}>
                     <div style={{ fontSize: '2.5rem', marginBottom: '12px' }}>🤝</div>
                     <p style={{ color: '#64748b', fontSize: '0.95rem', margin: '0 0 16px 0' }}>No collaborators yet. Add your first partner logo.</p>
                     <button
@@ -3931,7 +3931,7 @@ export default function AdminPortalPage() {
                     {collaborators.map((collab: any) => (
                       <div
                         key={collab.id}
-                        style={{ background: '#0a111e', border: '1px solid #1e293b', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px', transition: 'border-color 0.2s' }}
+                        style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px', transition: 'border-color 0.2s' }}
                       >
                         {/* Logo Preview */}
                         <div style={{ height: '80px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#ffffff10', borderRadius: '8px', overflow: 'hidden' }}>
@@ -3948,7 +3948,7 @@ export default function AdminPortalPage() {
                         </div>
                         {/* Info */}
                         <div>
-                          <div style={{ fontWeight: 700, color: '#f8fafc', fontSize: '0.95rem', marginBottom: '2px' }}>{collab.name}</div>
+                          <div style={{ fontWeight: 700, color: '#0f172a', fontSize: '0.95rem', marginBottom: '2px' }}>{collab.name}</div>
                           {collab.description && (
                             <div style={{ color: '#64748b', fontSize: '0.78rem', marginBottom: '4px' }}>{collab.description}</div>
                           )}
@@ -3973,7 +3973,7 @@ export default function AdminPortalPage() {
                               setCollabDescription(collab.description || '');
                               setShowCollabModal(true);
                             }}
-                            style={{ flex: 1, padding: '8px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#94a3b8', cursor: 'pointer', fontSize: '0.82rem', fontWeight: 600 }}
+                            style={{ flex: 1, padding: '8px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#475569', cursor: 'pointer', fontSize: '0.82rem', fontWeight: 600 }}
                           >
                             ✏️ Edit
                           </button>
@@ -4009,17 +4009,17 @@ export default function AdminPortalPage() {
 
                 {/* Live Preview */}
                 {collaborators.length > 0 && (
-                  <div style={{ background: '#0a111e', border: '1px solid #1e293b', borderRadius: '12px', padding: '24px' }}>
+                  <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '24px' }}>
                     <div style={{ fontSize: '0.8rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '16px' }}>Landing Page Preview</div>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', alignItems: 'center' }}>
                       {collaborators.map((collab: any) => (
-                        <div key={collab.id} style={{ background: '#ffffff0d', border: '1px solid #1e293b', borderRadius: '8px', padding: '10px 16px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <div key={collab.id} style={{ background: '#ffffff0d', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '10px 16px', display: 'flex', alignItems: 'center', gap: '10px' }}>
                           {collab.logoUrl ? (
                             <img src={collab.logoUrl} alt={collab.name} style={{ height: '28px', maxWidth: '80px', objectFit: 'contain' }} onError={(e) => { (e.target as HTMLImageElement).style.display='none'; }} />
                           ) : (
                             <span style={{ fontSize: '1.1rem' }}>🏢</span>
                           )}
-                          <span style={{ fontSize: '0.82rem', color: '#cbd5e1', fontWeight: 600 }}>{collab.name}</span>
+                          <span style={{ fontSize: '0.82rem', color: '#334155', fontWeight: 600 }}>{collab.name}</span>
                         </div>
                       ))}
                     </div>
@@ -4036,20 +4036,20 @@ export default function AdminPortalPage() {
       {/* ------------------------------------------------------------- */}
       {showEditIndicatorModal && editingIndicator && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100, padding: '20px' }}>
-          <div style={{ width: '100%', maxWidth: '720px', maxHeight: '90vh', overflowY: 'auto', background: '#0f172a', border: '1px solid #334155', borderRadius: '14px', padding: '28px' }}>
+          <div style={{ width: '100%', maxWidth: '720px', maxHeight: '90vh', overflowY: 'auto', background: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '14px', padding: '28px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
               <div>
                 <h3 style={{ fontSize: '1.25rem', fontWeight: 800, margin: 0, color: '#38bdf8' }}>
                   ✏️ Edit Indicator: {editingIndicator.id}
                 </h3>
-                <span style={{ fontSize: '0.78rem', color: '#94a3b8' }}>
+                <span style={{ fontSize: '0.78rem', color: '#475569' }}>
                   Updates are saved to the database adapter and synced to indicators.json
                 </span>
               </div>
               <button
                 type="button"
                 onClick={() => setShowEditIndicatorModal(false)}
-                style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: '1.2rem', cursor: 'pointer' }}
+                style={{ background: 'none', border: 'none', color: '#475569', fontSize: '1.2rem', cursor: 'pointer' }}
               >
                 ✕
               </button>
@@ -4057,7 +4057,7 @@ export default function AdminPortalPage() {
 
             <form onSubmit={handleSaveIndicator} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div>
-                <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#cbd5e1', marginBottom: '4px' }}>
+                <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
                   Scientific Definition & Public Title
                 </label>
                 <input
@@ -4065,17 +4065,17 @@ export default function AdminPortalPage() {
                   required
                   value={editingIndicator.definition}
                   onChange={(e) => setEditingIndicator({ ...editingIndicator, definition: e.target.value })}
-                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.9rem' }}
+                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.9rem' }}
                 />
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '4px' }}>Theme</label>
+                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', marginBottom: '4px' }}>Theme</label>
                   <select
                     value={editingIndicator.theme}
                     onChange={(e) => setEditingIndicator({ ...editingIndicator, theme: e.target.value })}
-                    style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem' }}
+                    style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
                   >
                     <option value="climate">Climate Adaptation</option>
                     <option value="biodiversity">Biodiversity Protection</option>
@@ -4086,50 +4086,50 @@ export default function AdminPortalPage() {
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '4px' }}>Unit of Measure</label>
+                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', marginBottom: '4px' }}>Unit of Measure</label>
                   <input
                     type="text"
                     value={editingIndicator.unit}
                     onChange={(e) => setEditingIndicator({ ...editingIndicator, unit: e.target.value })}
-                    style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem' }}
+                    style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
                   />
                 </div>
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: '12px' }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '4px' }}>2024 Baseline</label>
+                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', marginBottom: '4px' }}>2024 Baseline</label>
                   <input
                     type="number"
                     value={editingIndicator.baseline_2024}
                     onChange={(e) => setEditingIndicator({ ...editingIndicator, baseline_2024: Number(e.target.value) })}
-                    style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem' }}
+                    style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
                   />
                 </div>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '4px' }}>2025 Current</label>
+                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', marginBottom: '4px' }}>2025 Current</label>
                   <input
                     type="number"
                     value={editingIndicator.current_2025}
                     onChange={(e) => setEditingIndicator({ ...editingIndicator, current_2025: Number(e.target.value) })}
-                    style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem' }}
+                    style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
                   />
                 </div>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '4px' }}>2026 Target</label>
+                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', marginBottom: '4px' }}>2026 Target</label>
                   <input
                     type="number"
                     value={editingIndicator.target_2026}
                     onChange={(e) => setEditingIndicator({ ...editingIndicator, target_2026: Number(e.target.value) })}
-                    style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem' }}
+                    style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
                   />
                 </div>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '4px' }}>Status</label>
+                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', marginBottom: '4px' }}>Status</label>
                   <select
                     value={editingIndicator.status}
                     onChange={(e) => setEditingIndicator({ ...editingIndicator, status: e.target.value as any })}
-                    style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem' }}
+                    style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
                   >
                     <option value="on-track">on-track</option>
                     <option value="exceeded">exceeded</option>
@@ -4140,42 +4140,42 @@ export default function AdminPortalPage() {
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '4px' }}>FMES Code</label>
+                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', marginBottom: '4px' }}>FMES Code</label>
                   <input
                     type="text"
                     value={editingIndicator.fmes_code}
                     onChange={(e) => setEditingIndicator({ ...editingIndicator, fmes_code: e.target.value })}
-                    style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem' }}
+                    style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
                   />
                 </div>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '4px' }}>FMES Alignment</label>
+                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', marginBottom: '4px' }}>FMES Alignment</label>
                   <input
                     type="text"
                     value={editingIndicator.fmes_alignment}
                     onChange={(e) => setEditingIndicator({ ...editingIndicator, fmes_alignment: e.target.value })}
-                    style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem' }}
+                    style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
                   />
                 </div>
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '4px' }}>Data Source Citation</label>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', marginBottom: '4px' }}>Data Source Citation</label>
                 <input
                   type="text"
                   value={editingIndicator.data_source_citation}
                   onChange={(e) => setEditingIndicator({ ...editingIndicator, data_source_citation: e.target.value })}
-                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem' }}
+                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
                 />
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '4px' }}>Measurement Method</label>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', marginBottom: '4px' }}>Measurement Method</label>
                 <input
                   type="text"
                   value={editingIndicator.measurement_method}
                   onChange={(e) => setEditingIndicator({ ...editingIndicator, measurement_method: e.target.value })}
-                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem' }}
+                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
                 />
               </div>
 
@@ -4196,7 +4196,7 @@ export default function AdminPortalPage() {
                   <button
                     type="button"
                     onClick={() => setShowEditIndicatorModal(false)}
-                    style={{ padding: '10px 18px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#94a3b8', cursor: 'pointer' }}
+                    style={{ padding: '10px 18px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#475569', cursor: 'pointer' }}
                   >
                     Cancel
                   </button>
@@ -4219,20 +4219,20 @@ export default function AdminPortalPage() {
       {/* ------------------------------------------------------------- */}
       {showStoryModal && editingStory && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100, padding: '20px' }}>
-          <div style={{ width: '100%', maxWidth: '780px', maxHeight: '90vh', overflowY: 'auto', background: '#0f172a', border: '1px solid #334155', borderRadius: '14px', padding: '28px' }}>
+          <div style={{ width: '100%', maxWidth: '780px', maxHeight: '90vh', overflowY: 'auto', background: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '14px', padding: '28px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
               <div>
                 <h3 style={{ fontSize: '1.25rem', fontWeight: 800, margin: 0, color: '#38bdf8' }}>
                   📰 Landing Page Story Editor
                 </h3>
-                <span style={{ fontSize: '0.78rem', color: '#94a3b8' }}>
+                <span style={{ fontSize: '0.78rem', color: '#475569' }}>
                   Slug ID: <code style={{ color: '#38bdf8' }}>{editingStory.id}</code>
                 </span>
               </div>
               <button
                 type="button"
                 onClick={() => setShowStoryModal(false)}
-                style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: '1.2rem', cursor: 'pointer' }}
+                style={{ background: 'none', border: 'none', color: '#475569', fontSize: '1.2rem', cursor: 'pointer' }}
               >
                 ✕
               </button>
@@ -4242,17 +4242,17 @@ export default function AdminPortalPage() {
               {/* Common Story Attributes */}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '4px' }}>Story Slug ID</label>
+                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', marginBottom: '4px' }}>Story Slug ID</label>
                   <input
                     type="text"
                     required
                     value={editingStory.id}
                     onChange={(e) => setEditingStory({ ...editingStory, id: e.target.value })}
-                    style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem' }}
+                    style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
                   />
                 </div>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '4px' }}>Pill Color Accent</label>
+                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', marginBottom: '4px' }}>Pill Color Accent</label>
                   <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                     <input
                       type="color"
@@ -4264,14 +4264,14 @@ export default function AdminPortalPage() {
                       type="text"
                       value={editingStory.tagColor || '#0284c7'}
                       onChange={(e) => setEditingStory({ ...editingStory, tagColor: e.target.value })}
-                      style={{ flex: 1, padding: '10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem' }}
+                      style={{ flex: 1, padding: '10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
                     />
                   </div>
                 </div>
               </div>
 
               {/* Language Switcher */}
-              <div style={{ display: 'flex', gap: '8px', borderBottom: '1px solid #1e293b', paddingBottom: '12px' }}>
+              <div style={{ display: 'flex', gap: '8px', borderBottom: '1px solid #f1f5f9', paddingBottom: '12px' }}>
                 <button
                   type="button"
                   onClick={() => setStoryLocaleTab('en')}
@@ -4309,7 +4309,7 @@ export default function AdminPortalPage() {
               {/* Localized Story Fields */}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '4px' }}>
+                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', marginBottom: '4px' }}>
                     Tag Label ({storyLocaleTab.toUpperCase()})
                   </label>
                   <input
@@ -4324,11 +4324,11 @@ export default function AdminPortalPage() {
                       }));
                     }}
                     placeholder="e.g. Flood Resilience"
-                    style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem' }}
+                    style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
                   />
                 </div>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '4px' }}>
+                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', marginBottom: '4px' }}>
                     Publication Date ({storyLocaleTab.toUpperCase()})
                   </label>
                   <input
@@ -4343,13 +4343,13 @@ export default function AdminPortalPage() {
                       }));
                     }}
                     placeholder="e.g. February 2025"
-                    style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem' }}
+                    style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
                   />
                 </div>
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '4px' }}>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', marginBottom: '4px' }}>
                   Story Headline Title ({storyLocaleTab.toUpperCase()})
                 </label>
                 <input
@@ -4363,12 +4363,12 @@ export default function AdminPortalPage() {
                       [storyLocaleTab]: { ...prev[storyLocaleTab], title: val },
                     }));
                   }}
-                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.9rem' }}
+                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.9rem' }}
                 />
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '4px' }}>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', marginBottom: '4px' }}>
                   Card Summary / Excerpt ({storyLocaleTab.toUpperCase()})
                 </label>
                 <textarea
@@ -4382,13 +4382,13 @@ export default function AdminPortalPage() {
                       [storyLocaleTab]: { ...prev[storyLocaleTab], summary: val },
                     }));
                   }}
-                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem' }}
+                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
                 />
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '14px' }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '4px' }}>
+                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', marginBottom: '4px' }}>
                     Featured Community Quote ({storyLocaleTab.toUpperCase()})
                   </label>
                   <textarea
@@ -4401,11 +4401,11 @@ export default function AdminPortalPage() {
                         [storyLocaleTab]: { ...prev[storyLocaleTab], quote: val },
                       }));
                     }}
-                    style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem' }}
+                    style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
                   />
                 </div>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '4px' }}>
+                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', marginBottom: '4px' }}>
                     Quote Author ({storyLocaleTab.toUpperCase()})
                   </label>
                   <input
@@ -4419,13 +4419,13 @@ export default function AdminPortalPage() {
                       }));
                     }}
                     placeholder="e.g. Chantal M."
-                    style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem' }}
+                    style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
                   />
                 </div>
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '4px' }}>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', marginBottom: '4px' }}>
                   Full Report Body Paragraphs (One paragraph per line)
                 </label>
                 <textarea
@@ -4446,7 +4446,7 @@ export default function AdminPortalPage() {
                     }));
                   }}
                   placeholder="Paste multi-paragraph narrative here. Separate paragraphs with a blank line."
-                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem', lineHeight: 1.6 }}
+                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem', lineHeight: 1.6 }}
                 />
               </div>
 
@@ -4454,7 +4454,7 @@ export default function AdminPortalPage() {
                 <button
                   type="button"
                   onClick={() => setShowStoryModal(false)}
-                  style={{ padding: '10px 18px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#94a3b8', cursor: 'pointer' }}
+                  style={{ padding: '10px 18px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#475569', cursor: 'pointer' }}
                 >
                   Cancel
                 </button>
@@ -4476,65 +4476,65 @@ export default function AdminPortalPage() {
       {/* ------------------------------------------------------------- */}
       {showCreateUserModal && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.75)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100, padding: '20px' }}>
-          <div style={{ width: '100%', maxWidth: '480px', background: '#0f172a', border: '1px solid #334155', borderRadius: '14px', padding: '28px' }}>
+          <div style={{ width: '100%', maxWidth: '480px', background: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '14px', padding: '28px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
               <h3 style={{ fontSize: '1.15rem', fontWeight: 700, margin: 0 }}>Add Administrator & Delegate Role</h3>
-              <button type="button" onClick={() => setShowCreateUserModal(false)} style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: '1.2rem', cursor: 'pointer' }}>✕</button>
+              <button type="button" onClick={() => setShowCreateUserModal(false)} style={{ background: 'none', border: 'none', color: '#475569', fontSize: '1.2rem', cursor: 'pointer' }}>✕</button>
             </div>
 
             <form onSubmit={handleCreateUser} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
               <div>
-                <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '4px' }}>Full Name</label>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', marginBottom: '4px' }}>Full Name</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. Jean Damascene Nkurunziza"
                   value={newUserName}
                   onChange={(e) => setNewUserName(e.target.value)}
-                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem' }}
+                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
                 />
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '4px' }}>Email Address</label>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', marginBottom: '4px' }}>Email Address</label>
                 <input
                   type="email"
                   required
                   placeholder="user@rfa.gov.rw"
                   value={newUserEmail}
                   onChange={(e) => setNewUserEmail(e.target.value)}
-                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem' }}
+                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
                 />
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '4px' }}>Initial Temporary Password</label>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', marginBottom: '4px' }}>Initial Temporary Password</label>
                 <input
                   type="password"
                   required
                   placeholder="••••••••••••"
                   value={newUserPassword}
                   onChange={(e) => setNewUserPassword(e.target.value)}
-                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem' }}
+                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
                 />
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '4px' }}>Government / Partner Organization</label>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', marginBottom: '4px' }}>Government / Partner Organization</label>
                 <input
                   type="text"
                   value={newUserOrg}
                   onChange={(e) => setNewUserOrg(e.target.value)}
-                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem' }}
+                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
                 />
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '4px' }}>Assigned Delegated Role</label>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', marginBottom: '4px' }}>Assigned Delegated Role</label>
                 <select
                   value={newUserRoleId}
                   onChange={(e) => setNewUserRoleId(e.target.value)}
-                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem' }}
+                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
                 >
                   {roles.map((r) => (
                     <option key={r.id} value={r.id}>
@@ -4562,7 +4562,7 @@ export default function AdminPortalPage() {
                 <button
                   type="button"
                   onClick={() => setShowCreateUserModal(false)}
-                  style={{ padding: '8px 16px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#94a3b8', cursor: 'pointer' }}
+                  style={{ padding: '8px 16px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#475569', cursor: 'pointer' }}
                 >
                   Cancel
                 </button>
@@ -4583,38 +4583,38 @@ export default function AdminPortalPage() {
       {/* ------------------------------------------------------------- */}
       {showCreateRoleModal && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.75)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100, padding: '20px' }}>
-          <div style={{ width: '100%', maxWidth: '520px', background: '#0f172a', border: '1px solid #334155', borderRadius: '14px', padding: '28px' }}>
+          <div style={{ width: '100%', maxWidth: '520px', background: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '14px', padding: '28px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
               <h3 style={{ fontSize: '1.15rem', fontWeight: 700, margin: 0 }}>Add Custom Delegated Role</h3>
-              <button type="button" onClick={() => setShowCreateRoleModal(false)} style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: '1.2rem', cursor: 'pointer' }}>✕</button>
+              <button type="button" onClick={() => setShowCreateRoleModal(false)} style={{ background: 'none', border: 'none', color: '#475569', fontSize: '1.2rem', cursor: 'pointer' }}>✕</button>
             </div>
 
             <form onSubmit={handleCreateRole} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
               <div>
-                <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '4px' }}>Role Name</label>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', marginBottom: '4px' }}>Role Name</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. Yanze Basin Coordinator"
                   value={newRoleName}
                   onChange={(e) => setNewRoleName(e.target.value)}
-                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem' }}
+                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
                 />
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '4px' }}>Description</label>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', marginBottom: '4px' }}>Description</label>
                 <input
                   type="text"
                   placeholder="Role scope and authority..."
                   value={newRoleDesc}
                   onChange={(e) => setNewRoleDesc(e.target.value)}
-                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem' }}
+                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
                 />
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '8px' }}>Permissions</label>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', marginBottom: '8px' }}>Permissions</label>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
                   {[
                     { id: 'indicators:create', label: 'Create Indicators' },
@@ -4626,7 +4626,7 @@ export default function AdminPortalPage() {
                     { id: 'database:configure', label: 'Configure DB' },
                     { id: 'audit:view', label: 'View Audit Logs' },
                   ].map((perm) => (
-                    <label key={perm.id} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.8rem', color: '#cbd5e1', cursor: 'pointer' }}>
+                    <label key={perm.id} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.8rem', color: '#334155', cursor: 'pointer' }}>
                       <input
                         type="checkbox"
                         checked={newRolePermissions.includes(perm.id as Permission)}
@@ -4648,7 +4648,7 @@ export default function AdminPortalPage() {
                 <button
                   type="button"
                   onClick={() => setShowCreateRoleModal(false)}
-                  style={{ padding: '8px 16px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#94a3b8', cursor: 'pointer' }}
+                  style={{ padding: '8px 16px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#475569', cursor: 'pointer' }}
                 >
                   Cancel
                 </button>
@@ -4668,16 +4668,16 @@ export default function AdminPortalPage() {
       {/* ------------------------------------------------------------- */}
       {showCollabModal && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.80)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100, padding: '20px' }}>
-          <div style={{ width: '100%', maxWidth: '520px', background: '#0f172a', border: '1px solid #334155', borderRadius: '14px', padding: '28px' }}>
+          <div style={{ width: '100%', maxWidth: '520px', background: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '14px', padding: '28px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-              <h3 style={{ fontSize: '1.15rem', fontWeight: 700, margin: 0, color: '#f8fafc' }}>
+              <h3 style={{ fontSize: '1.15rem', fontWeight: 700, margin: 0, color: '#0f172a' }}>
                 {editingCollab ? '✏️ Edit Collaborator' : '+ Add Collaborator'}
               </h3>
-              <button type="button" onClick={() => setShowCollabModal(false)} style={{ background: 'none', border: 'none', color: '#94a3b8', fontSize: '1.2rem', cursor: 'pointer' }}>✕</button>
+              <button type="button" onClick={() => setShowCollabModal(false)} style={{ background: 'none', border: 'none', color: '#475569', fontSize: '1.2rem', cursor: 'pointer' }}>✕</button>
             </div>
             <form onSubmit={handleSaveCollab} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div>
-                <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '4px' }}>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', marginBottom: '4px' }}>
                   Partner / Organization Name <span style={{ color: '#f87171' }}>*</span>
                 </label>
                 <input
@@ -4686,11 +4686,11 @@ export default function AdminPortalPage() {
                   placeholder="e.g. Rwanda Forestry Authority"
                   value={collabName}
                   onChange={(e) => setCollabName(e.target.value)}
-                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem', boxSizing: 'border-box' }}
+                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem', boxSizing: 'border-box' }}
                 />
               </div>
               <div>
-                <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '4px' }}>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', marginBottom: '4px' }}>
                   Website URL <span style={{ color: '#f87171' }}>*</span>
                 </label>
                 <input
@@ -4699,11 +4699,11 @@ export default function AdminPortalPage() {
                   placeholder="https://www.example.rw"
                   value={collabUrl}
                   onChange={(e) => setCollabUrl(e.target.value)}
-                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem', boxSizing: 'border-box' }}
+                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem', boxSizing: 'border-box' }}
                 />
               </div>
               <div>
-                <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '4px' }}>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', marginBottom: '4px' }}>
                   Logo Image URL
                   <span style={{ color: '#64748b', marginLeft: '6px', fontSize: '0.74rem' }}>(direct link to PNG/SVG/JPG)</span>
                 </label>
@@ -4712,10 +4712,10 @@ export default function AdminPortalPage() {
                   placeholder="https://example.rw/logo.png"
                   value={collabLogoUrl}
                   onChange={(e) => setCollabLogoUrl(e.target.value)}
-                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem', boxSizing: 'border-box' }}
+                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem', boxSizing: 'border-box' }}
                 />
                 {collabLogoUrl && (
-                  <div style={{ marginTop: '8px', padding: '10px', background: '#0a111e', borderRadius: '6px', border: '1px solid #1e293b', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <div style={{ marginTop: '8px', padding: '10px', background: '#ffffff', borderRadius: '6px', border: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <img
                       src={collabLogoUrl}
                       alt="Logo preview"
@@ -4726,7 +4726,7 @@ export default function AdminPortalPage() {
                 )}
               </div>
               <div>
-                <label style={{ display: 'block', fontSize: '0.8rem', color: '#cbd5e1', marginBottom: '4px' }}>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', marginBottom: '4px' }}>
                   Short Description <span style={{ color: '#64748b', fontSize: '0.74rem' }}>(optional)</span>
                 </label>
                 <input
@@ -4734,14 +4734,14 @@ export default function AdminPortalPage() {
                   placeholder="e.g. National forest management authority"
                   value={collabDescription}
                   onChange={(e) => setCollabDescription(e.target.value)}
-                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#ffffff', fontSize: '0.88rem', boxSizing: 'border-box' }}
+                  style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem', boxSizing: 'border-box' }}
                 />
               </div>
               <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', marginTop: '4px' }}>
                 <button
                   type="button"
                   onClick={() => setShowCollabModal(false)}
-                  style={{ padding: '9px 18px', borderRadius: '6px', background: '#1e293b', border: '1px solid #334155', color: '#94a3b8', cursor: 'pointer', fontWeight: 600 }}
+                  style={{ padding: '9px 18px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#475569', cursor: 'pointer', fontWeight: 600 }}
                 >
                   Cancel
                 </button>

@@ -41,8 +41,8 @@ export default function MyPegAppShell({ children }: MyPegAppShellProps) {
   // Active theme defaults to indicator's theme or 'climate' (first SUNCASA theme)
   const activeThemeId = currentIndicator ? currentIndicator.theme : 'climate';
 
-  // Drawer defaults to open on home page (Screenshot 1), or closed on indicator page (Screenshot 2)
-  const [drawerOpen, setDrawerOpen] = useState<boolean>(pathname === '/');
+  // Drawer starts closed by default, opening only on explicit theme click
+  const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
 
   // Purge any old stale service worker cache and unregister service workers
   useEffect(() => {
@@ -66,7 +66,7 @@ export default function MyPegAppShell({ children }: MyPegAppShellProps) {
   if (pathname.startsWith('/admin')) {
     return (
       <LocaleContext.Provider value={{ locale, setLocale }}>
-        <div className="admin-root-container" style={{ minHeight: '100vh', background: '#0a111e', width: '100%' }}>
+        <div className="admin-root-container" style={{ minHeight: '100vh', background: '#ffffff', width: '100%' }}>
           {children}
         </div>
       </LocaleContext.Provider>
