@@ -25,21 +25,21 @@ export const MYPEG_THEMES: ThemeDef[] = [
     id: 'biodiversity',
     name_en: 'Biodiversity Protection',
     name_rw: 'Kubungabunga Urusobe',
-    color: '#0284c7',
+    color: '#059669',
     icon: 'trees',
   },
   {
     id: 'gesi',
     name_en: 'Gender & Inclusion (GESI)',
     name_rw: 'Uburinganire (GESI)',
-    color: '#0284c7',
+    color: '#7c3aed',
     icon: 'users',
   },
   {
     id: 'economy',
     name_en: 'Employment & Economy',
     name_rw: 'Imirimo n\'Ubukungu',
-    color: '#0284c7',
+    color: '#d97706',
     icon: 'trending-up',
   },
 ];
@@ -72,6 +72,21 @@ const TITLE_MAP_RW: Record<string, string> = {
   green_jobs_created: 'Iminsi y\'Akazi k\'Icyatsi Kahanzwe',
   female_nursery_operators: 'Ubuhumbikiro bw\'Abagore',
   vulnerable_youth_employed: 'Urubyiruko mu Mirimo ya GIS',
+};
+
+const INDICATOR_BG_MAP: Record<string, string> = {
+  area_restored_ha: '#0284c7',
+  flood_risk_reduction: '#0369a1',
+  soil_erosion_prevented: '#0e7490',
+  trees_planted: '#15803d',
+  tree_survival_rate: '#16a34a',
+  riparian_buffer_km: '#059669',
+  water_quality_index: '#0d9488',
+  women_leadership_catchment: '#7c3aed',
+  participants_trained: '#9333ea',
+  green_jobs_created: '#d97706',
+  female_nursery_operators: '#b45309',
+  vulnerable_youth_employed: '#c2410c',
 };
 
 interface MyPegLeftSidebarProps {
@@ -233,54 +248,90 @@ export default function MyPegLeftSidebar({
         </Link>
       </nav>
 
-      {/* 2. Expanding Theme Flyout Drawer (Adjacent to rail, takes active theme color) */}
+      {/* 2. Expanding Theme Flyout Drawer (Adjacent to rail, white surface for contrast) */}
       {drawerOpen && (
         <div
           className="mypeg-theme-drawer"
           style={{
-            backgroundColor: activeTheme.color,
-            color: '#ffffff',
+            backgroundColor: '#ffffff',
+            color: '#0f172a',
+            borderRight: '1px solid #e2e8f0',
+            boxShadow: '4px 0 20px rgba(0, 0, 0, 0.12)',
           }}
           role="region"
           aria-label={`${themeName} indicators`}
         >
           {/* Drawer Header */}
-          <div className="mypeg-drawer-header">
-            <h3 className="mypeg-drawer-title">{themeName}</h3>
+          <div
+            className="mypeg-drawer-header"
+            style={{
+              borderBottom: '1px solid #e2e8f0',
+              backgroundColor: '#f8fafc',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span
+                style={{
+                  display: 'inline-block',
+                  width: '10px',
+                  height: '10px',
+                  borderRadius: '50%',
+                  backgroundColor: activeTheme.color,
+                }}
+              />
+              <h3 className="mypeg-drawer-title" style={{ color: '#0f172a' }}>
+                {themeName}
+              </h3>
+            </div>
             <button
               type="button"
               className="mypeg-drawer-close-btn"
               onClick={() => setDrawerOpen(false)}
               title="Close menu"
               aria-label="Close menu"
+              style={{ color: '#64748b' }}
             >
               ✕
             </button>
           </div>
 
           {/* List of Indicators as Real Next.js Links to Separate Pages */}
-          <ul className="mypeg-drawer-list">
+          <ul className="mypeg-drawer-list" style={{ padding: '8px' }}>
             {themeIndicators.map((ind) => {
               const isSelected = selectedIndicatorId === ind.id || pathname === `/indicator/${ind.id}`;
               const titleMap = locale === 'rw' ? TITLE_MAP_RW : TITLE_MAP_EN;
               const title = titleMap[ind.id] || ind.id.split('_').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+              const indBgColor = INDICATOR_BG_MAP[ind.id] || activeTheme.color;
 
               return (
-                <li key={ind.id} className="mypeg-drawer-item-wrap">
+                <li
+                  key={ind.id}
+                  className="mypeg-drawer-item-wrap"
+                  style={{ borderBottom: 'none', marginBottom: '6px' }}
+                >
                   <Link
                     href={`/indicator/${ind.id}`}
                     className={`mypeg-drawer-item-btn ${isSelected ? 'active-selected' : ''}`}
+                    style={{
+                      backgroundColor: indBgColor,
+                      color: '#ffffff',
+                      borderRadius: '8px',
+                      padding: '11px 14px',
+                      boxShadow: isSelected ? '0 0 0 2px #0f172a' : '0 1px 3px rgba(0, 0, 0, 0.1)',
+                    }}
                     title={`View ${title} page`}
                   >
                     {renderDualIcon(ind.dual_icon)}
-                    <span className="mypeg-drawer-item-text">{title}</span>
+                    <span className="mypeg-drawer-item-text" style={{ color: '#ffffff', fontWeight: 500 }}>
+                      {title}
+                    </span>
                   </Link>
                 </li>
               );
             })}
 
             {themeIndicators.length === 0 && (
-              <li style={{ padding: '20px 16px', fontSize: '0.88rem', opacity: 0.85 }}>
+              <li style={{ padding: '20px 16px', fontSize: '0.88rem', color: '#64748b' }}>
                 {locale === 'rw' ? 'Nta bipimo biraboneka muri iki cyiciro.' : 'No indicators currently in this category.'}
               </li>
             )}
