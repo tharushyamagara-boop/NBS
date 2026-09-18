@@ -42,13 +42,6 @@ export const MYPEG_THEMES: ThemeDef[] = [
     color: '#0284c7',
     icon: 'trending-up',
   },
-  {
-    id: 'mypeg_benchmark',
-    name_en: 'Built Environment',
-    name_rw: 'Imiturire',
-    color: '#0284c7',
-    icon: 'building',
-  },
 ];
 
 const TITLE_MAP_EN: Record<string, string> = {
@@ -64,8 +57,6 @@ const TITLE_MAP_EN: Record<string, string> = {
   green_jobs_created: 'Direct Green Jobs Created',
   female_nursery_operators: 'Women-Led Nursery Cooperatives',
   vulnerable_youth_employed: 'Vulnerable Youth Employed',
-  building_permit_values: 'Building Permit Values',
-  collision_victims: 'Collision Victims',
 };
 
 const TITLE_MAP_RW: Record<string, string> = {
@@ -81,8 +72,6 @@ const TITLE_MAP_RW: Record<string, string> = {
   green_jobs_created: 'Iminsi y\'Akazi k\'Icyatsi Kahanzwe',
   female_nursery_operators: 'Ubuhumbikiro bw\'Abagore',
   vulnerable_youth_employed: 'Urubyiruko mu Mirimo ya GIS',
-  building_permit_values: 'Agaciro k\'Impushya zo Kubaka',
-  collision_victims: 'Abagize Impanuka zo mu Muhanda',
 };
 
 interface MyPegLeftSidebarProps {

@@ -593,22 +593,6 @@ export default function MyPegHeroView({
               </div>
             </article>
           </div>
-
-          {/* Quick Action Benchmark Banner */}
-          <div className="mypeg-explore-banner">
-            <div>
-              <h4>Explore Built Environment Comparative Benchmark</h4>
-              <p>
-                Access comparative benchmark datasets to monitor municipal development indicators alongside nature-based solutions.
-              </p>
-            </div>
-            <Link
-              href="/indicator/building_permit_values"
-              className="btn-open-screenshot-chart"
-            >
-              📊 Open Building Permit Values Chart (Screenshot 2)
-            </Link>
-          </div>
         </div>
       </section>
     </div>

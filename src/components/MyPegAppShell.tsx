@@ -108,9 +108,9 @@ export default function MyPegAppShell({ children }: MyPegAppShellProps) {
             <Link
               href="/"
               className={`mypeg-view-btn ${pathname === '/' ? 'active' : ''}`}
-              title="Screenshot 1: Hero View with Left Menus"
+              title="Overview"
             >
-              🖼️ {locale === 'rw' ? 'Ahabanza (Hero)' : 'Screenshot 1: Hero View'}
+              🌐 {locale === 'rw' ? 'Ahabanza' : 'Overview'}
             </Link>
             <Link
               href="/indicator/area_restored_ha"
@@ -120,11 +120,11 @@ export default function MyPegAppShell({ children }: MyPegAppShellProps) {
               🌱 {locale === 'rw' ? 'Hegitari Zasanywe' : 'Hectares Restored'}
             </Link>
             <Link
-              href="/indicator/building_permit_values"
-              className={`mypeg-view-btn ${pathname.includes('/indicator/building_permit_values') ? 'active' : ''}`}
-              title="Screenshot 2: Building Permit Values Benchmark"
+              href="/indicator/trees_planted"
+              className={`mypeg-view-btn ${pathname.includes('/indicator/trees_planted') ? 'active' : ''}`}
+              title="Kigali Seedlings & Trees Planted Indicator Page"
             >
-              📊 {locale === 'rw' ? 'Imbonerahamwe y\'Ibipimo' : 'Chart View'}
+              🌳 {locale === 'rw' ? 'Ibiti Byatewe' : 'Trees Planted'}
             </Link>
           </div>
 

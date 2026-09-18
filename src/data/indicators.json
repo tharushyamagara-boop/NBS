@@ -38,12 +38,6 @@
       "name": "Employment & Economy",
       "icon": "trending-up",
       "color": "#f59e0b"
-    },
-    {
-      "id": "mypeg_benchmark",
-      "name": "Built Environment",
-      "icon": "building",
-      "color": "#eb6b23"
     }
   ],
   "indicators": [

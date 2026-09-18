@@ -75,7 +75,7 @@ export default function MyPegIndicatorChartView({
     story?.what_is ||
     `Tracks progress, trends, and catchment distribution for ${displayTitle}.`;
 
-  const legendLabel = indicator.legend_label || (locale === 'rw' ? 'Kigali (Umujyi & Ikibaya)' : 'Winnipeg (City)');
+  const legendLabel = indicator.legend_label || (locale === 'rw' ? 'Kigali (Umujyi & Ikibaya)' : 'Kigali (City & Catchment)');
 
   const compareIndicator = allIndicators.find((i) => i.id === compareId);
   const targetGap = Math.max(0, indicator.target_2026 - indicator.current_2025);
@@ -555,7 +555,7 @@ export default function MyPegIndicatorChartView({
                     {locale === 'rw' ? '2. Urwego Rubishinzwe (Responsible Agency)' : '2. Responsible Data Provider'}
                   </span>
                   <span style={{ fontSize: '0.88rem', color: '#0f172a', fontWeight: 600 }}>
-                    {indicator.theme === 'mypeg_benchmark' ? 'City of Winnipeg & Statistics Canada' : 'Rwanda Forestry Authority (RFA) & City of Kigali'}
+                    Rwanda Forestry Authority (RFA) & City of Kigali
                   </span>
                 </div>
 
@@ -564,7 +564,7 @@ export default function MyPegIndicatorChartView({
                     {locale === 'rw' ? '3. Igihe Amakuru Yavuguruwe (Latest Update)' : '3. Date of Latest Update'}
                   </span>
                   <span style={{ fontSize: '0.88rem', color: '#0f172a', fontWeight: 600 }}>
-                    {indicator.theme === 'mypeg_benchmark' ? 'Annual Archive (2024)' : 'Q2 2025 (Bi-Annual Cycle)'}
+                    Q2 2025 (Bi-Annual Cycle)
                   </span>
                 </div>
 
