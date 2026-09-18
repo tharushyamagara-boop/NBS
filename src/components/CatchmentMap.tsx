@@ -92,6 +92,14 @@ export default function CatchmentMap({
     if (!mapContainerRef.current) return;
     if (mapInstanceRef.current) return;
 
+    if (typeof window !== 'undefined' && L.DomUtil) {
+      const origGetPosition = L.DomUtil.getPosition;
+      L.DomUtil.getPosition = function (el: any) {
+        if (!el) return new L.Point(0, 0);
+        return origGetPosition.call(L.DomUtil, el);
+      };
+    }
+
     const map = L.map(mapContainerRef.current, {
       center: KIGALI_CENTER,
       zoom: initialZoom,
@@ -117,6 +125,7 @@ export default function CatchmentMap({
     mapInstanceRef.current = map;
 
     return () => {
+      map.stop();
       map.remove();
       mapInstanceRef.current = null;
     };
