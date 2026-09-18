@@ -127,11 +127,7 @@ export default function CollaboratorsFooter() {
 
         <div className="collaborators-subtext">
           <p>
-            An indicator-driven, narrative-supported open data system developed in accordance with MyPeg standards (
-            <a href="https://www.mypeg.ca" target="_blank" rel="noopener noreferrer" style={{ color: '#38bdf8' }}>
-              www.mypeg.ca
-            </a>
-            ) for community engagement and evidence-based decision-making.
+            An indicator-driven, narrative-supported open data system developed for community engagement and evidence-based decision-making.
           </p>
         </div>
       </div>

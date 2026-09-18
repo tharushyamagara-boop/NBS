@@ -44,8 +44,8 @@ export const MYPEG_THEMES: ThemeDef[] = [
   },
   {
     id: 'mypeg_benchmark',
-    name_en: 'Built Environment (MyPeg)',
-    name_rw: 'Imiturire (MyPeg)',
+    name_en: 'Built Environment',
+    name_rw: 'Imiturire',
     color: '#eb6b23',
     icon: 'building',
   },
@@ -192,7 +192,7 @@ export default function MyPegLeftSidebar({
   };
 
   return (
-    <aside className="mypeg-left-nav-container" aria-label="MyPeg Theme Navigation">
+    <aside className="mypeg-left-nav-container" aria-label="Theme Navigation">
       {/* 1. Vertical Icon Strip (Fixed to far left, 58px width) */}
       <nav className="mypeg-icon-rail">
         {MYPEG_THEMES.map((theme) => {

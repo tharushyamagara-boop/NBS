@@ -6,8 +6,8 @@ export default function SocialShareRail() {
   const [copied, setCopied] = useState(false);
 
   const handleShare = (platform: string) => {
-    const url = typeof window !== 'undefined' ? window.location.href : 'https://www.mypeg.ca/';
-    const title = 'SUNCASA Kigali NbS & MyPeg Impact Platform';
+    const url = typeof window !== 'undefined' ? window.location.href : '/';
+    const title = 'SUNCASA Kigali NbS Impact Platform';
 
     switch (platform) {
       case 'facebook':

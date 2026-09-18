@@ -98,7 +98,7 @@ export default function MyPegAppShell({ children }: MyPegAppShellProps) {
                 SUNCASA Kigali
               </Link>
               <span className="mypeg-top-bar-sub">
-                {locale === 'rw' ? 'Ibisubizo Kamere (NbS) & MyPeg' : 'Nature-Based Solutions & MyPeg Architecture'}
+                {locale === 'rw' ? 'Ibisubizo Kamere (NbS)' : 'Nature-Based Solutions'}
               </span>
             </div>
           </div>
@@ -124,7 +124,7 @@ export default function MyPegAppShell({ children }: MyPegAppShellProps) {
               className={`mypeg-view-btn ${pathname.includes('/indicator/building_permit_values') ? 'active' : ''}`}
               title="Screenshot 2: Building Permit Values Benchmark"
             >
-              📊 {locale === 'rw' ? 'MyPeg Imbonerahamwe' : 'Screenshot 2: Chart View'}
+              📊 {locale === 'rw' ? 'Imbonerahamwe y\'Ibipimo' : 'Chart View'}
             </Link>
           </div>
 

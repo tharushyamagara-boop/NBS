@@ -1820,7 +1820,7 @@ export default function AdminPortalPage() {
                     <option value="biodiversity">Biodiversity Protection</option>
                     <option value="gesi">Gender & Inclusion (GESI)</option>
                     <option value="economy">Employment & Economy</option>
-                    <option value="mypeg_benchmark">MyPeg Benchmark</option>
+                    <option value="mypeg_benchmark">Built Environment</option>
                   </select>
                 </div>
 
@@ -2453,7 +2453,7 @@ export default function AdminPortalPage() {
                             <option value="biodiversity">Biodiversity Protection (#10b981)</option>
                             <option value="gesi">Gender & Inclusion (#8b5cf6)</option>
                             <option value="economy">Employment & Economy (#f59e0b)</option>
-                            <option value="mypeg_benchmark">MyPeg Benchmark (#eb6b23)</option>
+                            <option value="mypeg_benchmark">Built Environment (#eb6b23)</option>
                           </select>
                         </div>
                         <div>
@@ -4081,7 +4081,7 @@ export default function AdminPortalPage() {
                     <option value="biodiversity">Biodiversity Protection</option>
                     <option value="gesi">Gender Equality & Inclusion (GESI)</option>
                     <option value="economy">Employment & Economy</option>
-                    <option value="mypeg_benchmark">Built Environment (MyPeg)</option>
+                    <option value="mypeg_benchmark">Built Environment</option>
                   </select>
                 </div>
 

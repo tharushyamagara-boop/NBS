@@ -6,7 +6,7 @@
 **Email:** tharushya.magara@apexgeo.org / tharushyamagara@gmail.com  
 **Phone / WhatsApp:** +250 788 123 456 / +1 (437) 555-0192  
 **LinkedIn:** linkedin.com/in/tharushya-magara  
-**GitHub / Code Portfolio:** github.com/apexgeo / github.com/tharushyamagara  
+**GitHub / Code Portfolio:** [github.com/tharushyamagara-boop](https://github.com/tharushyamagara-boop) / [github.com/tharushyamagara-boop/NBS](https://github.com/tharushyamagara-boop/NBS)  
 
 ---
 
@@ -22,13 +22,15 @@ Expertise lies at the intersection of **cartography/GIS, visual storytelling, an
 
 | Domain | Tools, Languages & Frameworks |
 |---|---|
-| **Front-End Development** | Semantic HTML5, Vanilla CSS3 (Custom Design Systems, Glassmorphism, Print Stylesheets), ES6+ Modern JavaScript, Vite, Webpack, Responsive Mobile-First Design. |
-| **Geospatial & Web GIS** | Leaflet.js, MapLibre GL, GeoJSON, TopoJSON, QGIS, GDAL/OGR, PostGIS, EPSG:4326/CRS84, Spatial Interpolation, Watershed Boundary Delineation. |
-| **Data Visualization** | Chart.js (v4), D3.js, Observable Plot, Micro-animations, Time-Series Forecasting, Indicator Progress Gauges, Interactive Data Filtering. |
-| **Bilingual Localization** | Client-Side i18n Architecture, Zero-Reload Locale Switching (English / Ikinyarwanda), Structured Locale Dictionaries (JSON). |
-| **Interoperability & Open Data** | RESTful APIs, JSON/GeoJSON Data Exchange, Rwanda Forestry Authority (RFA) FMES Schema Mapping, Open Data Portals. |
-| **UX/UI & Civic Storytelling** | MyPeg Indicator Storytelling Paradigm, User Persona Journey Mapping, Low/High-Fidelity Prototyping (Figma), Non-Expert Educational Communication. |
-| **DevOps & Deployment** | Netlify, Vercel, GitHub Pages, Linux (Ubuntu/Debian), Nginx, Apache HTTP Server, Git/GitHub Version Control. |
+| **Application Frameworks** | **Next.js 14** (App Router, Server Components, Static Export), **React 18** (Context API, Hooks, Suspense), **TypeScript 5.6**, **Vite**, Webpack, **Firebase v10** (Authentication, Firestore). |
+| **Front-End Development** | Semantic HTML5, Vanilla CSS3 (Custom Design Systems, CSS Variables, Glassmorphism, Print Stylesheets), ES6+ Modern JavaScript, **PWA** (Web Manifests, Service Workers), Mobile-First Responsive Design. |
+| **Geospatial & Web GIS** | **Leaflet.js v1.9.4**, MapLibre GL, GeoJSON (multi-layer: catchment polygons, intervention sites, monitoring nodes), TopoJSON, QGIS, GDAL/OGR, PostGIS, EPSG:4326/CRS84, Watershed Boundary Delineation. |
+| **Data Visualization** | **Chart.js v4.4**, D3.js, Observable Plot, Micro-animations, Time-Series Forecasting, Indicator Progress Gauges, Quarterly Trend Charts, Interactive Data Filtering. |
+| **Bilingual Localization** | React `LocaleContext` (createContext / useContext), Zero-Reload Locale Switching (English / Ikinyarwanda), Decoupled JSON Locale Dictionaries (`en.json`, `rw.json`, `indicator_narratives.json`). |
+| **Admin & Auth Systems** | **Firebase Authentication** (Admin Panel password-protection), Firebase Firestore (Admin data persistence), Next.js API Routes, Standalone Embed Widget Routes (`/embed`). |
+| **Interoperability & Open Data** | RESTful APIs, JSON/GeoJSON Data Exchange, Rwanda Forestry Authority (RFA) FMES Schema Mapping, Open Data Portals, FMES-aligned indicator code taxonomy. |
+| **UX/UI & Civic Storytelling** | MyPeg Indicator Storytelling Paradigm (3-tier: What? Why? How?), `indicator_narratives.json` data layer, User Persona Journey Mapping, Low/High-Fidelity Prototyping (Figma), Non-Expert Educational Communication, Collaborators Footer, Social Share Rail. |
+| **DevOps & Deployment** | **Firebase App Hosting** (Google Cloud Platform, Cloud Run, Cloud Build), **Google Cloud Platform (GCP)**, Vercel, Netlify, GitHub Pages, Linux (Ubuntu/Debian), Nginx, Node.js Server, Git/GitHub Version Control. |
 
 ---
 
@@ -37,9 +39,10 @@ Expertise lies at the intersection of **cartography/GIS, visual storytelling, an
 ### Principal Geospatial Data Visualization Consultant
 **ApexGeo Analytics & Digital Solutions — Kigali, Rwanda**  
 *January 2022 – Present*
-- Spearhead the conceptualization, UI/UX architecture, and technical execution of public-facing web dashboards for climate adaptation, forestry restoration, and urban resilience initiatives across Rwanda and East Africa.
-- Architected the **SUNCASA Kigali Nature-Based Solutions (NbS) MVP Dashboard**, successfully integrating Leaflet micro-catchment maps, Chart.js indicator trend projections, the MyPeg 3-tier storytelling model, and an instant English/Kinyarwanda translation engine.
-- Designed lightweight, modular architectures that eliminate recurring software licensing and database maintenance overhead for public sector partners.
+- Spearhead the conceptualization, UI/UX architecture, and full-stack technical execution of public-facing web applications for climate adaptation, forestry restoration, and urban resilience initiatives across Rwanda and East Africa.
+- Architected the **SUNCASA Kigali Nature-Based Solutions (NbS) MVP Dashboard (v2.0.0)** as a production-grade **Next.js 14 + TypeScript + React 18 PWA**, integrating Leaflet micro-catchment maps (three GeoJSON layers: `nyabarongo_catchment.json`, `intervention_sites.json`, `monitoring_nodes.json`), Chart.js indicator trend charts, the MyPeg 3-tier storytelling model (`indicator_narratives.json`), instant English/Ikinyarwanda React `LocaleContext` translation, a Firebase-secured Admin Panel (`/admin`), and a standalone Embed widget route (`/embed`).
+- Designed modular architectures using decoupled JSON data layers (indicators, locales, collaborators, GeoJSON) that eliminate recurring software licensing and enable public-sector partners to update content without developer intervention.
+- Built and maintained a password-protected **Admin Panel** (Firebase Authentication) enabling authorized RFA and IISD staff to manage indicator data and narrative content independently.
 - Conducted technical handover workshops and authored comprehensive administrative documentation for municipal and ministerial IT personnel.
 
 ### Senior Web Systems & Data Visualization Developer
@@ -61,10 +64,12 @@ Expertise lies at the intersection of **cartography/GIS, visual storytelling, an
 
 ## 4. Key Projects & Prototype Deliveries
 
-### 1. SUNCASA Kigali Nature-Based Solutions Impact Dashboard (MVP)
+### 1. SUNCASA Kigali Nature-Based Solutions Impact Dashboard (MVP v2.0.0)
 - **Role:** Lead Architect & Developer (Current Bid Demonstration Asset)
-- **Technologies:** Vanilla ES6+, Leaflet, Chart.js, Vite, HTML5, CSS3, GeoJSON.
-- **Key Features:** Full implementation of the 4 SUNCASA themes (Climate, Biodiversity, GESI, Economy), Lower Nyabarongo micro-catchment GIS layers (Yanze, Mpazi, Mount Kigali, Nyabugogo, Shoreline corridor), bilingual EN/RW switcher, RFA FMES compartment tagging, 1-click JSON/GeoJSON export, and executive print stylesheet.
+- **Technologies:** Next.js 14, TypeScript, React 18, Leaflet.js v1.9.4, Chart.js v4.4, Firebase Auth & Firestore, **Firebase App Hosting (Google Cloud, us-central1)**, Vanilla CSS3, GeoJSON.
+- **Live Deployment:** [https://nbs-455962--nbs-project-7deac.us-central1.hosted.app/](https://nbs-455962--nbs-project-7deac.us-central1.hosted.app/)
+- **GitHub Repository:** [https://github.com/tharushyamagara-boop/NBS](https://github.com/tharushyamagara-boop/NBS) *(Branch: `NBS-Live`)*
+- **Key Features:** Full implementation of **5 SUNCASA themes** (Climate, Biodiversity, GESI, Economy, MyPeg Benchmark), Lower Nyabarongo micro-catchment GIS rendered via **3 GeoJSON layers** (`nyabarongo_catchment.json`, `intervention_sites.json`, `monitoring_nodes.json`), bilingual EN/RW switcher via React `LocaleContext`, RFA FMES compartment tagging, `indicator_narratives.json` MyPeg storytelling layer, Firebase-secured `/admin` panel, standalone `/embed` widget route, floating Social Share Rail, Collaborators Footer (6 institutional partners), 1-click JSON/GeoJSON export, and executive print stylesheet. Live indicator highlights: **985 ha restored**, **842K trees planted**, **54.2% women in leadership** (exceeding target), **98,500 green person-days**, **61.5% women-owned nursery cooperatives** (exceeding target).
 
 ### 2. Kigali Urban Catchment & Climate Resilience Visual Portal
 - **Role:** Lead Data Visualization Consultant

@@ -84,13 +84,13 @@
     "select_prompt": "Click on any site marker or catchment area on the map to inspect intervention details."
   },
   "indicator_explorer": {
-    "tag": "MyPeg Indicator Platform",
+    "tag": "NbS Indicator Platform",
     "title": "Indicator-Driven Impact Hub",
-    "subtitle": "Explore any indicator in two clicks. Experience IISD MyPeg's signature 4-tier model: Description & Story, Interactive Trajectory Graphs, Catchment Geography, and UN SDGs Alignment.",
+    "subtitle": "Explore any indicator in two clicks. Experience our signature 4-tier model: Description & Story, Interactive Trajectory Graphs, Catchment Geography, and UN SDGs Alignment.",
     "search_placeholder": "Search indicators (e.g. flood, trees, jobs, women, FMES code)...",
     "filter_by_theme": "Filter by Theme",
     "progress_label": "Progress to 2026 Target",
-    "view_deep_dive": "Open MyPeg Workspace",
+    "view_deep_dive": "Open Indicator Workspace",
     "baseline": "2024 Baseline",
     "current": "Current Status (2025)",
     "target": "2026 SUNCASA Target",

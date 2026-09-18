@@ -144,8 +144,8 @@ export default function MyPegThemeNav({
           <span className="pulse-dot"></span>
           <span>
             {isRw
-              ? 'Kanda ku gipimo hasi kugira ngo kigaragare mu mbonerahamwe ya MyPeg hejuru:'
-              : 'Two-Click Navigation: Select an indicator below to load its full MyPeg workspace:'}
+              ? 'Kanda ku gipimo hasi kugira ngo kigaragare mu mbonerahamwe hejuru:'
+              : 'Two-Click Navigation: Select an indicator below to load its full workspace:'}
           </span>
         </div>
 

@@ -43,12 +43,12 @@ As mandated by the RFP, this proposal explicitly distinguishes **Core MVP Develo
 
 ### Part B: Optional Hosting, Maintenance & Transfer Support Costs
 
-In accordance with the RFP instructions to *“clearly distinguish MVP development costs from optional hosting and maintenance costs”*, the following services are priced separately within the overall $20,000 ceiling:
+In accordance with the RFP instructions to *"clearly distinguish MVP development costs from optional hosting and maintenance costs"*, the following services are priced separately within the overall $20,000 ceiling:
 
 | Service Component | Description | LOE / Cost Item | Total Amount (USD) |
 |---|---|:---:|:---:|
-| **Interim High-Availability Hosting & DNS Setup** | Configuration of global CDN staging/interim hosting (Netlify/Vercel) with custom domain mapping, automated SSL certificate generation, and 99.99% uptime SLA. | Fixed Tech Cost | **$500.00** |
-| **Post-Handover Warranty & Technical Support (3 Months)** | 3-month dedicated post-delivery maintenance covering technical support, data schema assistance during RFA FMES upgrades, and minor copy adjustments. | 3 Days @ $450/day | **$1,350.00** |
+| **Interim High-Availability Hosting & DNS Setup** | Configuration of Firebase App Hosting (Google Cloud Platform, `us-central1`, project `nbs-project-7deac`) cloud production and staging environments with custom domain mapping (e.g., `suncasa.rfa.gov.rw` via DNS CNAME), automated SSL certificate provisioning, and 99.95% uptime SLA. Includes Firebase project setup for Admin Panel authentication and Firestore persistence. | Fixed Tech Cost | **$500.00** |
+| **Post-Handover Warranty & Technical Support (3 Months)** | 3-month dedicated post-delivery maintenance covering technical support, Admin Panel user guidance, data schema assistance during RFA FMES upgrades, and minor content adjustments. | 3 Days @ $450/day | **$1,350.00** |
 | **SUBTOTAL: OPTIONAL HOSTING & MAINTENANCE** | | **3 Days + Cloud** | **$1,850.00** |
 
 ---

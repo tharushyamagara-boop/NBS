@@ -597,10 +597,9 @@ export default function MyPegHeroView({
           {/* Quick Action Benchmark Banner */}
           <div className="mypeg-explore-banner">
             <div>
-              <h4>Explore Canadian MyPeg Comparative Benchmark</h4>
+              <h4>Explore Built Environment Comparative Benchmark</h4>
               <p>
-                Access the original Winnipeg benchmark dataset that inspired SUNCASA’s indicator-driven
-                civic communication architecture.
+                Access comparative benchmark datasets to monitor municipal development indicators alongside nature-based solutions.
               </p>
             </div>
             <Link

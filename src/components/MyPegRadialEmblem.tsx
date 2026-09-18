@@ -42,7 +42,7 @@ export default function MyPegRadialEmblem({ size = 260, className = '' }: Radial
         height={size}
         xmlns="http://www.w3.org/2000/svg"
         style={{ overflow: 'visible' }}
-        aria-label="MyPeg Tracking Progress Radial Emblem"
+        aria-label="Tracking Progress Radial Emblem"
       >
         <defs>
           {/* Subtle glow filter */}

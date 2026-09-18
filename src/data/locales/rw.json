@@ -84,13 +84,13 @@
     "select_prompt": "Kanda ku kadomo cyangwa agace k'amazi ku ikarita kugira ngo ubone ibisobanuro birambuye."
   },
   "indicator_explorer": {
-    "tag": "Urubuga rw'Ibipimo rwa MyPeg",
+    "tag": "Urubuga rw'Ibipimo bya NbS",
     "title": "Urubuga rw'Ibipimo n'Umusaruro",
-    "subtitle": "Suzuma igipimo cyose mu gukanda kabiri gusa. Ihangire uburyo bwa MyPeg: Ibisobanuro n'Inkuru, Imbonerahamwe y'Igihe, Ikarita y'Ahakorerwa, n'Intego z'Iterambere z'Umuryango w'Abibumbye (SDGs).",
+    "subtitle": "Suzuma igipimo cyose mu gukanda kabiri gusa. Ihangire uburyo burambuye: Ibisobanuro n'Inkuru, Imbonerahamwe y'Igihe, Ikarita y'Ahakorerwa, n'Intego z'Iterambere z'Umuryango w'Abibumbye (SDGs).",
     "search_placeholder": "Shakisha mu bipimo (urugero: imyuzure, ibiti, imirimo, abagore, kode ya FMES)...",
     "filter_by_theme": "Hitamo Inkingi",
     "progress_label": "Intambwe igezweho ku Ntego ya 2026",
-    "view_deep_dive": "Fungura Isesengura rya MyPeg",
+    "view_deep_dive": "Fungura Isesengura ry'Igipimo",
     "baseline": "Aho Byatangiriye (2024)",
     "current": "Aho Bigeze Ubu (2025)",
     "target": "Intego ya SUNCASA (2026)",
