@@ -1,0 +1,59 @@
+{
+  "social_links": [
+    {
+      "id": "facebook",
+      "name": "Facebook",
+      "icon": "f",
+      "bg_color": "#1877f2",
+      "text_color": "#ffffff",
+      "share_type": "template",
+      "url_template": "https://www.facebook.com/sharer/sharer.php?u={url}",
+      "is_active": true,
+      "order": 1
+    },
+    {
+      "id": "linkedin",
+      "name": "LinkedIn",
+      "icon": "in",
+      "bg_color": "#0a66c2",
+      "text_color": "#ffffff",
+      "share_type": "template",
+      "url_template": "https://www.linkedin.com/sharing/share-offsite/?url={url}",
+      "is_active": true,
+      "order": 2
+    },
+    {
+      "id": "twitter",
+      "name": "X (Twitter)",
+      "icon": "𝕏",
+      "bg_color": "#0f172a",
+      "text_color": "#ffffff",
+      "share_type": "template",
+      "url_template": "https://twitter.com/intent/tweet?url={url}&text={title}",
+      "is_active": true,
+      "order": 3
+    },
+    {
+      "id": "email",
+      "name": "Email",
+      "icon": "✉",
+      "bg_color": "#ea4335",
+      "text_color": "#ffffff",
+      "share_type": "email",
+      "url_template": "mailto:?subject={title}&body={url}",
+      "is_active": true,
+      "order": 4
+    },
+    {
+      "id": "copy",
+      "name": "Copy Link",
+      "icon": "🔗",
+      "bg_color": "#475569",
+      "text_color": "#ffffff",
+      "share_type": "copy",
+      "url_template": "",
+      "is_active": true,
+      "order": 5
+    }
+  ]
+}

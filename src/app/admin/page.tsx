@@ -36,7 +36,7 @@ export default function AdminPortalPage() {
 
   // Active Workspace Tab
   const [activeTab, setActiveTab] = useState<
-    'indicators' | 'builder' | 'landing_stories' | 'indicator_stories' | 'gps_mapper' | 'rbac' | 'database' | 'interoperability' | 'collaborators'
+    'indicators' | 'builder' | 'landing_stories' | 'indicator_stories' | 'gps_mapper' | 'rbac' | 'database' | 'interoperability' | 'collaborators' | 'social_links'
   >('indicators');
 
   // Indicators State
@@ -197,6 +197,22 @@ export default function AdminPortalPage() {
   const [collabLogoUrl, setCollabLogoUrl] = useState('');
   const [collabDescription, setCollabDescription] = useState('');
 
+  // Social Share Links Management State
+  const [socialLinks, setSocialLinks] = useState<any[]>([]);
+  const [loadingSocialLinks, setLoadingSocialLinks] = useState(false);
+  const [showSocialModal, setShowSocialModal] = useState(false);
+  const [editingSocial, setEditingSocial] = useState<any | null>(null);
+  const [savingSocial, setSavingSocial] = useState(false);
+  const [deletingSocialId, setDeletingSocialId] = useState<string | null>(null);
+  const [socialName, setSocialName] = useState('');
+  const [socialIcon, setSocialIcon] = useState('🔗');
+  const [socialBgColor, setSocialBgColor] = useState('#0284c7');
+  const [socialTextColor, setSocialTextColor] = useState('#ffffff');
+  const [socialShareType, setSocialShareType] = useState('template');
+  const [socialUrlTemplate, setSocialUrlTemplate] = useState('');
+  const [socialIsActive, setSocialIsActive] = useState(true);
+  const [socialOrder, setSocialOrder] = useState<number>(1);
+
   // Restore session from localStorage on mount
   useEffect(() => {
     try {
@@ -224,6 +240,7 @@ export default function AdminPortalPage() {
       fetchDbConfig();
       fetchApiKeys();
       fetchCollaborators();
+      fetchSocialLinks();
     }
   }, [session]);
 
@@ -451,6 +468,141 @@ export default function AdminPortalPage() {
       alert(err.message || 'Error saving collaborator');
     } finally {
       setSavingCollab(false);
+    }
+  };
+
+  const SOCIAL_PRESETS = [
+    { name: 'WhatsApp', icon: '💬', bg_color: '#25d366', text_color: '#ffffff', share_type: 'template', url_template: 'https://api.whatsapp.com/send?text={title}%20{url}' },
+    { name: 'Telegram', icon: '✈️', bg_color: '#229ed9', text_color: '#ffffff', share_type: 'template', url_template: 'https://t.me/share/url?url={url}&text={title}' },
+    { name: 'Facebook', icon: 'f', bg_color: '#1877f2', text_color: '#ffffff', share_type: 'template', url_template: 'https://www.facebook.com/sharer/sharer.php?u={url}' },
+    { name: 'LinkedIn', icon: 'in', bg_color: '#0a66c2', text_color: '#ffffff', share_type: 'template', url_template: 'https://www.linkedin.com/sharing/share-offsite/?url={url}' },
+    { name: 'X (Twitter)', icon: '𝕏', bg_color: '#0f172a', text_color: '#ffffff', share_type: 'template', url_template: 'https://twitter.com/intent/tweet?url={url}&text={title}' },
+    { name: 'Reddit', icon: '🤖', bg_color: '#ff4500', text_color: '#ffffff', share_type: 'template', url_template: 'https://reddit.com/submit?url={url}&title={title}' },
+    { name: 'Email', icon: '✉', bg_color: '#ea4335', text_color: '#ffffff', share_type: 'email', url_template: 'mailto:?subject={title}&body={url}' },
+    { name: 'Copy Link', icon: '🔗', bg_color: '#475569', text_color: '#ffffff', share_type: 'copy', url_template: '' },
+  ];
+
+  const fetchSocialLinks = async () => {
+    setLoadingSocialLinks(true);
+    try {
+      const res = await fetch('/api/admin/social-links');
+      const data = await res.json();
+      if (data.success) {
+        setSocialLinks(data.social_links || []);
+      }
+    } catch (err) {
+      console.error('Failed to load social links', err);
+    } finally {
+      setLoadingSocialLinks(false);
+    }
+  };
+
+  const handleOpenCreateSocial = () => {
+    setEditingSocial(null);
+    setSocialName('');
+    setSocialIcon('🔗');
+    setSocialBgColor('#0284c7');
+    setSocialTextColor('#ffffff');
+    setSocialShareType('template');
+    setSocialUrlTemplate('');
+    setSocialIsActive(true);
+    setSocialOrder(socialLinks.length + 1);
+    setShowSocialModal(true);
+  };
+
+  const handleOpenEditSocial = (item: any) => {
+    setEditingSocial(item);
+    setSocialName(item.name || '');
+    setSocialIcon(item.icon || '🔗');
+    setSocialBgColor(item.bg_color || '#0284c7');
+    setSocialTextColor(item.text_color || '#ffffff');
+    setSocialShareType(item.share_type || 'template');
+    setSocialUrlTemplate(item.url_template || '');
+    setSocialIsActive(item.is_active !== false);
+    setSocialOrder(item.order ?? 1);
+    setShowSocialModal(true);
+  };
+
+  const handleSaveSocial = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!socialName) return;
+    setSavingSocial(true);
+    try {
+      const payload = {
+        id: editingSocial?.id,
+        name: socialName,
+        icon: socialIcon,
+        bg_color: socialBgColor,
+        text_color: socialTextColor,
+        share_type: socialShareType,
+        url_template: socialUrlTemplate,
+        is_active: socialIsActive,
+        order: socialOrder,
+      };
+      const method = editingSocial ? 'PUT' : 'POST';
+      const res = await fetch('/api/admin/social-links', {
+        method,
+        headers: { 'Content-Type': 'application/json', 'x-admin-token': session?.token || '' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setStatusMessage(editingSocial ? `Updated '${socialName}'` : `Added '${socialName}'`);
+        setShowSocialModal(false);
+        fetchSocialLinks();
+      } else {
+        alert(data.error || 'Failed to save social link');
+      }
+    } catch (err: any) {
+      alert(err.message || 'Error saving social link');
+    } finally {
+      setSavingSocial(false);
+    }
+  };
+
+  const handleToggleSocialActive = async (item: any) => {
+    try {
+      const res = await fetch('/api/admin/social-links', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', 'x-admin-token': session?.token || '' },
+        body: JSON.stringify({ id: item.id, is_active: !item.is_active }),
+      });
+      if (res.ok) {
+        setSocialLinks((prev) =>
+          prev.map((s) => (s.id === item.id ? { ...s, is_active: !s.is_active } : s))
+        );
+        setStatusMessage(`${item.name} is now ${!item.is_active ? 'Active' : 'Disabled'}`);
+      }
+    } catch (err) {
+      alert('Failed to update status');
+    }
+  };
+
+  const handleMoveSocialOrder = async (item: any, direction: 'up' | 'down') => {
+    const currentIndex = socialLinks.findIndex((s) => s.id === item.id);
+    const targetIndex = direction === 'up' ? currentIndex - 1 : currentIndex + 1;
+    if (targetIndex < 0 || targetIndex >= socialLinks.length) return;
+
+    const otherItem = socialLinks[targetIndex];
+    const currentOrder = item.order ?? (currentIndex + 1);
+    const otherOrder = otherItem.order ?? (targetIndex + 1);
+
+    try {
+      await Promise.all([
+        fetch('/api/admin/social-links', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json', 'x-admin-token': session?.token || '' },
+          body: JSON.stringify({ id: item.id, order: otherOrder }),
+        }),
+        fetch('/api/admin/social-links', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json', 'x-admin-token': session?.token || '' },
+          body: JSON.stringify({ id: otherItem.id, order: currentOrder }),
+        }),
+      ]);
+      fetchSocialLinks();
+    } catch (err) {
+      alert('Failed to reorder');
     }
   };
 
@@ -1020,11 +1172,11 @@ export default function AdminPortalPage() {
           style={{
             width: '100%',
             maxWidth: '440px',
-            backgroundColor: '#0f172a',
-            border: '1px solid #1e293b',
+            backgroundColor: '#ffffff',
+            border: '1px solid #e2e8f0',
             borderRadius: '16px',
             padding: '36px',
-            boxShadow: '0 20px 40px rgba(0,0,0,0.6)',
+            boxShadow: '0 20px 40px rgba(0,0,0,0.08)',
           }}
         >
           <div style={{ textAlign: 'center', marginBottom: '28px' }}>
@@ -1034,19 +1186,19 @@ export default function AdminPortalPage() {
                 height: '56px',
                 margin: '0 auto 16px auto',
                 borderRadius: '12px',
-                background: 'linear-gradient(135deg, #0284c7 0%, #10b981 100%)',
+                background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                boxShadow: '0 8px 20px rgba(2, 132, 199, 0.4)',
+                boxShadow: '0 8px 20px rgba(2, 132, 199, 0.25)',
               }}
             >
               <span style={{ fontSize: '1.6rem' }}>🛡️</span>
             </div>
-            <h1 style={{ fontSize: '1.45rem', fontWeight: 800, margin: '0 0 6px 0', letterSpacing: '-0.02em' }}>
+            <h1 style={{ fontSize: '1.45rem', fontWeight: 800, margin: '0 0 6px 0', letterSpacing: '-0.02em', color: '#0f172a' }}>
               SUNCASA Admin Portal
             </h1>
-            <p style={{ color: '#94a3b8', fontSize: '0.86rem', margin: 0 }}>
+            <p style={{ color: '#64748b', fontSize: '0.86rem', margin: 0 }}>
               Kigali NbS Impact Monitoring Governance Console
             </p>
           </div>
@@ -1056,9 +1208,9 @@ export default function AdminPortalPage() {
               style={{
                 padding: '10px 14px',
                 borderRadius: '8px',
-                background: 'rgba(239, 68, 68, 0.15)',
-                border: '1px solid #ef4444',
-                color: '#fca5a5',
+                background: '#fef2f2',
+                border: '1px solid #fecaca',
+                color: '#dc2626',
                 fontSize: '0.85rem',
                 marginBottom: '20px',
               }}
@@ -1069,7 +1221,7 @@ export default function AdminPortalPage() {
 
           <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div>
-              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#cbd5e1', marginBottom: '6px' }}>
+              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
                 Admin Email
               </label>
               <input
@@ -1082,9 +1234,9 @@ export default function AdminPortalPage() {
                   width: '100%',
                   padding: '10px 14px',
                   borderRadius: '8px',
-                  background: 'rgba(30, 41, 59, 0.8)',
-                  border: '1px solid #334155',
-                  color: '#ffffff',
+                  background: '#f8fafc',
+                  border: '1px solid #cbd5e1',
+                  color: '#0f172a',
                   fontSize: '0.92rem',
                   outline: 'none',
                 }}
@@ -1092,7 +1244,7 @@ export default function AdminPortalPage() {
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#cbd5e1', marginBottom: '6px' }}>
+              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
                 Secure Password
               </label>
               <input
@@ -1105,9 +1257,9 @@ export default function AdminPortalPage() {
                   width: '100%',
                   padding: '10px 14px',
                   borderRadius: '8px',
-                  background: 'rgba(30, 41, 59, 0.8)',
-                  border: '1px solid #334155',
-                  color: '#ffffff',
+                  background: '#f8fafc',
+                  border: '1px solid #cbd5e1',
+                  color: '#0f172a',
                   fontSize: '0.92rem',
                   outline: 'none',
                 }}
@@ -1128,7 +1280,7 @@ export default function AdminPortalPage() {
                 fontWeight: 700,
                 fontSize: '0.95rem',
                 cursor: 'pointer',
-                boxShadow: '0 4px 14px rgba(2, 132, 199, 0.4)',
+                boxShadow: '0 4px 14px rgba(2, 132, 199, 0.3)',
               }}
             >
               {authLoading ? 'Verifying Credentials...' : 'Sign In to Admin Console'}
@@ -1136,7 +1288,7 @@ export default function AdminPortalPage() {
           </form>
 
           {/* Pre-configured Super Admin Hint */}
-          <div style={{ marginTop: '24px', paddingTop: '18px', borderTop: '1px solid rgba(255,255,255,0.08)', textAlign: 'center' }}>
+          <div style={{ marginTop: '24px', paddingTop: '18px', borderTop: '1px solid #e2e8f0', textAlign: 'center' }}>
             <span style={{ fontSize: '0.78rem', color: '#64748b' }}>
               Pre-configured Super Admin:{' '}
               <button
@@ -1148,7 +1300,7 @@ export default function AdminPortalPage() {
                 style={{
                   background: 'none',
                   border: 'none',
-                  color: '#38bdf8',
+                  color: '#0284c7',
                   cursor: 'pointer',
                   fontWeight: 600,
                   padding: 0,
@@ -1302,8 +1454,8 @@ export default function AdminPortalPage() {
         <aside
           style={{
             width: '270px',
-            backgroundColor: '#0f172a',
-            borderRight: '1px solid #1e293b',
+            backgroundColor: '#0284c7',
+            borderRight: '1px solid #0369a1',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
@@ -1312,12 +1464,12 @@ export default function AdminPortalPage() {
             height: 'calc(100vh - 60px)',
             zIndex: 40,
             flexShrink: 0,
-            boxShadow: '2px 0 12px rgba(0,0,0,0.25)',
+            boxShadow: '2px 0 12px rgba(2, 132, 199, 0.15)',
           }}
         >
           <div>
-            <div style={{ padding: '18px 20px 14px 20px', borderBottom: '1px solid #1e293b' }}>
-              <div style={{ fontSize: '0.72rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 700 }}>
+            <div style={{ padding: '18px 20px 14px 20px', borderBottom: '1px solid rgba(255, 255, 255, 0.18)' }}>
+              <div style={{ fontSize: '0.72rem', color: '#e0f2fe', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 700 }}>
                 Administration Menu
               </div>
             </div>
@@ -1328,6 +1480,7 @@ export default function AdminPortalPage() {
               <button
                 type="button"
                 onClick={() => setActiveTab('indicators')}
+                className={`admin-sidebar-nav-btn ${activeTab === 'indicators' ? 'is-active' : ''}`}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -1335,13 +1488,14 @@ export default function AdminPortalPage() {
                   padding: '11px 14px',
                   borderRadius: '8px',
                   fontSize: '0.88rem',
-                  fontWeight: 600,
+                  fontWeight: activeTab === 'indicators' ? 700 : 500,
                   border: 'none',
                   cursor: 'pointer',
                   textAlign: 'left',
                   transition: 'all 0.15s ease',
-                  background: activeTab === 'indicators' ? '#0284c7' : 'transparent',
-                  color: activeTab === 'indicators' ? '#ffffff' : '#94a3b8',
+                  background: activeTab === 'indicators' ? '#ffffff' : 'transparent',
+                  color: activeTab === 'indicators' ? '#0284c7' : '#ffffff',
+                  boxShadow: activeTab === 'indicators' ? '0 2px 8px rgba(0, 0, 0, 0.1)' : 'none',
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -1351,10 +1505,10 @@ export default function AdminPortalPage() {
                 <span
                   style={{
                     fontSize: '0.72rem',
-                    padding: '2px 6px',
+                    padding: '2px 7px',
                     borderRadius: '10px',
-                    background: activeTab === 'indicators' ? 'rgba(255,255,255,0.2)' : '#1e293b',
-                    color: activeTab === 'indicators' ? '#ffffff' : '#94a3b8',
+                    background: activeTab === 'indicators' ? '#e0f2fe' : 'rgba(255, 255, 255, 0.2)',
+                    color: activeTab === 'indicators' ? '#0284c7' : '#ffffff',
                     fontWeight: 700,
                   }}
                 >
@@ -1366,6 +1520,7 @@ export default function AdminPortalPage() {
               <button
                 type="button"
                 onClick={() => setActiveTab('builder')}
+                className={`admin-sidebar-nav-btn ${activeTab === 'builder' ? 'is-active' : ''}`}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -1373,13 +1528,14 @@ export default function AdminPortalPage() {
                   padding: '11px 14px',
                   borderRadius: '8px',
                   fontSize: '0.88rem',
-                  fontWeight: 600,
+                  fontWeight: activeTab === 'builder' ? 700 : 500,
                   border: 'none',
                   cursor: 'pointer',
                   textAlign: 'left',
                   transition: 'all 0.15s ease',
-                  background: activeTab === 'builder' ? '#0284c7' : 'transparent',
-                  color: activeTab === 'builder' ? '#ffffff' : '#94a3b8',
+                  background: activeTab === 'builder' ? '#ffffff' : 'transparent',
+                  color: activeTab === 'builder' ? '#0284c7' : '#ffffff',
+                  boxShadow: activeTab === 'builder' ? '0 2px 8px rgba(0, 0, 0, 0.1)' : 'none',
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -1391,8 +1547,8 @@ export default function AdminPortalPage() {
                     fontSize: '0.68rem',
                     padding: '2px 6px',
                     borderRadius: '4px',
-                    background: '#10b981',
-                    color: '#000000',
+                    background: activeTab === 'builder' ? '#e0f2fe' : 'rgba(255, 255, 255, 0.2)',
+                    color: activeTab === 'builder' ? '#0284c7' : '#ffffff',
                     fontWeight: 800,
                   }}
                 >
@@ -1404,6 +1560,7 @@ export default function AdminPortalPage() {
               <button
                 type="button"
                 onClick={() => setActiveTab('gps_mapper')}
+                className={`admin-sidebar-nav-btn ${activeTab === 'gps_mapper' ? 'is-active' : ''}`}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -1411,13 +1568,14 @@ export default function AdminPortalPage() {
                   padding: '11px 14px',
                   borderRadius: '8px',
                   fontSize: '0.88rem',
-                  fontWeight: 600,
+                  fontWeight: activeTab === 'gps_mapper' ? 700 : 500,
                   border: 'none',
                   cursor: 'pointer',
                   textAlign: 'left',
                   transition: 'all 0.15s ease',
-                  background: activeTab === 'gps_mapper' ? '#0284c7' : 'transparent',
-                  color: activeTab === 'gps_mapper' ? '#ffffff' : '#94a3b8',
+                  background: activeTab === 'gps_mapper' ? '#ffffff' : 'transparent',
+                  color: activeTab === 'gps_mapper' ? '#0284c7' : '#ffffff',
+                  boxShadow: activeTab === 'gps_mapper' ? '0 2px 8px rgba(0, 0, 0, 0.1)' : 'none',
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -1429,8 +1587,8 @@ export default function AdminPortalPage() {
                     fontSize: '0.68rem',
                     padding: '2px 6px',
                     borderRadius: '4px',
-                    background: '#06b6d4',
-                    color: '#000000',
+                    background: activeTab === 'gps_mapper' ? '#e0f2fe' : 'rgba(255, 255, 255, 0.2)',
+                    color: activeTab === 'gps_mapper' ? '#0284c7' : '#ffffff',
                     fontWeight: 800,
                   }}
                 >
@@ -1442,6 +1600,7 @@ export default function AdminPortalPage() {
               <button
                 type="button"
                 onClick={() => setActiveTab('landing_stories')}
+                className={`admin-sidebar-nav-btn ${activeTab === 'landing_stories' ? 'is-active' : ''}`}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -1449,13 +1608,14 @@ export default function AdminPortalPage() {
                   padding: '11px 14px',
                   borderRadius: '8px',
                   fontSize: '0.88rem',
-                  fontWeight: 600,
+                  fontWeight: activeTab === 'landing_stories' ? 700 : 500,
                   border: 'none',
                   cursor: 'pointer',
                   textAlign: 'left',
                   transition: 'all 0.15s ease',
-                  background: activeTab === 'landing_stories' ? '#0284c7' : 'transparent',
-                  color: activeTab === 'landing_stories' ? '#ffffff' : '#94a3b8',
+                  background: activeTab === 'landing_stories' ? '#ffffff' : 'transparent',
+                  color: activeTab === 'landing_stories' ? '#0284c7' : '#ffffff',
+                  boxShadow: activeTab === 'landing_stories' ? '0 2px 8px rgba(0, 0, 0, 0.1)' : 'none',
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -1465,10 +1625,10 @@ export default function AdminPortalPage() {
                 <span
                   style={{
                     fontSize: '0.72rem',
-                    padding: '2px 6px',
+                    padding: '2px 7px',
                     borderRadius: '10px',
-                    background: activeTab === 'landing_stories' ? 'rgba(255,255,255,0.2)' : '#1e293b',
-                    color: activeTab === 'landing_stories' ? '#ffffff' : '#94a3b8',
+                    background: activeTab === 'landing_stories' ? '#e0f2fe' : 'rgba(255, 255, 255, 0.2)',
+                    color: activeTab === 'landing_stories' ? '#0284c7' : '#ffffff',
                     fontWeight: 700,
                   }}
                 >
@@ -1480,6 +1640,7 @@ export default function AdminPortalPage() {
               <button
                 type="button"
                 onClick={() => setActiveTab('indicator_stories')}
+                className={`admin-sidebar-nav-btn ${activeTab === 'indicator_stories' ? 'is-active' : ''}`}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -1487,13 +1648,14 @@ export default function AdminPortalPage() {
                   padding: '11px 14px',
                   borderRadius: '8px',
                   fontSize: '0.88rem',
-                  fontWeight: 600,
+                  fontWeight: activeTab === 'indicator_stories' ? 700 : 500,
                   border: 'none',
                   cursor: 'pointer',
                   textAlign: 'left',
                   transition: 'all 0.15s ease',
-                  background: activeTab === 'indicator_stories' ? '#0284c7' : 'transparent',
-                  color: activeTab === 'indicator_stories' ? '#ffffff' : '#94a3b8',
+                  background: activeTab === 'indicator_stories' ? '#ffffff' : 'transparent',
+                  color: activeTab === 'indicator_stories' ? '#0284c7' : '#ffffff',
+                  boxShadow: activeTab === 'indicator_stories' ? '0 2px 8px rgba(0, 0, 0, 0.1)' : 'none',
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -1505,8 +1667,8 @@ export default function AdminPortalPage() {
                     fontSize: '0.68rem',
                     padding: '2px 6px',
                     borderRadius: '4px',
-                    background: '#8b5cf6',
-                    color: '#ffffff',
+                    background: activeTab === 'indicator_stories' ? '#e0f2fe' : 'rgba(255, 255, 255, 0.2)',
+                    color: activeTab === 'indicator_stories' ? '#0284c7' : '#ffffff',
                     fontWeight: 800,
                   }}
                 >
@@ -1518,6 +1680,7 @@ export default function AdminPortalPage() {
               <button
                 type="button"
                 onClick={() => setActiveTab('rbac')}
+                className={`admin-sidebar-nav-btn ${activeTab === 'rbac' ? 'is-active' : ''}`}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -1525,13 +1688,14 @@ export default function AdminPortalPage() {
                   padding: '11px 14px',
                   borderRadius: '8px',
                   fontSize: '0.88rem',
-                  fontWeight: 600,
+                  fontWeight: activeTab === 'rbac' ? 700 : 500,
                   border: 'none',
                   cursor: 'pointer',
                   textAlign: 'left',
                   transition: 'all 0.15s ease',
-                  background: activeTab === 'rbac' ? '#0284c7' : 'transparent',
-                  color: activeTab === 'rbac' ? '#ffffff' : '#94a3b8',
+                  background: activeTab === 'rbac' ? '#ffffff' : 'transparent',
+                  color: activeTab === 'rbac' ? '#0284c7' : '#ffffff',
+                  boxShadow: activeTab === 'rbac' ? '0 2px 8px rgba(0, 0, 0, 0.1)' : 'none',
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -1541,10 +1705,10 @@ export default function AdminPortalPage() {
                 <span
                   style={{
                     fontSize: '0.72rem',
-                    padding: '2px 6px',
+                    padding: '2px 7px',
                     borderRadius: '10px',
-                    background: activeTab === 'rbac' ? 'rgba(255,255,255,0.2)' : '#1e293b',
-                    color: activeTab === 'rbac' ? '#ffffff' : '#94a3b8',
+                    background: activeTab === 'rbac' ? '#e0f2fe' : 'rgba(255, 255, 255, 0.2)',
+                    color: activeTab === 'rbac' ? '#0284c7' : '#ffffff',
                     fontWeight: 700,
                   }}
                 >
@@ -1556,6 +1720,7 @@ export default function AdminPortalPage() {
               <button
                 type="button"
                 onClick={() => setActiveTab('database')}
+                className={`admin-sidebar-nav-btn ${activeTab === 'database' ? 'is-active' : ''}`}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -1563,13 +1728,14 @@ export default function AdminPortalPage() {
                   padding: '11px 14px',
                   borderRadius: '8px',
                   fontSize: '0.88rem',
-                  fontWeight: 600,
+                  fontWeight: activeTab === 'database' ? 700 : 500,
                   border: 'none',
                   cursor: 'pointer',
                   textAlign: 'left',
                   transition: 'all 0.15s ease',
-                  background: activeTab === 'database' ? '#0284c7' : 'transparent',
-                  color: activeTab === 'database' ? '#ffffff' : '#94a3b8',
+                  background: activeTab === 'database' ? '#ffffff' : 'transparent',
+                  color: activeTab === 'database' ? '#0284c7' : '#ffffff',
+                  boxShadow: activeTab === 'database' ? '0 2px 8px rgba(0, 0, 0, 0.1)' : 'none',
                 }}
               >
                 <span style={{ fontSize: '1.1rem' }}>⚙️</span>
@@ -1580,6 +1746,7 @@ export default function AdminPortalPage() {
               <button
                 type="button"
                 onClick={() => setActiveTab('interoperability')}
+                className={`admin-sidebar-nav-btn ${activeTab === 'interoperability' ? 'is-active' : ''}`}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -1587,13 +1754,14 @@ export default function AdminPortalPage() {
                   padding: '11px 14px',
                   borderRadius: '8px',
                   fontSize: '0.88rem',
-                  fontWeight: 600,
+                  fontWeight: activeTab === 'interoperability' ? 700 : 500,
                   border: 'none',
                   cursor: 'pointer',
                   textAlign: 'left',
                   transition: 'all 0.15s ease',
-                  background: activeTab === 'interoperability' ? '#0284c7' : 'transparent',
-                  color: activeTab === 'interoperability' ? '#ffffff' : '#94a3b8',
+                  background: activeTab === 'interoperability' ? '#ffffff' : 'transparent',
+                  color: activeTab === 'interoperability' ? '#0284c7' : '#ffffff',
+                  boxShadow: activeTab === 'interoperability' ? '0 2px 8px rgba(0, 0, 0, 0.1)' : 'none',
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -1605,8 +1773,8 @@ export default function AdminPortalPage() {
                     fontSize: '0.68rem',
                     padding: '2px 6px',
                     borderRadius: '4px',
-                    background: '#f59e0b',
-                    color: '#000000',
+                    background: activeTab === 'interoperability' ? '#e0f2fe' : 'rgba(255, 255, 255, 0.2)',
+                    color: activeTab === 'interoperability' ? '#0284c7' : '#ffffff',
                     fontWeight: 800,
                   }}
                 >
@@ -1618,6 +1786,7 @@ export default function AdminPortalPage() {
               <button
                 type="button"
                 onClick={() => setActiveTab('collaborators')}
+                className={`admin-sidebar-nav-btn ${activeTab === 'collaborators' ? 'is-active' : ''}`}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -1625,13 +1794,14 @@ export default function AdminPortalPage() {
                   padding: '11px 14px',
                   borderRadius: '8px',
                   fontSize: '0.88rem',
-                  fontWeight: 600,
+                  fontWeight: activeTab === 'collaborators' ? 700 : 500,
                   border: 'none',
                   cursor: 'pointer',
                   textAlign: 'left',
                   transition: 'all 0.15s ease',
-                  background: activeTab === 'collaborators' ? '#0284c7' : 'transparent',
-                  color: activeTab === 'collaborators' ? '#ffffff' : '#94a3b8',
+                  background: activeTab === 'collaborators' ? '#ffffff' : 'transparent',
+                  color: activeTab === 'collaborators' ? '#0284c7' : '#ffffff',
+                  boxShadow: activeTab === 'collaborators' ? '0 2px 8px rgba(0, 0, 0, 0.1)' : 'none',
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -1641,23 +1811,63 @@ export default function AdminPortalPage() {
                 <span
                   style={{
                     fontSize: '0.72rem',
-                    padding: '2px 6px',
+                    padding: '2px 7px',
                     borderRadius: '10px',
-                    background: activeTab === 'collaborators' ? 'rgba(255,255,255,0.2)' : '#1e293b',
-                    color: activeTab === 'collaborators' ? '#ffffff' : '#94a3b8',
+                    background: activeTab === 'collaborators' ? '#e0f2fe' : 'rgba(255, 255, 255, 0.2)',
+                    color: activeTab === 'collaborators' ? '#0284c7' : '#ffffff',
                     fontWeight: 700,
                   }}
                 >
                   {collaborators.length}
                 </span>
               </button>
+
+              {/* 10. Social Share Icons */}
+              <button
+                type="button"
+                onClick={() => setActiveTab('social_links')}
+                className={`admin-sidebar-nav-btn ${activeTab === 'social_links' ? 'is-active' : ''}`}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '11px 14px',
+                  borderRadius: '8px',
+                  fontSize: '0.88rem',
+                  fontWeight: activeTab === 'social_links' ? 700 : 500,
+                  border: 'none',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  transition: 'all 0.15s ease',
+                  background: activeTab === 'social_links' ? '#ffffff' : 'transparent',
+                  color: activeTab === 'social_links' ? '#0284c7' : '#ffffff',
+                  boxShadow: activeTab === 'social_links' ? '0 2px 8px rgba(0, 0, 0, 0.1)' : 'none',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <span style={{ fontSize: '1.1rem' }}>🌐</span>
+                  <span>Social Share Icons</span>
+                </div>
+                <span
+                  style={{
+                    fontSize: '0.72rem',
+                    padding: '2px 7px',
+                    borderRadius: '10px',
+                    background: activeTab === 'social_links' ? '#e0f2fe' : 'rgba(255, 255, 255, 0.2)',
+                    color: activeTab === 'social_links' ? '#0284c7' : '#ffffff',
+                    fontWeight: 700,
+                  }}
+                >
+                  {socialLinks.length}
+                </span>
+              </button>
             </nav>
           </div>
 
           {/* Sidebar Footer */}
-          <div style={{ padding: '16px 20px', borderTop: '1px solid #1e293b' }}>
-            <div style={{ fontSize: '0.74rem', color: '#64748b' }}>
-              Connected Driver: <strong style={{ color: '#38bdf8' }}>{driverName}</strong>
+          <div style={{ padding: '16px 20px', borderTop: '1px solid rgba(255, 255, 255, 0.18)' }}>
+            <div style={{ fontSize: '0.74rem', color: '#e0f2fe' }}>
+              Connected Driver: <strong style={{ color: '#ffffff' }}>{driverName}</strong>
             </div>
           </div>
         </aside>
@@ -1694,6 +1904,7 @@ export default function AdminPortalPage() {
                 {activeTab === 'database' && 'Database Configuration & Interoperability'}
                 {activeTab === 'interoperability' && 'Open REST APIs & Ingestion Gateway'}
                 {activeTab === 'collaborators' && 'Collaborators & Partner Logos'}
+                {activeTab === 'social_links' && 'Social Share Channels & Rail Icons'}
               </h1>
             </div>
 
@@ -1732,6 +1943,24 @@ export default function AdminPortalPage() {
                   }}
                 >
                   + Add Landing Story
+                </button>
+              )}
+              {activeTab === 'social_links' && (
+                <button
+                  type="button"
+                  onClick={handleOpenCreateSocial}
+                  style={{
+                    padding: '8px 16px',
+                    borderRadius: '6px',
+                    background: '#0284c7',
+                    color: '#ffffff',
+                    fontWeight: 700,
+                    fontSize: '0.85rem',
+                    border: 'none',
+                    cursor: 'pointer',
+                  }}
+                >
+                  + Add Social Channel
                 </button>
               )}
             </div>
@@ -1883,15 +2112,15 @@ export default function AdminPortalPage() {
                               <span
                                 style={{
                                   fontSize: '0.76rem',
-                                  padding: '3px 8px',
+                                  padding: '4px 8px',
                                   borderRadius: '6px',
-                                  background: gpsCount > 0 ? 'rgba(6, 182, 212, 0.15)' : 'rgba(239, 68, 68, 0.15)',
-                                  color: gpsCount > 0 ? '#38bdf8' : '#fca5a5',
-                                  fontWeight: 700,
-                                  border: `1px solid ${gpsCount > 0 ? 'rgba(6, 182, 212, 0.3)' : 'rgba(239, 68, 68, 0.3)'}`,
+                                  background: 'transparent',
+                                  color: '#1e293b',
+                                  fontWeight: 600,
+                                  border: '1px solid #cbd5e1',
                                 }}
                               >
-                                🛰️ {gpsCount} points
+                                {gpsCount} points
                               </span>
                             </td>
                             <td style={{ padding: '14px 16px', textAlign: 'right' }}>
@@ -1900,17 +2129,35 @@ export default function AdminPortalPage() {
                                   href={`/indicator/${ind.id}`}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  style={{ padding: '6px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#38bdf8', textDecoration: 'none', fontSize: '0.78rem', fontWeight: 600 }}
+                                  style={{
+                                    padding: '6px 10px',
+                                    borderRadius: '6px',
+                                    background: 'transparent',
+                                    border: '1px solid #cbd5e1',
+                                    color: '#1e293b',
+                                    textDecoration: 'none',
+                                    fontSize: '0.78rem',
+                                    fontWeight: 600,
+                                  }}
                                 >
-                                  Public ↗
+                                  Public
                                 </Link>
 
                                 <button
                                   type="button"
                                   onClick={() => handleOpenEditIndicator(ind)}
-                                  style={{ padding: '6px 10px', borderRadius: '6px', background: 'rgba(2, 132, 199, 0.15)', border: '1px solid #0284c7', color: '#38bdf8', fontSize: '0.78rem', fontWeight: 600, cursor: 'pointer' }}
+                                  style={{
+                                    padding: '6px 10px',
+                                    borderRadius: '6px',
+                                    background: 'transparent',
+                                    border: '1px solid #cbd5e1',
+                                    color: '#1e293b',
+                                    fontSize: '0.78rem',
+                                    fontWeight: 600,
+                                    cursor: 'pointer',
+                                  }}
                                 >
-                                  ✏️ Edit
+                                  Edit
                                 </button>
 
                                 <button
@@ -1919,10 +2166,19 @@ export default function AdminPortalPage() {
                                     setSelectedGpsIndId(ind.id);
                                     setActiveTab('gps_mapper');
                                   }}
-                                  style={{ padding: '6px 10px', borderRadius: '6px', background: 'rgba(6, 182, 212, 0.15)', border: '1px solid #06b6d4', color: '#67e8f9', fontSize: '0.78rem', fontWeight: 600, cursor: 'pointer' }}
+                                  style={{
+                                    padding: '6px 10px',
+                                    borderRadius: '6px',
+                                    background: 'transparent',
+                                    border: '1px solid #cbd5e1',
+                                    color: '#1e293b',
+                                    fontSize: '0.78rem',
+                                    fontWeight: 600,
+                                    cursor: 'pointer',
+                                  }}
                                   title="Enter GPS Coordinates & Generate Map"
                                 >
-                                  🗺️ GPS
+                                  GPS
                                 </button>
 
                                 <button
@@ -1931,17 +2187,35 @@ export default function AdminPortalPage() {
                                     setSelectedNarrativeId(ind.id);
                                     setActiveTab('indicator_stories');
                                   }}
-                                  style={{ padding: '6px 10px', borderRadius: '6px', background: 'rgba(139, 92, 246, 0.15)', border: '1px solid #8b5cf6', color: '#c4b5fd', fontSize: '0.78rem', fontWeight: 600, cursor: 'pointer' }}
+                                  style={{
+                                    padding: '6px 10px',
+                                    borderRadius: '6px',
+                                    background: 'transparent',
+                                    border: '1px solid #cbd5e1',
+                                    color: '#1e293b',
+                                    fontSize: '0.78rem',
+                                    fontWeight: 600,
+                                    cursor: 'pointer',
+                                  }}
                                   title="Edit 3-Question Stories for this indicator"
                                 >
-                                  📖 Stories
+                                  Stories
                                 </button>
 
                                 {canDelete && (
                                   <button
                                     type="button"
                                     onClick={() => handleDeleteIndicator(ind.id, ind.definition || ind.id)}
-                                    style={{ padding: '6px 10px', borderRadius: '6px', background: 'rgba(239, 68, 68, 0.15)', border: '1px solid #ef4444', color: '#fca5a5', fontSize: '0.78rem', fontWeight: 600, cursor: 'pointer' }}
+                                    style={{
+                                      padding: '6px 10px',
+                                      borderRadius: '6px',
+                                      background: 'transparent',
+                                      border: '1px solid #cbd5e1',
+                                      color: '#1e293b',
+                                      fontSize: '0.78rem',
+                                      fontWeight: 600,
+                                      cursor: 'pointer',
+                                    }}
                                   >
                                     Remove
                                   </button>
@@ -2757,7 +3031,7 @@ export default function AdminPortalPage() {
 
                           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '14px', borderTop: '1px solid #f1f5f9' }}>
                             <span style={{ fontSize: '0.74rem', color: '#64748b' }}>
-                              🏛️ {story.en?.author}
+                              {story.en?.author}
                             </span>
                             <div style={{ display: 'flex', gap: '8px' }}>
                               <button
@@ -2766,15 +3040,15 @@ export default function AdminPortalPage() {
                                 style={{
                                   padding: '6px 12px',
                                   borderRadius: '6px',
-                                  background: 'rgba(2, 132, 199, 0.15)',
-                                  border: '1px solid #0284c7',
-                                  color: '#38bdf8',
+                                  background: 'transparent',
+                                  border: '1px solid #cbd5e1',
+                                  color: '#1e293b',
                                   fontSize: '0.8rem',
                                   fontWeight: 600,
                                   cursor: 'pointer',
                                 }}
                               >
-                                ✏️ Edit
+                                Edit
                               </button>
                               <button
                                 type="button"
@@ -2782,9 +3056,9 @@ export default function AdminPortalPage() {
                                 style={{
                                   padding: '6px 12px',
                                   borderRadius: '6px',
-                                  background: 'rgba(239, 68, 68, 0.15)',
-                                  border: '1px solid #ef4444',
-                                  color: '#fca5a5',
+                                  background: 'transparent',
+                                  border: '1px solid #cbd5e1',
+                                  color: '#1e293b',
                                   fontSize: '0.8rem',
                                   fontWeight: 600,
                                   cursor: 'pointer',
@@ -3835,38 +4109,38 @@ export default function AdminPortalPage() {
                 </div>
 
                 {/* Section 4: Strategic Expansion Roadmap */}
-                <div style={{ background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.7) 100%)', border: '1px solid rgba(2, 132, 199, 0.3)', borderRadius: '12px', padding: '24px' }}>
-                  <h3 style={{ fontSize: '1.15rem', fontWeight: 800, margin: '0 0 8px 0', color: '#38bdf8' }}>
-                    🚀 Future Expansion Architecture & Strategic Roadmap
+                <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '24px', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
+                  <h3 style={{ fontSize: '1.15rem', fontWeight: 700, margin: '0 0 8px 0', color: '#1e293b' }}>
+                    Future Expansion Architecture & Strategic Roadmap
                   </h3>
-                  <p style={{ fontSize: '0.84rem', color: '#334155', lineHeight: 1.5, margin: '0 0 16px 0' }}>
+                  <p style={{ fontSize: '0.88rem', color: '#64748b', lineHeight: 1.5, margin: '0 0 18px 0' }}>
                     As SUNCASA expands past the initial Kigali Catchment pilot, this architecture supports the following expansion vectors:
                   </p>
 
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
-                    <div style={{ background: 'rgba(15, 23, 42, 0.6)', border: '1px solid #cbd5e1', borderRadius: '8px', padding: '14px' }}>
-                      <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#10b981', marginBottom: '4px' }}>
+                    <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '16px' }}>
+                      <div style={{ fontSize: '0.92rem', fontWeight: 700, color: '#1e293b', marginBottom: '6px' }}>
                         1. IoT Hydrometric Sensors
                       </div>
-                      <div style={{ fontSize: '0.78rem', color: '#475569', lineHeight: 1.4 }}>
-                        Automated LoRaWAN ultrasonic water-level gauges and rain gauges installed at the Mpazi ravine and Nyabugogo confluence streaming 15-minute telemetry directly via <code style={{ color: '#38bdf8' }}>/api/v1/ingest</code>.
+                      <div style={{ fontSize: '0.84rem', color: '#475569', lineHeight: 1.5 }}>
+                        Automated LoRaWAN ultrasonic water-level gauges and rain gauges installed at the Mpazi ravine and Nyabugogo confluence streaming 15-minute telemetry directly via <code style={{ color: '#0284c7', background: '#e2e8f0', padding: '2px 5px', borderRadius: '4px', fontSize: '0.78rem' }}>/api/v1/ingest</code>.
                       </div>
                     </div>
 
-                    <div style={{ background: 'rgba(15, 23, 42, 0.6)', border: '1px solid #cbd5e1', borderRadius: '8px', padding: '14px' }}>
-                      <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#f59e0b', marginBottom: '4px' }}>
+                    <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '16px' }}>
+                      <div style={{ fontSize: '0.92rem', fontWeight: 700, color: '#1e293b', marginBottom: '6px' }}>
                         2. Citizen Science & Mobile ODK
                       </div>
-                      <div style={{ fontSize: '0.78rem', color: '#475569', lineHeight: 1.4 }}>
+                      <div style={{ fontSize: '0.84rem', color: '#475569', lineHeight: 1.5 }}>
                         Field rangers and local community cooperatives submit geotagged tree seedling survival photos and erosion reports via ODK / KoboToolbox webhooks.
                       </div>
                     </div>
 
-                    <div style={{ background: 'rgba(15, 23, 42, 0.6)', border: '1px solid #cbd5e1', borderRadius: '8px', padding: '14px' }}>
-                      <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#a855f7', marginBottom: '4px' }}>
+                    <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '16px' }}>
+                      <div style={{ fontSize: '0.92rem', fontWeight: 700, color: '#1e293b', marginBottom: '6px' }}>
                         3. Multi-City Federation
                       </div>
-                      <div style={{ fontSize: '0.78rem', color: '#475569', lineHeight: 1.4 }}>
+                      <div style={{ fontSize: '0.84rem', color: '#475569', lineHeight: 1.5 }}>
                         Federated node architecture allowing secondary cities in Rwanda (Musanze, Rubavu, Huye) to launch their own branded instances while synchronizing national indicators to the central Kigali node.
                       </div>
                     </div>
@@ -3973,9 +4247,9 @@ export default function AdminPortalPage() {
                               setCollabDescription(collab.description || '');
                               setShowCollabModal(true);
                             }}
-                            style={{ flex: 1, padding: '8px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#475569', cursor: 'pointer', fontSize: '0.82rem', fontWeight: 600 }}
+                            style={{ flex: 1, padding: '8px', borderRadius: '6px', background: 'transparent', border: '1px solid #cbd5e1', color: '#1e293b', cursor: 'pointer', fontSize: '0.82rem', fontWeight: 600 }}
                           >
-                            ✏️ Edit
+                            Edit
                           </button>
                           <button
                             type="button"
@@ -3997,9 +4271,9 @@ export default function AdminPortalPage() {
                                 setDeletingCollabId(null);
                               }
                             }}
-                            style={{ padding: '8px 12px', borderRadius: '6px', background: deletingCollabId === collab.id ? '#334155' : 'rgba(239,68,68,0.15)', border: '1px solid rgba(239,68,68,0.3)', color: '#f87171', cursor: 'pointer', fontSize: '0.82rem', fontWeight: 600 }}
+                            style={{ padding: '8px 12px', borderRadius: '6px', background: 'transparent', border: '1px solid #cbd5e1', color: '#1e293b', cursor: 'pointer', fontSize: '0.82rem', fontWeight: 600 }}
                           >
-                            {deletingCollabId === collab.id ? '...' : '🗑️'}
+                            {deletingCollabId === collab.id ? '...' : 'Delete'}
                           </button>
                         </div>
                       </div>
@@ -4022,6 +4296,322 @@ export default function AdminPortalPage() {
                           <span style={{ fontSize: '0.82rem', color: '#334155', fontWeight: 600 }}>{collab.name}</span>
                         </div>
                       ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* ------------------------------------------------------------- */}
+            {/* TAB 10: SOCIAL SHARE LINKS MANAGEMENT                         */}
+            {/* ------------------------------------------------------------- */}
+            {activeTab === 'social_links' && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                {/* Header */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+                      <span style={{ fontSize: '0.74rem', fontWeight: 800, color: '#0284c7', background: '#e0f2fe', padding: '2px 8px', borderRadius: '4px', border: '1px solid #bae6fd' }}>
+                        PUBLIC PORTAL RAIL
+                      </span>
+                    </div>
+                    <h2 style={{ fontSize: '1.45rem', fontWeight: 800, margin: '0 0 6px 0', color: '#0f172a' }}>
+                      Social Share Icons Management
+                    </h2>
+                    <p style={{ color: '#475569', fontSize: '0.88rem', margin: 0, maxWidth: '720px', lineHeight: 1.5 }}>
+                      Configure, edit, and reorder the social sharing channels anchored to the right side of the SUNCASA platform. You can add new networks (e.g. WhatsApp, Telegram, Bluesky), edit brand colors and icons, or disable platforms at any time.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleOpenCreateSocial}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      padding: '10px 18px',
+                      borderRadius: '8px',
+                      background: 'linear-gradient(135deg, #0284c7, #0ea5e9)',
+                      border: 'none',
+                      color: '#ffffff',
+                      fontWeight: 700,
+                      fontSize: '0.88rem',
+                      cursor: 'pointer',
+                      boxShadow: '0 2px 8px rgba(2, 132, 199, 0.3)',
+                    }}
+                  >
+                    <span>+ Add Social Channel</span>
+                  </button>
+                </div>
+
+                {/* Social Share Grid */}
+                {loadingSocialLinks ? (
+                  <div style={{ textAlign: 'center', padding: '40px', color: '#64748b' }}>Loading social links...</div>
+                ) : socialLinks.length === 0 ? (
+                  <div style={{ textAlign: 'center', padding: '60px 20px', background: '#ffffff', borderRadius: '12px', border: '1px dashed #cbd5e1' }}>
+                    <div style={{ fontSize: '2.5rem', marginBottom: '12px' }}>🌐</div>
+                    <p style={{ color: '#64748b', fontSize: '0.95rem', margin: '0 0 16px 0' }}>No social channels configured. Add your first sharing link.</p>
+                    <button
+                      type="button"
+                      onClick={handleOpenCreateSocial}
+                      style={{ padding: '10px 20px', borderRadius: '8px', background: '#0284c7', border: 'none', color: '#ffffff', fontWeight: 700, cursor: 'pointer' }}
+                    >
+                      + Add First Social Channel
+                    </button>
+                  </div>
+                ) : (
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '16px' }}>
+                    {socialLinks.map((item: any, idx: number) => (
+                      <div
+                        key={item.id}
+                        style={{
+                          background: '#ffffff',
+                          border: `1px solid ${item.is_active ? '#e2e8f0' : '#f1f5f9'}`,
+                          borderRadius: '12px',
+                          padding: '20px',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: '14px',
+                          opacity: item.is_active ? 1 : 0.65,
+                          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+                          transition: 'all 0.15s ease',
+                        }}
+                      >
+                        {/* Top Row: Icon badge + Name + Status */}
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                            <div
+                              style={{
+                                width: '38px',
+                                height: '38px',
+                                borderRadius: '6px',
+                                background: item.bg_color || '#0284c7',
+                                color: item.text_color || '#ffffff',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                fontSize: '1.15rem',
+                                fontWeight: 700,
+                                boxShadow: '0 2px 6px rgba(0, 0, 0, 0.15)',
+                              }}
+                            >
+                              {item.icon || '🔗'}
+                            </div>
+                            <div>
+                              <div style={{ fontWeight: 700, color: '#0f172a', fontSize: '1rem' }}>{item.name}</div>
+                              <div style={{ fontSize: '0.74rem', color: '#64748b' }}>
+                                ID: <code>{item.id}</code> &bull; Type: <strong>{item.share_type}</strong>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Active / Inactive Switch */}
+                          <button
+                            type="button"
+                            onClick={() => handleToggleSocialActive(item)}
+                            title={item.is_active ? 'Click to disable' : 'Click to enable'}
+                            style={{
+                              padding: '4px 10px',
+                              borderRadius: '20px',
+                              fontSize: '0.74rem',
+                              fontWeight: 700,
+                              border: 'none',
+                              cursor: 'pointer',
+                              background: item.is_active ? '#dcfce7' : '#f1f5f9',
+                              color: item.is_active ? '#15803d' : '#64748b',
+                            }}
+                          >
+                            {item.is_active ? '● Active' : '○ Disabled'}
+                          </button>
+                        </div>
+
+                        {/* URL Template or description */}
+                        <div style={{ background: '#f8fafc', padding: '10px 12px', borderRadius: '6px', border: '1px solid #e2e8f0', fontSize: '0.78rem', color: '#475569', wordBreak: 'break-all' }}>
+                          {item.share_type === 'copy' && '📋 Copies the platform link to user clipboard with a toast notification.'}
+                          {item.share_type === 'email' && (item.url_template || '✉️ Launches user default email client with platform title & link.')}
+                          {item.share_type === 'template' && (
+                            <div>
+                              <span style={{ fontWeight: 600, color: '#1e293b' }}>Template: </span>
+                              <code>{item.url_template}</code>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Footer: Order & Action Buttons */}
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid #f1f5f9', paddingTop: '12px', marginTop: 'auto' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                            <span style={{ fontSize: '0.75rem', color: '#64748b', marginRight: '4px' }}>
+                              Order: <strong>#{item.order ?? idx + 1}</strong>
+                            </span>
+                            <button
+                              type="button"
+                              disabled={idx === 0}
+                              onClick={() => handleMoveSocialOrder(item, 'up')}
+                              style={{
+                                width: '26px',
+                                height: '26px',
+                                borderRadius: '4px',
+                                border: '1px solid #cbd5e1',
+                                background: idx === 0 ? '#f8fafc' : '#ffffff',
+                                color: idx === 0 ? '#cbd5e1' : '#1e293b',
+                                cursor: idx === 0 ? 'not-allowed' : 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                fontSize: '0.85rem',
+                              }}
+                              title="Move Up"
+                            >
+                              ↑
+                            </button>
+                            <button
+                              type="button"
+                              disabled={idx === socialLinks.length - 1}
+                              onClick={() => handleMoveSocialOrder(item, 'down')}
+                              style={{
+                                width: '26px',
+                                height: '26px',
+                                borderRadius: '4px',
+                                border: '1px solid #cbd5e1',
+                                background: idx === socialLinks.length - 1 ? '#f8fafc' : '#ffffff',
+                                color: idx === socialLinks.length - 1 ? '#cbd5e1' : '#1e293b',
+                                cursor: idx === socialLinks.length - 1 ? 'not-allowed' : 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                fontSize: '0.85rem',
+                              }}
+                              title="Move Down"
+                            >
+                              ↓
+                            </button>
+                          </div>
+
+                          <div style={{ display: 'flex', gap: '8px' }}>
+                            <button
+                              type="button"
+                              onClick={() => handleOpenEditSocial(item)}
+                              style={{
+                                padding: '6px 14px',
+                                borderRadius: '6px',
+                                background: '#ffffff',
+                                border: '1px solid #cbd5e1',
+                                color: '#0284c7',
+                                cursor: 'pointer',
+                                fontSize: '0.82rem',
+                                fontWeight: 700,
+                              }}
+                            >
+                              Edit
+                            </button>
+                            <button
+                              type="button"
+                              disabled={deletingSocialId === item.id}
+                              onClick={async () => {
+                                if (!confirm(`Remove '${item.name}' from social share icons?`)) return;
+                                setDeletingSocialId(item.id);
+                                try {
+                                  const res = await fetch(`/api/admin/social-links?id=${item.id}`, {
+                                    method: 'DELETE',
+                                    headers: { 'x-admin-token': session?.token || '' },
+                                  });
+                                  if (res.ok) {
+                                    setSocialLinks((prev) => prev.filter((s: any) => s.id !== item.id));
+                                    setStatusMessage(`Removed '${item.name}'`);
+                                  } else {
+                                    setStatusMessage('Failed to delete social link.');
+                                  }
+                                } catch {
+                                  setStatusMessage('Network error.');
+                                } finally {
+                                  setDeletingSocialId(null);
+                                }
+                              }}
+                              style={{
+                                padding: '6px 12px',
+                                borderRadius: '6px',
+                                background: '#ffffff',
+                                border: '1px solid #fecaca',
+                                color: '#ef4444',
+                                cursor: 'pointer',
+                                fontSize: '0.82rem',
+                                fontWeight: 600,
+                              }}
+                            >
+                              {deletingSocialId === item.id ? '...' : 'Delete'}
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Real-time Right Rail Preview */}
+                {socialLinks.length > 0 && (
+                  <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '24px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                      <div>
+                        <div style={{ fontSize: '0.8rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                          Public Rail Visual Preview
+                        </div>
+                        <div style={{ fontSize: '0.82rem', color: '#64748b', marginTop: '2px' }}>
+                          This shows how the buttons render on the right edge of the public portal. Only active items are shown.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '30px', background: '#ffffff', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                      <div
+                        style={{
+                          background: '#ffffff',
+                          border: '1px solid #cbd5e1',
+                          borderRadius: '6px',
+                          padding: '8px 6px',
+                          boxShadow: '0 4px 16px rgba(0, 0, 0, 0.12)',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          gap: '6px',
+                        }}
+                      >
+                        <div
+                          style={{
+                            writingMode: 'vertical-rl',
+                            transform: 'rotate(180deg)',
+                            fontSize: '0.62rem',
+                            fontWeight: 700,
+                            color: '#64748b',
+                            letterSpacing: '0.08em',
+                            padding: '4px 0',
+                          }}
+                        >
+                          SHARE:
+                        </div>
+                        {socialLinks
+                          .filter((s: any) => s.is_active !== false)
+                          .map((s: any) => (
+                            <div
+                              key={s.id}
+                              style={{
+                                width: '32px',
+                                height: '32px',
+                                borderRadius: '4px',
+                                background: s.bg_color || '#0284c7',
+                                color: s.text_color || '#ffffff',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                fontWeight: 700,
+                                fontSize: '0.95rem',
+                                boxShadow: '0 1px 3px rgba(0,0,0,0.15)',
+                              }}
+                              title={s.name}
+                            >
+                              {s.icon}
+                            </div>
+                          ))}
+                      </div>
                     </div>
                   </div>
                 )}
@@ -4751,6 +5341,246 @@ export default function AdminPortalPage() {
                   style={{ padding: '9px 22px', borderRadius: '6px', background: '#0284c7', border: 'none', color: '#ffffff', fontWeight: 700, cursor: 'pointer' }}
                 >
                   {savingCollab ? 'Saving...' : editingCollab ? 'Update Collaborator' : 'Add Collaborator'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+      {/* ------------------------------------------------------------- */}
+      {/* MODAL: ADD / EDIT SOCIAL LINK                                 */}
+      {/* ------------------------------------------------------------- */}
+      {showSocialModal && (
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.80)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100, padding: '20px' }}>
+          <div style={{ width: '100%', maxWidth: '580px', maxHeight: '90vh', overflowY: 'auto', background: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '14px', padding: '28px', boxSizing: 'border-box' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+              <div>
+                <h3 style={{ fontSize: '1.2rem', fontWeight: 700, margin: 0, color: '#0f172a' }}>
+                  {editingSocial ? `✏️ Edit '${editingSocial.name}'` : '+ Add Social Share Channel'}
+                </h3>
+                <p style={{ color: '#64748b', fontSize: '0.8rem', margin: '4px 0 0 0' }}>
+                  Configure the brand icon, share behavior, and destination for this channel.
+                </p>
+              </div>
+              <button type="button" onClick={() => setShowSocialModal(false)} style={{ background: 'none', border: 'none', color: '#475569', fontSize: '1.3rem', cursor: 'pointer' }}>✕</button>
+            </div>
+
+            {/* Presets Row */}
+            <div style={{ marginBottom: '18px' }}>
+              <label style={{ display: 'block', fontSize: '0.76rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '6px' }}>
+                Quick Fill from Popular Presets:
+              </label>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                {SOCIAL_PRESETS.map((p) => (
+                  <button
+                    key={p.name}
+                    type="button"
+                    onClick={() => {
+                      setSocialName(p.name);
+                      setSocialIcon(p.icon);
+                      setSocialBgColor(p.bg_color);
+                      setSocialTextColor(p.text_color);
+                      setSocialShareType(p.share_type);
+                      setSocialUrlTemplate(p.url_template);
+                    }}
+                    style={{
+                      padding: '4px 10px',
+                      borderRadius: '16px',
+                      background: '#f1f5f9',
+                      border: '1px solid #cbd5e1',
+                      color: '#1e293b',
+                      fontSize: '0.78rem',
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '4px',
+                    }}
+                  >
+                    <span>{p.icon}</span>
+                    <span>{p.name}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <form onSubmit={handleSaveSocial} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '12px' }}>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', fontWeight: 600, marginBottom: '4px' }}>
+                    Platform Name <span style={{ color: '#f87171' }}>*</span>
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. WhatsApp"
+                    value={socialName}
+                    onChange={(e) => setSocialName(e.target.value)}
+                    style={{ width: '100%', padding: '9px 12px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem', boxSizing: 'border-box' }}
+                  />
+                </div>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', fontWeight: 600, marginBottom: '4px' }}>
+                    Icon / Glyph <span style={{ color: '#f87171' }}>*</span>
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. 💬, f, 𝕏"
+                    value={socialIcon}
+                    onChange={(e) => setSocialIcon(e.target.value)}
+                    style={{ width: '100%', padding: '9px 12px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem', textAlign: 'center', boxSizing: 'border-box' }}
+                  />
+                </div>
+              </div>
+
+              {/* Color Controls & Preview */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px', alignItems: 'end' }}>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', fontWeight: 600, marginBottom: '4px' }}>
+                    Background Color
+                  </label>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <input
+                      type="color"
+                      value={socialBgColor}
+                      onChange={(e) => setSocialBgColor(e.target.value)}
+                      style={{ width: '36px', height: '36px', padding: 0, border: '1px solid #cbd5e1', borderRadius: '6px', cursor: 'pointer' }}
+                    />
+                    <input
+                      type="text"
+                      value={socialBgColor}
+                      onChange={(e) => setSocialBgColor(e.target.value)}
+                      style={{ flex: 1, padding: '8px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.82rem', fontFamily: 'monospace', boxSizing: 'border-box' }}
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', fontWeight: 600, marginBottom: '4px' }}>
+                    Text / Icon Color
+                  </label>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <input
+                      type="color"
+                      value={socialTextColor}
+                      onChange={(e) => setSocialTextColor(e.target.value)}
+                      style={{ width: '36px', height: '36px', padding: 0, border: '1px solid #cbd5e1', borderRadius: '6px', cursor: 'pointer' }}
+                    />
+                    <input
+                      type="text"
+                      value={socialTextColor}
+                      onChange={(e) => setSocialTextColor(e.target.value)}
+                      style={{ flex: 1, padding: '8px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.82rem', fontFamily: 'monospace', boxSizing: 'border-box' }}
+                    />
+                  </div>
+                </div>
+
+                {/* Real-time Preview Pill */}
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', fontWeight: 600, marginBottom: '4px' }}>
+                    Button Preview
+                  </label>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', height: '36px' }}>
+                    <div
+                      style={{
+                        width: '36px',
+                        height: '36px',
+                        borderRadius: '4px',
+                        background: socialBgColor,
+                        color: socialTextColor,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontWeight: 700,
+                        fontSize: '1rem',
+                        boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
+                      }}
+                    >
+                      {socialIcon || '🔗'}
+                    </div>
+                    <span style={{ fontSize: '0.78rem', color: '#64748b' }}>{socialName || 'Sample'}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Share Action Type */}
+              <div>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', fontWeight: 600, marginBottom: '4px' }}>
+                  Share Action Type
+                </label>
+                <select
+                  value={socialShareType}
+                  onChange={(e) => setSocialShareType(e.target.value)}
+                  style={{ width: '100%', padding: '9px 12px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem', boxSizing: 'border-box' }}
+                >
+                  <option value="template">URL Template (opens web sharing page in new tab)</option>
+                  <option value="copy">Direct Copy Link (copies current page URL to clipboard)</option>
+                  <option value="email">Email Mailto (opens email compose with subject & link)</option>
+                </select>
+              </div>
+
+              {/* URL Template (if applicable) */}
+              {socialShareType !== 'copy' && (
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', fontWeight: 600, marginBottom: '4px' }}>
+                    {socialShareType === 'email' ? 'Custom Mailto Template (Optional)' : 'Share URL Template'}
+                    <span style={{ color: '#64748b', fontSize: '0.72rem', marginLeft: '6px' }}>
+                      (use <code>{'{url}'}</code> and <code>{'{title}'}</code> tokens)
+                    </span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="https://api.whatsapp.com/send?text={title}%20{url}"
+                    value={socialUrlTemplate}
+                    onChange={(e) => setSocialUrlTemplate(e.target.value)}
+                    style={{ width: '100%', padding: '9px 12px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem', boxSizing: 'border-box' }}
+                  />
+                  <div style={{ fontSize: '0.74rem', color: '#64748b', marginTop: '4px' }}>
+                    Variables supported: <code>{'{url}'}</code> (current page URL) and <code>{'{title}'}</code> (portal title).
+                  </div>
+                </div>
+              )}
+
+              {/* Order and Active state */}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#f8fafc', padding: '12px 16px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <label style={{ fontSize: '0.82rem', color: '#334155', fontWeight: 600 }}>Display Order:</label>
+                  <input
+                    type="number"
+                    min="1"
+                    value={socialOrder}
+                    onChange={(e) => setSocialOrder(parseInt(e.target.value) || 1)}
+                    style={{ width: '60px', padding: '6px 8px', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '0.85rem', textAlign: 'center' }}
+                  />
+                </div>
+
+                <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '0.85rem', color: '#0f172a', fontWeight: 600 }}>
+                  <input
+                    type="checkbox"
+                    checked={socialIsActive}
+                    onChange={(e) => setSocialIsActive(e.target.checked)}
+                    style={{ width: '18px', height: '18px', cursor: 'pointer' }}
+                  />
+                  <span>Active on Public Portal</span>
+                </label>
+              </div>
+
+              {/* Action Buttons */}
+              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', marginTop: '8px' }}>
+                <button
+                  type="button"
+                  onClick={() => setShowSocialModal(false)}
+                  style={{ padding: '9px 18px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#475569', cursor: 'pointer', fontWeight: 600 }}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={savingSocial}
+                  style={{ padding: '9px 24px', borderRadius: '6px', background: '#0284c7', border: 'none', color: '#ffffff', fontWeight: 700, cursor: 'pointer' }}
+                >
+                  {savingSocial ? 'Saving...' : editingSocial ? 'Update Channel' : 'Add Channel'}
                 </button>
               </div>
             </form>

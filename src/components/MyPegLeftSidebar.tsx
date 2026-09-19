@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Indicator } from '@/lib/db/types';
@@ -105,12 +105,40 @@ export default function MyPegLeftSidebar({
   locale = 'en',
 }: MyPegLeftSidebarProps) {
   const pathname = usePathname();
+  const sidebarRef = useRef<HTMLElement>(null);
   const [activeThemeId, setActiveThemeId] = useState<string>(initialThemeId);
   const [drawerOpen, setDrawerOpen] = useState<boolean>(defaultDrawerOpen);
 
   useEffect(() => {
     setActiveThemeId(initialThemeId);
   }, [initialThemeId]);
+
+  // Dismiss drawer whenever route pathname changes
+  useEffect(() => {
+    setDrawerOpen(false);
+  }, [pathname]);
+
+  // Dismiss drawer on outside click or Escape key
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
+        setDrawerOpen(false);
+      }
+    };
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setDrawerOpen(false);
+      }
+    };
+    if (drawerOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleKeyDown);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [drawerOpen]);
 
   const activeTheme = MYPEG_THEMES.find((t) => t.id === activeThemeId) || MYPEG_THEMES[0];
   const themeName = locale === 'rw' ? activeTheme.name_rw : activeTheme.name_en;
@@ -196,7 +224,7 @@ export default function MyPegLeftSidebar({
   };
 
   return (
-    <aside className="mypeg-left-nav-container" aria-label="Theme Navigation">
+    <aside className="mypeg-left-nav-container" ref={sidebarRef} aria-label="Theme Navigation">
       {/* 1. Vertical Icon Strip (Fixed to far left, 58px width) */}
       <nav className="mypeg-icon-rail">
         {MYPEG_THEMES.map((theme) => {
@@ -232,10 +260,11 @@ export default function MyPegLeftSidebar({
           );
         })}
 
-        {/* Home / Hero Link at bottom */}
+        {/* Home Link - positioned directly following the last indicator */}
         <Link
           href="/"
-          className="mypeg-rail-home-btn"
+          onClick={() => setDrawerOpen(false)}
+          className={`mypeg-rail-home-btn ${pathname === '/' ? 'active' : ''}`}
           title={locale === 'rw' ? 'Ahabanza (Home)' : 'Return to Home'}
           aria-label="Home"
         >
@@ -254,7 +283,7 @@ export default function MyPegLeftSidebar({
           className="mypeg-theme-drawer"
           style={{
             backgroundColor: '#ffffff',
-            color: '#0f172a',
+            color: '#1e293b',
             borderRight: '1px solid #e2e8f0',
             boxShadow: '4px 0 20px rgba(0, 0, 0, 0.12)',
           }}
@@ -279,7 +308,7 @@ export default function MyPegLeftSidebar({
                   backgroundColor: activeTheme.color,
                 }}
               />
-              <h3 className="mypeg-drawer-title" style={{ color: '#0f172a' }}>
+              <h3 className="mypeg-drawer-title" style={{ color: '#1e293b' }}>
                 {themeName}
               </h3>
             </div>
@@ -311,6 +340,7 @@ export default function MyPegLeftSidebar({
                 >
                   <Link
                     href={`/indicator/${ind.id}`}
+                    onClick={() => setDrawerOpen(false)}
                     className={`mypeg-drawer-item-btn ${isSelected ? 'active-selected' : ''}`}
                     style={{
                       backgroundColor: indBgColor,

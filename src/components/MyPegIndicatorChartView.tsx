@@ -40,8 +40,72 @@ export default function MyPegIndicatorChartView({
   const locale = propLocale || contextLocale || 'en';
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const chartInstanceRef = useRef<ChartJS | null>(null);
+  const tabsNavRef = useRef<HTMLDivElement | null>(null);
+  const tabContentRef = useRef<HTMLDivElement | null>(null);
   const [activeTab, setActiveTab] = useState<'graph' | 'story' | 'map' | 'sdgs'>('graph');
   const [selectedMapFeature, setSelectedMapFeature] = useState<any>(null);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(typeof window !== 'undefined' && window.innerWidth <= 768);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Smooth scroll helper to align tab content right beneath sticky top bar
+  const scrollToTabNav = () => {
+    setTimeout(() => {
+      if (tabsNavRef.current) {
+        const topBarOffset = 68; // 60px sticky top bar + 8px spacing
+        const rect = tabsNavRef.current.getBoundingClientRect();
+        const targetY = window.pageYOffset + rect.top - topBarOffset;
+        window.scrollTo({
+          top: Math.max(0, targetY),
+          behavior: 'smooth',
+        });
+      }
+    }, 60);
+  };
+
+  // Smooth scroll handler when a tab menu is clicked
+  const handleTabClick = (tab: 'graph' | 'story' | 'map' | 'sdgs', event?: React.MouseEvent) => {
+    setActiveTab(tab);
+
+    // Center the clicked tab button in the horizontal tabs bar on mobile
+    if (event?.currentTarget) {
+      const btn = event.currentTarget as HTMLElement;
+      btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+
+    scrollToTabNav();
+  };
+
+  // Listen to URL hash change (e.g. #map, #story, #sdgs, #graph) to automatically activate and scroll tab
+  useEffect(() => {
+    const handleHash = () => {
+      if (typeof window === 'undefined') return;
+      const hash = window.location.hash.toLowerCase();
+      if (hash.includes('map') || hash.includes('catchment')) {
+        setActiveTab('map');
+        scrollToTabNav();
+      } else if (hash.includes('story') || hash.includes('narrative')) {
+        setActiveTab('story');
+        scrollToTabNav();
+      } else if (hash.includes('sdg')) {
+        setActiveTab('sdgs');
+        scrollToTabNav();
+      } else if (hash.includes('graph') || hash.includes('data')) {
+        setActiveTab('graph');
+        scrollToTabNav();
+      }
+    };
+    handleHash();
+    window.addEventListener('hashchange', handleHash);
+    return () => window.removeEventListener('hashchange', handleHash);
+  }, []);
 
   // Full dashboard comparison & decision-support state
   const allIndicators = (indicatorsData.indicators || []) as Indicator[];
@@ -291,13 +355,13 @@ export default function MyPegIndicatorChartView({
         <p className="mypeg-chart-subtitle">{displayDefinition}</p>
 
         {/* MyPeg Navigation Tabs */}
-        <div className="mypeg-tabs-nav" role="tablist">
+        <div className="mypeg-tabs-nav" role="tablist" ref={tabsNavRef}>
           <button
             type="button"
             role="tab"
             aria-selected={activeTab === 'graph'}
             className={`mypeg-tab-btn ${activeTab === 'graph' ? 'active' : ''}`}
-            onClick={() => setActiveTab('graph')}
+            onClick={(e) => handleTabClick('graph', e)}
           >
             📊 {locale === 'rw' ? 'Igishushanyo (Graph)' : 'Graph & Data'}
           </button>
@@ -306,7 +370,7 @@ export default function MyPegIndicatorChartView({
             role="tab"
             aria-selected={activeTab === 'story'}
             className={`mypeg-tab-btn ${activeTab === 'story' ? 'active' : ''}`}
-            onClick={() => setActiveTab('story')}
+            onClick={(e) => handleTabClick('story', e)}
           >
             📖 {locale === 'rw' ? 'Inkuru y\'Igipimo (The Story)' : 'The Story (3 Questions)'}
           </button>
@@ -315,7 +379,7 @@ export default function MyPegIndicatorChartView({
             role="tab"
             aria-selected={activeTab === 'map'}
             className={`mypeg-tab-btn ${activeTab === 'map' ? 'active' : ''}`}
-            onClick={() => setActiveTab('map')}
+            onClick={(e) => handleTabClick('map', e)}
           >
             🗺️ {locale === 'rw' ? 'Ikarita ya GIS' : 'Micro-Catchment Map'}
           </button>
@@ -324,7 +388,7 @@ export default function MyPegIndicatorChartView({
             role="tab"
             aria-selected={activeTab === 'sdgs'}
             className={`mypeg-tab-btn ${activeTab === 'sdgs' ? 'active' : ''}`}
-            onClick={() => setActiveTab('sdgs')}
+            onClick={(e) => handleTabClick('sdgs', e)}
           >
             🎯 {locale === 'rw' ? 'Intego za UN (SDGs)' : 'UN SDGs & Metadata'}
           </button>
@@ -332,13 +396,13 @@ export default function MyPegIndicatorChartView({
 
         {/* TAB 1: Graph View (Exact Match to Screenshot 2) */}
         {activeTab === 'graph' && (
-          <div className="mypeg-graph-tab-body">
-            <div className="mypeg-canvas-wrapper" style={{ height: '440px', position: 'relative', width: '100%' }}>
+          <div className="mypeg-graph-tab-body" id="tab-section-graph">
+            <div className="mypeg-canvas-wrapper" style={{ height: isMobile ? '290px' : '440px', position: 'relative', width: '100%' }}>
               <canvas ref={canvasRef} id="mypeg-indicator-line-chart" />
             </div>
 
             {/* Action Bar: Download Data, Compare Indicators & Decision Support Toggle */}
-            <div className="mypeg-download-link-wrap" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '12px', flexWrap: 'wrap', margin: '22px 0' }}>
+            <div className="mypeg-download-link-wrap" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: isMobile ? '8px' : '12px', flexWrap: 'wrap', margin: isMobile ? '16px 0' : '22px 0' }}>
               <button
                 type="button"
                 className="mypeg-download-graph-link"
@@ -354,7 +418,7 @@ export default function MyPegIndicatorChartView({
                 style={{
                   background: '#ffffff',
                   border: '1.5px solid #cbd5e1',
-                  color: '#0f172a',
+                  color: '#1e293b',
                   padding: '9px 18px',
                   borderRadius: '6px',
                   fontSize: '0.86rem',
@@ -376,7 +440,7 @@ export default function MyPegIndicatorChartView({
                 style={{
                   background: showDecisionSupport ? '#e0f2fe' : '#ffffff',
                   border: `1.5px solid ${showDecisionSupport ? '#0284c7' : '#cbd5e1'}`,
-                  color: showDecisionSupport ? '#0284c7' : '#0f172a',
+                  color: showDecisionSupport ? '#0284c7' : '#1e293b',
                   padding: '9px 18px',
                   borderRadius: '6px',
                   fontSize: '0.86rem',
@@ -447,7 +511,7 @@ export default function MyPegIndicatorChartView({
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', flexWrap: 'wrap', gap: '8px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <span style={{ fontSize: '1.2rem' }}>💡</span>
-                    <h4 style={{ margin: 0, fontSize: '1.02rem', fontWeight: 700, color: '#0f172a' }}>
+                    <h4 style={{ margin: 0, fontSize: '1.02rem', fontWeight: 700, color: '#1e293b' }}>
                       {locale === 'rw' ? 'Isesengura ry\'Ibyemezo & Icyuho cy\'Intego ya 2026' : 'Decision-Support & 2026 Target Gap Analytics'}
                     </h4>
                   </div>
@@ -456,11 +520,11 @@ export default function MyPegIndicatorChartView({
                   </span>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '14px', marginBottom: '16px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(200px, 1fr))', gap: '12px', marginBottom: '16px' }}>
                   <div style={{ background: '#ffffff', padding: '12px 14px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
-                    <div style={{ fontSize: '0.74rem', color: '#0f172a', fontWeight: 600 }}>Current Status vs Target</div>
-                    <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#0f172a', marginTop: '2px' }}>
-                      {indicator.current_2025.toLocaleString()} / {indicator.target_2026.toLocaleString()} <span style={{ fontSize: '0.76rem', color: '#0f172a' }}>{indicator.unit}</span>
+                    <div style={{ fontSize: '0.74rem', color: '#64748b', fontWeight: 600 }}>Current Status vs Target</div>
+                    <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#1e293b', marginTop: '2px' }}>
+                      {indicator.current_2025.toLocaleString()} / {indicator.target_2026.toLocaleString()} <span style={{ fontSize: '0.76rem', color: '#64748b' }}>{indicator.unit}</span>
                     </div>
                     <div style={{ fontSize: '0.76rem', color: '#0284c7', fontWeight: 700, marginTop: '2px' }}>
                       {progressPct}% of 2026 Milestone Achieved
@@ -468,28 +532,28 @@ export default function MyPegIndicatorChartView({
                   </div>
 
                   <div style={{ background: '#ffffff', padding: '12px 14px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
-                    <div style={{ fontSize: '0.74rem', color: '#0f172a', fontWeight: 600 }}>Remaining Target Gap</div>
+                    <div style={{ fontSize: '0.74rem', color: '#64748b', fontWeight: 600 }}>Remaining Target Gap</div>
                     <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#0284c7', marginTop: '2px' }}>
-                      +{targetGap.toLocaleString()} <span style={{ fontSize: '0.76rem', color: '#0f172a' }}>{indicator.unit}</span>
+                      +{targetGap.toLocaleString()} <span style={{ fontSize: '0.76rem', color: '#64748b' }}>{indicator.unit}</span>
                     </div>
-                    <div style={{ fontSize: '0.76rem', color: '#0f172a', marginTop: '2px' }}>
+                    <div style={{ fontSize: '0.76rem', color: '#64748b', marginTop: '2px' }}>
                       Remaining Project Timeline: 16 Months
                     </div>
                   </div>
 
                   <div style={{ background: '#ffffff', padding: '12px 14px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
-                    <div style={{ fontSize: '0.74rem', color: '#0f172a', fontWeight: 600 }}>Required Monthly Run-Rate</div>
+                    <div style={{ fontSize: '0.74rem', color: '#64748b', fontWeight: 600 }}>Required Monthly Run-Rate</div>
                     <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#0284c7', marginTop: '2px' }}>
-                      {requiredMonthlyVelocity.toLocaleString()} <span style={{ fontSize: '0.76rem', color: '#0f172a' }}>{indicator.unit}/mo</span>
+                      {requiredMonthlyVelocity.toLocaleString()} <span style={{ fontSize: '0.76rem', color: '#64748b' }}>{indicator.unit}/mo</span>
                     </div>
-                    <div style={{ fontSize: '0.76rem', color: '#0f172a', marginTop: '2px' }}>
+                    <div style={{ fontSize: '0.76rem', color: '#64748b', marginTop: '2px' }}>
                       Pace needed to complete 100% by 2026
                     </div>
                   </div>
                 </div>
 
-                <div style={{ background: '#ffffff', padding: '14px', borderRadius: '8px', borderLeft: '4px solid #0284c7', fontSize: '0.86rem', color: '#0f172a', lineHeight: 1.55 }}>
-                  <strong style={{ color: '#0f172a', display: 'block', marginBottom: '2px' }}>
+                <div style={{ background: '#ffffff', padding: '14px', borderRadius: '8px', borderLeft: '4px solid #0284c7', fontSize: '0.86rem', color: '#1e293b', lineHeight: 1.55 }}>
+                  <strong style={{ color: '#1e293b', display: 'block', marginBottom: '2px' }}>
                     {locale === 'rw' ? 'Icyifuzo cy\'Ubuyobozi (City of Kigali & RFA):' : 'Actionable Recommendation for City of Kigali & RFA Leadership:'}
                   </strong>
                   {getPolicyRecommendation()}
@@ -501,51 +565,51 @@ export default function MyPegIndicatorChartView({
 
         {/* TAB 2: The Story (3 Core Questions) */}
         {activeTab === 'story' && (
-          <div className="mypeg-story-tab-body">
-            <div className="story-question-box">
-              <div className="story-question-header">
+          <div className="mypeg-story-tab-body" id="tab-section-story">
+            <div className="story-question-box" style={{ padding: isMobile ? '16px 14px' : '22px' }}>
+              <div className="story-question-header" style={{ gap: isMobile ? '10px' : '12px' }}>
                 <span className="question-number-pill">1</span>
-                <h3>{locale === 'rw' ? 'Iki gipimo ni iki kandi gipima iki?' : 'What is this indicator and what does it measure?'}</h3>
+                <h3 style={{ fontSize: isMobile ? '1.02rem' : '1.15rem' }}>{locale === 'rw' ? 'Iki gipimo ni iki kandi gipima iki?' : 'What is this indicator and what does it measure?'}</h3>
               </div>
-              <p className="story-answer-text">
+              <p className="story-answer-text" style={{ fontSize: isMobile ? '0.88rem' : '0.96rem' }}>
                 {story?.what_is || displayDefinition}
               </p>
             </div>
 
-            <div className="story-question-box">
-              <div className="story-question-header">
+            <div className="story-question-box" style={{ padding: isMobile ? '16px 14px' : '22px' }}>
+              <div className="story-question-header" style={{ gap: isMobile ? '10px' : '12px' }}>
                 <span className="question-number-pill">2</span>
-                <h3>{locale === 'rw' ? 'Kuki iki gipimo gifite akamaro kenshi?' : 'Why does this indicator matter to the community?'}</h3>
+                <h3 style={{ fontSize: isMobile ? '1.02rem' : '1.15rem' }}>{locale === 'rw' ? 'Kuki iki gipimo gifite akamaro kenshi?' : 'Why does this indicator matter to the community?'}</h3>
               </div>
-              <p className="story-answer-text">
+              <p className="story-answer-text" style={{ fontSize: isMobile ? '0.88rem' : '0.96rem' }}>
                 {story?.why_matters ||
                   'High-fidelity monitoring provides citizens, municipal planners, and community leadership with empirical data to verify development outcomes.'}
               </p>
             </div>
 
-            <div className="story-question-box">
-              <div className="story-question-header">
+            <div className="story-question-box" style={{ padding: isMobile ? '16px 14px' : '22px' }}>
+              <div className="story-question-header" style={{ gap: isMobile ? '10px' : '12px' }}>
                 <span className="question-number-pill">3</span>
-                <h3>{locale === 'rw' ? 'Ni iki kirimo gukorwa cyangwa twakora?' : 'What is being done and what actions can be taken?'}</h3>
+                <h3 style={{ fontSize: isMobile ? '1.02rem' : '1.15rem' }}>{locale === 'rw' ? 'Ni iki kirimo gukorwa cyangwa twakora?' : 'What is being done and what actions can be taken?'}</h3>
               </div>
-              <p className="story-answer-text">
+              <p className="story-answer-text" style={{ fontSize: isMobile ? '0.88rem' : '0.96rem' }}>
                 {story?.what_suncasa ||
                   'Through inter-agency collaboration between the City of Kigali, Rwanda Forestry Authority (RFA), IISD, and WRI, evidence-based investments are directed into high-impact zones.'}
               </p>
             </div>
 
             {/* Full 5-Part Metadata Standard (RFP Section 4.4) */}
-            <div className="story-meta-box" style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '18px 20px', marginTop: '24px' }}>
-              <h4 style={{ fontSize: '0.92rem', fontWeight: 700, color: '#1e293b', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+            <div className="story-meta-box" style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '8px', padding: isMobile ? '14px 16px' : '18px 20px', marginTop: isMobile ? '18px' : '24px' }}>
+              <h4 style={{ fontSize: isMobile ? '0.86rem' : '0.92rem', fontWeight: 700, color: '#1e293b', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
                 {locale === 'rw' ? 'Amakuru y\'Ububiko bw\'Igipimo (Metadata)' : 'Indicator Metadata & Data Lineage (RFP Standard)'}
               </h4>
               
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '14px', marginBottom: '14px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(240px, 1fr))', gap: isMobile ? '10px' : '14px', marginBottom: '14px' }}>
                 <div>
                   <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#64748b', display: 'block' }}>
                     {locale === 'rw' ? '1. Inkomoko y\'Amakuru (Data Source)' : '1. Data Source'}
                   </span>
-                  <span style={{ fontSize: '0.88rem', color: '#0f172a', fontWeight: 600 }}>
+                  <span style={{ fontSize: '0.88rem', color: '#1e293b', fontWeight: 600 }}>
                     {indicator.data_source_citation || story?.source || 'RFA Forest Management Evaluation System (FMES)'}
                   </span>
                 </div>
@@ -554,7 +618,7 @@ export default function MyPegIndicatorChartView({
                   <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#64748b', display: 'block' }}>
                     {locale === 'rw' ? '2. Urwego Rubishinzwe (Responsible Agency)' : '2. Responsible Data Provider'}
                   </span>
-                  <span style={{ fontSize: '0.88rem', color: '#0f172a', fontWeight: 600 }}>
+                  <span style={{ fontSize: '0.88rem', color: '#1e293b', fontWeight: 600 }}>
                     Rwanda Forestry Authority (RFA) & City of Kigali
                   </span>
                 </div>
@@ -563,7 +627,7 @@ export default function MyPegIndicatorChartView({
                   <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#64748b', display: 'block' }}>
                     {locale === 'rw' ? '3. Igihe Amakuru Yavuguruwe (Latest Update)' : '3. Date of Latest Update'}
                   </span>
-                  <span style={{ fontSize: '0.88rem', color: '#0f172a', fontWeight: 600 }}>
+                  <span style={{ fontSize: '0.88rem', color: '#1e293b', fontWeight: 600 }}>
                     Q2 2025 (Bi-Annual Cycle)
                   </span>
                 </div>
@@ -599,20 +663,29 @@ export default function MyPegIndicatorChartView({
 
         {/* TAB 3: Catchment Map View (RFP Spatial Integration) */}
         {activeTab === 'map' && (
-          <div className="mypeg-map-tab-body">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
+          <div className="mypeg-map-tab-body" id="tab-section-map">
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: isMobile ? 'flex-start' : 'center',
+                flexDirection: isMobile ? 'column' : 'row',
+                gap: '8px',
+                marginBottom: '14px',
+              }}
+            >
               <div>
-                <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#0f172a', margin: 0 }}>
+                <h3 style={{ fontSize: isMobile ? '1.1rem' : '1.25rem', fontWeight: 700, color: '#1e293b', margin: 0 }}>
                   {locale === 'rw' ? 'Ikarita ya GIS y\'Ikibaya n\'Ibyakozwe' : 'Spatial Catchment & Intervention GIS Map'}
                 </h3>
-                <p style={{ fontSize: '0.84rem', color: '#64748b', margin: '4px 0 0 0' }}>
+                <p style={{ fontSize: isMobile ? '0.8rem' : '0.84rem', color: '#64748b', margin: '4px 0 0 0', lineHeight: 1.5 }}>
                   {locale === 'rw'
                     ? 'Ikarita igaragaza uko iki gipimo cyifashe mu mirenge no mu mikoki ya Nyabarongo, Yanze, Mpazi, na Mont Kigali.'
                     : 'Interactive micro-catchment choropleth, georeferenced intervention nodes, and FMES spatial alignment across the Lower Nyabarongo watershed.'}
                 </p>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
                 <span style={{ fontSize: '0.74rem', background: '#f1f5f9', border: '1px solid #cbd5e1', padding: '4px 10px', borderRadius: '6px', color: '#475569', fontWeight: 600 }}>
                   FMES Layer: <strong style={{ color: themeColor }}>{indicator.fmes_code}</strong>
                 </span>
@@ -624,29 +697,76 @@ export default function MyPegIndicatorChartView({
               <CatchmentMap
                 currentIndicator={indicator}
                 locale={locale}
-                height={520}
+                height={isMobile ? 350 : 520}
                 onSelectSite={(props) => setSelectedMapFeature(props)}
               />
             </div>
 
             {/* Micro-Catchment Spatial Breakdown Table & Selected Inspector */}
-            <div style={{ marginTop: '24px', display: 'grid', gridTemplateColumns: selectedMapFeature ? '2fr 1fr' : '1fr', gap: '18px' }}>
+            <div
+              style={{
+                marginTop: isMobile ? '18px' : '24px',
+                display: 'grid',
+                gridTemplateColumns: selectedMapFeature && !isMobile ? '2fr 1fr' : '1fr',
+                gap: isMobile ? '14px' : '18px',
+              }}
+            >
+              {/* Selected Feature Card shown on top on mobile for instant feedback */}
+              {selectedMapFeature && isMobile && (
+                <div style={{ background: '#0369a1', color: '#f8fafc', border: '1px solid rgba(255, 255, 255, 0.2)', borderRadius: '10px', padding: '16px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                    <span style={{ fontSize: '0.68rem', background: themeColor, color: '#ffffff', padding: '2px 8px', borderRadius: '4px', fontWeight: 700 }}>
+                      {selectedMapFeature.type}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedMapFeature(null)}
+                      style={{ background: 'none', border: 'none', color: '#cbd5e1', fontSize: '1.2rem', cursor: 'pointer', padding: '2px 6px' }}
+                      aria-label="Close inspector"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                  <h4 style={{ fontSize: '1.05rem', fontWeight: 700, margin: '6px 0 2px 0', color: '#ffffff' }}>
+                    {locale === 'rw' ? selectedMapFeature.name_rw || selectedMapFeature.name : selectedMapFeature.name}
+                  </h4>
+                  <div style={{ fontSize: '0.78rem', color: '#94a3b8' }}>
+                    {selectedMapFeature.district} &bull; {selectedMapFeature.fmes_compartment || selectedMapFeature.fmes_code}
+                  </div>
+
+                  {selectedMapFeature.indicatorValue !== undefined && (
+                    <div style={{ marginTop: '12px', padding: '10px', background: 'rgba(255,255,255,0.06)', borderRadius: '6px' }}>
+                      <div style={{ fontSize: '0.72rem', color: '#94a3b8' }}>Verified Indicator Value</div>
+                      <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#38bdf8' }}>
+                        {selectedMapFeature.indicatorValue?.toLocaleString()} {indicator.unit}
+                      </div>
+                    </div>
+                  )}
+
+                  {selectedMapFeature.priority_intervention && (
+                    <div style={{ fontSize: '0.76rem', color: '#cbd5e1', marginTop: '10px', lineHeight: 1.4 }}>
+                      <strong>Intervention:</strong> {selectedMapFeature.priority_intervention}
+                    </div>
+                  )}
+                </div>
+              )}
+
               {/* Spatial Breakdown Cards */}
-              <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '10px', padding: '20px' }}>
+              <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '10px', padding: isMobile ? '16px 14px' : '20px' }}>
                 <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#1e293b', margin: '0 0 14px 0' }}>
                   {locale === 'rw' ? 'Ikwirakwizwa mu Mikoki ya Kigali' : 'Micro-Catchment Spatial Breakdown (Field Survey)'}
                 </h4>
 
                 {indicator.site_breakdown && indicator.site_breakdown.length > 0 ? (
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(auto-fit, minmax(130px, 1fr))' : 'repeat(auto-fit, minmax(180px, 1fr))', gap: isMobile ? '8px' : '12px' }}>
                     {indicator.site_breakdown.map((s, idx) => {
                       const totalVal = indicator.site_breakdown!.reduce((acc, curr) => acc + curr.value, 0);
                       const sharePct = totalVal > 0 ? Math.round((s.value / totalVal) * 100) : 0;
                       return (
-                        <div key={idx} style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '12px 14px' }}>
-                          <div style={{ fontSize: '0.78rem', color: '#64748b', fontWeight: 600 }}>{s.site}</div>
-                          <div style={{ fontSize: '1.25rem', fontWeight: 800, color: themeColor, marginTop: '2px' }}>
-                            {s.value.toLocaleString()} <span style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: 500 }}>{indicator.unit}</span>
+                        <div key={idx} style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '8px', padding: isMobile ? '10px 12px' : '12px 14px' }}>
+                          <div style={{ fontSize: isMobile ? '0.74rem' : '0.78rem', color: '#64748b', fontWeight: 600 }}>{s.site}</div>
+                          <div style={{ fontSize: isMobile ? '1.15rem' : '1.25rem', fontWeight: 800, color: themeColor, marginTop: '2px' }}>
+                            {s.value.toLocaleString()} <span style={{ fontSize: '0.72rem', color: '#64748b', fontWeight: 500 }}>{indicator.unit}</span>
                           </div>
                           <div style={{ marginTop: '6px', display: 'flex', alignItems: 'center', gap: '6px' }}>
                             <div style={{ flex: 1, height: '4px', background: '#e2e8f0', borderRadius: '2px', overflow: 'hidden' }}>
@@ -665,8 +785,8 @@ export default function MyPegIndicatorChartView({
                 )}
               </div>
 
-              {/* Selected Feature Card */}
-              {selectedMapFeature && (
+              {/* Selected Feature Card on Desktop */}
+              {selectedMapFeature && !isMobile && (
                 <div style={{ background: '#0369a1', color: '#f8fafc', border: '1px solid rgba(255, 255, 255, 0.2)', borderRadius: '10px', padding: '20px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
                     <span style={{ fontSize: '0.68rem', background: themeColor, color: '#ffffff', padding: '2px 8px', borderRadius: '4px', fontWeight: 700 }}>
@@ -709,11 +829,11 @@ export default function MyPegIndicatorChartView({
 
         {/* TAB 4: UN SDGs & Metadata */}
         {activeTab === 'sdgs' && (
-          <div className="mypeg-sdgs-tab-body">
-            <h3 style={{ color: '#1e293b', marginBottom: '14px', fontSize: '1.2rem' }}>
+          <div className="mypeg-sdgs-tab-body" id="tab-section-sdgs">
+            <h3 style={{ color: '#1e293b', marginBottom: '14px', fontSize: isMobile ? '1.1rem' : '1.2rem' }}>
               United Nations Sustainable Development Goals (SDGs)
             </h3>
-            <div className="sdgs-cards-grid">
+            <div className="sdgs-cards-grid" style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(280px, 1fr))', gap: '14px' }}>
               {(indicator.sdgs || [
                 {
                   sdg_number: 11,
@@ -730,22 +850,22 @@ export default function MyPegIndicatorChartView({
                   color: '#3f7e44',
                 },
               ]).map((sdg, idx) => (
-                <div key={idx} className="sdg-badge-card" style={{ borderLeftColor: sdg.color }}>
+                <div key={idx} className="sdg-badge-card" style={{ borderLeftColor: sdg.color, padding: isMobile ? '14px 12px' : '16px' }}>
                   <div className="sdg-card-top">
                     <span className="sdg-num-tag" style={{ backgroundColor: sdg.color }}>
                       SDG {sdg.sdg_number}
                     </span>
                     <span className="sdg-target-code">Target {sdg.target_code}</span>
                   </div>
-                  <h4 style={{ color: '#0f172a', margin: '8px 0 4px 0', fontSize: '0.98rem' }}>{sdg.sdg_title}</h4>
-                  <p style={{ color: '#475569', fontSize: '0.86rem', lineHeight: 1.5 }}>{sdg.target_desc}</p>
+                  <h4 style={{ color: '#1e293b', margin: '8px 0 4px 0', fontSize: '0.98rem' }}>{sdg.sdg_title}</h4>
+                  <p style={{ color: '#64748b', fontSize: '0.86rem', lineHeight: 1.5 }}>{sdg.target_desc}</p>
                 </div>
               ))}
             </div>
 
-            <div className="fmes-interop-box" style={{ marginTop: '24px' }}>
-              <h4 style={{ color: '#0f172a', marginBottom: '8px' }}>RFA-FMES Interoperability Alignment</h4>
-              <p style={{ color: '#475569', fontSize: '0.9rem' }}>
+            <div className="fmes-interop-box" style={{ marginTop: '20px', padding: isMobile ? '14px' : '16px' }}>
+              <h4 style={{ color: '#1e293b', marginBottom: '6px', fontSize: isMobile ? '0.95rem' : '1.02rem' }}>RFA-FMES Interoperability Alignment</h4>
+              <p style={{ color: '#64748b', fontSize: isMobile ? '0.84rem' : '0.9rem', margin: 0, lineHeight: 1.5 }}>
                 Aligned with Rwanda Forestry Authority Forest Management Evaluation System: <strong>{indicator.fmes_alignment}</strong> ({indicator.fmes_code}).
               </p>
             </div>
@@ -757,123 +877,123 @@ export default function MyPegIndicatorChartView({
         {/* ========================================================================= */}
         <div
           style={{
-            marginTop: '36px',
+            marginTop: isMobile ? '24px' : '36px',
             background: '#f8fafc',
             border: '1px solid #e2e8f0',
             borderRadius: '12px',
-            padding: '28px',
+            padding: isMobile ? '18px 14px' : '28px',
             boxShadow: '0 2px 10px rgba(0, 0, 0, 0.03)',
           }}
           id="indicator-narrative-summary"
         >
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px', flexWrap: 'wrap', gap: '8px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '16px', flexWrap: 'wrap', gap: '8px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
               <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#0284c7', background: '#e0f2fe', padding: '4px 10px', borderRadius: '6px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
                 Core Indicator Profile
               </span>
-              <span style={{ fontSize: '0.85rem', color: '#0f172a', fontWeight: 600 }}>
+              <span style={{ fontSize: '0.85rem', color: '#1e293b', fontWeight: 600 }}>
                 &bull; {indicator.theme.toUpperCase().replace('_', ' ')}
               </span>
             </div>
 
-            <span style={{ fontSize: '0.78rem', color: '#0f172a' }}>
+            <span style={{ fontSize: isMobile ? '0.74rem' : '0.78rem', color: '#64748b' }}>
               Verified against Rwanda Forestry Authority (RFA) Silvicultural Standards
             </span>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '22px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(280px, 1fr))', gap: isMobile ? '14px' : '22px' }}>
             {/* 1. Plain-Language Explanation */}
-            <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '10px', padding: '18px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '10px', padding: isMobile ? '14px 12px' : '18px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
               <div>
                 <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#0284c7', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                   {locale === 'rw' ? '1. Ibisobanuro Byoroshye' : '1. Plain-Language Explanation'}
                 </span>
-                <h4 style={{ fontSize: '1.02rem', fontWeight: 700, color: '#0f172a', margin: '6px 0 8px 0' }}>
+                <h4 style={{ fontSize: isMobile ? '0.98rem' : '1.02rem', fontWeight: 700, color: '#1e293b', margin: '6px 0 8px 0' }}>
                   {locale === 'rw' ? 'Iki gipimo gipima iki?' : 'What does this indicator measure?'}
                 </h4>
-                <p style={{ fontSize: '0.88rem', color: '#0f172a', lineHeight: 1.6, margin: 0 }}>
+                <p style={{ fontSize: isMobile ? '0.84rem' : '0.88rem', color: '#64748b', lineHeight: 1.6, margin: 0 }}>
                   {story?.what_is || displayDefinition}
                 </p>
               </div>
 
               {indicator.measurement_method && (
-                <div style={{ marginTop: '14px', paddingTop: '10px', borderTop: '1px solid #f1f5f9', fontSize: '0.76rem', color: '#0f172a' }}>
+                <div style={{ marginTop: '12px', paddingTop: '8px', borderTop: '1px solid #f1f5f9', fontSize: '0.76rem', color: '#64748b' }}>
                   <strong>{locale === 'rw' ? 'Uburyo bupimwa:' : 'Method:'}</strong> {indicator.measurement_method}
                 </div>
               )}
             </div>
 
             {/* 2. "Why this matters" narrative */}
-            <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '10px', padding: '18px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '10px', padding: isMobile ? '14px 12px' : '18px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
               <div>
                 <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#0284c7', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                   {locale === 'rw' ? '2. Akamaro ku Batuye Kigali' : '2. "Why This Matters" Narrative'}
                 </span>
-                <h4 style={{ fontSize: '1.02rem', fontWeight: 700, color: '#0f172a', margin: '6px 0 8px 0' }}>
+                <h4 style={{ fontSize: isMobile ? '0.98rem' : '1.02rem', fontWeight: 700, color: '#1e293b', margin: '6px 0 8px 0' }}>
                   {locale === 'rw' ? 'Kuki iki gipimo gifite akamaro?' : 'Relevance to Kigali’s Climate Resilience'}
                 </h4>
-                <p style={{ fontSize: '0.88rem', color: '#0f172a', lineHeight: 1.6, margin: 0 }}>
+                <p style={{ fontSize: isMobile ? '0.84rem' : '0.88rem', color: '#64748b', lineHeight: 1.6, margin: 0 }}>
                   {story?.why_matters || 'High-fidelity environmental telemetry provides municipal planners, RFA forestry technicians, and civic communities with empirical verification of resilience outcomes.'}
                 </p>
               </div>
 
               {story?.what_suncasa && (
-                <div style={{ marginTop: '14px', paddingTop: '10px', borderTop: '1px solid #f1f5f9', fontSize: '0.76rem', color: '#0f172a' }}>
+                <div style={{ marginTop: '12px', paddingTop: '8px', borderTop: '1px solid #f1f5f9', fontSize: '0.76rem', color: '#64748b' }}>
                   <strong style={{ color: '#0284c7' }}>{locale === 'rw' ? 'Icyo SUNCASA ikora:' : 'SUNCASA Action:'}</strong> {story.what_suncasa.substring(0, 110)}...
                 </div>
               )}
             </div>
 
             {/* 3. Data Source and Update Information */}
-            <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '10px', padding: '18px' }}>
+            <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '10px', padding: isMobile ? '14px 12px' : '18px' }}>
               <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#0284c7', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                 {locale === 'rw' ? '3. Isoko y\'Amakuru n\'Ivugurura' : '3. Data Source & Update Information'}
               </span>
-              <h4 style={{ fontSize: '1.02rem', fontWeight: 700, color: '#0f172a', margin: '6px 0 10px 0' }}>
+              <h4 style={{ fontSize: isMobile ? '0.98rem' : '1.02rem', fontWeight: 700, color: '#1e293b', margin: '6px 0 10px 0' }}>
                 {locale === 'rw' ? 'Inkomoko y\'Amakuru' : 'Provenance & Update Cycle'}
               </h4>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.84rem' }}>
                 <div>
-                  <span style={{ color: '#0f172a', fontSize: '0.75rem', fontWeight: 700, display: 'block', textTransform: 'uppercase' }}>
+                  <span style={{ color: '#64748b', fontSize: '0.75rem', fontWeight: 700, display: 'block', textTransform: 'uppercase' }}>
                     {locale === 'rw' ? 'Inkomoko y\'Amakuru' : 'Data Source Citation:'}
                   </span>
-                  <span style={{ color: '#0f172a', fontWeight: 600 }}>
+                  <span style={{ color: '#1e293b', fontWeight: 600, fontSize: isMobile ? '0.82rem' : '0.88rem' }}>
                     {indicator.data_source_citation || story?.source || 'Rwanda Forestry Authority (RFA) & City of Kigali Land Use Registry'}
                   </span>
                 </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginTop: '4px' }}>
                   <div>
-                    <span style={{ color: '#0f172a', fontSize: '0.74rem', fontWeight: 700, display: 'block' }}>
+                    <span style={{ color: '#64748b', fontSize: '0.74rem', fontWeight: 700, display: 'block' }}>
                       {locale === 'rw' ? 'Igihe Yavuguruwe:' : 'Latest Update:'}
                     </span>
-                    <span style={{ color: '#0f172a', fontWeight: 600 }}>
+                    <span style={{ color: '#1e293b', fontWeight: 600 }}>
                       Q2 2025
                     </span>
                   </div>
                   <div>
-                    <span style={{ color: '#0f172a', fontSize: '0.74rem', fontWeight: 700, display: 'block' }}>
+                    <span style={{ color: '#64748b', fontSize: '0.74rem', fontWeight: 700, display: 'block' }}>
                       {locale === 'rw' ? 'Inshuro Ivugururwa:' : 'Frequency:'}
                     </span>
-                    <span style={{ color: '#0f172a', fontWeight: 600 }}>
+                    <span style={{ color: '#1e293b', fontWeight: 600 }}>
                       Bi-Annual
                     </span>
                   </div>
                 </div>
 
                 <div style={{ marginTop: '4px' }}>
-                  <span style={{ color: '#0f172a', fontSize: '0.74rem', fontWeight: 700, display: 'block' }}>
+                  <span style={{ color: '#64748b', fontSize: '0.74rem', fontWeight: 700, display: 'block' }}>
                     FMES Interoperability Code:
                   </span>
-                  <span style={{ color: '#0284c7', fontWeight: 700 }}>
+                  <span style={{ color: '#0284c7', fontWeight: 700, fontSize: isMobile ? '0.82rem' : '0.88rem' }}>
                     {indicator.fmes_code} ({indicator.fmes_alignment || 'RFA Layer'})
                   </span>
                 </div>
 
                 {story?.limitations && (
-                  <div style={{ marginTop: '6px', paddingTop: '8px', borderTop: '1px solid #f1f5f9', fontSize: '0.74rem', color: '#0f172a' }}>
-                    <strong style={{ color: '#0f172a' }}>Caveats:</strong> {story.limitations}
+                  <div style={{ marginTop: '6px', paddingTop: '8px', borderTop: '1px solid #f1f5f9', fontSize: '0.74rem', color: '#64748b' }}>
+                    <strong style={{ color: '#1e293b' }}>Caveats:</strong> {story.limitations}
                   </div>
                 )}
               </div>
@@ -923,7 +1043,7 @@ export default function MyPegIndicatorChartView({
                   <span style={{ fontSize: '0.74rem', fontWeight: 800, color: '#0284c7', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
                     {locale === 'rw' ? 'Isesengura ryo Kugereranya' : 'Side-by-Side Indicator Comparison'}
                   </span>
-                  <h3 style={{ margin: '4px 0 0 0', fontSize: '1.4rem', color: '#0f172a', fontWeight: 800 }}>
+                  <h3 style={{ margin: '4px 0 0 0', fontSize: '1.4rem', color: '#1e293b', fontWeight: 800 }}>
                     {locale === 'rw' ? 'Gereranya Ibipimo by\'Ibyavuye mu Mirimo' : 'Compare Impact Indicators'}
                   </h3>
                 </div>
@@ -950,7 +1070,7 @@ export default function MyPegIndicatorChartView({
                     borderRadius: '6px',
                     border: '1.5px solid #cbd5e1',
                     fontSize: '0.9rem',
-                    color: '#0f172a',
+                    color: '#1e293b',
                     fontWeight: 600,
                   }}
                 >
@@ -969,7 +1089,7 @@ export default function MyPegIndicatorChartView({
                   <span style={{ fontSize: '0.72rem', fontWeight: 800, color: themeColor, textTransform: 'uppercase' }}>
                     Active Indicator
                   </span>
-                  <h4 style={{ margin: '6px 0 10px 0', fontSize: '1.1rem', fontWeight: 800, color: '#0f172a' }}>
+                  <h4 style={{ margin: '6px 0 10px 0', fontSize: '1.1rem', fontWeight: 800, color: '#1e293b' }}>
                     {displayTitle}
                   </h4>
                   <div style={{ fontSize: '0.82rem', color: '#64748b', marginBottom: '14px', minHeight: '40px' }}>
@@ -979,11 +1099,11 @@ export default function MyPegIndicatorChartView({
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.84rem' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #e2e8f0', paddingBottom: '4px' }}>
                       <span style={{ color: '#64748b' }}>Theme:</span>
-                      <strong style={{ textTransform: 'capitalize' }}>{indicator.theme}</strong>
+                      <strong style={{ textTransform: 'capitalize', color: '#1e293b' }}>{indicator.theme}</strong>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #e2e8f0', paddingBottom: '4px' }}>
                       <span style={{ color: '#64748b' }}>2024 Baseline:</span>
-                      <strong>{indicator.baseline_2024.toLocaleString()} {indicator.unit}</strong>
+                      <strong style={{ color: '#1e293b' }}>{indicator.baseline_2024.toLocaleString()} {indicator.unit}</strong>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #e2e8f0', paddingBottom: '4px' }}>
                       <span style={{ color: '#64748b' }}>2025 Current:</span>
@@ -991,7 +1111,7 @@ export default function MyPegIndicatorChartView({
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #e2e8f0', paddingBottom: '4px' }}>
                       <span style={{ color: '#64748b' }}>2026 Target:</span>
-                      <strong>{indicator.target_2026.toLocaleString()} {indicator.unit}</strong>
+                      <strong style={{ color: '#1e293b' }}>{indicator.target_2026.toLocaleString()} {indicator.unit}</strong>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #e2e8f0', paddingBottom: '4px' }}>
                       <span style={{ color: '#64748b' }}>Target Attainment:</span>
@@ -1009,7 +1129,7 @@ export default function MyPegIndicatorChartView({
                   <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#64748b', textTransform: 'uppercase' }}>
                     Benchmark Comparison
                   </span>
-                  <h4 style={{ margin: '6px 0 10px 0', fontSize: '1.1rem', fontWeight: 800, color: '#0f172a' }}>
+                  <h4 style={{ margin: '6px 0 10px 0', fontSize: '1.1rem', fontWeight: 800, color: '#1e293b' }}>
                     {compareIndicator.id.split('_').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
                   </h4>
                   <div style={{ fontSize: '0.82rem', color: '#64748b', marginBottom: '14px', minHeight: '40px' }}>
@@ -1019,11 +1139,11 @@ export default function MyPegIndicatorChartView({
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.84rem' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #e2e8f0', paddingBottom: '4px' }}>
                       <span style={{ color: '#64748b' }}>Theme:</span>
-                      <strong style={{ textTransform: 'capitalize' }}>{compareIndicator.theme}</strong>
+                      <strong style={{ textTransform: 'capitalize', color: '#1e293b' }}>{compareIndicator.theme}</strong>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #e2e8f0', paddingBottom: '4px' }}>
                       <span style={{ color: '#64748b' }}>2024 Baseline:</span>
-                      <strong>{compareIndicator.baseline_2024.toLocaleString()} {compareIndicator.unit}</strong>
+                      <strong style={{ color: '#1e293b' }}>{compareIndicator.baseline_2024.toLocaleString()} {compareIndicator.unit}</strong>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #e2e8f0', paddingBottom: '4px' }}>
                       <span style={{ color: '#64748b' }}>2025 Current:</span>
@@ -1031,7 +1151,7 @@ export default function MyPegIndicatorChartView({
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #e2e8f0', paddingBottom: '4px' }}>
                       <span style={{ color: '#64748b' }}>2026 Target:</span>
-                      <strong>{compareIndicator.target_2026.toLocaleString()} {compareIndicator.unit}</strong>
+                      <strong style={{ color: '#1e293b' }}>{compareIndicator.target_2026.toLocaleString()} {compareIndicator.unit}</strong>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #e2e8f0', paddingBottom: '4px' }}>
                       <span style={{ color: '#64748b' }}>Target Attainment:</span>
@@ -1118,7 +1238,7 @@ export default function MyPegIndicatorChartView({
                   <span style={{ fontSize: '0.74rem', fontWeight: 800, color: '#0284c7', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
                     Interoperability & Syndication
                   </span>
-                  <h3 style={{ margin: '4px 0 0 0', fontSize: '1.35rem', color: '#0f172a', fontWeight: 800 }}>
+                  <h3 style={{ margin: '4px 0 0 0', fontSize: '1.35rem', color: '#1e293b', fontWeight: 800 }}>
                     {locale === 'rw' ? 'Injiza iki Gipimo mu Rundi Rubuga' : 'Embed Indicator on External Website'}
                   </h3>
                 </div>

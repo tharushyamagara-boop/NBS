@@ -140,7 +140,7 @@ export default function MyPegHeroView({
           </div>
 
           {/* 4 Headline KPIs Grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '20px' }}>
+          <div className="mypeg-headline-kpis-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))', gap: '20px' }}>
             {headlineKPIs.map((ind) => {
               const col = themeColors[ind.theme] || '#0284c7';
               const pct = Math.min(100, Math.round((ind.current_2025 / ind.target_2026) * 100));
@@ -157,26 +157,33 @@ export default function MyPegHeroView({
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
+                    minWidth: 0,
                   }}
                 >
-                  <div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-                      <span style={{ fontSize: '0.74rem', fontWeight: 700, color: col, textTransform: 'uppercase' }}>
+                  <div style={{ minWidth: 0 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                      <span style={{ fontSize: '0.74rem', fontWeight: 700, color: col, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
                         {ind.theme}
-                      </span>
-                      <span style={{ fontSize: '0.72rem', background: '#f1f5f9', color: '#475569', padding: '2px 8px', borderRadius: '4px', fontWeight: 600 }}>
-                        {ind.fmes_code}
                       </span>
                     </div>
 
-                    <div style={{ fontSize: '2.1rem', fontWeight: 800, color: '#0f172a', lineHeight: 1.1 }}>
+                    <div style={{ fontSize: '1.6rem', fontWeight: 700, color: '#1e293b', lineHeight: 1.2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                       {ind.current_2025.toLocaleString()}
-                      <span style={{ fontSize: '0.85rem', fontWeight: 500, color: '#64748b', marginLeft: '6px' }}>
+                      <span style={{ fontSize: '0.82rem', fontWeight: 500, color: '#64748b', marginLeft: '6px' }}>
                         {ind.unit}
                       </span>
                     </div>
 
-                    <div style={{ fontSize: '0.94rem', fontWeight: 600, color: '#334155', marginTop: '8px', minHeight: '44px' }}>
+                    <div
+                      style={{
+                        fontSize: '0.88rem',
+                        fontWeight: 400,
+                        color: '#64748b',
+                        marginTop: '8px',
+                        lineHeight: 1.5,
+                        minHeight: '60px',
+                      }}
+                    >
                       {ind.definition}
                     </div>
                   </div>
@@ -202,7 +209,7 @@ export default function MyPegHeroView({
                         padding: '8px 12px',
                         fontSize: '0.85rem',
                         fontWeight: 600,
-                        color: '#0f172a',
+                        color: '#1e293b',
                         textDecoration: 'none',
                         transition: 'all 0.15s ease',
                       }}
@@ -218,31 +225,50 @@ export default function MyPegHeroView({
       </section>
 
       {/* 2B. Thematic Communication Pillars (RFP Mandated Thematic Structure) */}
-      <section style={{ padding: '64px 32px', background: '#f8fafc', borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0' }} id="thematic-pillars-section">
+      <section className="mypeg-pillars-section" style={{ background: '#f8fafc', borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0' }} id="thematic-pillars-section">
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: '42px' }}>
-            <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#0284c7', textTransform: 'uppercase', letterSpacing: '0.08em', background: '#e0f2fe', padding: '5px 14px', borderRadius: '20px', display: 'inline-block' }}>
+          <div style={{ textAlign: 'center', maxWidth: '820px', margin: '0 auto 40px auto' }}>
+            <span
+              style={{
+                display: 'inline-block',
+                padding: '4px 12px',
+                borderRadius: '20px',
+                background: '#e0f2fe',
+                color: '#0369a1',
+                fontWeight: 700,
+                fontSize: '0.8rem',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
+                marginBottom: '12px',
+              }}
+            >
               {locale === 'rw' ? 'Inkingi z\'Ubutumwa n\'Ibisubizo Kamere' : 'Thematic Communication Pillars'}
             </span>
-            <h2 style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontSize: '2.3rem', color: '#0f172a', fontWeight: 600, marginTop: '14px', lineHeight: 1.25 }}>
+            <h2
+              style={{
+                fontFamily: "Georgia, 'Times New Roman', serif",
+                fontSize: '2.2rem',
+                color: '#1e293b',
+                fontWeight: 500,
+                lineHeight: 1.3,
+              }}
+            >
               {locale === 'rw' ? 'Inkingi Enye z\'Imiyoborere y\'Ikibaya cya Nyabarongo' : 'Four Narrative Pillars of Kigali’s NbS Strategy'}
             </h2>
-            <p style={{ color: '#475569', fontSize: '1rem', marginTop: '10px', maxWidth: '780px', margin: '10px auto 0 auto', lineHeight: 1.6 }}>
+            <p style={{ marginTop: '14px', fontSize: '1.02rem', color: '#64748b', lineHeight: 1.6 }}>
               {locale === 'rw'
                 ? 'Iyi mbonerahamwe yubatse ku nkingi enye z\'ingenzi zigaragaza ibyihutirwa mu bufatanye n\'abafatanyabikorwa. Buri nkingi ishyigikiwe n\'ubutumwa bwihariye n\'ibipimo byizewe.'
                 : 'The SUNCASA dashboard is organized around four narrative themes reflecting stakeholder priorities and the Kigali roadmap. Each theme serves as a communication pillar supported by key messages and verified indicator datasets.'}
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))', gap: '24px' }}>
+          <div className="mypeg-pillars-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 270px), 1fr))', gap: '24px' }}>
             {[
               {
                 id: 'climate',
                 name_en: 'Climate Adaptation',
                 name_rw: 'Kwirinda Imihindagurikire',
-                icon: '🌧️',
                 color: '#0284c7',
-                bgGradient: 'linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%)',
                 keyMessage_en: 'Mitigating catastrophic flood risks, stabilizing volcanic hillsides, and buffering informal downstream settlements against peak storm runoff.',
                 keyMessage_rw: 'Kugabanya inkangu zikomeye, kurinda imyuzure yangiza ibikorwa remezo, no gufata amazi ku misozi mbere y\'uko agera mu bibaya.',
                 indicators: [
@@ -256,9 +282,7 @@ export default function MyPegHeroView({
                 id: 'biodiversity',
                 name_en: 'Biodiversity Protection',
                 name_rw: 'Kubungabunga Urusobe',
-                icon: '🌱',
                 color: '#0284c7',
-                bgGradient: 'linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%)',
                 keyMessage_en: 'Rehabilitating indigenous flora, enforcing 30m riparian river buffers, and safeguarding water quality for the Yanze intake.',
                 keyMessage_rw: 'Kugarura ibiti gakondo by\'u Rwanda, kurinda metero 30 z\'inkombe za Nyabarongo, no kubungabunga amazi y\'uruganda rwa Yanze.',
                 indicators: [
@@ -273,9 +297,7 @@ export default function MyPegHeroView({
                 id: 'gesi',
                 name_en: 'Gender Equality & Social Inclusion',
                 name_rw: 'Uburinganire (GESI)',
-                icon: '⚖️',
                 color: '#0284c7',
-                bgGradient: 'linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%)',
                 keyMessage_en: 'Centering women and youth in climate governance, nursery enterprise ownership, and high-tech digital geospatial telemetry.',
                 keyMessage_rw: 'Gushyira abagore ku ruhembo rw\'ubuyobozi bw\'amazi, guha urubyiruko akazi ka GIS, no kuzamura ingo zikennye.',
                 indicators: [
@@ -288,9 +310,7 @@ export default function MyPegHeroView({
                 id: 'economy',
                 name_en: 'Employment & Economy',
                 name_rw: 'Imirimo n\'Ubukungu',
-                icon: '💼',
                 color: '#0284c7',
-                bgGradient: 'linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%)',
                 keyMessage_en: 'Generating dignified green employment, boosting smallholder agroforestry crop yields, and spurring cooperative nursery revenues.',
                 keyMessage_rw: 'Guhanga imirimo yishyuwe y\'icyatsi, guteza imbere abahinzi b\'amaterasi y\'imbuto, no kwinjiza amafaranga mu buhumbikiro.',
                 indicators: [
@@ -304,30 +324,53 @@ export default function MyPegHeroView({
               <div
                 key={pillar.id}
                 style={{
-                  background: pillar.bgGradient,
+                  background: '#ffffff',
                   borderRadius: '14px',
-                  border: `1.5px solid ${pillar.color}26`,
-                  padding: '26px',
+                  border: '1px solid #e2e8f0',
+                  padding: '24px',
                   boxShadow: '0 4px 14px rgba(0,0,0,0.04)',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
+                  minWidth: 0,
                   transition: 'transform 0.2s ease, box-shadow 0.2s ease',
                 }}
               >
                 <div>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
-                    <span style={{ fontSize: '1.75rem' }}>{pillar.icon}</span>
-                    <span style={{ fontSize: '0.72rem', fontWeight: 800, color: pillar.color, background: `${pillar.color}18`, padding: '3px 10px', borderRadius: '12px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                  <div style={{ marginBottom: '14px' }}>
+                    <span
+                      style={{
+                        display: 'inline-block',
+                        fontSize: '0.72rem',
+                        fontWeight: 800,
+                        color: pillar.color,
+                        background: `${pillar.color}18`,
+                        padding: '4px 10px',
+                        borderRadius: '12px',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.04em',
+                      }}
+                    >
                       PILLAR &bull; {pillar.id}
                     </span>
                   </div>
 
-                  <h3 style={{ fontSize: '1.22rem', fontWeight: 800, color: '#0f172a', marginBottom: '8px' }}>
+                  <h3
+                    title={locale === 'rw' ? pillar.name_rw : pillar.name_en}
+                    style={{
+                      fontSize: '1.22rem',
+                      fontWeight: 800,
+                      color: '#1e293b',
+                      marginBottom: '8px',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}
+                  >
                     {locale === 'rw' ? pillar.name_rw : pillar.name_en}
                   </h3>
 
-                  <div style={{ fontSize: '0.88rem', color: '#475569', lineHeight: 1.5, background: '#ffffff', padding: '12px', borderRadius: '8px', borderLeft: `3px solid ${pillar.color}`, marginBottom: '18px' }}>
+                  <div style={{ fontSize: '0.88rem', color: '#64748b', lineHeight: 1.5, background: '#f8fafc', padding: '12px', borderRadius: '8px', borderLeft: `3px solid ${pillar.color}`, marginBottom: '18px' }}>
                     <div style={{ fontSize: '0.7rem', fontWeight: 700, color: pillar.color, textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '4px' }}>
                       {locale === 'rw' ? 'Ubutumwa bw\'Ingenzi' : 'Key Message'}
                     </div>
@@ -338,30 +381,53 @@ export default function MyPegHeroView({
                     <div style={{ fontSize: '0.74rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '8px' }}>
                       {locale === 'rw' ? 'Ibipimo Bishyigikiye iyi Nkingi:' : 'Supporting Indicators:'}
                     </div>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '7px' }}>
                       {pillar.indicators.map((ind) => (
                         <Link
                           key={ind.id}
                           href={`/indicator/${ind.id}`}
+                          title={locale === 'rw' ? ind.label_rw : ind.label_en}
+                          className="pillar-supporting-indicator-link"
                           style={{
                             display: 'flex',
                             justifyContent: 'space-between',
                             alignItems: 'center',
-                            padding: '6px 10px',
+                            gap: '10px',
+                            padding: '7px 10px',
                             background: '#ffffff',
                             borderRadius: '6px',
                             border: '1px solid #e2e8f0',
                             textDecoration: 'none',
                             fontSize: '0.82rem',
                             color: '#1e293b',
-                            transition: 'border-color 0.15s ease',
+                            minWidth: 0,
+                            transition: 'border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease',
                           }}
                         >
-                          <span style={{ fontWeight: 600, color: '#334155' }}>
+                          <span
+                            style={{
+                              fontWeight: 600,
+                              color: '#1e293b',
+                              whiteSpace: 'nowrap',
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                              minWidth: 0,
+                              flex: '1 1 auto',
+                            }}
+                          >
                             {locale === 'rw' ? ind.label_rw : ind.label_en}
                           </span>
-                          <span style={{ fontWeight: 800, color: pillar.color, fontSize: '0.84rem' }}>
-                            {ind.value} &rarr;
+                          <span
+                            style={{
+                              fontWeight: 700,
+                              color: pillar.color,
+                              fontSize: '0.82rem',
+                              whiteSpace: 'nowrap',
+                              flexShrink: 0,
+                              marginLeft: 'auto',
+                            }}
+                          >
+                            {ind.value}
                           </span>
                         </Link>
                       ))}
@@ -397,14 +463,35 @@ export default function MyPegHeroView({
       {/* 3. Simple Map of Intervention Locations (RFP Requirement) */}
       <section style={{ padding: '64px 32px', background: '#ffffff' }} id="intervention-map-section">
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-            <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#0284c7', textTransform: 'uppercase', letterSpacing: '0.08em', background: '#e0f2fe', padding: '5px 14px', borderRadius: '20px', display: 'inline-block' }}>
+          <div style={{ textAlign: 'center', maxWidth: '820px', margin: '0 auto 40px auto' }}>
+            <span
+              style={{
+                display: 'inline-block',
+                padding: '4px 12px',
+                borderRadius: '20px',
+                background: '#e0f2fe',
+                color: '#0369a1',
+                fontWeight: 700,
+                fontSize: '0.8rem',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
+                marginBottom: '12px',
+              }}
+            >
               {locale === 'rw' ? 'Aho Imirimo Ibereye' : 'Intervention Locations'}
             </span>
-            <h2 style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontSize: '2.3rem', color: '#0f172a', fontWeight: 600, marginTop: '12px' }}>
+            <h2
+              style={{
+                fontFamily: "Georgia, 'Times New Roman', serif",
+                fontSize: '2.2rem',
+                color: '#1e293b',
+                fontWeight: 500,
+                lineHeight: 1.3,
+              }}
+            >
               {locale === 'rw' ? 'Ikarita y\'Aho Imirimo ya SUNCASA Ibereye i Kigali' : 'Simple Map of Intervention Locations'}
             </h2>
-            <p style={{ color: '#0f172a', fontSize: '1rem', marginTop: '10px', maxWidth: '750px', margin: '10px auto 0 auto', lineHeight: 1.6 }}>
+            <p style={{ marginTop: '14px', fontSize: '1.02rem', color: '#64748b', lineHeight: 1.6 }}>
               {locale === 'rw'
                 ? 'Ikarita yoroshye igaragaza aho imirimo ya SUNCASA ibereye mu mikoki ya Yanze, Mpazi, Mont Kigali, na Nyabugogo. Kanda ku kimenyetso cy\'ahantu hose kugira ngo urebe amakuru n\'ibipimo byaho.'
                 : 'An intuitive, interactive map tracking key Nature-Based Solution intervention locations across Kigali’s Lower Nyabarongo watershed. Click on any location marker to inspect hectares restored, seedlings planted, and flood resilience metrics.'}
@@ -429,7 +516,7 @@ export default function MyPegHeroView({
                   borderRadius: '20px',
                   border: `1.5px solid ${mapTheme === th.id ? th.color : '#e2e8f0'}`,
                   background: mapTheme === th.id ? th.color : '#ffffff',
-                  color: mapTheme === th.id ? '#ffffff' : '#475569',
+                  color: mapTheme === th.id ? '#ffffff' : '#64748b',
                   fontSize: '0.82rem',
                   fontWeight: 700,
                   cursor: 'pointer',
@@ -446,7 +533,7 @@ export default function MyPegHeroView({
             ))}
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: selectedSite ? '2fr 1fr' : '1fr', gap: '20px', alignItems: 'start' }}>
+          <div className="mypeg-hero-map-row" style={{ display: 'grid', gridTemplateColumns: selectedSite ? '2fr 1fr' : '1fr', gap: '20px', alignItems: 'start' }}>
             <div style={{ borderRadius: '12px', overflow: 'hidden', border: '1px solid #cbd5e1', boxShadow: '0 4px 16px rgba(0,0,0,0.08)' }}>
               <CatchmentMap
                 locale={locale}

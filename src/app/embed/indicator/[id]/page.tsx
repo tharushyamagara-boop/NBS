@@ -154,7 +154,7 @@ export default function EmbedIndicatorPage() {
   const progressPct = Math.min(100, Math.round((indicator.current_2025 / indicator.target_2026) * 100));
   const isDark = themeMode === 'dark';
   const bg = isDark ? '#0b1324' : '#ffffff';
-  const text = isDark ? '#f8fafc' : '#0f172a';
+  const text = isDark ? '#f8fafc' : '#1e293b';
   const subText = isDark ? '#94a3b8' : '#64748b';
   const border = isDark ? '#1e293b' : '#e2e8f0';
 

@@ -28,7 +28,17 @@ interface CivicStoryCardsProps {
 export default function CivicStoryCards({ locale }: CivicStoryCardsProps) {
   const [stories, setStories] = useState<LandingStory[]>(initialStories as LandingStory[]);
   const [selectedStory, setSelectedStory] = useState<{ id: string; tagColor: string; content: StoryContent } | null>(null);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
   const isRw = locale === 'rw';
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(typeof window !== 'undefined' && window.innerWidth <= 768);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Live reload from API if admin modified stories
   useEffect(() => {
@@ -89,26 +99,72 @@ export default function CivicStoryCards({ locale }: CivicStoryCardsProps) {
   };
 
   return (
-    <section className="civic-stories-section" id="stories-section" style={{ padding: '68px 32px', background: '#ffffff' }}>
-      <div className="container" style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <div className="section-header" style={{ textAlign: 'center', marginBottom: '44px' }}>
-          <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#0284c7', textTransform: 'uppercase', letterSpacing: '0.08em', background: '#e0f2fe', padding: '5px 14px', borderRadius: '20px', display: 'inline-block' }}>
+    <section
+      className="civic-stories-section"
+      id="stories-section"
+      style={{
+        padding: isMobile ? '36px 14px' : '68px 32px',
+        background: '#ffffff',
+        width: '100%',
+        maxWidth: '100%',
+        boxSizing: 'border-box',
+        overflow: 'hidden',
+      }}
+    >
+      <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
+        <div className="section-header" style={{ textAlign: 'center', maxWidth: '820px', margin: isMobile ? '0 auto 24px auto' : '0 auto 40px auto' }}>
+          <span
+            style={{
+              display: 'inline-block',
+              padding: '4px 12px',
+              borderRadius: '20px',
+              background: '#e0f2fe',
+              color: '#0369a1',
+              fontWeight: 700,
+              fontSize: '0.78rem',
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
+              marginBottom: '10px',
+            }}
+          >
             {isRw ? 'Inkuru 2–3 z\'Ingenzi zishingiye ku Makuru' : '2–3 Curated Data-Driven Stories'}
           </span>
-          <h2 className="section-title" style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontSize: '2.3rem', color: '#0f172a', fontWeight: 600, marginTop: '14px', lineHeight: 1.25 }}>
+          <h2
+            className="section-title"
+            style={{
+              fontFamily: "Georgia, 'Times New Roman', serif",
+              fontSize: isMobile ? '1.45rem' : '2.2rem',
+              color: '#1e293b',
+              fontWeight: 500,
+              lineHeight: 1.3,
+              margin: '6px 0 0 0',
+            }}
+          >
             {isRw ? 'Inkuru z\'Ibibaya n\'Ibyavuye mu Mirimo ya SUNCASA' : 'Data-Driven Stories of Community Resilience in Kigali'}
           </h2>
-          <p className="section-subtitle" style={{ color: '#0f172a', fontSize: '1rem', marginTop: '10px', maxWidth: '780px', margin: '10px auto 0 auto', lineHeight: 1.6 }}>
+          <p className="section-subtitle" style={{ marginTop: isMobile ? '10px' : '14px', fontSize: isMobile ? '0.88rem' : '1.02rem', color: '#64748b', lineHeight: 1.6 }}>
             {isRw
-              ? 'Inkuru zifatika zihuza imirimo yo gusana imisozi n\'imibereho myiza y\'abaturage. Kanda buto ya "Byinshi" kugira ngo usome inkuru yose mu buryo burambuye.'
-              : 'Compelling evidence-based narratives linking ecological bio-engineering to flood safety, female cooperative wealth, and youth technology. Click the "More" button on any story to read the full article.'}
+              ? 'Inkuru zifatika zihuza imirimo yo gusana imisozi n\'imibereho myiza y\'abaturage. Kanda kuri buri nkuru kugira ngo uyisome mu buryo burambuye.'
+              : 'Compelling evidence-based narratives linking ecological bio-engineering to flood safety, female cooperative wealth, and youth technology. Click on any story to read the full article.'}
           </p>
         </div>
 
-        <div className="civic-stories-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '26px' }}>
+        <div
+          className="civic-stories-grid"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))',
+            gap: isMobile ? '16px' : '26px',
+            width: '100%',
+            boxSizing: 'border-box',
+          }}
+        >
           {stories.map((story) => {
             const content = story[locale] || story.en;
             if (!content) return null;
+
+            // Strip existing surrounding double-quotes to prevent duplicate ""...""
+            const cleanQuote = content.quote ? content.quote.replace(/^["“\s]+|["”\s]+$/g, '') : '';
 
             return (
               <article
@@ -118,23 +174,28 @@ export default function CivicStoryCards({ locale }: CivicStoryCardsProps) {
                   background: '#ffffff',
                   border: '1px solid #e2e8f0',
                   borderRadius: '14px',
-                  padding: '28px',
+                  padding: isMobile ? '18px 14px' : '28px',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
                   boxShadow: '0 4px 16px rgba(0, 0, 0, 0.05)',
                   transition: 'transform 0.2s ease, border-color 0.2s ease',
+                  width: '100%',
+                  maxWidth: '100%',
+                  boxSizing: 'border-box',
+                  overflow: 'hidden',
                 }}
               >
                 <div>
-                  <div className="story-card-top" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
+                  <div className="story-card-top" style={{ marginBottom: isMobile ? '10px' : '14px' }}>
                     <span
                       className="story-pill"
                       style={{
+                        display: 'inline-block',
                         backgroundColor: '#e0f2fe',
                         color: '#0284c7',
                         border: '1px solid #bae6fd',
-                        fontSize: '0.74rem',
+                        fontSize: '0.72rem',
                         fontWeight: 800,
                         padding: '3px 10px',
                         borderRadius: '12px',
@@ -144,20 +205,25 @@ export default function CivicStoryCards({ locale }: CivicStoryCardsProps) {
                     >
                       {content.tag}
                     </span>
-                    <span style={{ fontSize: '0.76rem', color: '#0f172a', fontWeight: 600 }}>
-                      ⏱️ 3 min read &bull; {content.date}
-                    </span>
                   </div>
 
                   <h3
-                    style={{ fontSize: '1.25rem', fontWeight: 700, color: '#0f172a', marginBottom: '12px', lineHeight: 1.35, cursor: 'pointer' }}
+                    style={{
+                      fontSize: isMobile ? '1.12rem' : '1.25rem',
+                      fontWeight: 700,
+                      color: '#1e293b',
+                      marginBottom: '10px',
+                      lineHeight: 1.35,
+                      cursor: 'pointer',
+                      wordBreak: 'break-word',
+                    }}
                     onClick={() => setSelectedStory({ id: story.id, tagColor: story.tagColor, content })}
                     title={isRw ? 'Kanda hano usome inkuru yose' : 'Click to open full article'}
                   >
                     {content.title}
                   </h3>
 
-                  <p style={{ fontSize: '0.9rem', color: '#0f172a', lineHeight: 1.6, marginBottom: '18px' }}>
+                  <p style={{ fontSize: isMobile ? '0.86rem' : '0.9rem', color: '#64748b', lineHeight: 1.6, marginBottom: '16px' }}>
                     {content.summary}
                   </p>
 
@@ -165,15 +231,15 @@ export default function CivicStoryCards({ locale }: CivicStoryCardsProps) {
                     style={{
                       background: '#f8fafc',
                       borderLeft: '3px solid #0284c7',
-                      padding: '12px 14px',
+                      padding: isMobile ? '10px 12px' : '12px 14px',
                       borderRadius: '0 8px 8px 0',
-                      marginBottom: '20px',
+                      marginBottom: isMobile ? '16px' : '20px',
                     }}
                   >
-                    <p style={{ fontSize: '0.84rem', fontStyle: 'normal', color: '#0f172a', lineHeight: 1.5, margin: 0 }}>
-                      &ldquo;{content.quote}&rdquo;
+                    <p style={{ fontSize: isMobile ? '0.82rem' : '0.84rem', fontStyle: 'normal', color: '#1e293b', lineHeight: 1.5, margin: 0 }}>
+                      &ldquo;{cleanQuote}&rdquo;
                     </p>
-                    <span style={{ display: 'block', fontSize: '0.76rem', color: '#0284c7', marginTop: '6px', fontWeight: 600 }}>
+                    <span style={{ display: 'block', fontSize: '0.74rem', color: '#0284c7', marginTop: '6px', fontWeight: 600 }}>
                       &mdash; {content.quoteAuthor}
                     </span>
                   </div>
@@ -183,17 +249,13 @@ export default function CivicStoryCards({ locale }: CivicStoryCardsProps) {
                   className="story-footer"
                   style={{
                     display: 'flex',
-                    justifyContent: 'space-between',
+                    justifyContent: 'flex-end',
                     alignItems: 'center',
                     paddingTop: '16px',
                     borderTop: '1px solid #e2e8f0',
                   }}
                 >
-                  <span style={{ fontSize: '0.76rem', color: '#0f172a' }}>
-                    🏛️ {content.author}
-                  </span>
-
-                  {/* PROMINENT "MORE" BUTTON TO OPEN FULL ARTICLE */}
+                  {/* FULL ARTICLE BUTTON */}
                   <button
                     type="button"
                     onClick={() => setSelectedStory({ id: story.id, tagColor: story.tagColor, content })}
@@ -213,8 +275,7 @@ export default function CivicStoryCards({ locale }: CivicStoryCardsProps) {
                       transition: 'all 0.15s ease',
                     }}
                   >
-                    <span>{isRw ? '📖 Byinshi' : '📖 More'}</span>
-                    <span style={{ fontSize: '0.78rem', opacity: 0.9 }}>&bull; {isRw ? 'Soma Inkuru' : 'Full Article'}</span>
+                    <span>{isRw ? 'Inkuru Yose' : 'Full Article'}</span>
                     <span>&rarr;</span>
                   </button>
                 </div>
@@ -241,7 +302,7 @@ export default function CivicStoryCards({ locale }: CivicStoryCardsProps) {
             alignItems: 'center',
             justifyContent: 'center',
             zIndex: 9999,
-            padding: '20px',
+            padding: isMobile ? '10px' : '20px',
             overflowY: 'auto',
           }}
         >
@@ -251,20 +312,21 @@ export default function CivicStoryCards({ locale }: CivicStoryCardsProps) {
             style={{
               background: '#ffffff',
               border: '1px solid #e2e8f0',
-              borderRadius: '16px',
+              borderRadius: isMobile ? '12px' : '16px',
               maxWidth: '820px',
               width: '100%',
-              maxHeight: '90vh',
+              maxHeight: '92vh',
               overflowY: 'auto',
               boxShadow: '0 20px 50px rgba(0, 0, 0, 0.2)',
               display: 'flex',
               flexDirection: 'column',
+              boxSizing: 'border-box',
             }}
           >
             {/* Modal Header Bar */}
             <div
               style={{
-                padding: '24px 28px 18px 28px',
+                padding: isMobile ? '16px 14px 12px 14px' : '24px 28px 18px 28px',
                 borderBottom: '1px solid #e2e8f0',
                 display: 'flex',
                 justifyContent: 'space-between',
@@ -276,29 +338,29 @@ export default function CivicStoryCards({ locale }: CivicStoryCardsProps) {
               }}
             >
               <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px', flexWrap: 'wrap' }}>
                   <span
                     style={{
                       backgroundColor: '#e0f2fe',
                       color: '#0284c7',
                       border: '1px solid #bae6fd',
-                      fontSize: '0.74rem',
+                      fontSize: '0.72rem',
                       fontWeight: 800,
-                      padding: '3px 10px',
+                      padding: '2px 8px',
                       borderRadius: '12px',
                       textTransform: 'uppercase',
                     }}
                   >
                     {selectedStory.content.tag}
                   </span>
-                  <span style={{ fontSize: '0.78rem', color: '#0f172a' }}>
+                  <span style={{ fontSize: '0.76rem', color: '#64748b' }}>
                     📅 {selectedStory.content.date} &bull; ⏱️ 4 min read
                   </span>
                 </div>
-                <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0f172a', margin: 0, lineHeight: 1.3 }}>
+                <h2 style={{ fontSize: isMobile ? '1.2rem' : '1.5rem', fontWeight: 800, color: '#1e293b', margin: 0, lineHeight: 1.3 }}>
                   {selectedStory.content.title}
                 </h2>
-                <div style={{ fontSize: '0.82rem', color: '#0f172a', marginTop: '6px' }}>
+                <div style={{ fontSize: '0.8rem', color: '#64748b', marginTop: '4px' }}>
                   Reported by <strong>{selectedStory.content.author}</strong> for the SUNCASA Project
                 </div>
               </div>
@@ -309,16 +371,16 @@ export default function CivicStoryCards({ locale }: CivicStoryCardsProps) {
                 style={{
                   background: '#f1f5f9',
                   border: 'none',
-                  color: '#0f172a',
-                  width: '36px',
-                  height: '36px',
+                  color: '#64748b',
+                  width: '34px',
+                  height: '34px',
                   borderRadius: '50%',
                   fontSize: '1.2rem',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   cursor: 'pointer',
-                  marginLeft: '16px',
+                  marginLeft: '12px',
                   flexShrink: 0,
                 }}
                 title={isRw ? 'Funga' : 'Close Article'}
@@ -328,21 +390,21 @@ export default function CivicStoryCards({ locale }: CivicStoryCardsProps) {
             </div>
 
             {/* Modal Article Body */}
-            <div style={{ padding: '28px', color: '#0f172a', fontSize: '0.98rem', lineHeight: 1.75 }}>
+            <div style={{ padding: isMobile ? '16px 14px' : '28px', color: '#1e293b', fontSize: isMobile ? '0.92rem' : '0.98rem', lineHeight: 1.75 }}>
               {/* Featured Quote Callout */}
               <div
                 style={{
                   background: '#f8fafc',
                   borderLeft: '4px solid #0284c7',
-                  padding: '18px 22px',
+                  padding: isMobile ? '12px 14px' : '18px 22px',
                   borderRadius: '0 10px 10px 0',
-                  marginBottom: '26px',
+                  marginBottom: isMobile ? '18px' : '26px',
                 }}
               >
-                <div style={{ fontSize: '1.05rem', fontStyle: 'normal', color: '#0f172a', lineHeight: 1.6 }}>
-                  &ldquo;{selectedStory.content.quote}&rdquo;
+                <div style={{ fontSize: isMobile ? '0.94rem' : '1.05rem', fontStyle: 'normal', color: '#1e293b', lineHeight: 1.6 }}>
+                  &ldquo;{selectedStory.content.quote ? selectedStory.content.quote.replace(/^["“\s]+|["”\s]+$/g, '') : ''}&rdquo;
                 </div>
-                <div style={{ fontSize: '0.86rem', color: '#0284c7', marginTop: '8px', fontWeight: 700 }}>
+                <div style={{ fontSize: '0.82rem', color: '#0284c7', marginTop: '6px', fontWeight: 700 }}>
                   &mdash; {selectedStory.content.quoteAuthor}
                 </div>
               </div>
@@ -364,7 +426,7 @@ export default function CivicStoryCards({ locale }: CivicStoryCardsProps) {
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px' }}>
                     {(isRw ? storyMetrics[selectedStory.id].rw : storyMetrics[selectedStory.id].en).map((m, mi) => (
                       <div key={mi} style={{ background: '#ffffff', border: '1px solid #e2e8f0', padding: '10px 14px', borderRadius: '8px' }}>
-                        <div style={{ fontSize: '0.74rem', color: '#0f172a' }}>{m.label}</div>
+                        <div style={{ fontSize: '0.74rem', color: '#64748b' }}>{m.label}</div>
                         <div style={{ fontSize: '1.08rem', fontWeight: 800, color: '#0284c7', marginTop: '2px' }}>{m.val}</div>
                       </div>
                     ))}
@@ -376,12 +438,12 @@ export default function CivicStoryCards({ locale }: CivicStoryCardsProps) {
               <div className="story-modal-paragraphs" style={{ marginBottom: '28px' }}>
                 {Array.isArray(selectedStory.content.fullBody) ? (
                   selectedStory.content.fullBody.map((p, idx) => (
-                    <p key={idx} style={{ marginBottom: '16px', color: '#0f172a', lineHeight: 1.75 }}>
+                    <p key={idx} style={{ marginBottom: '16px', color: '#1e293b', lineHeight: 1.75 }}>
                       {p}
                     </p>
                   ))
                 ) : (
-                  <p style={{ marginBottom: '16px', color: '#0f172a', lineHeight: 1.75 }}>
+                  <p style={{ marginBottom: '16px', color: '#1e293b', lineHeight: 1.75 }}>
                     {selectedStory.content.fullBody}
                   </p>
                 )}
@@ -397,10 +459,10 @@ export default function CivicStoryCards({ locale }: CivicStoryCardsProps) {
                   marginBottom: '20px',
                 }}
               >
-                <strong style={{ fontSize: '0.82rem', color: '#0f172a', textTransform: 'uppercase', letterSpacing: '0.04em', display: 'block', marginBottom: '6px' }}>
+                <strong style={{ fontSize: '0.82rem', color: '#1e293b', textTransform: 'uppercase', letterSpacing: '0.04em', display: 'block', marginBottom: '6px' }}>
                   {isRw ? 'Ubufatanye bw\'Abafatanyabikorwa:' : 'Project Implementing Partners:'}
                 </strong>
-                <div style={{ fontSize: '0.88rem', color: '#0f172a' }}>
+                <div style={{ fontSize: '0.88rem', color: '#64748b' }}>
                   Funded by <strong>Global Affairs Canada</strong> &bull; Jointly led by <strong>IISD</strong> & <strong>WRI</strong> in collaboration with the <strong>City of Kigali</strong> & <strong>Rwanda Forestry Authority (RFA)</strong>.
                 </div>
               </div>

@@ -124,12 +124,28 @@ export default function CatchmentMap({
 
     mapInstanceRef.current = map;
 
+    // Ensure tiles render completely after mount / layout calculation
+    const invalidateTimer = setTimeout(() => {
+      map.invalidateSize();
+    }, 200);
+
     return () => {
+      clearTimeout(invalidateTimer);
       map.stop();
       map.remove();
       mapInstanceRef.current = null;
     };
   }, []);
+
+  // Invalidate map size whenever height or container dimensions update (mobile resize)
+  useEffect(() => {
+    if (mapInstanceRef.current) {
+      const timer = setTimeout(() => {
+        mapInstanceRef.current?.invalidateSize();
+      }, 150);
+      return () => clearTimeout(timer);
+    }
+  }, [height]);
 
   // Basemap switch effect - Keyless Public Providers Only
   useEffect(() => {
@@ -282,7 +298,7 @@ export default function CatchmentMap({
         layer.bindTooltip(
           `
             <div style="font-family: Inter, sans-serif; font-size: 0.84rem; padding: 2px 4px;">
-              <strong style="color: #0f172a; font-size: 0.92rem;">${name}</strong>
+              <strong style="color: #1e293b; font-size: 0.92rem;">${name}</strong>
               <div style="color: #64748b; font-size: 0.75rem; margin-top: 2px;">${p.district} &bull; ${p.area_km2} km²</div>
               ${
                 valFormatted
@@ -345,7 +361,7 @@ export default function CatchmentMap({
                 GPS Node &bull; ${pt.status || 'Active'}
               </span>
             </div>
-            <h4 style="font-size: 0.98rem; font-weight: 800; color: #0f172a; margin: 0 0 4px 0;">${displayName}</h4>
+            <h4 style="font-size: 0.98rem; font-weight: 800; color: #1e293b; margin: 0 0 4px 0;">${displayName}</h4>
             <div style="font-size: 0.78rem; color: #64748b; margin-bottom: 8px;">
               ${pt.sector ? `${pt.sector}, ` : ''}${pt.district || 'Kigali'}
             </div>
@@ -541,7 +557,7 @@ export default function CatchmentMap({
           marker.bindTooltip(
             `
               <div style="font-family: Inter, sans-serif; font-size: 0.84rem;">
-                <strong style="color: #0f172a;">${siteName}</strong>
+                <strong style="color: #1e293b;">${siteName}</strong>
                 <div style="color: #64748b; font-size: 0.74rem;">${p.district} &bull; ${p.fmes_compartment}</div>
                 <div style="color: ${themeColor}; font-weight: 700; margin-top: 3px;">${p.intervention_type}</div>
               </div>
@@ -588,26 +604,28 @@ export default function CatchmentMap({
         <div
           style={{
             position: 'absolute',
-            top: '16px',
-            left: '16px',
+            top: '10px',
+            left: '10px',
             zIndex: 900,
             display: 'flex',
-            gap: '6px',
-            background: 'rgba(15, 23, 42, 0.9)',
+            flexWrap: 'wrap',
+            gap: '4px',
+            background: 'rgba(15, 23, 42, 0.92)',
             backdropFilter: 'blur(8px)',
-            padding: '5px',
+            padding: '4px',
             borderRadius: '8px',
             border: '1px solid #334155',
             boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+            maxWidth: 'calc(100% - 20px)',
           }}
         >
           <button
             type="button"
             onClick={() => setActiveBasemap('osm')}
             style={{
-              padding: '6px 12px',
+              padding: '5px 9px',
               borderRadius: '6px',
-              fontSize: '0.78rem',
+              fontSize: '0.74rem',
               fontWeight: 700,
               cursor: 'pointer',
               border: 'none',
@@ -622,9 +640,9 @@ export default function CatchmentMap({
             type="button"
             onClick={() => setActiveBasemap('satellite')}
             style={{
-              padding: '6px 12px',
+              padding: '5px 9px',
               borderRadius: '6px',
-              fontSize: '0.78rem',
+              fontSize: '0.74rem',
               fontWeight: 700,
               cursor: 'pointer',
               border: 'none',
@@ -639,9 +657,9 @@ export default function CatchmentMap({
             type="button"
             onClick={() => setActiveBasemap('dark')}
             style={{
-              padding: '6px 12px',
+              padding: '5px 9px',
               borderRadius: '6px',
-              fontSize: '0.78rem',
+              fontSize: '0.74rem',
               fontWeight: 700,
               cursor: 'pointer',
               border: 'none',
