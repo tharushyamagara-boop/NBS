@@ -38,7 +38,7 @@ export default function MyPegAppShell({ children }: MyPegAppShellProps) {
     ? indicators.find((ind) => ind.id === currentIndicatorId)
     : null;
 
-  // Active theme defaults to indicator's theme or 'climate' (first SUNCASA theme)
+  // Active theme defaults to indicator's theme or 'climate' (first dashboard theme)
   const activeThemeId = currentIndicator ? currentIndicator.theme : 'climate';
 
   // Drawer starts closed by default, opening only on explicit theme click
@@ -110,14 +110,14 @@ export default function MyPegAppShell({ children }: MyPegAppShellProps) {
         <header className="mypeg-top-bar" id="mypeg-top-nav">
           <div className="mypeg-top-bar-left">
             <Link href="/" className="mypeg-badge-sk" title="Return to Home">
-              SK
+              ID
             </Link>
             <div className="mypeg-top-bar-title">
               <Link href="/" style={{ color: '#ffffff', textDecoration: 'none' }}>
-                SUNCASA Kigali
+                Impact Dashboard
               </Link>
               <span className="mypeg-top-bar-sub">
-                {locale === 'rw' ? 'Ibisubizo Kamere (NbS)' : 'Nature-Based Solutions'}
+                {locale === 'rw' ? "Urubuga rw'Ibipimo n'Isesengura" : 'Progress & Analytics Platform'}
               </span>
             </div>
           </div>
@@ -134,14 +134,14 @@ export default function MyPegAppShell({ children }: MyPegAppShellProps) {
             <Link
               href="/indicator/area_restored_ha"
               className={`mypeg-view-btn ${pathname.includes('/indicator/area_restored_ha') ? 'active' : ''}`}
-              title="Kigali Hectares Restored Indicator Page"
+              title="Hectares Restored Indicator Page"
             >
               {locale === 'rw' ? 'Hegitari Zasanywe' : 'Hectares Restored'}
             </Link>
             <Link
               href="/indicator/trees_planted"
               className={`mypeg-view-btn ${pathname.includes('/indicator/trees_planted') ? 'active' : ''}`}
-              title="Kigali Seedlings & Trees Planted Indicator Page"
+              title="Seedlings & Trees Planted Indicator Page"
             >
               {locale === 'rw' ? 'Ibiti Byatewe' : 'Trees Planted'}
             </Link>

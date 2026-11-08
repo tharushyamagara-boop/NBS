@@ -5,8 +5,8 @@ import '../css/style.css';
 import MyPegAppShell from '@/components/MyPegAppShell';
 
 export const metadata: Metadata = {
-  title: 'SUNCASA Kigali | Nature-Based Solutions Impact Platform (PWA)',
-  description: 'Official PWA impact dashboard for the SUNCASA project in Kigali communicating Nature-Based Solutions across the Lower Nyabarongo River watershed.',
+  title: 'Impact Dashboard | Progress & Analytics Platform',
+  description: 'Interactive bilingual dashboard for tracking strategic indicators, spatial analytics, and community impact.',
   manifest: '/manifest.json',
 };
 

@@ -33,7 +33,7 @@
   },
   {
     "id": "data_contributor",
-    "name": "Data Contributor (RFA / City)",
+    "name": "Data Contributor (Field & Municipal)",
     "description": "Authorized to update quarterly values, time-series, and micro-catchment spatial metrics. Cannot alter indicator definitions or publish new indicators.",
     "permissions": [
       "indicators:edit",
@@ -46,7 +46,7 @@
   {
     "id": "auditor",
     "name": "Auditor & Evaluator",
-    "description": "Read-only access to review FMES data lineage, system logs, and methodology compliance.",
+    "description": "Read-only access to review registry data lineage, system logs, and methodology compliance.",
     "permissions": [
       "audit:view"
     ],

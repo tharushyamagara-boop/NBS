@@ -16,14 +16,15 @@ export default function EmbedHubPage() {
   const activeIndicator = indicators.find((i) => i.id === selectedIndicatorId) || indicators[0];
 
   const embedUrl = `/embed/indicator/${selectedIndicatorId}?view=${viewMode}&lang=${lang}&theme=${themeMode}`;
-  const absoluteEmbedUrl = `https://nbs-455962--nbs-project-7deac.us-central1.hosted.app${embedUrl}`;
+  const origin = typeof window !== 'undefined' ? window.location.origin : 'https://dashboard.example.org';
+  const absoluteEmbedUrl = `${origin}${embedUrl}`;
 
   const iframeCode = `<iframe 
   src="${absoluteEmbedUrl}" 
   width="100%" 
   height="450" 
   style="border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden;" 
-  title="SUNCASA Kigali - ${activeIndicator.id}"
+  title="Impact Dashboard - ${activeIndicator.id}"
   loading="lazy"
 ></iframe>`;
 
@@ -83,11 +84,11 @@ export default function EmbedHubPage() {
             Interoperability & Civic Sharing
           </span>
           <h1 style={{ fontSize: '2rem', fontWeight: 800, margin: '0 0 8px 0', letterSpacing: '-0.02em' }}>
-            SUNCASA Embeddable Indicator Widgets
+            Impact Dashboard Embeddable Indicator Widgets
           </h1>
           <p style={{ color: '#94a3b8', fontSize: '1rem', margin: 0, maxWidth: '780px', lineHeight: 1.6 }}>
-            Publish live, interactive SUNCASA indicator visualizations directly on partner websites (City of Kigali,
-            Rwanda Forestry Authority, IISD, WRI, or news outlets) via a single line of iFrame code.
+            Publish live, interactive Impact Dashboard indicator visualizations directly on municipal portals,
+            agency websites, research hubs, or news outlets via a single line of iFrame code.
           </p>
         </div>
 
@@ -312,7 +313,7 @@ export default function EmbedHubPage() {
             >
               <iframe
                 src={embedUrl}
-                title="SUNCASA Kigali Indicator Embed Preview"
+                title="Impact Dashboard Indicator Embed Preview"
                 style={{ width: '100%', height: '100%', minHeight: '440px', border: 'none' }}
               />
             </div>

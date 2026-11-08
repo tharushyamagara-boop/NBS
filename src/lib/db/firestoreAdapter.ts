@@ -24,7 +24,7 @@ export interface FirebaseClientConfig {
 export class FirestoreDatabaseAdapter implements DatabaseAdapter {
   name = 'Google Cloud Firestore';
   private db: Firestore | null = null;
-  private collectionName = 'suncasa_indicators';
+  private collectionName = 'dashboard_indicators';
 
   constructor(config?: FirebaseClientConfig) {
     if (config && config.apiKey && config.projectId) {
@@ -40,7 +40,7 @@ export class FirestoreDatabaseAdapter implements DatabaseAdapter {
   private ensureDb(): Firestore {
     if (!this.db) {
       const apiKey = process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "AIzaSyCRN8CxDvVGh8n83C3k3kFvFLl-wSXnuro";
-      const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || "nbs-project-7deac";
+      const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || "impact-dashboard-app";
       if (apiKey && projectId) {
         this.init({
           apiKey,

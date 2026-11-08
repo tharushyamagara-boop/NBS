@@ -50,6 +50,7 @@ export interface Indicator {
   measurement_method?: string;
   data_source_citation?: string;
   data_source?: string;
+  data_provider?: string;
   last_updated?: string;
   dual_icon?: string;
   legend_label?: string;

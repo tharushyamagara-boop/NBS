@@ -3,19 +3,19 @@ service cloud.firestore {
   match /databases/{database}/documents {
     
     // Public indicators collection (read by public, written by authenticated admins)
-    match /suncasa_indicators/{indicatorId} {
+    match /dashboard_indicators/{indicatorId} {
       allow read: if true;
       allow write: if request.auth != null;
     }
 
     // Micro-catchment GIS layers & site interventions
-    match /suncasa_sites/{siteId} {
+    match /dashboard_sites/{siteId} {
       allow read: if true;
       allow write: if request.auth != null;
     }
 
     // System configurations and database driver states
-    match /suncasa_config/{configId} {
+    match /dashboard_config/{configId} {
       allow read: if true;
       allow write: if request.auth != null;
     }

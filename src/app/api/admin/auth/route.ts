@@ -77,7 +77,7 @@ export async function POST(req: NextRequest) {
     const session: AuthSession = {
       user: safeUser,
       role,
-      token: `suncasa_jwt_${Buffer.from(`${user.id}:${Date.now()}`).toString('base64')}`,
+      token: `dashboard_jwt_${Buffer.from(`${user.id}:${Date.now()}`).toString('base64')}`,
       expires_at: Date.now() + 24 * 60 * 60 * 1000, // 24 hours
     };
 

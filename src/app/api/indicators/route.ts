@@ -79,18 +79,18 @@ export async function POST(req: NextRequest) {
           en: narrative_en || {
             title: indData.definition,
             what_is: indData.definition,
-            why_matters: 'Monitored under SUNCASA Kigali framework.',
-            what_suncasa: 'SUNCASA implements and monitors this intervention.',
+            why_matters: 'Monitored under the Impact Dashboard framework.',
+            what_action: 'Field teams and partners implement and monitor this intervention.',
             limitations: 'Verified via field audits.',
-            source: indData.data_source_citation || 'RFA / City of Kigali',
+            source: indData.data_source_citation || 'Open Data Registry',
           },
           rw: narrative_rw || {
             title: indData.definition,
             what_is: indData.definition,
-            why_matters: 'Iki gipimo gifasha kumenya iterambere rya NbS.',
-            what_suncasa: 'SUNCASA ikorana n\'Umujyi wa Kigali na RFA.',
+            why_matters: 'Iki gipimo gifasha kumenya iterambere ry\'umushinga.',
+            what_action: 'Abafatanyabikorwa n\'inzego z\'ibanze bakurikirana iki gipimo.',
             limitations: 'Bigenzurwa mu mirimo yo mu kibaya.',
-            source: indData.data_source_citation || 'RFA / Umujyi wa Kigali',
+            source: indData.data_source_citation || 'Ububiko bw\'Amakuru',
           },
         };
 

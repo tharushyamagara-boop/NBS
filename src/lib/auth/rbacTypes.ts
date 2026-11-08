@@ -23,7 +23,7 @@ export interface AdminUser {
   name: string;
   email: string;
   password_hash: string;
-  organization: string; // e.g., 'Rwanda Forestry Authority (RFA)', 'City of Kigali', 'IISD', 'WRI'
+  organization: string; // e.g., 'Municipal Planning Department', 'Environmental Monitoring Agency'
   role_id: string;
   status: 'active' | 'suspended';
   created_at: string;

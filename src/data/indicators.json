@@ -1,18 +1,18 @@
 {
   "project": {
-    "name": "SUNCASA Kigali NbS Impact Dashboard",
-    "funder": "Global Affairs Canada",
+    "name": "Impact Dashboard",
+    "funder": "Development & Resilience Fund",
     "leads": [
-      "International Institute for Sustainable Development (IISD)",
-      "World Resources Institute (WRI)"
+      "Open Data & Spatial Analytics Consortium",
+      "Environmental Research Lab"
     ],
     "government_partners": [
-      "City of Kigali",
-      "Rwanda Forestry Authority (RFA)"
+      "Municipal Planning Department",
+      "Environmental Management Agency"
     ],
-    "target_area": "Lower Nyabarongo River Watershed, Kigali",
+    "target_area": "Lower Nyabarongo River Watershed",
     "timeline": "2023 - 2026",
-    "budget_mvp": "$20,000 USD"
+    "budget_mvp": "Standard Open Tier"
   },
   "themes": [
     {
@@ -44,8 +44,8 @@
     {
       "id": "area_restored_ha",
       "theme": "climate",
-      "fmes_code": "RFA-FMES-LU-01",
-      "fmes_alignment": "National Forest Inventory (NFI) Land Restoration Layer",
+      "fmes_code": "IND-LU-01",
+      "fmes_alignment": "Spatial Land Restoration Layer",
       "unit": "Hectares (ha)",
       "baseline_2024": 150,
       "current_2025": 985,
@@ -117,8 +117,8 @@
           "color": "#3f7e44"
         }
       ],
-      "measurement_method": "High-resolution satellite spatial telemetry corroborated by on-the-ground GPS boundary polygons surveyed by RFA forestry technicians.",
-      "data_source_citation": "Rwanda Forestry Authority (RFA) & City of Kigali Land Use Registry (2025)",
+      "measurement_method": "High-resolution satellite spatial telemetry corroborated by on-the-ground GPS boundary polygons surveyed by field technicians.",
+      "data_source_citation": "Environmental & Municipal Land Use Registry (2025)",
       "gps_coordinates": [
         {
           "id": "gps-ar-1",
@@ -173,8 +173,8 @@
     {
       "id": "flood_risk_reduction",
       "theme": "climate",
-      "fmes_code": "RFA-FMES-HYDRO-04",
-      "fmes_alignment": "Rwanda Water Resources Board (RWB) Catchment Hydrology",
+      "fmes_code": "IND-HYDRO-04",
+      "fmes_alignment": "Watershed Catchment Hydrology Layer",
       "unit": "Percentage (%)",
       "baseline_2024": 0,
       "current_2025": 28.5,
@@ -247,7 +247,7 @@
         }
       ],
       "measurement_method": "Calibrated hydrological runoff modeling using hydrometric sensor stations at Mpazi and Yanze outfalls, verified during high-precipitation events.",
-      "data_source_citation": "Rwanda Water Resources Board (RWB) & City of Kigali Stormwater Master Plan (2025)",
+      "data_source_citation": "Water Resources Monitoring Board & Municipal Stormwater Master Plan (2025)",
       "gps_coordinates": [
         {
           "id": "gps-fr-1",
@@ -290,8 +290,8 @@
     {
       "id": "soil_erosion_prevented",
       "theme": "climate",
-      "fmes_code": "RFA-FMES-SOIL-02",
-      "fmes_alignment": "RFA Watershed Soil Protection Index",
+      "fmes_code": "IND-SOIL-02",
+      "fmes_alignment": "Watershed Soil Protection Index",
       "unit": "Tons / year",
       "baseline_2024": 1200,
       "current_2025": 14600,
@@ -364,7 +364,7 @@
         }
       ],
       "measurement_method": "Revised Universal Soil Loss Equation (RUSLE) parameterized with high-resolution digital elevation models and sediment trap audits.",
-      "data_source_citation": "Rwanda Forestry Authority (RFA) Watershed Soil Protection Register (2025)",
+      "data_source_citation": "Watershed Soil Protection & Agro-Hydrology Register (2025)",
       "gps_coordinates": [
         {
           "id": "gps-se-1",
@@ -407,8 +407,8 @@
     {
       "id": "trees_planted",
       "theme": "biodiversity",
-      "fmes_code": "RFA-FMES-SILV-01",
-      "fmes_alignment": "FMES Plantation & Nursery Register (Compartment DB)",
+      "fmes_code": "IND-SILV-01",
+      "fmes_alignment": "Plantation & Nursery Compartment Register",
       "unit": "Seedlings / Trees",
       "baseline_2024": 85000,
       "current_2025": 842000,
@@ -418,7 +418,7 @@
       "priority_rank": 1,
       "featured_in_hero": true,
       "dual_icon": "tree",
-      "legend_label": "Kigali NbS Sites",
+      "legend_label": "Active Restoration Sites",
       "definition": "Total number of certified indigenous, multipurpose, and agroforestry seedlings planted across hillsides, riparian zones, and urban corridors.",
       "trend_history": [
         {
@@ -481,7 +481,7 @@
         }
       ],
       "measurement_method": "Audited dispatch registries from certified cooperative seedling nurseries, matched to georeferenced planting compartments.",
-      "data_source_citation": "RFA Forest Management and Evaluation System (FMES) Silviculture Registry (2025)",
+      "data_source_citation": "Environmental Silviculture & Nursery Registry (2025)",
       "gps_coordinates": [
         {
           "id": "gps-tp-1",
@@ -505,7 +505,7 @@
           "sector": "Kanyinya",
           "district": "Nyarugenge",
           "status": "Verified",
-          "notes": "Planted with City of Kigali community volunteers."
+          "notes": "Planted with municipal community volunteers."
         },
         {
           "id": "gps-tp-3",
@@ -524,8 +524,8 @@
     {
       "id": "tree_survival_rate",
       "theme": "biodiversity",
-      "fmes_code": "RFA-FMES-SURV-02",
-      "fmes_alignment": "FMES Post-Planting Audit & Survival Protocol",
+      "fmes_code": "IND-SURV-02",
+      "fmes_alignment": "Post-Planting Audit & Survival Protocol",
       "unit": "Percentage (%)",
       "baseline_2024": 62,
       "current_2025": 84.5,
@@ -591,7 +591,7 @@
         }
       ],
       "measurement_method": "Permanent 20m x 20m random sampling plots surveyed at 3, 6, and 12-month post-planting intervals using mobile ODK survey tools.",
-      "data_source_citation": "RFA Silvicultural Audit Service & SUNCASA Independent Monitoring Unit (2025)",
+      "data_source_citation": "Silvicultural Audit Service & Independent Monitoring Unit (2025)",
       "gps_coordinates": [
         {
           "id": "gps-tree_survival_rate-1",
@@ -634,8 +634,8 @@
     {
       "id": "riparian_buffer_km",
       "theme": "biodiversity",
-      "fmes_code": "RFA-FMES-ECO-03",
-      "fmes_alignment": "RFA Riverine & Wetland Protection Framework",
+      "fmes_code": "IND-ECO-03",
+      "fmes_alignment": "Riverine & Wetland Protection Framework",
       "unit": "Kilometers (km)",
       "baseline_2024": 4.5,
       "current_2025": 32.8,
@@ -708,7 +708,7 @@
         }
       ],
       "measurement_method": "High-resolution drone orthomosaics verifying continuous 30-meter native vegetative buffer adherence along surveyed riverbanks.",
-      "data_source_citation": "Rwanda Environment Management Authority (REMA) & RFA Riverine Protection Database (2025)",
+      "data_source_citation": "Environmental Management & Riverine Protection Database (2025)",
       "gps_coordinates": [
         {
           "id": "gps-rb-1",
@@ -751,8 +751,8 @@
     {
       "id": "water_quality_index",
       "theme": "biodiversity",
-      "fmes_code": "RFA-FMES-WQ-05",
-      "fmes_alignment": "Rwanda Water Quality Telemetry Network (WASAC)",
+      "fmes_code": "IND-WQ-05",
+      "fmes_alignment": "Water Quality Telemetry Network",
       "unit": "Index Score (0-100)",
       "baseline_2024": 42,
       "current_2025": 68.5,
@@ -813,8 +813,8 @@
           "color": "#00aed9"
         }
       ],
-      "measurement_method": "Nephelometric Turbidity Unit (NTU) lab sampling paired with continuous optical sensors at the WASAC water intake station.",
-      "data_source_citation": "Water and Sanitation Corporation (WASAC) & Rwanda Water Resources Board (2025)",
+      "measurement_method": "Nephelometric Turbidity Unit (NTU) lab sampling paired with continuous optical sensors at the water intake station.",
+      "data_source_citation": "Water & Sanitation Utility & Hydrology Monitoring Registry (2025)",
       "gps_coordinates": [
         {
           "id": "gps-wq-1",
@@ -857,8 +857,8 @@
     {
       "id": "women_leadership_catchment",
       "theme": "gesi",
-      "fmes_code": "RFA-FMES-GESI-01",
-      "fmes_alignment": "RFA Community Forestry Committee GESI Standard",
+      "fmes_code": "IND-GESI-01",
+      "fmes_alignment": "Community Catchment Committee GESI Standard",
       "unit": "Percentage (%)",
       "baseline_2024": 18,
       "current_2025": 54.2,
@@ -902,7 +902,7 @@
           "value": 58
         },
         {
-          "site": "Nyarugenge Sector NbS Groups",
+          "site": "Nyarugenge Sector Watershed Groups",
           "value": 55.5
         },
         {
@@ -931,7 +931,7 @@
         }
       ],
       "measurement_method": "Bi-annual audits of official executive committee rosters and meeting sign-in sheets verified by district gender officers.",
-      "data_source_citation": "Ministry of Gender and Family Promotion (MIGEPROF) & City of Kigali Community Governance Unit (2025)",
+      "data_source_citation": "Gender & Community Governance Monitoring Unit (2025)",
       "gps_coordinates": [
         {
           "id": "gps-women_leadership_catchment-1",
@@ -974,8 +974,8 @@
     {
       "id": "participants_trained",
       "theme": "gesi",
-      "fmes_code": "RFA-FMES-CAP-02",
-      "fmes_alignment": "SUNCASA Capacity Building Framework",
+      "fmes_code": "IND-CAP-02",
+      "fmes_alignment": "Community Capacity Building Framework",
       "unit": "Trainees",
       "baseline_2024": 320,
       "current_2025": 2840,
@@ -985,7 +985,7 @@
       "priority_rank": 2,
       "featured_in_hero": false,
       "dual_icon": "users",
-      "legend_label": "Certified NbS Practitioners",
+      "legend_label": "Certified Restoration Practitioners",
       "definition": "Total local community members, women farmers, and youth trained and certified in progressive hillside terracing, tree seedling nursery management, and bio-engineering.",
       "trend_history": [
         {
@@ -1043,8 +1043,8 @@
           "color": "#ef402d"
         }
       ],
-      "measurement_method": "Signed graduation records from district vocational training modules and RFA practical nursery workshops.",
-      "data_source_citation": "SUNCASA Field Directorate & City of Kigali Vocational Training Division (2025)",
+      "measurement_method": "Signed graduation records from district vocational training modules and practical nursery workshops.",
+      "data_source_citation": "Capacity Building & Municipal Vocational Training Division (2025)",
       "gps_coordinates": [
         {
           "id": "gps-participants_trained-1",
@@ -1087,8 +1087,8 @@
     {
       "id": "green_jobs_created",
       "theme": "economy",
-      "fmes_code": "RFA-FMES-ECON-01",
-      "fmes_alignment": "National Green Jobs Strategy & SUNCASA PMF",
+      "fmes_code": "IND-ECON-01",
+      "fmes_alignment": "Green Jobs & Livelihoods Monitoring Framework",
       "unit": "Person-Days",
       "baseline_2024": 12000,
       "current_2025": 98500,
@@ -1157,7 +1157,7 @@
         }
       ],
       "measurement_method": "Audited cooperative payroll disbursement logs and mobile-money direct payment registers verified by district labor inspectors.",
-      "data_source_citation": "SUNCASA Financial Audit & Rwanda Cooperative Agency (RCA) Employment Registry (2025)",
+      "data_source_citation": "Program Financial Audit & Cooperative Employment Registry (2025)",
       "gps_coordinates": [
         {
           "id": "gps-green_jobs_created-1",
@@ -1200,8 +1200,8 @@
     {
       "id": "female_nursery_operators",
       "theme": "economy",
-      "fmes_code": "RFA-FMES-GESI-02",
-      "fmes_alignment": "SUNCASA Gender Responsive Livelihoods Framework",
+      "fmes_code": "IND-GESI-02",
+      "fmes_alignment": "Gender Responsive Livelihoods Framework",
       "unit": "Percentage (%)",
       "baseline_2024": 22,
       "current_2025": 61.5,
@@ -1273,8 +1273,8 @@
           "color": "#8f1838"
         }
       ],
-      "measurement_method": "Audited cooperative enterprise registries maintained by the Rwanda Cooperative Agency (RCA).",
-      "data_source_citation": "Rwanda Cooperative Agency (RCA) & RFA Forest Nursery Register (2025)",
+      "measurement_method": "Audited cooperative enterprise registries maintained by regional cooperative authorities.",
+      "data_source_citation": "Cooperative Enterprise Agency & Nursery Register (2025)",
       "gps_coordinates": [
         {
           "id": "gps-female_nursery_operators-1",
@@ -1317,8 +1317,8 @@
     {
       "id": "vulnerable_youth_employed",
       "theme": "economy",
-      "fmes_code": "RFA-FMES-YOUTH-03",
-      "fmes_alignment": "National Youth Employment in Green Economy Framework",
+      "fmes_code": "IND-YOUTH-03",
+      "fmes_alignment": "Youth Employment in Green Economy Framework",
       "unit": "Youth Employed",
       "baseline_2024": 140,
       "current_2025": 1120,
@@ -1328,7 +1328,7 @@
       "priority_rank": 3,
       "featured_in_hero": false,
       "dual_icon": "dollar",
-      "legend_label": "Youth in NbS & Telemetry",
+      "legend_label": "Youth in GIS & Telemetry",
       "definition": "Number of vulnerable Rwandan youth (aged 18-30) employed directly in drone surveying, mobile GIS telemetry, check-dam construction, and nursery production.",
       "trend_history": [
         {
@@ -1380,7 +1380,7 @@
         }
       ],
       "measurement_method": "National Youth Council employment verification rosters cross-referenced with cooperative contractor manifests.",
-      "data_source_citation": "National Youth Council (NYC) & SUNCASA Field Directorate (2025)",
+      "data_source_citation": "Youth Employment Directorate & Field Monitoring Unit (2025)",
       "gps_coordinates": [
         {
           "id": "gps-vulnerable_youth_employed-1",

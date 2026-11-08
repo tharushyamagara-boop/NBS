@@ -90,8 +90,8 @@ export default function MyPegThemeNav({
             className="mypeg-search-input"
             placeholder={
               isRw
-                ? 'Shakisha igipimo, agace, kode ya FMES...'
-                : 'Search indicators by keyword, micro-catchment, or FMES code...'
+                ? 'Shakisha igipimo, agace, cyangwa kode y\'igipimo...'
+                : 'Search indicators by keyword, micro-catchment, or registry code...'
             }
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}

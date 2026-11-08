@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
     const newRole: Role = {
       id: roleId,
       name: name.trim(),
-      description: description || 'Custom delegated role for SUNCASA dashboard.',
+      description: description || 'Custom delegated role for Impact Dashboard.',
       permissions: permissions as Permission[],
       is_system_default: false,
       color: color || '#0284c7',

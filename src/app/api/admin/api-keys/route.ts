@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
 
     const data = readKeys();
     const randomHex = Math.random().toString(36).substring(2, 10) + Math.random().toString(36).substring(2, 10);
-    const generatedKey = `suncasa-partner-${randomHex}`;
+    const generatedKey = `dashboard-partner-${randomHex}`;
 
     const newKeyRecord = {
       id: `key-${Date.now()}`,

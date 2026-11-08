@@ -554,7 +554,7 @@ export default function MyPegIndicatorChartView({
 
                 <div style={{ background: '#ffffff', padding: '14px', borderRadius: '8px', borderLeft: '4px solid #0284c7', fontSize: '0.86rem', color: '#1e293b', lineHeight: 1.55 }}>
                   <strong style={{ color: '#1e293b', display: 'block', marginBottom: '2px' }}>
-                    {locale === 'rw' ? 'Icyifuzo cy\'Ubuyobozi (City of Kigali & RFA):' : 'Actionable Recommendation for City of Kigali & RFA Leadership:'}
+                    {locale === 'rw' ? "Icyifuzo cy'Ubuyobozi n'Ibikorwa:" : 'Actionable Policy & Operations Recommendation:'}
                   </strong>
                   {getPolicyRecommendation()}
                 </div>
@@ -593,15 +593,15 @@ export default function MyPegIndicatorChartView({
                 <h3 style={{ fontSize: isMobile ? '1.02rem' : '1.15rem' }}>{locale === 'rw' ? 'Ni iki kirimo gukorwa cyangwa twakora?' : 'What is being done and what actions can be taken?'}</h3>
               </div>
               <p className="story-answer-text" style={{ fontSize: isMobile ? '0.88rem' : '0.96rem' }}>
-                {story?.what_suncasa ||
-                  'Through inter-agency collaboration between the City of Kigali, Rwanda Forestry Authority (RFA), IISD, and WRI, evidence-based investments are directed into high-impact zones.'}
+                {story?.what_action ||
+                  'Through multi-agency coordination and community partnerships, evidence-based investments are directed into high-impact priority zones.'}
               </p>
             </div>
 
-            {/* Full 5-Part Metadata Standard (RFP Section 4.4) */}
+            {/* Full 5-Part Metadata Standard */}
             <div className="story-meta-box" style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '8px', padding: isMobile ? '14px 16px' : '18px 20px', marginTop: isMobile ? '18px' : '24px' }}>
               <h4 style={{ fontSize: isMobile ? '0.86rem' : '0.92rem', fontWeight: 700, color: '#1e293b', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                {locale === 'rw' ? 'Amakuru y\'Ububiko bw\'Igipimo (Metadata)' : 'Indicator Metadata & Data Lineage (RFP Standard)'}
+                {locale === 'rw' ? 'Amakuru y\'Ububiko bw\'Igipimo (Metadata)' : 'Indicator Metadata & Data Lineage'}
               </h4>
               
               <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(240px, 1fr))', gap: isMobile ? '10px' : '14px', marginBottom: '14px' }}>
@@ -610,7 +610,7 @@ export default function MyPegIndicatorChartView({
                     {locale === 'rw' ? '1. Inkomoko y\'Amakuru (Data Source)' : '1. Data Source'}
                   </span>
                   <span style={{ fontSize: '0.88rem', color: '#1e293b', fontWeight: 600 }}>
-                    {indicator.data_source_citation || story?.source || 'RFA Forest Management Evaluation System (FMES)'}
+                    {indicator.data_source_citation || story?.source || 'Environmental & Spatial Monitoring Registry'}
                   </span>
                 </div>
 
@@ -619,7 +619,7 @@ export default function MyPegIndicatorChartView({
                     {locale === 'rw' ? '2. Urwego Rubishinzwe (Responsible Agency)' : '2. Responsible Data Provider'}
                   </span>
                   <span style={{ fontSize: '0.88rem', color: '#1e293b', fontWeight: 600 }}>
-                    Rwanda Forestry Authority (RFA) & City of Kigali
+                    {indicator.data_provider || 'Municipal & Environmental Monitoring Agencies'}
                   </span>
                 </div>
 
@@ -634,10 +634,10 @@ export default function MyPegIndicatorChartView({
 
                 <div>
                   <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#64748b', display: 'block' }}>
-                    {locale === 'rw' ? '4. Kode ya FMES (System Code)' : '4. FMES Interoperability Code'}
+                    {locale === 'rw' ? "4. Kode y'Ububiko (Registry Code)" : '4. Registry Interoperability Code'}
                   </span>
                   <span style={{ fontSize: '0.88rem', color: '#0284c7', fontWeight: 700 }}>
-                    {indicator.fmes_code} &bull; {indicator.fmes_alignment || 'Forest Evaluation Layer'}
+                    {indicator.fmes_code} &bull; {indicator.fmes_alignment || 'Spatial Monitoring Layer'}
                   </span>
                 </div>
               </div>
@@ -681,13 +681,13 @@ export default function MyPegIndicatorChartView({
                 <p style={{ fontSize: isMobile ? '0.8rem' : '0.84rem', color: '#64748b', margin: '4px 0 0 0', lineHeight: 1.5 }}>
                   {locale === 'rw'
                     ? 'Ikarita igaragaza uko iki gipimo cyifashe mu mirenge no mu mikoki ya Nyabarongo, Yanze, Mpazi, na Mont Kigali.'
-                    : 'Interactive micro-catchment choropleth, georeferenced intervention nodes, and FMES spatial alignment across the Lower Nyabarongo watershed.'}
+                    : 'Interactive micro-catchment choropleth, georeferenced intervention nodes, and spatial registry alignment across the watershed.'}
                 </p>
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
                 <span style={{ fontSize: '0.74rem', background: '#f1f5f9', border: '1px solid #cbd5e1', padding: '4px 10px', borderRadius: '6px', color: '#475569', fontWeight: 600 }}>
-                  FMES Layer: <strong style={{ color: themeColor }}>{indicator.fmes_code}</strong>
+                  Registry Layer: <strong style={{ color: themeColor }}>{indicator.fmes_code}</strong>
                 </span>
               </div>
             </div>
@@ -864,16 +864,16 @@ export default function MyPegIndicatorChartView({
             </div>
 
             <div className="fmes-interop-box" style={{ marginTop: '20px', padding: isMobile ? '14px' : '16px' }}>
-              <h4 style={{ color: '#1e293b', marginBottom: '6px', fontSize: isMobile ? '0.95rem' : '1.02rem' }}>RFA-FMES Interoperability Alignment</h4>
+              <h4 style={{ color: '#1e293b', marginBottom: '6px', fontSize: isMobile ? '0.95rem' : '1.02rem' }}>Data Registry & Spatial Interoperability</h4>
               <p style={{ color: '#64748b', fontSize: isMobile ? '0.84rem' : '0.9rem', margin: 0, lineHeight: 1.5 }}>
-                Aligned with Rwanda Forestry Authority Forest Management Evaluation System: <strong>{indicator.fmes_alignment}</strong> ({indicator.fmes_code}).
+                Aligned with the Open Data & Spatial Monitoring Registry: <strong>{indicator.fmes_alignment}</strong> ({indicator.fmes_code}).
               </p>
             </div>
           </div>
         )}
 
         {/* ========================================================================= */}
-        {/* SECTION 7.2 CORE INDICATOR MANDATORY PANEL (Always Visible on Every View) */}
+        {/* CORE INDICATOR MANDATORY PANEL (Always Visible on Every View)             */}
         {/* ========================================================================= */}
         <div
           style={{
@@ -897,7 +897,7 @@ export default function MyPegIndicatorChartView({
             </div>
 
             <span style={{ fontSize: isMobile ? '0.74rem' : '0.78rem', color: '#64748b' }}>
-              Verified against Rwanda Forestry Authority (RFA) Silvicultural Standards
+              Verified against Field & Spatial Monitoring Standards
             </span>
           </div>
 
@@ -927,19 +927,19 @@ export default function MyPegIndicatorChartView({
             <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '10px', padding: isMobile ? '14px 12px' : '18px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
               <div>
                 <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#0284c7', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                  {locale === 'rw' ? '2. Akamaro ku Batuye Kigali' : '2. "Why This Matters" Narrative'}
+                  {locale === 'rw' ? '2. Akamaro ku Baturage' : '2. "Why This Matters" Narrative'}
                 </span>
                 <h4 style={{ fontSize: isMobile ? '0.98rem' : '1.02rem', fontWeight: 700, color: '#1e293b', margin: '6px 0 8px 0' }}>
-                  {locale === 'rw' ? 'Kuki iki gipimo gifite akamaro?' : 'Relevance to Kigali’s Climate Resilience'}
+                  {locale === 'rw' ? 'Kuki iki gipimo gifite akamaro?' : 'Relevance to Community & Climate Resilience'}
                 </h4>
                 <p style={{ fontSize: isMobile ? '0.84rem' : '0.88rem', color: '#64748b', lineHeight: 1.6, margin: 0 }}>
-                  {story?.why_matters || 'High-fidelity environmental telemetry provides municipal planners, RFA forestry technicians, and civic communities with empirical verification of resilience outcomes.'}
+                  {story?.why_matters || 'High-fidelity environmental telemetry provides municipal planners, field technicians, and civic communities with empirical verification of resilience outcomes.'}
                 </p>
               </div>
 
-              {story?.what_suncasa && (
+              {story?.what_action && (
                 <div style={{ marginTop: '12px', paddingTop: '8px', borderTop: '1px solid #f1f5f9', fontSize: '0.76rem', color: '#64748b' }}>
-                  <strong style={{ color: '#0284c7' }}>{locale === 'rw' ? 'Icyo SUNCASA ikora:' : 'SUNCASA Action:'}</strong> {story.what_suncasa.substring(0, 110)}...
+                  <strong style={{ color: '#0284c7' }}>{locale === 'rw' ? 'Ibikorwa:' : 'Program Action:'}</strong> {story.what_action.substring(0, 110)}...
                 </div>
               )}
             </div>
@@ -959,7 +959,7 @@ export default function MyPegIndicatorChartView({
                     {locale === 'rw' ? 'Inkomoko y\'Amakuru' : 'Data Source Citation:'}
                   </span>
                   <span style={{ color: '#1e293b', fontWeight: 600, fontSize: isMobile ? '0.82rem' : '0.88rem' }}>
-                    {indicator.data_source_citation || story?.source || 'Rwanda Forestry Authority (RFA) & City of Kigali Land Use Registry'}
+                    {indicator.data_source_citation || story?.source || 'Environmental & Municipal Land Use Registry'}
                   </span>
                 </div>
 
@@ -984,10 +984,10 @@ export default function MyPegIndicatorChartView({
 
                 <div style={{ marginTop: '4px' }}>
                   <span style={{ color: '#64748b', fontSize: '0.74rem', fontWeight: 700, display: 'block' }}>
-                    FMES Interoperability Code:
+                    Registry Interoperability Code:
                   </span>
                   <span style={{ color: '#0284c7', fontWeight: 700, fontSize: isMobile ? '0.82rem' : '0.88rem' }}>
-                    {indicator.fmes_code} ({indicator.fmes_alignment || 'RFA Layer'})
+                    {indicator.fmes_code} ({indicator.fmes_alignment || 'Spatial Layer'})
                   </span>
                 </div>
 
@@ -1118,7 +1118,7 @@ export default function MyPegIndicatorChartView({
                       <strong style={{ color: themeColor }}>{progressPct}%</strong>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <span style={{ color: '#64748b' }}>FMES Code:</span>
+                      <span style={{ color: '#64748b' }}>Registry Code:</span>
                       <span style={{ color: '#0284c7', fontWeight: 700 }}>{indicator.fmes_code}</span>
                     </div>
                   </div>
@@ -1158,7 +1158,7 @@ export default function MyPegIndicatorChartView({
                       <strong style={{ color: '#0284c7' }}>{Math.min(100, Math.round((compareIndicator.current_2025 / compareIndicator.target_2026) * 100))}%</strong>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <span style={{ color: '#64748b' }}>FMES Code:</span>
+                      <span style={{ color: '#64748b' }}>Registry Code:</span>
                       <span style={{ color: '#0284c7', fontWeight: 700 }}>{compareIndicator.fmes_code}</span>
                     </div>
                   </div>
@@ -1252,7 +1252,7 @@ export default function MyPegIndicatorChartView({
               </div>
 
               <p style={{ fontSize: '0.88rem', color: '#475569', marginTop: 0, marginBottom: '20px', lineHeight: 1.5 }}>
-                Integrate live SUNCASA Kigali Nature-based Solutions telemetry directly into municipal dashboards, partner portals (WRI, IISD, RFA), and news articles using this responsive, zero-dependency embed snippet.
+                Integrate live Impact Dashboard telemetry directly into municipal dashboards, partner portals, and news articles using this responsive, zero-dependency embed snippet.
               </p>
 
               {/* Options Grid */}

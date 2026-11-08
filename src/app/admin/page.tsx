@@ -29,8 +29,8 @@ const CatchmentMap = dynamic(() => import('@/components/CatchmentMap'), {
 export default function AdminPortalPage() {
   // Authentication & Session State
   const [session, setSession] = useState<AuthSession | null>(null);
-  const [authEmail, setAuthEmail] = useState('admin@suncasa.rw');
-  const [authPassword, setAuthPassword] = useState('SuncasaKigali2025!');
+  const [authEmail, setAuthEmail] = useState('admin@dashboard.org');
+  const [authPassword, setAuthPassword] = useState('DashboardAdmin2025!');
   const [authLoading, setAuthLoading] = useState(false);
   const [authError, setAuthError] = useState('');
 
@@ -67,8 +67,8 @@ export default function AdminPortalPage() {
   const [narrativeLocaleTab, setNarrativeLocaleTab] = useState<'en' | 'rw'>('en');
   const [savingNarrative, setSavingNarrative] = useState(false);
   const [currentNarrativeForm, setCurrentNarrativeForm] = useState<any>({
-    en: { title: '', what_is: '', why_matters: '', what_suncasa: '', limitations: '', source: '' },
-    rw: { title: '', what_is: '', why_matters: '', what_suncasa: '', limitations: '', source: '' },
+    en: { title: '', what_is: '', why_matters: '', what_action: '', limitations: '', source: '' },
+    rw: { title: '', what_is: '', why_matters: '', what_action: '', limitations: '', source: '' },
   });
 
   // GPS Data & Map Generator State
@@ -96,7 +96,7 @@ export default function AdminPortalPage() {
   const [newUserName, setNewUserName] = useState('');
   const [newUserEmail, setNewUserEmail] = useState('');
   const [newUserPassword, setNewUserPassword] = useState('');
-  const [newUserOrg, setNewUserOrg] = useState('Rwanda Forestry Authority (RFA)');
+  const [newUserOrg, setNewUserOrg] = useState('Municipal Planning & GIS Unit');
   const [newUserRoleId, setNewUserRoleId] = useState('theme_editor');
 
   // New Custom Role Form State
@@ -119,12 +119,12 @@ export default function AdminPortalPage() {
   const [builderCurrent, setBuilderCurrent] = useState<number>(650);
   const [builderTarget, setBuilderTarget] = useState<number>(1000);
   const [builderStatus, setBuilderStatus] = useState<'on-track' | 'exceeded' | 'needs-acceleration'>('on-track');
-  const [builderFmesCode, setBuilderFmesCode] = useState('RFA-FMES-NEW-01');
-  const [builderFmesAlign, setBuilderFmesAlign] = useState('Forest Evaluation Layer');
+  const [builderFmesCode, setBuilderFmesCode] = useState('IND-NEW-01');
+  const [builderFmesAlign, setBuilderFmesAlign] = useState('Spatial Monitoring Layer');
   const [builderDualIcon, setBuilderDualIcon] = useState('tree');
   const [builderLegendLabel, setBuilderLegendLabel] = useState('Lower Nyabarongo Watershed');
-  const [builderSource, setBuilderSource] = useState('Rwanda Forestry Authority (RFA) & SUNCASA');
-  const [builderProvider, setBuilderProvider] = useState('Rwanda Forestry Authority (RFA)');
+  const [builderSource, setBuilderSource] = useState('Environmental & Municipal Open Data Registry');
+  const [builderProvider, setBuilderProvider] = useState('Environmental Monitoring Agency');
   const [builderLimitations, setBuilderLimitations] = useState('Bi-annual field ground-truthing and spatial survey.');
   const [builderMethod, setBuilderMethod] = useState('GPS compartment polygon audits and drone aerial telemetry.');
   const [builderSdgNumber, setBuilderSdgNumber] = useState(13);
@@ -177,7 +177,7 @@ export default function AdminPortalPage() {
       2
     )
   );
-  const [testApiKey, setTestApiKey] = useState('suncasa-kigali-partner-key-2025');
+  const [testApiKey, setTestApiKey] = useState('dashboard-partner-key-2025');
   const [testResponse, setTestResponse] = useState<string | null>(null);
   const [testingIngest, setTestingIngest] = useState(false);
   const [copiedKeyId, setCopiedKeyId] = useState<string | null>(null);
@@ -216,13 +216,13 @@ export default function AdminPortalPage() {
   // Restore session from localStorage on mount
   useEffect(() => {
     try {
-      const stored = localStorage.getItem('suncasa_admin_session');
+      const stored = localStorage.getItem('impact_dashboard_admin_session');
       if (stored) {
         const parsed = JSON.parse(stored);
         if (parsed && parsed.expires_at > Date.now()) {
           setSession(parsed);
         } else {
-          localStorage.removeItem('suncasa_admin_session');
+          localStorage.removeItem('impact_dashboard_admin_session');
         }
       }
     } catch (e) {
@@ -258,7 +258,7 @@ export default function AdminPortalPage() {
       const data = await res.json();
       if (data.success && data.data) {
         setSession(data.data);
-        localStorage.setItem('suncasa_admin_session', JSON.stringify(data.data));
+        localStorage.setItem('impact_dashboard_admin_session', JSON.stringify(data.data));
         setStatusMessage(data.message || 'Authenticated successfully.');
       } else {
         setAuthError(data.error || 'Authentication failed.');
@@ -272,7 +272,7 @@ export default function AdminPortalPage() {
 
   const handleLogout = () => {
     setSession(null);
-    localStorage.removeItem('suncasa_admin_session');
+    localStorage.removeItem('impact_dashboard_admin_session');
   };
 
   const fetchIndicators = async () => {
@@ -329,7 +329,7 @@ export default function AdminPortalPage() {
           title: item.en?.title || '',
           what_is: item.en?.what_is || '',
           why_matters: item.en?.why_matters || '',
-          what_suncasa: item.en?.what_suncasa || '',
+          what_action: item.en?.what_action || '',
           limitations: item.en?.limitations || '',
           source: item.en?.source || '',
         },
@@ -337,7 +337,7 @@ export default function AdminPortalPage() {
           title: item.rw?.title || '',
           what_is: item.rw?.what_is || '',
           why_matters: item.rw?.why_matters || '',
-          what_suncasa: item.rw?.what_suncasa || '',
+          what_action: item.rw?.what_action || '',
           limitations: item.rw?.limitations || '',
           source: item.rw?.source || '',
         },
@@ -349,7 +349,7 @@ export default function AdminPortalPage() {
           title: ind?.definition || selectedNarrativeId,
           what_is: '',
           why_matters: '',
-          what_suncasa: '',
+          what_action: '',
           limitations: '',
           source: ind?.data_source_citation || '',
         },
@@ -357,7 +357,7 @@ export default function AdminPortalPage() {
           title: ind?.definition || selectedNarrativeId,
           what_is: '',
           why_matters: '',
-          what_suncasa: '',
+          what_action: '',
           limitations: '',
           source: ind?.data_source_citation || '',
         },
@@ -732,7 +732,7 @@ export default function AdminPortalPage() {
           sdg_number: builderSdgNumber,
           sdg_title: `SDG ${builderSdgNumber}. Action & Resilience`,
           target_code: builderSdgTarget,
-          target_desc: `SUNCASA verified impact target aligned with UN SDG ${builderSdgNumber}.`,
+          target_desc: `Verified impact target aligned with UN SDG ${builderSdgNumber}.`,
           color: '#10b981',
         },
       ],
@@ -755,17 +755,17 @@ export default function AdminPortalPage() {
     const newNarrativePayload = {
       en: {
         title: builderTitleEn || builderDef,
-        what_is: builderStoryWhatEn || `Measures ${builderDef.toLowerCase()} across Kigali catchments.`,
+        what_is: builderStoryWhatEn || `Measures ${builderDef.toLowerCase()} across monitored watershed catchments.`,
         why_matters: builderStoryWhyEn || 'Crucial for climate resilience, flood mitigation, and urban well-being.',
-        what_suncasa: builderStoryActionEn || 'SUNCASA delivers nature-based solutions with the City of Kigali and RFA.',
+        what_action: builderStoryActionEn || 'Coordinated municipal and community ecological restoration programs.',
         limitations: builderLimitations,
         source: builderSource,
       },
       rw: {
         title: builderTitleRw || builderDef,
-        what_is: `Bipima ${builderDef.toLowerCase()} mu bibaya by'amazi bya Kigali.`,
+        what_is: `Bipima ${builderDef.toLowerCase()} mu bibaya by'amazi bikurikiranwa.`,
         why_matters: 'Ingirakamaro mu guhangana n\'imihindagurikire y\'ikirere no kurinda imyuzure n\'isuri.',
-        what_suncasa: 'SUNCASA ifatanya n\'Umujyi wa Kigali na RFA mu gushyira mu bikorwa ibisubizo kamere.',
+        what_action: 'Ibikorwa by\'ubufatanye bw\'abaturage n\'inzego mu gusubiranya ibidukikije.',
         limitations: builderLimitations,
         source: builderSource,
       },
@@ -783,7 +783,7 @@ export default function AdminPortalPage() {
 
       const data = await res.json();
       if (data.success) {
-        setStatusMessage(`Indicator '${cleanId}' successfully built, published, and synced with RFA-FMES!`);
+        setStatusMessage(`Indicator '${cleanId}' successfully built, published, and synced with the Open Data Registry!`);
         fetchIndicators();
         fetchNarratives();
         setActiveTab('indicators');
@@ -896,7 +896,7 @@ export default function AdminPortalPage() {
         tag: 'Climate Resilience',
         title: '',
         date: '2025',
-        author: 'SUNCASA Field Mission',
+        author: 'Impact Field Report',
         summary: '',
         quote: '',
         quoteAuthor: '',
@@ -906,7 +906,7 @@ export default function AdminPortalPage() {
         tag: 'Kurwanya Imyuzure',
         title: '',
         date: '2025',
-        author: 'Ubunyamabanga bwa SUNCASA',
+        author: 'Raporo y\'Ibikorwa',
         summary: '',
         quote: '',
         quoteAuthor: '',
@@ -1196,10 +1196,10 @@ export default function AdminPortalPage() {
               <span style={{ fontSize: '1.6rem' }}>🛡️</span>
             </div>
             <h1 style={{ fontSize: '1.45rem', fontWeight: 800, margin: '0 0 6px 0', letterSpacing: '-0.02em', color: '#0f172a' }}>
-              SUNCASA Admin Portal
+              Impact Dashboard Admin
             </h1>
             <p style={{ color: '#64748b', fontSize: '0.86rem', margin: 0 }}>
-              Kigali NbS Impact Monitoring Governance Console
+              Impact Monitoring &amp; Data Governance Console
             </p>
           </div>
 
@@ -1229,7 +1229,7 @@ export default function AdminPortalPage() {
                 required
                 value={authEmail}
                 onChange={(e) => setAuthEmail(e.target.value)}
-                placeholder="admin@suncasa.rw"
+                placeholder="admin@dashboard.org"
                 style={{
                   width: '100%',
                   padding: '10px 14px',
@@ -1294,8 +1294,8 @@ export default function AdminPortalPage() {
               <button
                 type="button"
                 onClick={() => {
-                  setAuthEmail('admin@suncasa.rw');
-                  setAuthPassword('SuncasaKigali2025!');
+                  setAuthEmail('admin@dashboard.org');
+                  setAuthPassword('DashboardAdmin2025!');
                 }}
                 style={{
                   background: 'none',
@@ -1361,13 +1361,13 @@ export default function AdminPortalPage() {
               boxShadow: '0 3px 8px rgba(2, 132, 199, 0.3)',
             }}
           >
-            SK
+            ID
           </div>
           <div>
             <div style={{ fontSize: '1.02rem', fontWeight: 800, color: '#f8fafc', letterSpacing: '-0.01em', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span>SUNCASA Admin Portal</span>
+              <span>Impact Dashboard Admin</span>
               <span style={{ fontSize: '0.7rem', fontWeight: 700, padding: '2px 8px', borderRadius: '4px', background: 'rgba(2, 132, 199, 0.2)', color: '#38bdf8', border: '1px solid rgba(2, 132, 199, 0.4)' }}>
-                Kigali NbS
+                Governance Console
               </span>
             </div>
             <div style={{ fontSize: '0.74rem', color: '#94a3b8' }}>
@@ -1716,7 +1716,7 @@ export default function AdminPortalPage() {
                 </span>
               </button>
 
-              {/* 7. DB & FMES Settings */}
+              {/* 7. DB & Registry Settings */}
               <button
                 type="button"
                 onClick={() => setActiveTab('database')}
@@ -1739,7 +1739,7 @@ export default function AdminPortalPage() {
                 }}
               >
                 <span style={{ fontSize: '1.1rem' }}>⚙️</span>
-                <span>DB & FMES Settings</span>
+                <span>DB &amp; Registry Settings</span>
               </button>
 
               {/* 8. Interoperability & Open APIs */}
@@ -2003,7 +2003,7 @@ export default function AdminPortalPage() {
                   <div>
                     <h2 style={{ fontSize: '1.4rem', fontWeight: 700, margin: '0 0 4px 0' }}>Published Indicators Catalogue</h2>
                     <p style={{ color: '#475569', fontSize: '0.88rem', margin: 0 }}>
-                      Manage live indicators published on the public SUNCASA portal, edit metric targets & definitions, enter GPS data, or manage narratives.
+                      Manage live indicators published on the public Impact Dashboard, edit metric targets &amp; definitions, enter GPS data, or manage narratives.
                     </p>
                   </div>
 
@@ -2034,7 +2034,7 @@ export default function AdminPortalPage() {
                 <div style={{ display: 'flex', gap: '14px', marginBottom: '20px' }}>
                   <input
                     type="text"
-                    placeholder="Search indicator by title, ID, or FMES code..."
+                    placeholder="Search indicator by title, ID, or registry code..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     style={{ flex: 1, padding: '10px 14px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.9rem', outline: 'none' }}
@@ -2059,8 +2059,8 @@ export default function AdminPortalPage() {
                     <thead>
                       <tr style={{ background: '#f8fafc', color: '#0f172a', borderBottom: '1px solid #e2e8f0' }}>
                         <th style={{ padding: '14px 16px' }}>Theme</th>
-                        <th style={{ padding: '14px 16px' }}>Indicator ID & Definition</th>
-                        <th style={{ padding: '14px 16px' }}>FMES Code</th>
+                        <th style={{ padding: '14px 16px' }}>Indicator ID &amp; Definition</th>
+                        <th style={{ padding: '14px 16px' }}>Registry Code</th>
                         <th style={{ padding: '14px 16px' }}>2025 Progress / 2026 Target</th>
                         <th style={{ padding: '14px 16px' }}>GPS Nodes</th>
                         <th style={{ padding: '14px 16px', textAlign: 'right' }}>Actions</th>
@@ -2297,7 +2297,7 @@ export default function AdminPortalPage() {
 
                   <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
                     <div style={{ textAlign: 'right' }}>
-                      <div style={{ fontSize: '0.76rem', color: '#475569' }}>FMES System Code</div>
+                      <div style={{ fontSize: '0.76rem', color: '#475569' }}>Registry System Code</div>
                       <code style={{ fontSize: '0.85rem', color: '#38bdf8', fontWeight: 700 }}>
                         {activeGpsIndicator?.fmes_code}
                       </code>
@@ -2481,7 +2481,7 @@ export default function AdminPortalPage() {
                             style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.86rem' }}
                           >
                             <option value="Active">Active Intervention</option>
-                            <option value="Verified">Field Verified (RFA Audited)</option>
+                            <option value="Verified">Field Verified (Independently Audited)</option>
                             <option value="Completed">Completed Milestone</option>
                             <option value="Under Monitoring">Continuous Telemetry Monitoring</option>
                             <option value="Planned">Planned / Future Swale</option>
@@ -2698,9 +2698,9 @@ export default function AdminPortalPage() {
             {activeTab === 'builder' && (
               <div>
                 <div style={{ marginBottom: '24px' }}>
-                  <h2 style={{ fontSize: '1.4rem', fontWeight: 700, margin: '0 0 4px 0' }}>Build & Publish New Indicator</h2>
+                  <h2 style={{ fontSize: '1.4rem', fontWeight: 700, margin: '0 0 4px 0' }}>Build &amp; Publish New Indicator</h2>
                   <p style={{ color: '#475569', fontSize: '0.88rem', margin: 0 }}>
-                    Author a new Nature-Based Solutions indicator with quarterly time-series, spatial breakdowns, bilingual narratives, and publish it directly to the public portal.
+                    Author a new ecological or resilience indicator with quarterly time-series, spatial breakdowns, bilingual narratives, and publish it directly to the public portal.
                   </p>
                 </div>
 
@@ -2799,16 +2799,16 @@ export default function AdminPortalPage() {
                       </div>
                     </div>
 
-                    {/* 2. RFA-FMES & Metadata Card */}
+                    {/* 2. Registry & Metadata Card */}
                     <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '24px' }}>
                       <h3 style={{ fontSize: '1.05rem', fontWeight: 700, margin: '0 0 16px 0', color: '#10b981' }}>
-                        2. RFA-FMES Interoperability & Lineage (5-Part Standard)
+                        2. Registry Interoperability &amp; Lineage (5-Part Standard)
                       </h3>
 
                       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
                         <div>
                           <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#334155', marginBottom: '6px' }}>
-                            FMES System Code
+                            Registry System Code
                           </label>
                           <input
                             type="text"
@@ -2889,11 +2889,11 @@ export default function AdminPortalPage() {
 
                       <div>
                         <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#334155', marginBottom: '4px' }}>
-                          Question 3: What is SUNCASA doing with the City and RFA?
+                          Question 3: What actions are being taken?
                         </label>
                         <textarea
                           rows={2}
-                          placeholder="Highlights specific nature-based interventions..."
+                          placeholder="Highlights specific ecological and community interventions..."
                           value={builderStoryActionEn}
                           onChange={(e) => setBuilderStoryActionEn(e.target.value)}
                           style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.86rem' }}
@@ -2918,7 +2918,7 @@ export default function AdminPortalPage() {
 
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.85rem', color: '#334155', marginBottom: '20px' }}>
                         <div>Theme: <strong>{builderTheme}</strong></div>
-                        <div>FMES Code: <strong>{builderFmesCode}</strong></div>
+                        <div>Registry Code: <strong>{builderFmesCode}</strong></div>
                         <div>2025 Current: <strong>{builderCurrent} {builderUnit}</strong></div>
                         <div>2026 Target: <strong>{builderTarget} {builderUnit}</strong></div>
                         <div>Time-Series: <strong>{builderPoints.length} quarterly points</strong></div>
@@ -3083,10 +3083,10 @@ export default function AdminPortalPage() {
               <div>
                 <div style={{ marginBottom: '24px' }}>
                   <h2 style={{ fontSize: '1.4rem', fontWeight: 700, margin: '0 0 4px 0' }}>
-                    Indicator Stories & 3 Core Questions Editor
+                    Indicator Stories &amp; 3 Core Questions Editor
                   </h2>
                   <p style={{ color: '#475569', fontSize: '0.88rem', margin: 0 }}>
-                    Author and customize the 3-question narratives required by the SUNCASA RFP: &apos;What is this indicator?&apos;, &apos;Why does it matter for Kigali?&apos;, and &apos;What is SUNCASA doing about it?&apos;, alongside data limitations and official source lineage.
+                    Author and customize the 3-question civic narratives: &apos;What is this indicator?&apos;, &apos;Why does it matter?&apos;, and &apos;What actions are being taken?&apos;, alongside data limitations and official source lineage.
                   </p>
                 </div>
 
@@ -3220,7 +3220,7 @@ export default function AdminPortalPage() {
                           },
                         }));
                       }}
-                      placeholder="e.g. Total Area Restored and Managed through NbS"
+                      placeholder="e.g. Total Area Restored and Actively Managed"
                       style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.92rem' }}
                     />
                   </div>
@@ -3279,29 +3279,29 @@ export default function AdminPortalPage() {
                       />
                     </div>
 
-                    {/* Question 3: What is SUNCASA doing? */}
+                    {/* Question 3: What actions are being taken? */}
                     <div style={{ background: '#f8fafc', padding: '18px', borderRadius: '10px', borderLeft: '4px solid #f59e0b' }}>
                       <label style={{ display: 'block', fontSize: '0.86rem', fontWeight: 700, color: '#fbbf24', marginBottom: '6px' }}>
                         {narrativeLocaleTab === 'en'
-                          ? '3. What is SUNCASA doing about it with City of Kigali and RFA?'
-                          : "3. Ni iki SUNCASA ikorana n'Umujyi wa Kigali na RFA kuri iki gipimo?"}
+                          ? '3. What actions are being taken across monitored catchments?'
+                          : "3. Ni ibihe bikorwa birimo gukorwa kuri iki gipimo?"}
                       </label>
                       <textarea
                         rows={3}
                         required
-                        value={currentNarrativeForm[narrativeLocaleTab]?.what_suncasa || ''}
+                        value={currentNarrativeForm[narrativeLocaleTab]?.what_action || ''}
                         onChange={(e) => {
                           const val = e.target.value;
                           setCurrentNarrativeForm((prev: any) => ({
                             ...prev,
                             [narrativeLocaleTab]: {
                               ...prev[narrativeLocaleTab],
-                              what_suncasa: val,
+                              what_action: val,
                             },
                           }));
                         }}
                         placeholder="Specific on-the-ground interventions: vegetative check-dams, seedling nurseries, hillside terracing..."
-                        style={{ width: '100%', padding: '10px 12px', borderRadius: '6px', background: '#ffffff', border: '1px solid #cbd5e1', color: '#ffffff', fontSize: '0.88rem', lineHeight: 1.6 }}
+                        style={{ width: '100%', padding: '10px 12px', borderRadius: '6px', background: '#ffffff', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem', lineHeight: 1.6 }}
                       />
                     </div>
                   </div>
@@ -3347,7 +3347,7 @@ export default function AdminPortalPage() {
                             },
                           }));
                         }}
-                        placeholder="e.g. Rwanda Forestry Authority (RFA) & City of Kigali Land Use Registry (FMES-LU-01)"
+                        placeholder="e.g. Environmental & Municipal Land Use Registry (IND-LU-01)"
                         style={{ width: '100%', padding: '8px 12px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.85rem' }}
                       />
                     </div>
@@ -3384,9 +3384,9 @@ export default function AdminPortalPage() {
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
                   <div>
-                    <h2 style={{ fontSize: '1.4rem', fontWeight: 700, margin: '0 0 4px 0' }}>Role-Based Access Control & User Delegation</h2>
+                    <h2 style={{ fontSize: '1.4rem', fontWeight: 700, margin: '0 0 4px 0' }}>Role-Based Access Control &amp; User Delegation</h2>
                     <p style={{ color: '#475569', fontSize: '0.88rem', margin: 0 }}>
-                      Manage administrators, assign Super Administrator privileges, and delegate roles across SUNCASA partner organizations.
+                      Manage administrators, assign Super Administrator privileges, and delegate roles across partner organizations.
                     </p>
                   </div>
 
@@ -3549,9 +3549,9 @@ export default function AdminPortalPage() {
             {activeTab === 'database' && (
               <div>
                 <div style={{ marginBottom: '24px' }}>
-                  <h2 style={{ fontSize: '1.4rem', fontWeight: 700, margin: '0 0 4px 0' }}>Database & System Interoperability</h2>
+                  <h2 style={{ fontSize: '1.4rem', fontWeight: 700, margin: '0 0 4px 0' }}>Database &amp; System Interoperability</h2>
                   <p style={{ color: '#475569', fontSize: '0.88rem', margin: 0 }}>
-                    Configure the active database driver, sync with Rwanda Forestry Authority FMES REST APIs, or switch to Firebase Firestore.
+                    Configure the active database driver, sync with external REST APIs, or switch to Firebase Firestore.
                   </p>
                 </div>
 
@@ -3586,10 +3586,10 @@ export default function AdminPortalPage() {
                     </button>
                   </div>
 
-                  {/* Driver Card 2: RFA In-House REST Adapter */}
+                  {/* Driver Card 2: External In-House REST Adapter */}
                   <div style={{ background: '#ffffff', border: driver === 'inhouse' ? '2px solid #10b981' : '1px solid #1e293b', borderRadius: '12px', padding: '24px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
-                      <h3 style={{ fontSize: '1.1rem', fontWeight: 700, margin: 0 }}>RFA-FMES REST Gateway</h3>
+                      <h3 style={{ fontSize: '1.1rem', fontWeight: 700, margin: 0 }}>External REST API Gateway</h3>
                       {driver === 'inhouse' && (
                         <span style={{ fontSize: '0.7rem', fontWeight: 800, padding: '3px 8px', borderRadius: '4px', background: '#10b981', color: '#000000' }}>
                           ACTIVE
@@ -3597,7 +3597,7 @@ export default function AdminPortalPage() {
                       )}
                     </div>
                     <p style={{ fontSize: '0.84rem', color: '#475569', lineHeight: 1.5, marginBottom: '16px' }}>
-                      Connects directly to the Rwanda Forestry Authority FMES REST endpoint for bidirectional indicators syncing.
+                      Connects directly to an external institutional PostgreSQL / REST endpoint for bidirectional indicator synchronization.
                     </p>
                     <input
                       type="text"
@@ -3618,7 +3618,7 @@ export default function AdminPortalPage() {
                       }}
                       style={{ padding: '8px 16px', borderRadius: '6px', background: '#10b981', color: '#000000', border: 'none', fontWeight: 700, fontSize: '0.82rem', cursor: 'pointer' }}
                     >
-                      {driver === 'inhouse' ? 'Save & Reconnect' : 'Switch to RFA Gateway'}
+                      {driver === 'inhouse' ? 'Save & Reconnect' : 'Switch to REST Gateway'}
                     </button>
                   </div>
                 </div>
@@ -3642,10 +3642,10 @@ export default function AdminPortalPage() {
                       </span>
                     </div>
                     <h2 style={{ fontSize: '1.45rem', fontWeight: 800, margin: '0 0 6px 0', color: '#0f172a' }}>
-                      Open REST APIs, Telemetry Ingestion & Embed Syndication
+                      Open REST APIs, Telemetry Ingestion &amp; Embed Syndication
                     </h2>
                     <p style={{ color: '#475569', fontSize: '0.88rem', margin: 0, maxWidth: '850px', lineHeight: 1.5 }}>
-                      Enable seamless bidirectional communication between the SUNCASA Kigali Dashboard and external municipal portals (City of Kigali GIS, RFA-FMES, WRI Global Forest Watch, IISD SDG Knowledge Hub).
+                      Enable seamless bidirectional communication between the Impact Dashboard and external municipal GIS servers, environmental data registries, and research platforms.
                     </p>
                   </div>
 
@@ -3700,7 +3700,7 @@ export default function AdminPortalPage() {
                       {apiKeys.length} Registered
                     </div>
                     <div style={{ fontSize: '0.74rem', color: '#64748b', marginTop: '4px' }}>
-                      Kigali, RFA, WRI & IISD
+                      Municipal, GIS &amp; Research Partners
                     </div>
                   </div>
 
@@ -4111,10 +4111,10 @@ export default function AdminPortalPage() {
                 {/* Section 4: Strategic Expansion Roadmap */}
                 <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '24px', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
                   <h3 style={{ fontSize: '1.15rem', fontWeight: 700, margin: '0 0 8px 0', color: '#1e293b' }}>
-                    Future Expansion Architecture & Strategic Roadmap
+                    Future Expansion Architecture &amp; Strategic Roadmap
                   </h3>
                   <p style={{ fontSize: '0.88rem', color: '#64748b', lineHeight: 1.5, margin: '0 0 18px 0' }}>
-                    As SUNCASA expands past the initial Kigali Catchment pilot, this architecture supports the following expansion vectors:
+                    As the Impact Dashboard expands beyond initial watershed monitoring pilots, this architecture supports the following expansion vectors:
                   </p>
 
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
@@ -4319,7 +4319,7 @@ export default function AdminPortalPage() {
                       Social Share Icons Management
                     </h2>
                     <p style={{ color: '#475569', fontSize: '0.88rem', margin: 0, maxWidth: '720px', lineHeight: 1.5 }}>
-                      Configure, edit, and reorder the social sharing channels anchored to the right side of the SUNCASA platform. You can add new networks (e.g. WhatsApp, Telegram, Bluesky), edit brand colors and icons, or disable platforms at any time.
+                      Configure, edit, and reorder the social sharing channels anchored to the right side of the Impact Dashboard. You can add new networks (e.g. WhatsApp, Telegram, Bluesky), edit brand colors and icons, or disable platforms at any time.
                     </p>
                   </div>
                   <button
@@ -4730,7 +4730,7 @@ export default function AdminPortalPage() {
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', marginBottom: '4px' }}>FMES Code</label>
+                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', marginBottom: '4px' }}>Registry Code</label>
                   <input
                     type="text"
                     value={editingIndicator.fmes_code}
@@ -4739,7 +4739,7 @@ export default function AdminPortalPage() {
                   />
                 </div>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', marginBottom: '4px' }}>FMES Alignment</label>
+                  <label style={{ display: 'block', fontSize: '0.8rem', color: '#334155', marginBottom: '4px' }}>Registry Alignment</label>
                   <input
                     type="text"
                     value={editingIndicator.fmes_alignment}
@@ -5090,7 +5090,7 @@ export default function AdminPortalPage() {
                 <input
                   type="email"
                   required
-                  placeholder="user@rfa.gov.rw"
+                  placeholder="user@dashboard.org"
                   value={newUserEmail}
                   onChange={(e) => setNewUserEmail(e.target.value)}
                   style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem' }}
@@ -5273,7 +5273,7 @@ export default function AdminPortalPage() {
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Rwanda Forestry Authority"
+                  placeholder="e.g. Environmental Monitoring Agency"
                   value={collabName}
                   onChange={(e) => setCollabName(e.target.value)}
                   style={{ width: '100%', padding: '10px', borderRadius: '6px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '0.88rem', boxSizing: 'border-box' }}

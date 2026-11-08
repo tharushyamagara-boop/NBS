@@ -31,7 +31,7 @@ export default function MyPegHeroView({
   const indicators = indicatorsData.indicators as Indicator[];
 
   const scrollToOverview = () => {
-    const el = document.getElementById('suncasa-overview-section');
+    const el = document.getElementById('dashboard-overview-section');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     }
@@ -99,8 +99,8 @@ export default function MyPegHeroView({
         </div>
       </section>
 
-      {/* 2. SUNCASA Kigali Overview & 4 Headline Theme KPIs (RFP Section 7.1) */}
-      <section className="suncasa-overview-section" id="suncasa-overview-section" style={{ padding: '60px 32px', background: '#f8fafc' }}>
+      {/* 2. Platform Overview & 4 Headline Theme KPIs */}
+      <section className="dashboard-overview-section" id="dashboard-overview-section" style={{ padding: '60px 32px', background: '#f8fafc' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', maxWidth: '820px', margin: '0 auto 40px auto' }}>
             <span
@@ -117,7 +117,7 @@ export default function MyPegHeroView({
                 marginBottom: '12px',
               }}
             >
-              {locale === 'rw' ? 'Ibisubizo Kamere i Kigali' : 'Nature-Based Solutions in Kigali'}
+              {locale === 'rw' ? "Gukurikirana Iterambere n'Ibisubizo" : 'Watershed & Community Resilience'}
             </span>
             <h2
               style={{
@@ -130,12 +130,12 @@ export default function MyPegHeroView({
             >
               {locale === 'rw'
                 ? 'Gusana Ikibaya cya Nyabarongo yo Hasi'
-                : 'Restoring Kigali’s Lower Nyabarongo Watershed'}
+                : 'Restoring Urban Watersheds & Community Resilience'}
             </h2>
             <p style={{ marginTop: '14px', fontSize: '1.02rem', color: '#64748b', lineHeight: 1.6 }}>
               {locale === 'rw'
-                ? 'Gahunda ya SUNCASA iterwa inkunga na Global Affairs Canada, ikayoborwa na IISD na WRI ku bufatanye n\'Umujyi wa Kigali na RFA. Igamije guca amaterasi, gutera amashyamba gakondo, no kurinda inkombe z\'imigezi kugira ngo Kigali irindwe imyuzure ikabije n\'isuri.'
-                : 'Led by IISD and WRI and funded by Global Affairs Canada with the City of Kigali and Rwanda Forestry Authority (RFA), SUNCASA implements Nature-based Solutions (NbS)—including hillside terracing, native tree afforestation, and riparian buffer protection—to reduce flood and erosion risks while generating inclusive green jobs.'}
+                ? "Iyi gahunda ishyirwa mu bikorwa ku bufatanye n'inzego z'ibanze, ibigo by'ibidukikije, n'amakoperative y'abaturage. Igamije guca amaterasi, gutera amashyamba gakondo, no kurinda inkombe z'imigezi kugira ngo hirindwe imyuzure ikabije n'isuri."
+                : 'Delivered in collaboration with municipal authorities, environmental management agencies, and local community cooperatives, this platform tracks hillside terracing, native tree afforestation, and riparian buffer restoration—reducing flood and erosion risks while generating inclusive green jobs.'}
             </p>
           </div>
 
@@ -242,7 +242,7 @@ export default function MyPegHeroView({
                 marginBottom: '12px',
               }}
             >
-              {locale === 'rw' ? 'Inkingi z\'Ubutumwa n\'Ibisubizo Kamere' : 'Thematic Communication Pillars'}
+              {locale === 'rw' ? "Inkingi z'Icyerekezo n'Ibipimo" : 'Thematic Communication Pillars'}
             </span>
             <h2
               style={{
@@ -253,12 +253,12 @@ export default function MyPegHeroView({
                 lineHeight: 1.3,
               }}
             >
-              {locale === 'rw' ? 'Inkingi Enye z\'Imiyoborere y\'Ikibaya cya Nyabarongo' : 'Four Narrative Pillars of Kigali’s NbS Strategy'}
+              {locale === 'rw' ? "Inkingi Enye z'Iterambere n'Isesengura" : 'Four Strategic Impact Pillars'}
             </h2>
             <p style={{ marginTop: '14px', fontSize: '1.02rem', color: '#64748b', lineHeight: 1.6 }}>
               {locale === 'rw'
                 ? 'Iyi mbonerahamwe yubatse ku nkingi enye z\'ingenzi zigaragaza ibyihutirwa mu bufatanye n\'abafatanyabikorwa. Buri nkingi ishyigikiwe n\'ubutumwa bwihariye n\'ibipimo byizewe.'
-                : 'The SUNCASA dashboard is organized around four narrative themes reflecting stakeholder priorities and the Kigali roadmap. Each theme serves as a communication pillar supported by key messages and verified indicator datasets.'}
+                : 'The Impact Dashboard is organized around four strategic themes reflecting stakeholder priorities and long-term resilience goals. Each theme serves as a communication pillar supported by key messages and verified indicator datasets.'}
             </p>
           </div>
 
@@ -489,12 +489,12 @@ export default function MyPegHeroView({
                 lineHeight: 1.3,
               }}
             >
-              {locale === 'rw' ? 'Ikarita y\'Aho Imirimo ya SUNCASA Ibereye i Kigali' : 'Simple Map of Intervention Locations'}
+              {locale === 'rw' ? "Ikarita y'Aho Imirimo Ibereye" : 'Interactive Map of Intervention Locations'}
             </h2>
             <p style={{ marginTop: '14px', fontSize: '1.02rem', color: '#64748b', lineHeight: 1.6 }}>
               {locale === 'rw'
-                ? 'Ikarita yoroshye igaragaza aho imirimo ya SUNCASA ibereye mu mikoki ya Yanze, Mpazi, Mont Kigali, na Nyabugogo. Kanda ku kimenyetso cy\'ahantu hose kugira ngo urebe amakuru n\'ibipimo byaho.'
-                : 'An intuitive, interactive map tracking key Nature-Based Solution intervention locations across Kigali’s Lower Nyabarongo watershed. Click on any location marker to inspect hectares restored, seedlings planted, and flood resilience metrics.'}
+                ? 'Ikarita yoroshye igaragaza aho imirimo ibereye mu mikoki ya Yanze, Mpazi, Mont Kigali, na Nyabugogo. Kanda ku kimenyetso cy\'ahantu hose kugira ngo urebe amakuru n\'ibipimo byaho.'
+                : 'An intuitive, interactive map tracking key field intervention locations across the watershed. Click on any location marker to inspect hectares restored, seedlings planted, and flood resilience metrics.'}
             </p>
           </div>
 
@@ -562,7 +562,7 @@ export default function MyPegHeroView({
                   {locale === 'rw' ? selectedSite.name_rw || selectedSite.name : selectedSite.name}
                 </h3>
                 <p style={{ fontSize: '0.84rem', color: '#94a3b8', margin: '0 0 14px 0' }}>
-                  <strong>{locale === 'rw' ? 'Akarere:' : 'District:'}</strong> {selectedSite.district} &bull; {selectedSite.fmes_compartment || selectedSite.fmes_code || 'FMES Layer'}
+                  <strong>{locale === 'rw' ? 'Akarere:' : 'District:'}</strong> {selectedSite.district} &bull; {selectedSite.fmes_compartment || selectedSite.fmes_code || 'Registry Layer'}
                 </p>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginTop: '12px' }}>

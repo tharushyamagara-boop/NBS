@@ -113,7 +113,7 @@ export default function CatchmentMap({
 
     // 100% Free Public Keyless OpenStreetMap Tile Layer
     const osmTiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &bull; City of Kigali & RFA',
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       maxZoom: 19,
     }).addTo(map);
     baseTileLayerRef.current = osmTiles;
@@ -153,14 +153,14 @@ export default function CatchmentMap({
     mapInstanceRef.current.removeLayer(baseTileLayerRef.current);
 
     let tileUrl = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
-    let attribution = '&copy; OpenStreetMap contributors &bull; City of Kigali & RFA';
+    let attribution = '&copy; OpenStreetMap contributors';
 
     if (activeBasemap === 'dark') {
       tileUrl = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
-      attribution = '&copy; CARTO &bull; City of Kigali & RFA';
+      attribution = '&copy; CARTO &bull; OpenStreetMap contributors';
     } else if (activeBasemap === 'satellite') {
       tileUrl = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
-      attribution = '&copy; Esri World Imagery &bull; City of Kigali & RFA';
+      attribution = '&copy; Esri World Imagery';
     }
 
     const newTiles = L.tileLayer(tileUrl, {
@@ -715,7 +715,7 @@ export default function CatchmentMap({
           </div>
 
           <div style={{ fontSize: '0.68rem', color: '#64748b', marginTop: '8px', borderTop: '1px solid #334155', paddingTop: '6px' }}>
-            Lower Nyabarongo Watershed &bull; RFA FMES Verified
+            Watershed Spatial Layer &bull; Field Verified
           </div>
         </div>
       )}
@@ -755,7 +755,7 @@ export default function CatchmentMap({
             {locale === 'rw' ? selectedFeature.name_rw || selectedFeature.name : selectedFeature.name}
           </h4>
           <div style={{ color: '#94a3b8', fontSize: '0.78rem' }}>
-            {selectedFeature.district} &bull; {selectedFeature.fmes_compartment || selectedFeature.fmes_code || 'FMES Layer'}
+            {selectedFeature.district} &bull; {selectedFeature.fmes_compartment || selectedFeature.fmes_code || 'Spatial Layer'}
           </div>
 
           {selectedFeature.indicatorValue !== undefined && (

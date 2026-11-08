@@ -140,7 +140,7 @@ export default function CivicStoryCards({ locale }: CivicStoryCardsProps) {
               margin: '6px 0 0 0',
             }}
           >
-            {isRw ? 'Inkuru z\'Ibibaya n\'Ibyavuye mu Mirimo ya SUNCASA' : 'Data-Driven Stories of Community Resilience in Kigali'}
+            {isRw ? "Inkuru z'Ibibaya n'Ibyavuye mu Mirimo" : 'Data-Driven Stories of Community Resilience'}
           </h2>
           <p className="section-subtitle" style={{ marginTop: isMobile ? '10px' : '14px', fontSize: isMobile ? '0.88rem' : '1.02rem', color: '#64748b', lineHeight: 1.6 }}>
             {isRw
@@ -361,7 +361,7 @@ export default function CivicStoryCards({ locale }: CivicStoryCardsProps) {
                   {selectedStory.content.title}
                 </h2>
                 <div style={{ fontSize: '0.8rem', color: '#64748b', marginTop: '4px' }}>
-                  Reported by <strong>{selectedStory.content.author}</strong> for the SUNCASA Project
+                  Reported by <strong>{selectedStory.content.author}</strong> &bull; Impact Field Report
                 </div>
               </div>
 
@@ -460,10 +460,12 @@ export default function CivicStoryCards({ locale }: CivicStoryCardsProps) {
                 }}
               >
                 <strong style={{ fontSize: '0.82rem', color: '#1e293b', textTransform: 'uppercase', letterSpacing: '0.04em', display: 'block', marginBottom: '6px' }}>
-                  {isRw ? 'Ubufatanye bw\'Abafatanyabikorwa:' : 'Project Implementing Partners:'}
+                  {isRw ? 'Ubufatanye bw\'Abafatanyabikorwa:' : 'Program Implementation Partners:'}
                 </strong>
                 <div style={{ fontSize: '0.88rem', color: '#64748b' }}>
-                  Funded by <strong>Global Affairs Canada</strong> &bull; Jointly led by <strong>IISD</strong> & <strong>WRI</strong> in collaboration with the <strong>City of Kigali</strong> & <strong>Rwanda Forestry Authority (RFA)</strong>.
+                  {isRw
+                    ? "Bishyirwa mu bikorwa ku bufatanye n'inzego z'ibanze, ibigo bishinzwe ibidukikije, abashakashatsi, n'amakoperative y'abaturage."
+                    : 'Delivered through multi-stakeholder collaboration across municipal planning departments, environmental management agencies, research institutions, and local community cooperatives.'}
                 </div>
               </div>
 

@@ -49,7 +49,7 @@ export default function SocialShareRail() {
 
   const handleShare = (item: SocialLinkItem) => {
     const url = typeof window !== 'undefined' ? window.location.href : '/';
-    const title = 'SUNCASA Kigali NbS Impact Platform';
+    const title = 'Impact Dashboard';
 
     if (item.share_type === 'copy') {
       if (typeof navigator !== 'undefined' && navigator.clipboard) {

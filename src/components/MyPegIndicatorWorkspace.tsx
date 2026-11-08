@@ -40,7 +40,7 @@ export default function MyPegIndicatorWorkspace({
     title: indicator.id,
     what_is: 'Data description pending...',
     why_matters: 'Civic significance pending...',
-    what_suncasa: 'Project actions pending...',
+    what_action: 'Program actions pending...',
     limitations: 'Measurement notes pending...',
     source: indicator.fmes_alignment,
   };
@@ -71,7 +71,7 @@ export default function MyPegIndicatorWorkspace({
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `suncasa-${indicator.id}-catchments.geojson`;
+      a.download = `impact-${indicator.id}-catchments.geojson`;
       a.click();
       URL.revokeObjectURL(url);
     });
@@ -83,15 +83,13 @@ export default function MyPegIndicatorWorkspace({
       indicator: indicator,
       narrative: narrative,
       exported_at: new Date().toISOString(),
-      initiative: 'SUNCASA Kigali Nature-Based Solutions',
-      funder: 'Global Affairs Canada',
-      partners: ['IISD', 'WRI', 'City of Kigali', 'Rwanda Forestry Authority'],
+      platform: 'Impact Dashboard',
     };
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `suncasa-${indicator.id}-data.json`;
+    a.download = `impact-${indicator.id}-data.json`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -124,7 +122,7 @@ export default function MyPegIndicatorWorkspace({
           </div>
 
           <p className="mypeg-ws-alignment-text">
-            <strong>{isRw ? 'Guhuza na Sisitemu ya RFA:' : 'RFA FMES Alignment:'}</strong> {indicator.fmes_alignment}
+            <strong>{isRw ? "Guhuza n'Ububiko bw'Amakuru:" : 'Registry Alignment:'}</strong> {indicator.fmes_alignment}
           </p>
         </div>
 
@@ -195,21 +193,21 @@ export default function MyPegIndicatorWorkspace({
                 </div>
               </div>
 
-              {/* Question 2: Why does it matter for Kigali? */}
+              {/* Question 2: Why does it matter? */}
               <div className="mypeg-story-card highlight">
                 <div className="story-card-number" style={{ background: themeColor }}>2</div>
                 <div className="story-card-body">
-                  <h4>{isRw ? '2. Kuki ari ingenzi ku Mujyi wa Kigali?' : '2. Why does this matter for Kigali?'}</h4>
+                  <h4>{isRw ? '2. Kuki iki gipimo ari ingenzi?' : '2. Why does this indicator matter?'}</h4>
                   <p>{narrative.why_matters}</p>
                 </div>
               </div>
 
-              {/* Question 3: What is SUNCASA doing? */}
+              {/* Question 3: What actions are being taken? */}
               <div className="mypeg-story-card highlight">
                 <div className="story-card-number" style={{ background: themeColor }}>3</div>
                 <div className="story-card-body">
-                  <h4>{isRw ? '3. Ni iki SUNCASA iri gukora?' : '3. What is SUNCASA doing?'}</h4>
-                  <p>{narrative.what_suncasa}</p>
+                  <h4>{isRw ? '3. Ni iki kirimo gukorwa?' : '3. What actions are being taken?'}</h4>
+                  <p>{narrative.what_action}</p>
                 </div>
               </div>
             </div>
@@ -218,12 +216,12 @@ export default function MyPegIndicatorWorkspace({
             <div className="mypeg-methodology-strip">
               <div className="methodology-item">
                 <h5>{isRw ? 'Uburyo bupimwamo n\'Imbogamizi' : 'Measurement Methodology & Limitations'}</h5>
-                <p>{narrative.limitations || indicator.measurement_method || 'Verified through RFA silvicultural audits and digital GIS monitoring.'}</p>
+                <p>{narrative.limitations || indicator.measurement_method || 'Verified through field audits and digital GIS monitoring.'}</p>
               </div>
 
               <div className="methodology-item">
                 <h5>{isRw ? 'Inkomoko y\'Amakuru' : 'Data Source & Verification'}</h5>
-                <p>{narrative.source || indicator.data_source_citation || 'Rwanda Forestry Authority (RFA) & City of Kigali'}</p>
+                <p>{narrative.source || indicator.data_source_citation || 'Environmental & Municipal Data Registry'}</p>
               </div>
             </div>
           </div>
@@ -301,8 +299,8 @@ export default function MyPegIndicatorWorkspace({
               <h3>{isRw ? 'Guhuza n\'Intego z\'Isi (UN SDGs)' : 'United Nations Sustainable Development Goals'}</h3>
               <p>
                 {isRw
-                  ? 'Iki gipimo cyo gusana ikibaya cya Nyabarongo gishyigikira intego z\'iterambere rirambye zashyizweho n\'Umuryango w\'Abibumbye.'
-                  : 'How Kigali\'s watershed restoration directly contributes to global targets under the United Nations 2030 Agenda.'}
+                  ? 'Iki gipimo cyo gusana ikibaya gishyigikira intego z\'iterambere rirambye zashyizweho n\'Umuryango w\'Abibumbye.'
+                  : 'How watershed restoration directly contributes to global targets under the United Nations 2030 Agenda.'}
               </p>
             </div>
 
@@ -350,7 +348,7 @@ export default function MyPegIndicatorWorkspace({
       {/* Workspace Footer: Open Access Download Bar */}
       <div className="mypeg-ws-footer">
         <div className="open-data-badge">
-          <span>🔓 {isRw ? 'Amakuru Afunguye kuri Bose (Open Data)' : 'Open Data Architecture (IISD / RFA FMES)'}</span>
+          <span>🔓 {isRw ? 'Amakuru Afunguye kuri Bose (Open Data)' : 'Open Data Architecture'}</span>
         </div>
 
         <div className="mypeg-ws-footer-actions">

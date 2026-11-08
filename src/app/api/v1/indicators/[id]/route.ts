@@ -55,9 +55,9 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
           narratives,
         },
         metadata: {
-          project: 'SUNCASA Kigali NbS Monitoring & Evaluation Dashboard',
-          organization: 'City of Kigali & Rwanda Forestry Authority',
-          technical_partners: ['WRI', 'IISD', 'PEG Winnipeg'],
+          project: 'Impact Dashboard — Progress & Analytics Platform',
+          organization: 'Municipal & Environmental Monitoring Agencies',
+          technical_partners: ['Open Data Consortium', 'Spatial Analytics Lab'],
           license: 'Creative Commons Attribution 4.0 International (CC BY 4.0)',
           documentation_url: '/admin#interoperability',
           timestamp: new Date().toISOString(),

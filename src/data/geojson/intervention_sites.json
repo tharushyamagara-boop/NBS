@@ -1,6 +1,6 @@
 {
   "type": "FeatureCollection",
-  "name": "SUNCASA_Kigali_Intervention_Sites",
+  "name": "Impact_Dashboard_Intervention_Sites",
   "crs": {
     "type": "name",
     "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" }
@@ -9,7 +9,7 @@
     {
       "type": "Feature",
       "properties": {
-        "site_id": "SUNCASA-KGL-001",
+        "site_id": "SITE-001",
         "name": "Yanze Upstream Agroforestry & Hillside Terraces",
         "name_rw": "Amaterasi n'Amashyamba avanze n'Ubuhinzi muri Yanze",
         "theme": "climate",
@@ -23,7 +23,7 @@
         "jobs_created": 11500,
         "female_participation_pct": 58,
         "status": "Active Planting & Maintenance",
-        "lead_implementer": "Rwanda Forestry Authority / Local Agro-Coop"
+        "lead_implementer": "Environmental Agency / Local Agro-Coop"
       },
       "geometry": {
         "type": "Point",
@@ -33,7 +33,7 @@
     {
       "type": "Feature",
       "properties": {
-        "site_id": "SUNCASA-KGL-002",
+        "site_id": "SITE-002",
         "name": "Mpazi Urban Ravine Bio-Engineering & Stabilization",
         "name_rw": "Gusana no Gusukura Umukoki wa Mpazi hifashishijwe Ibiti n'Ubwatsi",
         "theme": "climate",
@@ -47,7 +47,7 @@
         "jobs_created": 8400,
         "female_participation_pct": 52,
         "status": "Active Stabilization",
-        "lead_implementer": "City of Kigali Engineering & SUNCASA"
+        "lead_implementer": "Municipal Engineering & Field Restoration Team"
       },
       "geometry": {
         "type": "Point",
@@ -57,7 +57,7 @@
     {
       "type": "Feature",
       "properties": {
-        "site_id": "SUNCASA-KGL-003",
+        "site_id": "SITE-003",
         "name": "Mount Kigali Slope Reforestation & Native Buffer",
         "name_rw": "Gutera Amashyamba Kamere ku Misozi ya Mont Kigali",
         "theme": "biodiversity",
@@ -71,7 +71,7 @@
         "jobs_created": 12800,
         "female_participation_pct": 56,
         "status": "Active Restoration",
-        "lead_implementer": "Rwanda Forestry Authority"
+        "lead_implementer": "Environmental Management Agency"
       },
       "geometry": {
         "type": "Point",
@@ -81,7 +81,7 @@
     {
       "type": "Feature",
       "properties": {
-        "site_id": "SUNCASA-KGL-004",
+        "site_id": "SITE-004",
         "name": "Nyabarongo River Riparian Buffer Zone (30m Protection)",
         "name_rw": "Umukandara w'Uburinzi ku Nkombe za Nyabarongo (Metero 30)",
         "theme": "biodiversity",
@@ -95,7 +95,7 @@
         "jobs_created": 6200,
         "female_participation_pct": 54,
         "status": "Continuous Shoreline Care",
-        "lead_implementer": "RFA & REMA Riverine Oversight"
+        "lead_implementer": "Riverine & Wetland Oversight Unit"
       },
       "geometry": {
         "type": "Point",
@@ -105,7 +105,7 @@
     {
       "type": "Feature",
       "properties": {
-        "site_id": "SUNCASA-KGL-005",
+        "site_id": "SITE-005",
         "name": "Nyabugogo Basin Women-Led Nursery Hub",
         "name_rw": "Ubuhumbikiro bw'Ibiti buyobowe n'Abagore i Nyabugogo",
         "theme": "gesi",
@@ -119,7 +119,7 @@
         "jobs_created": 4100,
         "female_participation_pct": 74,
         "status": "High Production Seedling Output",
-        "lead_implementer": "Duterimbere Women Farmers & SUNCASA"
+        "lead_implementer": "Duterimbere Women Farmers Cooperative"
       },
       "geometry": {
         "type": "Point",
@@ -129,7 +129,7 @@
     {
       "type": "Feature",
       "properties": {
-        "site_id": "SUNCASA-KGL-006",
+        "site_id": "SITE-006",
         "name": "Jali Ridge Agroforestry & Sloping Land Management",
         "name_rw": "Gutunganya Imisozi no Gutera Ibiti ku Rutare rwa Jali",
         "theme": "economy",
@@ -143,7 +143,7 @@
         "jobs_created": 5600,
         "female_participation_pct": 60,
         "status": "Expanding Agroforestry System",
-        "lead_implementer": "Local Smallholder Cooperatives / MINAGRI"
+        "lead_implementer": "Local Smallholder Cooperatives"
       },
       "geometry": {
         "type": "Point",

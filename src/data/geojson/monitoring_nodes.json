@@ -1,6 +1,6 @@
 {
   "type": "FeatureCollection",
-  "name": "SUNCASA_Kigali_Specialized_Spatial_Layers",
+  "name": "Impact_Dashboard_Specialized_Spatial_Layers",
   "crs": {
     "type": "name",
     "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" }
@@ -18,7 +18,7 @@
         "wqi_score": 78,
         "turbidity_ntu": 14.2,
         "dissolved_oxygen_mg_l": 7.4,
-        "fmes_code": "RWB-WQ-YZ-01",
+        "fmes_code": "IND-WQ-YZ-01",
         "status": "Good (Drinking Water Quality Protected)"
       },
       "geometry": {
@@ -38,7 +38,7 @@
         "wqi_score": 54,
         "turbidity_ntu": 42.8,
         "dissolved_oxygen_mg_l": 5.1,
-        "fmes_code": "RWB-WQ-MP-02",
+        "fmes_code": "IND-WQ-MP-02",
         "status": "Fair (Sediment Filtration Active)"
       },
       "geometry": {
@@ -58,7 +58,7 @@
         "wqi_score": 66,
         "turbidity_ntu": 28.5,
         "dissolved_oxygen_mg_l": 6.3,
-        "fmes_code": "RWB-WQ-NYAB-03",
+        "fmes_code": "IND-WQ-NYAB-03",
         "status": "Moderate (Turbidity Reduced by 32%)"
       },
       "geometry": {
@@ -77,7 +77,7 @@
         "district": "Gasabo",
         "length_km": 8.5,
         "primary_vegetation": "Giant Bamboo (Bambusa vulgaris) & Reed Beds",
-        "fmes_code": "RFA-RIP-YZ-8.5K",
+        "fmes_code": "IND-RIP-YZ-8.5K",
         "status": "Fully Delineated & Vegetated"
       },
       "geometry": {
@@ -101,7 +101,7 @@
         "district": "Kicukiro / Nyarugenge",
         "length_km": 14.8,
         "primary_vegetation": "Bambusa vulgaris, Syzygium cordatum",
-        "fmes_code": "RFA-RIP-NYAB-14.8K",
+        "fmes_code": "IND-RIP-NYAB-14.8K",
         "status": "Active 30m Protection Corridor"
       },
       "geometry": {
@@ -127,7 +127,7 @@
         "female_pct": 82,
         "seedling_capacity": 250000,
         "annual_revenue_rwf": 18500000,
-        "fmes_code": "RCA-NUR-GAS-01"
+        "fmes_code": "IND-NUR-GAS-01"
       },
       "geometry": {
         "type": "Point",
@@ -147,7 +147,7 @@
         "female_pct": 78,
         "seedling_capacity": 180000,
         "annual_revenue_rwf": 14200000,
-        "fmes_code": "RCA-NUR-NYA-02"
+        "fmes_code": "IND-NUR-NYA-02"
       },
       "geometry": {
         "type": "Point",
@@ -166,7 +166,7 @@
         "youth_technicians": 74,
         "drone_surveys_completed": 128,
         "canopy_tracked_ha": 620,
-        "fmes_code": "RFA-DRONE-NYA-01"
+        "fmes_code": "IND-DRONE-NYA-01"
       },
       "geometry": {
         "type": "Point",
@@ -185,7 +185,7 @@
         "youth_technicians": 62,
         "drone_surveys_completed": 94,
         "canopy_tracked_ha": 480,
-        "fmes_code": "RFA-DRONE-GAS-02"
+        "fmes_code": "IND-DRONE-GAS-02"
       },
       "geometry": {
         "type": "Point",
@@ -196,7 +196,7 @@
       "type": "Feature",
       "properties": {
         "id": "node_training_01",
-        "name": "Kimisagara Youth & Community NbS Training Center",
+        "name": "Kimisagara Youth & Community Training Center",
         "name_rw": "Ikigo cy'Amahugurwa cya Kimisagara",
         "indicator_id": "participants_trained",
         "node_type": "training_center",

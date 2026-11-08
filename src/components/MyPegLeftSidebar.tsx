@@ -45,7 +45,7 @@ export const MYPEG_THEMES: ThemeDef[] = [
 ];
 
 const TITLE_MAP_EN: Record<string, string> = {
-  area_restored_ha: 'Area Restored through NbS (ha)',
+  area_restored_ha: 'Total Area Restored (ha)',
   flood_risk_reduction: 'Flash Flood Peak Runoff Reduction',
   soil_erosion_prevented: 'Soil Loss & Sediment Prevented',
   trees_planted: 'Seedlings & Native Trees Planted',
@@ -53,14 +53,14 @@ const TITLE_MAP_EN: Record<string, string> = {
   riparian_buffer_km: 'Riparian Buffer Zone Protected (km)',
   water_quality_index: 'Surface Water Quality Index',
   women_leadership_catchment: 'Women in Catchment Leadership',
-  participants_trained: 'Community & Youth Trained in NbS',
+  participants_trained: 'Community & Youth Trained',
   green_jobs_created: 'Direct Green Jobs Created',
   female_nursery_operators: 'Women-Led Nursery Cooperatives',
   vulnerable_youth_employed: 'Vulnerable Youth Employed',
 };
 
 const TITLE_MAP_RW: Record<string, string> = {
-  area_restored_ha: 'Hegitari Zasanywe (NbS)',
+  area_restored_ha: 'Hegitari Zasanywe Zose (ha)',
   flood_risk_reduction: 'Kugabanya Ubukana bw\'Imyuzure',
   soil_erosion_prevented: 'Igitaka n\'Isuri Byakumiwe',
   trees_planted: 'Ingemwe n\'Ibiti Byatewe',
@@ -68,7 +68,7 @@ const TITLE_MAP_RW: Record<string, string> = {
   riparian_buffer_km: 'Inkombe z\'Imigezi Zabungabunzwe',
   water_quality_index: 'Isesengura ry\'Amazi Meza',
   women_leadership_catchment: 'Abagore mu Buyobozi bw\'Ibibaya',
-  participants_trained: 'Abaturage Bahuguwe muri NbS',
+  participants_trained: 'Abaturage n\'Urubyiruko Bahuguwe',
   green_jobs_created: 'Iminsi y\'Akazi k\'Icyatsi Kahanzwe',
   female_nursery_operators: 'Ubuhumbikiro bw\'Abagore',
   vulnerable_youth_employed: 'Urubyiruko mu Mirimo ya GIS',

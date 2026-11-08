@@ -146,7 +146,7 @@ export default function EmbedIndicatorPage() {
     return (
       <div style={{ padding: '32px', textAlign: 'center', fontFamily: 'sans-serif', color: '#64748b' }}>
         <p style={{ fontWeight: 700 }}>Indicator not found</p>
-        <p style={{ fontSize: '0.85rem' }}>ID &quot;{id}&quot; does not exist in Kigali SUNCASA repository.</p>
+        <p style={{ fontSize: '0.85rem' }}>ID &quot;{id}&quot; does not exist in the Impact Dashboard repository.</p>
       </div>
     );
   }
@@ -345,7 +345,7 @@ export default function EmbedIndicatorPage() {
               <strong>2026 Target:</strong> {indicator.target_2026.toLocaleString()} {indicator.unit}
             </div>
             <div>
-              <strong>Source:</strong> {indicator.data_source || indicator.data_source_citation || 'City of Kigali & RFA'}
+              <strong>Source:</strong> {indicator.data_source || indicator.data_source_citation || 'Open Data Registry'}
             </div>
           </div>
         </div>
@@ -424,7 +424,7 @@ export default function EmbedIndicatorPage() {
         </div>
       )}
 
-      {/* Embedded Footer Attributions & Deep Link to Kigali Dashboard */}
+      {/* Embedded Footer Attributions & Deep Link to Dashboard */}
       <div
         style={{
           marginTop: '16px',
@@ -440,9 +440,9 @@ export default function EmbedIndicatorPage() {
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <span>🌿 <strong>SUNCASA Kigali NbS</strong></span>
+          <span>📊 <strong>Impact Dashboard</strong></span>
           <span>&bull;</span>
-          <span>City of Kigali & RFA</span>
+          <span>Open Data Registry</span>
         </div>
         <Link
           href={`/indicator/${indicator.id}`}

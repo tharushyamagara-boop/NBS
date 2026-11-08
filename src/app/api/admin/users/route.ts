@@ -89,7 +89,7 @@ export async function POST(req: NextRequest) {
       name: name.trim(),
       email: emailLower,
       password_hash: password,
-      organization: organization || 'SUNCASA Partner Agency',
+      organization: organization || 'Partner Agency',
       role_id,
       status: 'active',
       created_at: new Date().toISOString(),
